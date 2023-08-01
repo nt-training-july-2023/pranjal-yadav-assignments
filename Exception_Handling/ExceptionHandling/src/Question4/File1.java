@@ -6,7 +6,7 @@ public class File1 {
     public static void main(String[] args) {
 
         try{
-            File f= new File("D:\\Training-modules\\Exception_Handling\\ExceptionHandling\\src\\Question4\\file2.txt");
+            File f= new File("D:\\Training-modules\\Exception_Handling\\ExceptionHandling\\src\\Question4\\file1.txt");
             BufferedReader br = new BufferedReader(new FileReader(f));
             String str;
             while((str = br.readLine()) != null){

@@ -1,0 +1,4 @@
+And copied to another file.
+These lines have to be inverted.
+With multiple lines.
+This is a random file.
