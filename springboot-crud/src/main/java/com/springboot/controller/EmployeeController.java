@@ -18,7 +18,6 @@ import com.springboot.model.Employee;
 import com.springboot.service.EmployeeService;
 
 @RestController
-@RequestMapping("/api/employees")
 public class EmployeeController {
 	private EmployeeService employeeservice;
 	
@@ -30,26 +29,26 @@ public class EmployeeController {
 	}
 	
 	//build create employee restApi
-	@PostMapping
+	@PostMapping("/api/employees")
 	public ResponseEntity<Employee> saveEmployee( @RequestBody Employee employee){
 		return new ResponseEntity<Employee>(employeeservice.saveEmployee(employee), HttpStatus.CREATED);
 	}
 	
 	
 	//get all employees
-	@GetMapping
+	@GetMapping("/api/employees")
 	public List<Employee> getAllEmployees(){
 		return employeeservice.getAllEmployee();
 	}
 	
 	//get employee by id
-	@GetMapping("{id}")
+	@GetMapping("/api/employees/{id}")
 	public ResponseEntity<Employee> getEmployeeById( @PathVariable("id")  long employeeid){
 		return new ResponseEntity<Employee>(employeeservice.getEmployeeById(employeeid), HttpStatus.OK);
 	}
 	
 	//updating employee
-	@PutMapping("{id}")
+	@PutMapping("/api/employees/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable("id") long id, 
 													@RequestBody Employee employee){
 		
@@ -58,7 +57,7 @@ public class EmployeeController {
 	}
 	
 	//delete employee
-	@DeleteMapping("{id}")
+	@DeleteMapping("/api/employees/{id}")
 	public ResponseEntity<String> deleteEmployee(@PathVariable("id") long id){
 		employeeservice.deleteEmployee(id);
 		
