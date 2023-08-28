@@ -3,10 +3,9 @@ package com.employee.employeeManagement.Model;
 import jakarta.persistence.*;
 import lombok.*;
 
-//@NoArgsConstructor
-//@Getter
-//@Setter
-//@AllArgsConstructor
+/**
+ * Represents an administrator in the project.
+ */
 @Entity
 @Table(name="admin")
 @Data

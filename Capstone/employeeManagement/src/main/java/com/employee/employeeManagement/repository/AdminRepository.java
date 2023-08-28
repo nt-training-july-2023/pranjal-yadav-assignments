@@ -10,10 +10,18 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repository interface for accessing and managing Admin entity in the database.
+ */
 @Repository
-//@EnableJpaRepositories
 public interface AdminRepository extends JpaRepository<Admin, Long> {
-//    Optional<Admin> findOneByEmailAndPassword(String email, String password);
+
+    /**
+     * Custom query to find an Admin entity by their email.
+     *
+     * @param admin_email The email of the admin to be retrieved.
+     * @return An Optional containing the found Admin entity, if present.
+     */
 
     @Query("select u from Admin as u where u.admin_email = :admin_email")
     Optional<Admin> findByAdmin_Email( @Param("admin_email") String admin_email);

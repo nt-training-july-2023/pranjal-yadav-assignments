@@ -1,7 +1,14 @@
 package com.employee.employeeManagement.exception;
-
+/**
+ * Exception class to indicate that a requested resource was not found.
+ */
 public class ResourceNotFoundException extends RuntimeException {
-    public ResourceNotFoundException(){
-        super("Resource not found");
+    /**
+     * Constructs a new ResourceNotFoundException with the specified detail message.
+     *
+     * @param message The detail message explaining the cause of the exception.
+     */
+    public ResourceNotFoundException(String message){
+        super(message);
     }
 }

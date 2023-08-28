@@ -32,7 +32,7 @@ public class AdminService {
     }
 
     public String login(LoginDto loginDto){
-        Admin admin = adminRepository.findByAdmin_Email(loginDto.getAdmin_email()).orElseThrow(() ->new ResourceNotFoundException());
+        Admin admin = adminRepository.findByAdmin_Email(loginDto.getAdmin_email()).orElseThrow(() ->new ResourceNotFoundException(""));
         System.out.println(admin);
         if(admin != null && passwordEncoder.matches(loginDto.getPassword(), admin.getPassword())){
 
