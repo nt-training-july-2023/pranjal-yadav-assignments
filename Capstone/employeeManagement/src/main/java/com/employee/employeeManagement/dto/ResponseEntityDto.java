@@ -21,7 +21,8 @@ public class ResponseEntityDto {
      * @param isSuccessParam The success status of the response.
      * @param messageParam   The message associated with the response.
      */
-    public ResponseEntityDto(final boolean isSuccessParam, String messageParam) {
+    public ResponseEntityDto(final boolean isSuccessParam,
+                             final String messageParam) {
         this.isSuccess = isSuccessParam;
         this.message = messageParam;
     }

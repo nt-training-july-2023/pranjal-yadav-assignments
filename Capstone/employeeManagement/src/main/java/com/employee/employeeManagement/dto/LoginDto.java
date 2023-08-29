@@ -12,7 +12,7 @@ public class LoginDto {
      * The email of the admin for authentication.
      */
     @Email
-    private String admin_email;
+    private String adminEmail;
 
     /**
      * The password of the admin for authentication.

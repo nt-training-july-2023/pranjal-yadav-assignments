@@ -170,3 +170,124 @@
         </div>
       </div>
     </div>
+
+
+  // return (
+  //   <div className="formContainer">
+  //   <div className="envelope">
+  //     <form>
+  //       <div className="item">
+  //         <label>Name</label>
+  //         <input
+  //           type="text"
+  //           required
+  //           value={admin_name}
+  //           onChange={(e) => {
+  //             setName(e.target.value);
+  //             setErrorMessage("");
+  //           }
+  //         }
+  //         onBlur={handleNameBlur}
+  //         />
+  //         <span>{errorMessage}</span>
+  //       </div>
+
+  //       <div className="item">
+  //         <label>Email Id</label>
+  //         <input
+  //           onChange={(e) => {
+  //             setEmail(e.target.value);
+  //             setEmailError("");
+  //           }}
+  //           onBlur={handleEmailBlur}
+  //           type="text"
+  //         />
+  //         <span>{emailError}</span>
+  //       </div>
+
+  //       <div className="item">
+  //         <label>Employee id</label>
+  //         <input
+  //           type="text"
+  //           value={admin_id}
+  //           onChange={(e) => {
+  //             setId(e.target.value);
+  //             setEmpIdError("");
+  //           }}
+  //           onBlur={handleEmpIDBlur}
+  //         />
+  //         <span>{empIdError}</span>
+  //       </div>
+
+  //       <div className="item">
+  //         <label>DOB</label>
+  //         <input
+  //           type="date"
+  //           value={admin_DOB}
+  //           onChange={(e) => setDob(e.target.value)}
+  //         />
+  //       </div>
+
+  //       <div className="item">
+  //         <label>DOJ</label>
+  //         <input
+  //           type="date"
+  //           value={admin_DOJ}
+  //           onChange={(e) => setDoj(e.target.value)}
+  //         />
+  //       </div>
+
+  //       <div className="item">
+  //         <label>Location</label>
+  //         <input
+  //           type="text"
+  //           value={admin_location}
+  //           onChange={(e) => setLocation(e.target.value)}
+  //         />
+  //       </div>
+
+  //       <div>
+  //         <label>Designation</label>
+  //         <input
+  //           type="text"
+  //           value={admin_designation}
+  //           onChange={(e) => setDesignation(e.target.value)}
+  //         />
+  //       </div>
+
+  //       <div className="item">
+  //         <label>Contact Number</label>
+  //         <input
+  //           type="text"
+  //           value={admin_contact_no}
+  //           onChange={(e) => {setContactNumber(e.target.value)
+  //         }
+  //         }
+  //         onBlur={handlePhoneNo}
+  //         />
+  //         <span>{contactNumberError}</span>
+  //       </div>
+
+  //       <div className="item">
+  //         <label>Password</label>
+  //         <input type="password"
+  //         value={password}
+  //         onChange={(e) => setPassword(e.target.value)}/>
+  //       </div>
+
+  //       <div className="item">
+  //         <label>Password</label>
+  //         <input type="password"
+  //          value={confirmPassword}
+  //          onChange={(e) => {setconfirmPassword(e.target.value);
+
+  //          }}
+  //          onBlur={handlePassword}
+  //         />
+  //       </div>
+
+  //       <input id="submit" type="submit" value="Register" onClick={(e) => saveAdmin(e)} />
+  //     </form>
+  //   </div>
+  //   </div>
+  // );

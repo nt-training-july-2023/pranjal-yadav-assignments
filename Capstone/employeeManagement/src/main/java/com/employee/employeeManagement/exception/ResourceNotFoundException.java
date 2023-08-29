@@ -4,11 +4,12 @@ package com.employee.employeeManagement.exception;
  */
 public class ResourceNotFoundException extends RuntimeException {
     /**
-     * Constructs a new ResourceNotFoundException with the specified detail message.
+     * Constructs a new ResourceNotFoundException
+     * with the specified detail message.
      *
      * @param message The detail message explaining the cause of the exception.
      */
-    public ResourceNotFoundException(String message){
+    public ResourceNotFoundException(final String message) {
         super(message);
     }
 }

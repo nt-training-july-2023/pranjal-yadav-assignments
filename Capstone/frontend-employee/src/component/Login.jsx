@@ -6,7 +6,7 @@ import "../style/AdminRegistrationForm.css";
 
 const Login = () => {
 
-  const [admin_email, setEmail] = useState("");
+  const [adminEmail, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ const Login = () => {
 
 
   const handleEmailBlur = () => {
-    if (!admin_email.endsWith("@nucleusteq.com") || admin_email == "") {
+    if (!adminEmail.endsWith("@nucleusteq.com") || adminEmail == "") {
       setEmailError("Give valid email id");
       setEmail("");
     }
@@ -25,10 +25,10 @@ const Login = () => {
 
   const logAdmin =(e) =>{
     e.preventDefault();
-    if(admin_email==="" || password===""){
+    if(adminEmail==="" || password===""){
       alert("All fields are mandatory");
     }
-    const admin ={admin_email, password};
+    const admin ={adminEmail, password};
     AdminService.loginAdmin(admin).then((response) =>{
       console.log(response.data);
       navigate('/dashboard');
@@ -41,12 +41,22 @@ const Login = () => {
 
 
   return (
-    <div id="envelope">
-      <h2>Admin Login</h2>
+
+    <div className="signup-container">
+      <div className="custom-form">
+
+     
+      <h2 className="title">Admin Login</h2>
       <form >
-      <div className="item">
+
+    {/* <div className="form-section">
+
+      </div> */}
+
+      <div className="form-group">
           <label>Email Id</label>
           <input
+          className="input"
             onChange={(e) => {
               setEmail(e.target.value);
               setEmailError("");
@@ -57,17 +67,18 @@ const Login = () => {
           <span>{emailError}</span>
         </div>
 
-        <div className="item">
+        <div className="form-group">
           <label>Password</label>
           <input type="password" 
+          className="input"
           value={password}
           onChange={(e) => setPassword(e.target.value)}/>
         </div>
 
-        <input id="submit" type="submit" value="Send Message" onClick={(e) => logAdmin(e)} />
+        <input id="submit" type="submit" value="Login" onClick={(e) => logAdmin(e)} />
         <p>Or <Link to='/adminRegister'>Sign up</Link> instead</p>
       </form>
-
+            </div>
     </div>
   );
 };

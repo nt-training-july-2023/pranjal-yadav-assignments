@@ -1,44 +1,75 @@
 package com.employee.employeeManagement.Model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+
 
 /**
- * Represents an administrator in the project.
+ * Represents the admin in the project.
  */
 @Entity
-@Table(name="admin")
+@Table(name = "admin")
 @Data
 public class Admin {
 
+    /**
+     * The unique ID of the admin.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    /**
+     * The name of the admin.
+     */
     @Column
-    private String admin_name;
+    private String adminName;
 
+    /**
+     * The email address of the admin.
+     */
     @Column
-    private String admin_email;
+    private String adminEmail;
 
+    /**
+     * The unique identifier of the admin.
+     */
     @Column
-    private String admin_id;
+    private String adminId;
 
+    /**
+     * The date of birth of the admin.
+     */
     @Column
-    private String admin_DOB;
+    private String adminDob;
 
+    /**
+     * The date of joining of the admin.
+     */
     @Column
-    private String admin_DOJ;
+    private String adminDoj;
 
+    /**
+     * The location of the admin.
+     */
     @Column
-    private String admin_location;
+    private String adminLocation;
 
+    /**
+     * The designation of the admin.
+     */
     @Column
-    private String admin_designation;
+    private String adminDesignation;
 
+    /**
+     * The contact number of the admin.
+     */
     @Column
-    private long admin_contact_no;
+    private long adminContactNo;
 
+    /**
+     * The password associated with the admin's account.
+     */
     @Column
     private String password;
 

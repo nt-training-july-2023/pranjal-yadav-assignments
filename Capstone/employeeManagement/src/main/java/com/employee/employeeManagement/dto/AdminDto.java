@@ -3,65 +3,66 @@ package com.employee.employeeManagement.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * Data Transfer Object (DTO) representing administrative user information.
  */
 @Getter
+@AllArgsConstructor
 @Setter
+@Data
+@NoArgsConstructor
 public class AdminDto {
     /**
      * The name of the admin.
      */
     @Pattern(regexp = "^[[A-Za-z\\s]*$]")
-    private String admin_name;
+    private String adminName;
     /**
      * The email of the admin.
      */
     @Email
-    @NotBlank(message = "Email is mandatory")
     @Pattern(regexp = "^[a-z][.][a-z]@nucleusteq.com$")
-    private String admin_email;
+    private String adminEmail;
 
     /**
      * The ID of the admin.
      */
-    @NotBlank(message = "ID is madatory.")
-    private long id;
+    @NotBlank
+    private String adminId;
 
     /**
      * The date of birth of the admin.
      */
 
     @NotBlank
-    private String admin_DOB;
+    private String adminDob;
 
     /**
      * The date of joining of the admin.
      */
     @NotBlank
-    private String admin_DOJ;
+    private String adminDoj;
 
     /**
      * The location of the admin.
      */
     @NotBlank
-    private String admin_location;
+    private String adminLocation;
     /**
      * The designation of the admin.
      */
 
     @NotBlank
-    private String admin_designation;
+    private String adminDesignation;
 
 
     /**
      * The contact number of the admin.
      */
     @Pattern(regexp = "^[0-9]")
-    private long admin_contact_no;
+    private long adminContactNo;
 
     /**
      * The password of the admin.

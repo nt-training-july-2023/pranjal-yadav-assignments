@@ -8,7 +8,11 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * Controller class responsible for handling administrative actions and
@@ -19,7 +23,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 
 public class AdminController {
-
+    /**
+     * Service responsible for performing admin actions.
+     */
     @Autowired
     private AdminService adminService;
 
@@ -30,7 +36,7 @@ public class AdminController {
      * @return A message indicating successfully adding the user.
      */
     @PostMapping(path = "/save")
-    public final String saveAdmin(@RequestBody AdminDto adminDto) {
+    public final String saveAdmin(final @RequestBody AdminDto adminDto) {
         String name = adminService.addAdmin(adminDto);
         return "User added";
     }
@@ -39,7 +45,8 @@ public class AdminController {
      * Endpoint to authenticate an admin user.
      *
      * @param loginDto The data transfer object containing login credentials.
-     * @return A ResponseEntity containing a ResponseEntityDto with authentication
+     * @return A ResponseEntity containing a ResponseEntityDto with
+     * authentication
      * status.
      *         If authentication is successful, returns a positive response
      *         with a success status and message.
@@ -49,7 +56,8 @@ public class AdminController {
 
 
     @PostMapping(path = "/login")
-    public final ResponseEntity<ResponseEntityDto> loginEmployee(@Valid @RequestBody LoginDto loginDto) {
+    public final ResponseEntity<ResponseEntityDto> loginEmployee(
+            @Valid @RequestBody final LoginDto loginDto) {
         if (adminService.login(loginDto) == null) {
             ResponseEntityDto responseEntityDto = new ResponseEntityDto(false,
                     "Wrong details");
