@@ -55,13 +55,13 @@ public class AdminService {
      */
     public final String login(final LoginDto loginDto) {
         Admin admin = adminRepository.
-                findByAdminEmail(loginDto.getAdminEmail()).orElseThrow(() -> new
+                findByAdminEmail(loginDto.getEmail()).orElseThrow(() -> new
                         ResourceNotFoundException(""));
         System.out.println(admin);
         if (admin != null && passwordEncoder.matches(loginDto.getPassword(),
                 admin.getPassword())) {
 
-            return "Successfull";
+            return "Successful";
         }
         return null;
 

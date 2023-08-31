@@ -275,7 +275,7 @@ const AdminRegistrationForm = () => {
                 <input
                   className="input"
                   type="text"
-                  value={adminConatctNo}
+                  value={userConatctNo}
                   onChange={(e) => {
                     setContactNumber(e.target.value);
                   }}

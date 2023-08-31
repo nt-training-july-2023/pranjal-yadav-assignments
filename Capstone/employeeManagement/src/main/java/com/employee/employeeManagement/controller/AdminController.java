@@ -38,7 +38,7 @@ public class AdminController {
     @PostMapping(path = "/save")
     public final String saveAdmin(final @RequestBody AdminDto adminDto) {
         String name = adminService.addAdmin(adminDto);
-        return "User added";
+        return name+" User added";
     }
 
     /**
