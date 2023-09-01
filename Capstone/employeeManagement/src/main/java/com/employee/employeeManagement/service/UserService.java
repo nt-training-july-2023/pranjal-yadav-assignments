@@ -13,17 +13,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+/**
+ * Service class that handles operations related to users.
+ */
 @Service
 public class UserService {
+    /**
+     * UserRepository autowired for adding to database.
+     */
     @Autowired
     private UserRepository userRepository;
+    /**
+     * ModelMapper autowired to map dto to entity and vice versa.
+     */
     @Autowired
     private ModelMapper modelMapper;
+    /**
+     * PasswordEncoder autowired to encode password.
+     */
     @Autowired
     private PasswordEncoder passwordEncoder;
+    public static String decodePassword(String pwd) {
+        byte[] decodedBytes = Base64.getDecoder().decode(pwd);
+        return new String(decodedBytes, StandardCharsets.UTF_8);
+    }
     public final String addUser(final UserDto UserDto) {
-        String encodedPassword = passwordEncoder.encode(UserDto.getPassword());
-        UserDto.setPassword(encodedPassword);
+//        String encodedPassword = passwordEncoder.encode(UserDto.getPassword());
+//        UserDto.setPassword(encodedPassword);
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STRICT);
         User user = this.modelMapper.map(UserDto, User.class);
@@ -35,12 +53,12 @@ public class UserService {
                 findByEmail(loginDto.getEmail()).orElseThrow(() -> new
                         ResourceNotFoundException(""));
         System.out.println(user);
-        if (user != null && passwordEncoder.matches(loginDto.getPassword(),
+        if (user != null && passwordEncoder.matches(decodePassword(loginDto.getPassword()),
                 user.getPassword())) {
 
             return "Successful";
         }
-        return null;
+        return "Something went wrong";
 
     }
 

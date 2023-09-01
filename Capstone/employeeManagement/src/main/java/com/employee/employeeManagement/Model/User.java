@@ -1,10 +1,13 @@
 package com.employee.employeeManagement.Model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "User")
 public class User {
     @Id
@@ -25,6 +28,7 @@ public class User {
     private Location location;
     @Enumerated(EnumType.STRING)
     private Designation designation;
+    private long ContactNo;
     @Column
     private String projectName;
     @Enumerated(EnumType.STRING)

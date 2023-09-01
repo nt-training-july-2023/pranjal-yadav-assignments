@@ -38,8 +38,8 @@ public class AdminService {
      */
 
     public final String addAdmin(final AdminDto adminDto) {
-        String encodedPassword = passwordEncoder.encode(adminDto.getPassword());
-        adminDto.setPassword(encodedPassword);
+//        String encodedPassword = passwordEncoder.encode(adminDto.getPassword());
+//        adminDto.setPassword(encodedPassword);
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STRICT);
         Admin admin = this.modelMapper.map(adminDto, Admin.class);

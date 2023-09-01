@@ -1,9 +1,9 @@
 const location = [
-    "Indore",
-    "Raipur",
-    "Bangalore",
-    "Phoenix",
-    "Canada"
+    "INDORE",
+    "RAIPUR",
+    "BANGALORE",
+    "PHOENIX",
+    "CANADA"
 ]
 
 export default location;

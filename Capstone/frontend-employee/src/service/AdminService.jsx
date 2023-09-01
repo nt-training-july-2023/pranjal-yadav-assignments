@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const URL = 'http://localhost:8080/api/save';
-const LOGIN_URL ='http://localhost:8080/api/login';
+const URL = 'http://localhost:8080/user/save';
+const LOGIN_URL ='http://localhost:8080/user/login';
 
 class AdminService{
     createAdmin(admin){

@@ -2,21 +2,21 @@ import React, { useState } from "react";
 import AdminService from "../service/AdminService";
 import "../style/AdminRegistrationForm.css";
 import { useNavigate } from "react-router-dom";
-import Location from "../list/location";
-import Designation from "../list/designation";
+import Lcn from "../list/location";
+import Desgn from "../list/designation";
 
 var bcrypt = require("bcryptjs");
 var salt = bcrypt.genSaltSync(10);
 
 const AdminRegistrationForm = () => {
-  const [adminName, setName] = useState("");
-  const [adminEmail, setEmail] = useState("");
-  const [adminId, setId] = useState("");
-  const [adminDob, setDob] = useState("");
-  const [adminDoj, setDoj] = useState("");
-  const [adminlocation, setLocation] = useState("");
-  const [adminDesignation, setDesignation] = useState("");
-  const [adminConatctNo, setContactNumber] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [userId, setId] = useState("");
+  const [dob, setDob] = useState("");
+  const [doj, setDoj] = useState("");
+  const [location, setLocation] = useState("");
+  const [designation, setDesignation] = useState("");
+  const [contactNo, setContactNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
 
@@ -26,6 +26,8 @@ const AdminRegistrationForm = () => {
   const [empIdError, setEmpIdError] = useState("");
   const [contactNumberError, setContactNumberError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [dobError, setDobError] = useState("");
+  const [dojError, setDojError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [locationError, setLocationError] = useState("");
   const [designationError, setDesignationError] = useState("");
@@ -36,19 +38,19 @@ const AdminRegistrationForm = () => {
   //HANDLING ERRORS
 
   const handleNameBlur = () => {
-    if (/^-?\\d/.test(adminName) || adminName === "") {
+    if (/^-?\\d/.test(name) || name === "") {
       setErrorMessage("Give valid name");
     }
   };
   const handleEmailBlur = () => {
-    if (!adminEmail.endsWith("@nucleusteq.com") || adminEmail == "") {
+    if (!email.endsWith("@nucleusteq.com") || email == "" || email !== "ankita.sharma@nucleusteq.com") {
       setEmailError("Give valid email id");
       setEmail("");
     }
   };
 
   const handleEmpIDBlur = () => {
-    if (!/^[Nn]\d{3}$/.test(adminId)) {
+    if (!/^[N]\d{3}$/.test(userId)) {
       setEmpIdError("Employee ID should be in pattern NXXX");
     } else {
       setEmpIdError("");
@@ -56,22 +58,49 @@ const AdminRegistrationForm = () => {
   };
 
   const handlePhoneNo = () => {
-    if (!/^\d{10}$/.test(adminConatctNo)) {
+    if (!/^\d{10}$/.test(contactNo)) {
       setContactNumberError("Contact no should have 10 digits only");
     } else {
       setContactNumberError("");
     }
   };
 
-  const handleLocation=(e)=>{
-    
-  }
+  const handleDobBlur = () => {
+    const today = new Date();
+    const dobDate = new Date(dob);
+    const minDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+    if (isNaN(dobDate) || dobDate > minDate) {
+      setDobError("You must be at least 18 years old.")
+    } else {
+      setDobError("");
+    }
+  };
 
+  const handleDojblur = () => {
+    const today = new Date();
+    const dojDate = new Date(doj);
+    if (isNaN(dojDate) || dojDate > today) {
+      setDojError("Date of Joining cannot be in the future.");
+    } else {
+      setDojError("");
+    }
+  };
+  const handleLocationBlur=()=>{
+    if(location===""){
+      setLocationError("Give location");
+    }
+  }
+  
+  const handleDesignationBlur=()=>{
+    if(designation===""){
+      setDesignationError("Give designation");
+    }
+  }
   const handlePassword = () => {
     if (password !== confirmPassword) {
       setPasswordError("Password and confirm password do not match");
-      setconfirmPassword("Password and confirm password do not match");
-      alert("Passwords dont match");
+      setConfirmPasswordError("Password and confirm password do not match");
+      //alert("Passwords dont match");
     } else {
       setPasswordError("");
       setConfirmPasswordError("");
@@ -80,57 +109,60 @@ const AdminRegistrationForm = () => {
 
   const saveAdmin = (e) => {
     e.preventDefault();
-    var hash = bcrypt.hashSync(password, salt);
-    if (
-      adminName === "" ||
-      adminDob === "" ||
-      adminDoj === "" ||
-      adminConatctNo === "" ||
-      Designation === "" ||
-      adminEmail === "" ||
-      adminId === ""||
-      Location === ""
-    ) {
-      setConfirmPasswordError("Mandatory field");
-      setContactNumberError("Mandatory field");
-      setEmailError("Mandatory field");
-      setErrorMessage("Mandatory field");
-      setEmpIdError("Mandatory field");
-      setPasswordError("Mandatory field");
-      setDesignationError("Mandatory field");
-      setLocationError("Mandatory field");
+    try {
+      var hash = bcrypt.hashSync(password, salt);
+      if (
+        name === "" ||
+        dob === "" ||
+        doj === "" ||
+        contactNo === "" ||
+        Desgn === "" ||
+        email === "" ||
+        userId === "" ||
+        Lcn === ""||
+        password===""||
+        confirmPassword===""
+      ) {
+        setConfirmPasswordError("Mandatory field");
+        setContactNumberError("Mandatory field");
+        setEmailError("Mandatory field");
+        setErrorMessage("Mandatory field");
+        setEmpIdError("Mandatory field");
+        setPasswordError("Mandatory field");
+        setDesignationError("Mandatory field");
+        setDobError("Mandatory field");
+        setDojError("Mandatory field")
+        setLocationError("Mandatory field");
+        setPasswordError("Madatory field");
+        setConfirmPasswordError("Mandatory field")
+      }
+
+      const hashedPassword = bcrypt.hashSync(password, 10);
+      setPassword(hashedPassword);
+
+      const admin = {
+        name,
+        email,
+        userId,
+        dob,
+        doj,
+        location,
+        designation,
+        //contactNo,
+        password
+      };
+      const admin1={...admin,password:hashedPassword};
+      AdminService.createAdmin(admin1)
+        .then((response) => {
+          console.log(response.data);
+          navigate("/");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      //console.log(error.response);
     }
-    const admin = {
-      adminName,
-      adminEmail,
-      adminId,
-      adminDob,
-      adminDoj,
-      adminlocation,
-      adminDesignation,
-      adminConatctNo,
-      password,
-    };
-    // const admin2 = {
-    //   adminName,
-    //   adminEmail,
-    //   adminId,
-    //   adminDob,
-    //   adminDoj,
-    //   adminLocation,
-    //   adminDesignation,
-    //   adminConatctNo,
-    //   hash,
-    // };
-    console.log(admin);
-    // AdminService.createAdmin(admin)
-    //   .then((response) => {
-    //     console.log(response.data);
-    //     navigate("/");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   };
 
   return (
@@ -146,7 +178,7 @@ const AdminRegistrationForm = () => {
                   type="text"
                   required
                   className="input"
-                  value={adminName}
+                  value={name}
                   onChange={(e) => {
                     setName(e.target.value);
                     setErrorMessage("");
@@ -175,7 +207,7 @@ const AdminRegistrationForm = () => {
                 <input
                   type="text"
                   className="input"
-                  value={adminId}
+                  value={userId}
                   onChange={(e) => {
                     setId(e.target.value);
                     setEmpIdError("");
@@ -190,9 +222,11 @@ const AdminRegistrationForm = () => {
                 <input
                   type="date"
                   className="input"
-                  value={adminDob}
+                  value={dob}
                   onChange={(e) => setDob(e.target.value)}
+                  onBlur={handleDobBlur}
                 />
+                <span>{dobError}</span>
               </div>
 
               <div className="form-group">
@@ -200,9 +234,11 @@ const AdminRegistrationForm = () => {
                 <input
                   className="input"
                   type="date"
-                  value={adminDoj}
+                  value={doj}
                   onChange={(e) => setDoj(e.target.value)}
+                  onBlur={handleDojblur}
                 />
+                <span>{dojError}</span>
               </div>
             </div>
             {/* ///////////////////////////////////////////// */}
@@ -212,7 +248,7 @@ const AdminRegistrationForm = () => {
                 <input
                   className="input"
                   type="text"
-                  value={adminLocation}
+                  value={location}
                   onChange={(e) => setLocation(e.target.value)}
                 />
                 <span>{locationError}</span>
@@ -221,22 +257,24 @@ const AdminRegistrationForm = () => {
               <div className="form-group">
                 <label>Location</label>
                 <select
-                // value={adminlocation}
-                type="text"
-                placeholder="Enter Location"
-                name="location"
-                className="input"
-                onChange={(e)=>setLocation(e.target.value)}
+                  // value={location}
+                  type="text"
+                  placeholder="Enter Location"
+                  name="location"
+                  className="input"
+                  onChange={(e) => setLocation(e.target.value)}
+                  onBlur={handleLocationBlur}
                 >
                   <option value="">Select Location</option>
-                  {Location.map((item) => {
+                  {Lcn.map((item) => {
                     return (
-                      <option key={item} value={item} >
+                      <option key={item} value={item}>
                         {item}
                       </option>
                     );
                   })}
                 </select>
+                <span>{locationError}</span>
               </div>
 
               {/* <div className="form-group">
@@ -244,7 +282,7 @@ const AdminRegistrationForm = () => {
                 <input
                   className="input"
                   type="text"
-                  value={adminDesignation}
+                  value={designation}
                   onChange={(e) => setDesignation(e.target.value)}
                 />
                 <span>{designationError}</span>
@@ -258,9 +296,10 @@ const AdminRegistrationForm = () => {
                   name="location"
                   className="input"
                   onChange={(e) => setDesignation(e.target.value)}
+                  onBlur={handleDesignationBlur}
                 >
-                  <option value="">Select Location</option>
-                  {Designation.map((item) => {
+                  <option value="">Select Designation</option>
+                  {Desgn.map((item) => {
                     return (
                       <option key={item} value={item}>
                         {item}
@@ -268,6 +307,7 @@ const AdminRegistrationForm = () => {
                     );
                   })}
                 </select>
+                <span>{designationError}</span>
               </div>
 
               <div className="form-group">
@@ -275,7 +315,7 @@ const AdminRegistrationForm = () => {
                 <input
                   className="input"
                   type="text"
-                  value={userConatctNo}
+                  value={contactNo}
                   onChange={(e) => {
                     setContactNumber(e.target.value);
                   }}
@@ -292,10 +332,11 @@ const AdminRegistrationForm = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                <span>{passwordError}</span>
               </div>
 
               <div className="form-group">
-                <label>Password</label>
+                <label>Confirm Password</label>
                 <input
                   className="input"
                   type="password"
@@ -305,6 +346,7 @@ const AdminRegistrationForm = () => {
                   }}
                   onBlur={handlePassword}
                 />
+                <span>{confirmPasswordError}</span>
               </div>
             </div>
           </div>

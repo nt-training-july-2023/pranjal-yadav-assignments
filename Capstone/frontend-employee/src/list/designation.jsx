@@ -1,10 +1,10 @@
 const designation = [
-    "Engineer",
-    "Senior Engineer",
-    "Architect",
-    "Technical Lead",
-    "Senior Architect",
-    "Recruiter",
-    "Operation Analyst"
+    "ENGINEER",
+    "SENIOR_ENGINEER",
+    "ARCHITECT",
+    "TECHNICAL_LEAD",
+    "SENIOR_ARCHITECT",
+    "RECRUITER",
+    "OPERATION_ANALYST"
 ]
 export default designation;
