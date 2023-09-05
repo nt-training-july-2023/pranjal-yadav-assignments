@@ -10,6 +10,7 @@ class AdminService{
     loginAdmin(admin){
         return axios.post(LOGIN_URL, admin)
     }
+    
 }
 
 export default new AdminService();

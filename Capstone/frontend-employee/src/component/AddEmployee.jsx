@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import AdminService from "../service/AdminService";
-import "../style/AdminRegistrationForm.css";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useState } from "react";
 import Lcn from "../list/location";
 import Desgn from "../list/designation";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import AddEmployeeService from "../service/AddEmployeeService";
+import '../style/AdminRegistrationForm.css'
 import PopUp from "./Popup";
 
-var bcrypt = require("bcryptjs");
-var salt = bcrypt.genSaltSync(10);
-
-const AdminRegistrationForm = () => {
+const AddEmployee = () => {
+  var bcrypt = require("bcryptjs");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [userId, setId] = useState("");
@@ -21,7 +19,9 @@ const AdminRegistrationForm = () => {
   const [contactNo, setContactNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
-
+  const [skills, setSkills] = useState("");
+  const [role, setRole] = useState("");
+  const navigate = useNavigate();
   //ERRORS
   const [errorMessage, setErrorMessage] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -34,32 +34,11 @@ const AdminRegistrationForm = () => {
   const [locationError, setLocationError] = useState("");
   const [designationError, setDesignationError] = useState("");
   //const [emailError, setEmailError] = useState("");
+  const [skillserror, setSkillsError] = useState("");
+  const [roleError, setRoleError] = useState("");
   const [popMessage, setPopUpMessage] = useState("");
   const [showPopUp, setShowPopUp] = useState(false);
-
-  const navigate = useNavigate();
-
-  //HANDLING ERRORS
-
-  async function apiCall(reqData) {
-    console.log(reqData);
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/user/save",
-        reqData
-      );
-      console.log(response);
-      if (response.data.status === 200) {
-        console.log(response);
-        // alert("admin registered")
-      } else {
-        setEmailError(response.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      console.log("catch");
-    }
-  }
+  //HANDLE BLURS
 
   const handleNameBlur = () => {
     if (/^-?\\d/.test(name) || name === "") {
@@ -67,24 +46,17 @@ const AdminRegistrationForm = () => {
     }
   };
   const handleEmailBlur = () => {
-    if (
-      !email.endsWith("@nucleusteq.com") ||
-      email == "" ||
-      email !== "ankita.sharma@nucleusteq.com"
-    ) {
-      setEmailError("Give valid email id");
-      setEmail("");
+    if (!email.endsWith("@nucleusteq.com" || email === "")) {
+      setEmailError("Give valid email");
     }
   };
-
   const handleEmpIDBlur = () => {
-    if (!/^[N]\d{3}$/.test(userId)) {
+    if (!/^[N]\d{3}$/.test(userId) || userId === "") {
       setEmpIdError("Employee ID should be in pattern NXXX");
     } else {
       setEmpIdError("");
     }
   };
-
   const handlePhoneNo = () => {
     if (!/^\d{10}$/.test(contactNo)) {
       setContactNumberError("Contact no should have 10 digits only");
@@ -92,7 +64,6 @@ const AdminRegistrationForm = () => {
       setContactNumberError("");
     }
   };
-
   const handleDobBlur = () => {
     const today = new Date();
     const dobDate = new Date(dob);
@@ -128,98 +99,102 @@ const AdminRegistrationForm = () => {
       setDesignationError("Give designation");
     }
   };
-  const handlePassword = () => {
-    if (password !== confirmPassword) {
-      setPasswordError("Password and confirm password do not match");
-      setConfirmPasswordError("Password and confirm password do not match");
-      //alert("Passwords dont match");
-    } else {
-      setPasswordError("");
-      setConfirmPasswordError("");
+  // const handlePassword = () => {
+  //   if (password !== confirmPassword) {
+  //     setPasswordError("Password and confirm password do not match");
+  //     setConfirmPasswordError("Password and confirm password do not match");
+  //     //alert("Passwords dont match");
+  //   } else {
+  //     setPasswordError("");
+  //     setConfirmPasswordError("");
+  //   }
+  // };
+
+  const handleskills = () => {
+    if (skills === "") {
+      setSkillsError("Give skills");
     }
   };
-
-  const saveAdmin = (e) => {
+  const saveEmp = (e) => {
     e.preventDefault();
-    try {
-      //var hash = bcrypt.hashSync(password, salt);
-      if (
-        name === "" ||
-        dob === "" ||
-        doj === "" ||
-        contactNo === "" ||
-        Desgn === "" ||
-        email === "" ||
-        userId === "" ||
-        Lcn === "" ||
-        password === "" ||
-        confirmPassword === ""
-      ) {
-        setConfirmPasswordError("Mandatory field");
-        setContactNumberError("Mandatory field");
-        setEmailError("Mandatory field");
-        setErrorMessage("Mandatory field");
-        setEmpIdError("Mandatory field");
-        setPasswordError("Mandatory field");
-        setDesignationError("Mandatory field");
-        setDobError("Mandatory field");
-        setDojError("Mandatory field");
-        setLocationError("Mandatory field");
-        setPasswordError("Madatory field");
-        setConfirmPasswordError("Mandatory field");
-        return;
-      }
+    if (
+      name === "" ||
+      email === "" ||
+      contactNo === "" ||
+      Desgn === "" ||
+      Lcn === "" ||
+      dob === "" ||
+      doj === "" ||
+      skills===""||
+      role==="" ||
+      userId === ""
+    ) {
+      setConfirmPasswordError("Mandatory field");
+      setContactNumberError("Mandatory field");
+      setEmailError("Mandatory field");
+      setErrorMessage("Mandatory field");
+      setEmpIdError("Mandatory field");
+      setPasswordError("Mandatory field");
+      setDesignationError("Mandatory field");
+      setDobError("Mandatory field");
+      setDojError("Mandatory field");
+      setLocationError("Mandatory field");
+      setPasswordError("Madatory field");
+      setConfirmPasswordError("Mandatory field");
+      setRoleError("Mandatory field");
+      setSkillsError("Mandatory field");
+      return;
+    }
 
-      // if(emailError.length==0 && errorMessage.length==0 &&
-      //   passwordError.length==0 &&empIdError.length==0 &&
-      //   contactNumberError.length==0 &&
-      //   passwordError.length==0 &&
-      //   dobError.length==0 &&
-      //   dojError.length==0 &&
-      //   confirmPasswordError.length==0){
-
-      // }
-
-      const hashedPassword = bcrypt.hashSync(password, 10);
-
-      const admin = {
-        name,
-        email,
-        userId,
-        dob,
-        doj,
-        location,
-        designation,
-        //contactNo,
-        hashedPassword,
-      };
-      const admin1 = { ...admin, password: hashedPassword };
-      AdminService.createAdmin(admin1)
+    const pwd = userId + dob;
+    const password = bcrypt.hashSync(pwd, 10);
+    const employee = {
+      name,
+      email,
+      userId,
+      dob,
+      doj,
+      location,
+      designation,
+      contactNo,
+      role,
+      skills,
+      password,
+    };
+    AddEmployeeService.createEmp(employee)
         .then((response) => {
           // console.log(response.data);
-          if (response.data.responseStatus === 200) {
-            setPopUpMessage("Admin Registered");
-            setShowPopUp(true);
-          }
-          navigate("/");
+          // if (response.data.responseStatus === 200) {
+          //   setPopUpMessage("Admin Registered");
+          //   setShowPopUp(true);
+          // }
+          // navigate("/");
+          setPopUpMessage("Added Successfully");
+          setShowPopUp(true);
+          // navigate("/admindashboard");
+          const navigateToDashboard = () => {
+            navigate("/AdminDashboard");
+          };
+          setTimeout(navigateToDashboard, 2000);
         })
         .catch((error) => {
           console.log(error);
           //setEmailError(error.response.data.message);
-          if (error.response.status === 302) {
+          // if (error.response.status === 302) {
+          //   setShowPopUp(true);
+          //   setPopUpMessage("Email already exists");
+          // }
+          if (error.response.status === 409) {
             setShowPopUp(true);
-            setPopUpMessage("Email already exists");
+            setPopUpMessage(error.response.data.errorMessage);
           }
         });
-    } catch (error) {
-      //console.log(error.response);
-    }
   };
 
   return (
     <div className="signup-container">
       <div className="custom-form">
-        {showPopUp && (
+      {showPopUp && (
           <PopUp
             message={popMessage}
             onClose={() => {
@@ -227,7 +202,7 @@ const AdminRegistrationForm = () => {
             }}
           />
         )}
-        <h2 className="title">Sign Up</h2>
+        <h2 className="title">Add Employee</h2>
         <form action="">
           <div className="form-section">
             <div className="column">
@@ -384,34 +359,34 @@ const AdminRegistrationForm = () => {
               </div>
 
               <div className="form-group">
-                <label>Password</label>
+                <label>Role</label>
                 <input
                   className="input"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  type="text"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
                 />
-                <span>{passwordError}</span>
+                <span>{roleError}</span>
               </div>
 
               <div className="form-group">
-                <label>Confirm Password</label>
+                <label>Skills</label>
                 <input
                   className="input"
-                  type="password"
-                  value={confirmPassword}
+                  type="text"
+                  value={skills}
                   onChange={(e) => {
-                    setconfirmPassword(e.target.value);
+                    setSkills(e.target.value);
                   }}
-                  onBlur={handlePassword}
+                  onBlur={handleskills}
                 />
-                <span>{confirmPasswordError}</span>
+                <span>{skillserror}</span>
               </div>
             </div>
           </div>
           <button
             className="submit-button"
-            onClick={(e) => saveAdmin(e)}
+            onClick={(e) => saveEmp(e)}
             type="submit"
           >
             Sign Up
@@ -422,4 +397,4 @@ const AdminRegistrationForm = () => {
   );
 };
 
-export default AdminRegistrationForm;
+export default AddEmployee;

@@ -40,7 +40,6 @@ public class UserDto {
     private Location location;
     @NotBlank
     private Designation designation;
-    @Pattern(regexp = "^[0-9]")
     private Long ContactNo;
     private String projectName;
     private Role role;
