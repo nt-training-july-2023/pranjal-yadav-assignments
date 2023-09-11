@@ -6,7 +6,7 @@ import DisplayManager from "./DisplayManager";
 import DisplayProject from "./DisplayProject";
 
 const AdminDashBoard = () => {
-  const [activeTab, setActiveTab] = useState("USER");
+  const [activeTab, setActiveTab] = useState("EMPLOYEE");
   const switchToEmployeeTab = () => {
     setActiveTab("EMPLOYEE");
   };
@@ -14,7 +14,7 @@ const AdminDashBoard = () => {
     setActiveTab("MANAGER");
   };
   const switchToProjectTab = () => {
-    setActiveTab("project");
+    setActiveTab("PROJECT");
   };
 
   return (
@@ -36,15 +36,24 @@ const AdminDashBoard = () => {
           Manager
         </div>
         <div
-          className={`admin_project ${activeTab === "project" ? "active" : ""}`}
+          className={`admin_project ${activeTab === "PROJECT" ? "active" : ""}`}
           onClick={switchToProjectTab}
         >
           Project
         </div>
       </div>
-      <Link to="/addEmployee" className="btn-addEmployee">
-        Add Employee
+      <Link to="/" className="btn-logout">
+        Log out
       </Link>
+      {activeTab==="EMPLOYEE" && (<Link to="/addEmployee" className="btn-addEmployee">
+        Add Employee
+      </Link>)}
+      {/* {activeTab==="MANAGER" && (<Link to="/addEmployee" className="btn-addEmployee">
+        Add Manager
+      </Link>)} */}
+      {activeTab==="PROJECT" && (<Link to="/addProject" className="btn-addEmployee">
+        Add Project
+      </Link>)}
       <div className="card_container">
         {activeTab === "EMPLOYEE" && (
           <div>
@@ -56,64 +65,13 @@ const AdminDashBoard = () => {
             <DisplayManager />
           </div>
         )}
-        {activeTab === "project" && (
+        {activeTab === "PROJECT" && (
           <div>
             <DisplayProject />
           </div>
         )}
       </div>
     </div>
-    // <div>
-    //   <div className="container">
-    //     <h1 className="admin-heading">Admin DashBoard</h1>
-    //     <div className="admin-tabs">
-    //       <div
-    //         className={`admin_employee ${
-    //           activeTab === "USER" ? "active" : ""
-    //         }`}
-    //         onClick={switchToEmployeeTab}
-    //       >
-    //         Employee
-    //       </div>
-    //       <div
-    //         className={`admin_manager ${
-    //           activeTab === "MANAGER" ? "active" : ""
-    //         }`}
-    //         onClick={switchToManagerTab}
-    //       >
-    //         Manager
-    //       </div>
-    //       <div
-    //         className={`admin_project ${
-    //           activeTab === "project" ? "active" : ""
-    //         }`}
-    //         onClick={switchToProjectTab}
-    //       >
-    //         Project
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <Link to="/addEmployee" className="btn-addEmployee">
-    //     Add Employee
-    //   </Link>
-    //   <div className='card_container'>
-    //   {activeTab === 'USER' && (
-    //       <div>
-    //        <DisplayEmployee/>
-    //       </div>
-    //     )}
-    //      {activeTab === 'MANAGER' && (
-    //       <div >
-    //        <DisplayManager/>
-    //       </div>
-    //     )}
-    //     {activeTab === 'project' && (
-    //       <div >
-    //        <DisplayProject/>
-    //       </div>
-    //     )}
-    //   </div>
-    // </div>
   );
 };
 

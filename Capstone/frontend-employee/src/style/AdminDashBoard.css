@@ -67,7 +67,7 @@
     border: 0.1rem solid rgb(3, 3, 3);
     border-radius: 1.5rem;
     width: 50rem;
-    margin-left: 20rem;
+    margin-left: 13rem;
 }
 
 .admin_employee, .admin_manager, .admin_project, .admin_add_employee {
@@ -125,6 +125,20 @@
     width: 15rem !important ;
     /* margin-left: 1.5rem; */
 }
+.btn-logout{
+    display: inline-block; 
+    padding: 10px 20px; 
+    background-color: #007bff;
+    color: #fff; 
+    text-decoration: none;
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer; 
+    margin-left: 60rem;
+    margin-top: 1rem;
+    width:105px;
+    transition: background-color 0.3s; 
+}
 .btn_cancel{
     border: none;
     margin-left: 5rem;
@@ -134,54 +148,35 @@
 }
 
 .card_container {
-
     margin-top: 30px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    /* max-width: 1200px; */
+    /* justify-content: center;
+    align-items: flex-start; */
     margin: 0 auto;
+    max-height: 70vh;
     overflow-x: auto;
-    /* Add horizontal scrollbar when necessary */
+    overflow-y: scroll; 
     scrollbar-width: thin;
-    /* Add scrollbar for Firefox */
     scrollbar-color: transparent gray;
-    width: 2rem auto;
-    /* Color settings for Firefox */
+    width: 90%; 
+    /* margin-bottom: 6rem !important; */
 }
-
-/* .card_container::-webkit-scrollbar {
-    width: 0.5rem;
-}
-
-.card_container::-webkit-scrollbar-thumb {
-    background-color: transparent;
-} */
-
-/* .card_container::-webkit-scrollbar-thumb:hover {
-    background-color: gray;
-} */
-
-/* .card_container::-webkit-scrollbar-track {
-    background-color: transparent;
-} */
 
 .card {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     border: 0.2rem solid #0f0e0e;
     border-radius: 0.5rem;
     margin: 1rem;
     padding: 0.8rem;
     background-color: #a7b4ee;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 25rem;
+    
 }
-
-/* .card:hover {
-    transform: scale(1.05);
-    /* Add a hover effect for scaling the card */
-/* } */ */
 
 .column {
     flex: 1;
@@ -198,6 +193,7 @@
     font-size: 14px;
     color: #333;
 }
+
 @media (max-width: 768px) {
     .admin_add_employee {
       position: static;
@@ -216,7 +212,7 @@
     border: none; 
     border-radius: 5px;
     cursor: pointer; 
-    margin-left: 70rem;
+    margin-left: 60rem;
     margin-top: 1rem;
     transition: background-color 0.3s; 
 }

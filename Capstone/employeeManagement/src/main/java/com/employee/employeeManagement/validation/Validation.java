@@ -1,48 +1,80 @@
 package com.employee.employeeManagement.validation;
 
-import com.employee.employeeManagement.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import com.employee.employeeManagement.dto.LoginDto;
+import com.employee.employeeManagement.dto.UserDto;
+import com.employee.employeeManagement.exception.WrongCredentialsExceptions;
 import org.springframework.stereotype.Component;
 
 
+/**
+ * Utility class for performing various data validation operations.
+ */
+@Component
 public class Validation {
-
-    public final boolean validEmptyData(final String data) {
-        if (data.isEmpty()) {
-            return true;
-        }
-        return false;
-    }
-    public boolean checkName(String name){
-        String regex = "^[a-zA-Z\\s]+$";
-        if(name.matches(regex)){
-            return true;
-        }
-        return false;
-    }
-
-    public boolean checkEmail(String email){
-        String regex = "^[A-Za-z0-9+_.-]+@nucleusteq\\.com$";
-        if(email.matches(regex)){
-            return true;
-        }
-        return false;
-    }
-    public boolean checkPhone(Long ContactNo){
-        String regex = "^[0-9]{10}$";
-        String phoneString = Long.toString(ContactNo);
-        if(phoneString.matches(regex)){
+    /**
+     * This method returns true if the name is valid.
+     * @param name String that represents name.
+     * @return boolean value.
+     */
+    public final boolean checkName(final String name) {
+        if (!name.isEmpty() && name.matches("^[A-Za-z ]+$")) {
             return true;
         }
         return false;
     }
 
-    public boolean checkId(String id){
-        String regex = "^[Nn]\\d{3}$";
-        if(id.matches(regex)){
+    /**
+     * This method returns true if email is valid.
+     * @param email String that represents email.
+     * @return boolean value.
+     */
+    public final boolean checkEmail(final String email) {
+        if (!email.isEmpty() && email.matches(".*@nucleusteq\\.com$")) {
             return true;
         }
         return false;
     }
+    /**
+     * This method returns true if userId is valid.
+     * @param userId String that represents userId.
+     * @return boolean value.
+     */
+    public final boolean checkUserId(final String userId) {
+        if (!userId.isEmpty() && userId.matches("N\\d{3}$")) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * A method that uses a few of the above methods to validate
+     * a registering user.
+     * @param userDto parameter UserDto.
+     * @return boolean value;
+     */
+    public final boolean checkUser(final UserDto userDto) {
+        if (!checkName(userDto.getName())) {
+            throw new WrongCredentialsExceptions("Give valid name.");
+        }
+        if (!checkEmail(userDto.getEmail())) {
+            throw new WrongCredentialsExceptions("Give valid email");
+        }
+        if (!checkUserId(userDto.getUserId())) {
+            throw new WrongCredentialsExceptions("Give valid userId");
+        }
+        return true;
+    }
+
+    /**
+     * Method combines all necessary to validate logindto.
+     * @param loginDto .
+     * @return exception or a boolean value.
+     */
+    public final boolean checkLoginDto(final LoginDto loginDto) {
+        if (!checkName(loginDto.getEmail())) {
+            throw new WrongCredentialsExceptions("Give valid email id");
+        }
+        return true;
+    }
+
 }

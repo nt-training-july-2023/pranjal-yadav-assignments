@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const URL = 'http://localhost:8080/user/save-emp';
+const getManagerURL = 'http://localhost:8080/user/save-emp'
 
 class AddEmployeeService {
     createEmp(employee){

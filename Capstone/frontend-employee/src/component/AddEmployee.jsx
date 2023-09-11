@@ -4,8 +4,11 @@ import Lcn from "../list/location";
 import Desgn from "../list/designation";
 import { useNavigate } from "react-router-dom";
 import AddEmployeeService from "../service/AddEmployeeService";
-import '../style/AdminRegistrationForm.css'
+import "../style/AdminRegistrationForm.css";
 import PopUp from "./Popup";
+import R from "../list/role";
+import Select from "react-select";
+import Skills from "../list/skills";
 
 const AddEmployee = () => {
   var bcrypt = require("bcryptjs");
@@ -19,9 +22,10 @@ const AddEmployee = () => {
   const [contactNo, setContactNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
-  const [skills, setSkills] = useState("");
+  const [skills, setSkills] = useState([]);
   const [role, setRole] = useState("");
   const navigate = useNavigate();
+  // const [skills, setSelectedSkills] = useState({});
   //ERRORS
   const [errorMessage, setErrorMessage] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -40,6 +44,7 @@ const AddEmployee = () => {
   const [showPopUp, setShowPopUp] = useState(false);
   //HANDLE BLURS
 
+const selectedSkillsValue={};
   const handleNameBlur = () => {
     if (/^-?\\d/.test(name) || name === "") {
       setErrorMessage("Give valid name");
@@ -62,6 +67,11 @@ const AddEmployee = () => {
       setContactNumberError("Contact no should have 10 digits only");
     } else {
       setContactNumberError("");
+    }
+  };
+  const handleRoleBlur = () => {
+    if (role === "") {
+      setRoleError("Give valid role");
     }
   };
   const handleDobBlur = () => {
@@ -99,6 +109,11 @@ const AddEmployee = () => {
       setDesignationError("Give designation");
     }
   };
+  const handleSkillChange = (selectedOptions) => {
+    const selectedSkillsValues = selectedOptions.map((option) => option.value);
+    setSkills(selectedSkillsValues);
+  };
+  
   // const handlePassword = () => {
   //   if (password !== confirmPassword) {
   //     setPasswordError("Password and confirm password do not match");
@@ -110,11 +125,25 @@ const AddEmployee = () => {
   //   }
   // };
 
-  const handleskills = () => {
-    if (skills === "") {
-      setSkillsError("Give skills");
+  // const handleskills = () => {
+  //   if (skills === "") {
+  //     setSkillsError("Give skills");
+  //   }
+  // };
+
+  function reverseDateFormat(inputDate) {
+    const dateParts = inputDate.split("-");
+    if (dateParts.length === 3) {
+      const reversedDate =
+        dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
+      return reversedDate;
+    } else {
+      // Handle invalid input format
+      return "Invalid Date Format";
     }
-  };
+  }
+
+  const reversedDate = reverseDateFormat(dob);
   const saveEmp = (e) => {
     e.preventDefault();
     if (
@@ -125,8 +154,7 @@ const AddEmployee = () => {
       Lcn === "" ||
       dob === "" ||
       doj === "" ||
-      skills===""||
-      role==="" ||
+      role === "" ||
       userId === ""
     ) {
       setConfirmPasswordError("Mandatory field");
@@ -148,11 +176,13 @@ const AddEmployee = () => {
 
     const pwd = userId + dob;
     const password = bcrypt.hashSync(pwd, 10);
+    const date = dob.split("-").reverse().join("-");
+    setDob(date)
     const employee = {
       name,
       email,
       userId,
-      dob,
+      dob : reversedDate,
       doj,
       location,
       designation,
@@ -161,40 +191,33 @@ const AddEmployee = () => {
       skills,
       password,
     };
+    console.log(employee);
     AddEmployeeService.createEmp(employee)
-        .then((response) => {
-          // console.log(response.data);
-          // if (response.data.responseStatus === 200) {
-          //   setPopUpMessage("Admin Registered");
-          //   setShowPopUp(true);
-          // }
-          // navigate("/");
-          setPopUpMessage("Added Successfully");
+      .then((response) => {
+        setPopUpMessage("Added Successfully");
+        setShowPopUp(true);
+        const navigateToDashboard = () => {
+          navigate("/AdminDashboard");
+        };
+        setTimeout(navigateToDashboard, 2000);
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response.status === 409) {
           setShowPopUp(true);
-          // navigate("/admindashboard");
-          const navigateToDashboard = () => {
-            navigate("/AdminDashboard");
-          };
-          setTimeout(navigateToDashboard, 2000);
-        })
-        .catch((error) => {
-          console.log(error);
-          //setEmailError(error.response.data.message);
-          // if (error.response.status === 302) {
-          //   setShowPopUp(true);
-          //   setPopUpMessage("Email already exists");
-          // }
-          if (error.response.status === 409) {
-            setShowPopUp(true);
-            setPopUpMessage(error.response.data.errorMessage);
-          }
-        });
+          setPopUpMessage(error.response.data.message);
+        }
+        if(error.response.status === 500){
+          setShowPopUp(true)
+          setPopUpMessage("This employee already exists")
+        }
+      });
   };
 
   return (
     <div className="signup-container">
       <div className="custom-form">
-      {showPopUp && (
+        {showPopUp && (
           <PopUp
             message={popMessage}
             onClose={() => {
@@ -358,7 +381,7 @@ const AddEmployee = () => {
                 <span>{contactNumberError}</span>
               </div>
 
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label>Role</label>
                 <input
                   className="input"
@@ -367,9 +390,30 @@ const AddEmployee = () => {
                   onChange={(e) => setRole(e.target.value)}
                 />
                 <span>{roleError}</span>
+              </div> */}
+              <div className="form-group">
+                <label>Role</label>
+                <select
+                  type="text"
+                  placeholder="Enter role"
+                  name="role"
+                  className="input"
+                  onChange={(e) => setRole(e.target.value)}
+                  onBlur={handleRoleBlur}
+                >
+                  <option value="">Select Role</option>
+                  {R.map((item) => {
+                    return (
+                      <option key={item} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
+                </select>
+                <span>{roleError}</span>
               </div>
 
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label>Skills</label>
                 <input
                   className="input"
@@ -381,7 +425,28 @@ const AddEmployee = () => {
                   onBlur={handleskills}
                 />
                 <span>{skillserror}</span>
-              </div>
+              </div> */}
+              <div className="form-group">
+                <Select
+                options={Skills.map((skill) => ({
+                  value: skill,
+                  label: skill,
+                }))}
+                isMulti={true}
+                className="select-input"
+                placeholder="Select skills"
+                onChange={handleSkillChange}
+                value={skills.map((skill) => ({ value: skill, label: skill }))}
+              /></div>
+              
+              {/* <div>
+                Selected Skills:
+                <ul>
+                  {selectedSkills.map((skill) => (
+                    <li key={skill.value}>{skill.label}</li>
+                  ))}
+                </ul>
+              </div> */}
             </div>
           </div>
           <button
@@ -389,7 +454,7 @@ const AddEmployee = () => {
             onClick={(e) => saveEmp(e)}
             type="submit"
           >
-            Sign Up
+            Add Employee
           </button>
         </form>
       </div>

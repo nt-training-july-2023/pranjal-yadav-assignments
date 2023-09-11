@@ -39,10 +39,15 @@ const Login = () => {
       AdminService.loginAdmin(admin1)
         .then((response) => {
           console.log(response.data);
-
           setPopUpMessage(response.data.message);
           setShowPopUp(true);
-          navigate("/adminDashboard");
+
+          if(response.data.role === "ADMIN") navigate('/adminDashboard');
+          if(response.data.role === "EMPLOYEE") navigate('/employeeDashboard');
+
+          localStorage.setItem("userRole", response.data.role);
+          localStorage.setItem("isLoggedIn", response.status);
+
         })
         .catch((error) => {
           console.log(error);
@@ -76,6 +81,7 @@ const Login = () => {
           <div className="form-group">
             <label>Email Id</label>
             <input
+            id="login-input-email"
               value={adminEmail}
               className="input"
               placeholder=""
@@ -92,6 +98,7 @@ const Login = () => {
           <div className="form-group">
             <label>Password</label>
             <input
+            id="login-input-pswd"
               type="password"
               placeholder=""
               className="input"
@@ -109,7 +116,7 @@ const Login = () => {
             value="Login"
             onClick={(e) => logAdmin(e)}
           />
-          <p>
+          <p className="para">
             Or <Link to="/adminRegister">Sign up</Link> instead
           </p>
         </form>

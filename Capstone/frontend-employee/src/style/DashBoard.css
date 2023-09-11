@@ -1,34 +1,33 @@
 
 body {
-    background-color: rgb(111, 185, 185);
-    margin: 0px;
-    padding: 0px;
-    height: 100vh;
-  }
+  background-color: rgb(111, 185, 185);
+  margin: 0px;
+  padding: 0px;
+  height: 100vh;
+}
+
+.head {
+  background-color: rgb(184, 204, 221);
+  height: 100vh;
+  display: flex;
+  justify-content: space-evenly;
   
-  .head {
-    background-color: rgb(184, 204, 221);
-    height: 100vh;
-    display: flex;
-    justify-content: space-evenly;
-    
-  }
-  
-  .button {
-    background-color: #007bff; /* Button background color */
-    color: #fff; /* Button text color */
-    padding: 10px 20px; /* Adjust padding as needed */
-    border: none;
-    border-radius: 5px;
-    height: 30px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .button:hover {
-    background-color: #0056b3; /* Change color on hover */
-  }
-  
+}
+
+.button {
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  padding: 10px 20px; /* Adjust padding as needed */
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3; /* Change color on hover */
+}

@@ -1,5 +1,5 @@
 const role =[
-    "ADMIN",
     "MANAGER",
     "EMPLOYEE"
 ];
+export default role;

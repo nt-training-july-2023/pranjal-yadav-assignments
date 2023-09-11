@@ -1,6 +1,9 @@
 package com.employee.employeeManagement.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+
 
 /**
  * Data Transfer Object (DTO) representing a response
@@ -18,7 +21,13 @@ public class ResponseEntityDto {
      * The message associated with the response.
      */
     private String message;
-    public boolean getIsSuccess(){
+
+    /**
+     * Getter method which will return boolean
+     * value isSuccess.
+     * @return isSuccess.
+     */
+    public final boolean getIsSuccess() {
         return isSuccess;
     }
     /**

@@ -11,7 +11,18 @@ body {
   height: 100vh;
   text-align: center;
 }
-
+select.input{
+  width: 110%;
+}
+.select-input{
+  margin-top: 33px;
+  width: 110%;
+  padding: 0px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: border-color 0.3s;  
+}
 .custom-form {
   width: 500px;
   margin: 0 20px;
@@ -21,7 +32,10 @@ body {
   background-color: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
-
+.para{
+  margin-top: 8px;
+  font-size:15px;
+}
 .title {
   margin-bottom: 20px;
   font-size: 25px;
@@ -118,4 +132,11 @@ span{
 
 .popup button {
   margin-top: 10px;
+}
+
+#login-input-pswd{
+  width: 90%;
+}
+#login-input-email{
+  width: 90%;
 }

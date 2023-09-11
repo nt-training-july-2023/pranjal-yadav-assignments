@@ -8,7 +8,7 @@ import axios from "axios";
 import PopUp from "./Popup";
 
 var bcrypt = require("bcryptjs");
-var salt = bcrypt.genSaltSync(10);
+//var salt = bcrypt.genSaltSync(10);
 
 const AdminRegistrationForm = () => {
   const [name, setName] = useState("");
@@ -206,10 +206,8 @@ const AdminRegistrationForm = () => {
         .catch((error) => {
           console.log(error);
           //setEmailError(error.response.data.message);
-          if (error.response.status === 302) {
             setShowPopUp(true);
-            setPopUpMessage("Email already exists");
-          }
+            setPopUpMessage(error.response.data.message);
         });
     } catch (error) {
       //console.log(error.response);

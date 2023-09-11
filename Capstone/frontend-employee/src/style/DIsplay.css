@@ -1,51 +1,64 @@
-
 .card-container {
     display: flex;
     flex-wrap: wrap;
-    
+    justify-content: space-evenly;
+    /* overflow-y: scroll;  */
+    /* max-height: 400px; */
+    margin-bottom: 5rem !important;
 }
 
+
+.name-designation{
+    margin-bottom: 5px;
+    font-weight: 100;
+    background-color: #c6e1ff;
+}
 .card {
-    /* width: 300px;
-    margin: 10px;
+    display: flex;
+    border: 1px solid #998383;
     padding: 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f9f9f9; */
-   
-        display: flex; /* Use Flexbox for the column layout */
-        border: 1px solid #998383;
-        padding: 10px;
-        border-radius: 5px;
-        background-color: #8a7171;
-        margin: 10px;
-        width: 25rem;
-    
-}
-.column {
-    flex: 1; 
-    padding: 10px;
+    background-color: #8a7171;
+    margin: 10px;
+    width: 25rem;
 }
 
-p{
+.column {
+    flex: 1;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+p {
     font-size: 12px;
 }
-/* .btn-addEmployee{
-    
-    display: inline-block; 
-    padding: 10px 20px; 
+
+.btn-addEmployee {
+    display: inline-block;
+    padding: 10px 20px;
     background-color: #007bff;
-    color: #fff; 
+    color: #fff;
     text-decoration: none;
-    border: none; 
+    border: none;
     border-radius: 5px;
-    cursor: pointer; 
+    cursor: pointer;
     margin-left: 70rem;
     margin-top: 1rem;
-    transition: background-color 0.3s; 
-} */
+    transition: background-color 0.3s;
+}
 
-/* 
 .btn-addEmployee:hover {
-    background-color: #0056b3; 
-} */
+    background-color: #0056b3;
+}
+ .card_container::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.card_container::-webkit-scrollbar-thumb {
+    background-color: transparent;
+} 
+
+
+.card_container::-webkit-scrollbar-track {
+    background-color: transparent;
+}
