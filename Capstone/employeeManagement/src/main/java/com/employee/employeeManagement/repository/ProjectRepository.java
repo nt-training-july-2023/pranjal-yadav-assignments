@@ -17,7 +17,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
      * @param managerId manger empID
      * @return List project
      */
-    List<Project> findAllByManagerId(String managerId);
+    List<Project> findAllByManagerId(Long managerId);
     /**
      * findByProjectID.
      * @param projectId project Id

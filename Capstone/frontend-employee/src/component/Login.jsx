@@ -47,6 +47,7 @@ const Login = () => {
 
           localStorage.setItem("userRole", response.data.role);
           localStorage.setItem("isLoggedIn", response.status);
+          // localStorage.setItem("email", email);
 
         })
         .catch((error) => {
@@ -72,7 +73,7 @@ const Login = () => {
           />
         )}
 
-        <h2 className="title">Admin Login</h2>
+        <h2 className="title">Login</h2>
         <form>
           {/* <div className="form-section">
 
@@ -92,7 +93,10 @@ const Login = () => {
               onBlur={handleEmailBlur}
               type="text"
             />
-            <span>{emailError}</span>
+            <br />
+            <span>
+              <br />
+              {emailError}</span>
           </div>
 
           <div className="form-group">
@@ -106,7 +110,10 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               onBlur={handlePasswordBlur}
             />
-            <span>{passwordError}</span>
+            <br />
+            <span>
+              <br />
+              {passwordError}</span>
           </div>
 
           <input

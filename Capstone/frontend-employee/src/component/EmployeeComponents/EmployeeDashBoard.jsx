@@ -2,14 +2,15 @@ import React, {useState} from 'react'
 import { Link } from "react-router-dom";
 import DisplayEmployee from '../DisplayEmployee';
 import DisplayManager from "../DisplayManager";
+import MyProfile from './MyProfile';
 
 const EmployeeDashBoard = () => {
-  const [activeTab, setActiveTab] = useState("EMPLOYEE");
-  const switchToEmployeeTab = () => {
-    setActiveTab("EMPLOYEE");
+  const [activeTab, setActiveTab] = useState("MyProfile");
+  const switchToMyProfileTab= () => {
+    setActiveTab("MyProfile");
   };
   const switchToManagerTab = () => {
-    setActiveTab("MANAGER");
+    setActiveTab("Organization");
   };
   const switchToProjectTab = () => {
     setActiveTab("PROJECT");
@@ -20,41 +21,27 @@ const EmployeeDashBoard = () => {
     <div className="admin_tabs">
       <div
         className={`admin_employee ${
-          activeTab === "EMPLOYEE" ? "active" : ""
+          activeTab === "MyProfile" ? "active" : ""
         }`}
-        onClick={switchToEmployeeTab}
+        onClick={switchToMyProfileTab}
       >
-        Employee
+        My Profile
       </div>
       <div
-        className={`admin_manager ${activeTab === "MANAGER" ? "active" : ""}`}
+        className={`admin_manager ${activeTab === "Organization" ? "active" : ""}`}
         onClick={switchToManagerTab}
       >
         Manager
       </div>
-      {/* <div
-        className={`admin_project ${activeTab === "PROJECT" ? "active" : ""}`}
-        onClick={switchToProjectTab}
-      >
-        Project
-      </div> */}
     </div>
     <Link to="/" className="btn-logout">
       Log out
     </Link>
-    {activeTab==="EMPLOYEE" && (<Link to="/addEmployee" className="btn-addEmployee">
-      Add Employee
-    </Link>)}
-    {/* {activeTab==="MANAGER" && (<Link to="/addEmployee" className="btn-addEmployee">
-      Add Manager
-    </Link>)} */}
-    {activeTab==="PROJECT" && (<Link to="/addProject" className="btn-addEmployee">
-      Add Project
-    </Link>)}
-    <div className="card_container">
-      {activeTab === "EMPLOYEE" && (
+    
+    <div>
+      {activeTab === "MyProfile" && (
         <div>
-          <DisplayEmployee />
+          <MyProfile/>
         </div>
       )}
       {activeTab === "MANAGER" && (

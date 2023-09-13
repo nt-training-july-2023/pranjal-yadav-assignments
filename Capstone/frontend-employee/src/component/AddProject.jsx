@@ -4,6 +4,8 @@ import Skills from "../list/skills";
 import AddProjectService from "../service/AddProjectService";
 import PopUp from "./Popup";
 import Select from "react-select";
+import '../style/DIsplay.css'
+import MultiSelectDropDown from "./MultiSelectDropDown";
 
 const AddProject = () => {
   const [projectName, setProjectName] = useState("");
@@ -16,6 +18,7 @@ const AddProject = () => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [managers, setManagers] = useState([]);
   const [managerId, setManagerId] = useState("");
+  const [selectedSkills ] = useState([]);
 
   const navigate = useNavigate();
 
@@ -50,12 +53,33 @@ const AddProject = () => {
     }
   };
   const handleManagerIdBlur = () => {
-    if (returnManager === "") {
+    if (managerId === "") {
       setManagerIdError("Give Manager id");
     } else {
       setManagerIdError("");
     }
   };
+  const handleDescriptionBlur = () =>{
+    if(description ===""){
+      setDescriptionError("Give Description")
+    }else{
+      setDescriptionError("")
+    }
+  }
+  const handleStartDateBlur =()=>{
+    if(startDate ===""){
+      setStartDateError("Give start date")
+    }else{
+      setStartDateError("")
+    }
+  }
+  const handleSkillsBlur = () =>{
+    if(skills.length ===0 ){
+      setSkillsError("Give skills")
+    }else{
+      setSkillsError("")
+    }
+  }
   useEffect(() => {
     fetchManagers();
   }, []);
@@ -65,7 +89,8 @@ const AddProject = () => {
       projectName === "" ||
       returnManager === "" ||
       description === "" ||
-      startDate === ""
+      startDate === "" ||
+      skills.length === 0
     ) {
       setDescriptionError("Mandatory field");
       setSkillsError("Mandatory field");
@@ -75,9 +100,9 @@ const AddProject = () => {
       setSkillsError("Mandatory Field");
       return;
     }
-    setManagerId(returnManager.userId);
+    // setManagerId(returnManager.id);
     // console.log(managerId);
-
+    // const id = 
     const project = {
       projectName,
       description,
@@ -136,40 +161,28 @@ const AddProject = () => {
                 <span>{projectNameError}</span>
               </div>
 
-              {/* <div className="form-group">
-                <label>Manager Id</label>
-                <input
-                  className="input"
-                  onChange={(e) => {
-                    setManagerId(e.target.value);
-                    setManagerIdError("");
-                  }}
-                  onBlur={handleManagerIdBlur}
-                  type="text"
-                />
-                <span>{managerIdError}</span>
-              </div> */}
               <div className="form-group">
                 <label>Manager</label>
                 <select
                   // value={location}
-                  type="text"
+                  
                   placeholder="Enter Manager"
                   name="manager"
-                  className="input"
+                  className="input-addproject-manager"
                   onChange={(e) => setManagerId(e.target.value)}
                   onBlur={handleManagerIdBlur}
                 >
                   <option value="">Select Manager</option>
                   {managers.map((item) => {
+                    {console.log(item)}
                     return (
-                      <option key={item.userId} value={item.userId}>
+                      <option key={item.id} value={item.id}>
                         {item.name} : {item.userId}
                       </option>
                     );
                   })}
                 </select>
-                {/* <span>{locationError}</span> */}
+                <span>{managerIdError}</span>
               </div>
 
               <div className="form-group">
@@ -183,6 +196,7 @@ const AddProject = () => {
                     setDescription(e.target.value);
                     setDescriptionError("");
                   }}
+                  onBlur={handleDescriptionBlur}
                   // onBlur={handleEmpIDBlur}
                 />
                 <span>{descriptionError}</span>
@@ -192,23 +206,39 @@ const AddProject = () => {
                 <label>Start Date</label>
                 <input
                   type="date"
-                  className="input"
+                  className="input "
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  // onBlur={handleDobBlur}
+                  onBlur={handleStartDateBlur}
                 />
                 <span>{startDateError}</span>
               </div>
-              <Select
+              {/* <Select
                 options={Skills.map((skill) => ({
                   value: skill,
                   label: skill,
                 }))}
                 isMulti={true}
                 placeholder="Select skills"
+                className="skill_addProject"
                 onChange={handleSkillChange}
+                onBlur={handleSkillsBlur}
                 value={skills.map((skill) => ({ value: skill, label: skill }))}
-              />
+              /> */}
+              <MultiSelectDropDown
+              className="skill_addProject"
+            options={Skills.map((skill) => ({
+              value: skill,
+              label: skill,
+            }))}
+            selectedOptions={selectedSkills.map((skill) => ({
+              value: skill,
+              label: skill,
+            }))}
+            onChange={handleSkillChange}
+            placeholder="Select Skills"
+            onBlur={handleSkillsBlur}
+          />
               <span>{skillsError}</span>
             </div>
           </div>

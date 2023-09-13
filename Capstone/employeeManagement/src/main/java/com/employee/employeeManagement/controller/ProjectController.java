@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Controller class for managing project.
@@ -77,12 +76,12 @@ public class ProjectController {
 
     /**
      * Endpoint for retrieving project from project id.
-     * @param projectId .
+     * @param managerId .
      * @return Project object from given project id.
      */
-    @GetMapping("/project/{projectId}")
-    public final Optional<Project> getProjectByEmpId(
-            @PathVariable final long projectId) {
-        return projectService.getProjectByProjectID(projectId);
+    @GetMapping("/project/{managerId}")
+    public final List<Project> getProjectByManagerId(
+            @PathVariable final long managerId) {
+        return projectService.getProjectByManagerId(managerId);
     }
 }

@@ -1,48 +1,13 @@
-/* body {
-    background-color: rgb(111, 185, 185);
-    margin: 0px;
-    padding: 0px;
-    height: 100vh;
-  }
-.navbar{
-    display: flex;
-    justify-content: center;
-    background-color: white;
-}
-.heading{
-    margin-left: 10px;
-    margin-right: 10px;
-}
-.container{
-    height: 100vh;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    background-color: rgb(255, 255, 255);
-}
-.box{
-    height: 300px;
-    width:23%;
-    background-color: rgb(188, 203, 236);
-    margin-top: 15px;
-    padding-left: 10px;
-    border-radius: 5px;
-    display: flex;
 
-}
-.emp-details{
-    font-size: 10px;
-}
-.column{
-    align-items:center;
-} */
 *{
     margin: 0;
     padding: 0;
+    background-image: url("");
 }
 
 .top{
     position: fixed;
+    margin-left: 125px;
 }
 
 .admin_heading {
@@ -50,7 +15,9 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    color: white;
+    margin-right: 130px;
+    margin-bottom: 0px;
+    color: rgb(14, 13, 13);
     font-size: 2rem;
     font-weight: bold;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -63,7 +30,7 @@
     align-items: center;
     gap: 4rem;
     padding: 0.5rem;
-    background-color: rgb(242, 248, 188);
+    background-color: rgb(255, 255, 255);
     border: 0.1rem solid rgb(3, 3, 3);
     border-radius: 1.5rem;
     width: 50rem;
@@ -71,7 +38,7 @@
 }
 
 .admin_employee, .admin_manager, .admin_project, .admin_add_employee {
-    background-color:rgb(128, 164, 241);
+    background-color:rgb(45, 111, 253);
     height: 1.5rem;
     width: auto;
 
@@ -135,7 +102,8 @@
     border-radius: 5px;
     cursor: pointer; 
     margin-left: 60rem;
-    margin-top: 1rem;
+    margin-top: 1px;
+    margin-bottom: 4px;
     width:105px;
     transition: background-color 0.3s; 
 }
@@ -150,34 +118,36 @@
 .card_container {
     margin-top: 30px;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
     /* justify-content: center;
     align-items: flex-start; */
     margin: 0 auto;
     max-height: 70vh;
-    overflow-x: auto;
+    /* overflow-x: auto; */
     overflow-y: scroll; 
     scrollbar-width: thin;
     scrollbar-color: transparent gray;
-    width: 90%; 
-    /* margin-bottom: 6rem !important; */
+    /* width: 1000%;  */
+    
 }
 
 .card {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    border: 0.2rem solid #0f0e0e;
+    /* border: 0.2rem solid #0f0e0e; */
     border-radius: 0.5rem;
     margin: 1rem;
     padding: 0.8rem;
-    background-color: #a7b4ee;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 25rem;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 3px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 30rem;
     
 }
-
+.all-btns{
+  background-color: #000;
+}
 .column {
     flex: 1;
     padding: 10px;
@@ -187,6 +157,7 @@
     margin-top: 0;
     font-size: 18px;
 }
+
 
 .column p {
     margin: 5px 0;
@@ -219,4 +190,74 @@
 
 .btn-addEmployee:hover {
     background-color: #0056b3; 
+}
+
+/* Add this media query to handle smaller screens */
+@media (max-width: 600px) {
+    .admin_tabs {
+      flex-direction: column; /* Stack tabs vertically */
+      gap: 1rem; /* Add some spacing between tabs */
+      align-items: flex-start; /* Align tabs to the left */
+      width: 100%; 
+      margin-left: 0; /* Remove left margin */
+    }
+    .top{
+      margin-left: 30px;
+      margin-right: 30px;
+      
+    }
+  body{
+    overflow-y: scroll;
+    
+  }
+    .admin_employee,
+    .admin_manager,
+    .admin_project,
+    .admin_add_employee {
+      width: 90%; /* Make tabs full width */
+      margin-left: 0; /* Remove left margin */
+      margin-bottom: 0.5rem; /* Add some margin between tabs */
+    }
+  
+    .btn-addEmployee {
+      width: 36%; /* Make the "Add Employee" button full width */
+      margin-left: 0; /* Remove left margin */
+      margin-top: 1rem; /* Add some margin to the top */
+    }
+  
+    .card_container {
+      max-height: none; /* Remove max height for cards container */
+      overflow-x: hidden; /* Hide horizontal scrollbar */
+      overflow-y: scroll;
+    }
+  
+    .card {
+      width: 100%; /* Make cards full width */
+      margin: 1rem 0; /* Adjust margin for cards */
+    }
+  
+    .column {
+      padding: 10px;
+    }
+  
+    .btn-logout {
+      margin-left: 0; /* Remove left margin */
+    }
+    
+  
+    /* Additional styles as needed for smaller screens */
+  }
+  .btn-addManager{
+    
+    display: inline-block; 
+    padding: 10px 20px; 
+    background-color: rgb(248, 204, 244);
+    color: rgb(248, 204, 244);
+    text-decoration: none;
+    border: none; 
+    border-radius: 5px;
+    /* cursor: pointer;  */
+    margin-left: 60rem;
+    margin-top: 1rem;
+    transition: background-color 0.3s; 
 }

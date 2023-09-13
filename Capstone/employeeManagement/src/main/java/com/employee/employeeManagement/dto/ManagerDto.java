@@ -17,4 +17,8 @@ public class ManagerDto {
      * The user ID of the manager.
      */
     private String userId;
+    /**
+     * Id of manager.
+     */
+    private Long id;
 }

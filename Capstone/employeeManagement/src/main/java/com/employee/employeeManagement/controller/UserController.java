@@ -4,6 +4,7 @@ import com.employee.employeeManagement.Model.Role;
 import com.employee.employeeManagement.Model.User;
 import com.employee.employeeManagement.dto.LoginDto;
 import com.employee.employeeManagement.dto.UserDto;
+import com.employee.employeeManagement.dto.UserNameDto;
 import com.employee.employeeManagement.exception.WrongCredentialsExceptions;
 import com.employee.employeeManagement.repository.UserRepository;
 import com.employee.employeeManagement.response.ApiResponse;
@@ -47,11 +48,11 @@ public class UserController {
         UserDto createdUser = userService.addUser(userDto);
         if (createdUser != null) {
             ApiResponse response = new ApiResponse(
-                    "Admin added succesfully", createdUser.getRole());
+                    "Admin added successfully", createdUser.getRole());
             return response;
         } else {
             ApiResponse response = new ApiResponse(
-                    "Invalid credentials", createdUser.getRole());
+                    "Invalid credentials", null);
             return response;
         }
     }
@@ -70,7 +71,12 @@ public class UserController {
             throw new WrongCredentialsExceptions("Wrong credentials");
         } else {
             User user = userService.login(loginDto);
-            return new ApiResponse("Login successful", user.getRole());
+            if(user.getRole() == Role.ADMIN)
+                return new ApiResponse("Login successful", Role.ADMIN);
+            else if (user.getRole() == Role.MANAGER)
+                return new ApiResponse("Login successful", Role.MANAGER);
+            else
+                return new ApiResponse("Login successful", Role.EMPLOYEE);
         }
 
     }
@@ -97,9 +103,16 @@ public class UserController {
     @GetMapping(path = "/all/{roleName}")
     public final List<User> getEmployeesByRole(
             @PathVariable final String roleName) {
-        // Find employees by role
         Role role = Role.valueOf(roleName);
         List<User> employees = userRepository.findByRole(role);
         return employees;
+    }
+    @GetMapping(path = "/getEmployee/{userId}")
+    public final UserNameDto getEmployeeById (@PathVariable final String userId) {
+        return userService.getEmployeeById(userId);
+    }
+    @GetMapping(path = "getEmployeeById/{id}")
+    public final UserNameDto getEmployeeByLongId(@PathVariable final Long id){
+        return userService.getEmployeeByLongId(id);
     }
 }

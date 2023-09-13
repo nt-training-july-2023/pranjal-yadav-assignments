@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service class for managing project-related operations.
@@ -63,6 +62,7 @@ public class ProjectService {
             ManagerDto currManager = new ManagerDto();
             currManager.setName(manager.getName());
             currManager.setUserId(manager.getUserId());
+            currManager.setId(manager.getId());
             returnedManagers.add(currManager);
         }
         return returnedManagers;
@@ -70,23 +70,18 @@ public class ProjectService {
 
     /**
      * Method returning project form given id.
-     * @param projectID .
+     * @param managerId .
      * @return Optional value project or exception.
      */
-    public final Optional<Project> getProjectByProjectID(final long projectID) {
-        Optional<Project> project =
-                projectRepository.findByProjectId(projectID);
-        if (project.isPresent()) {
+    public final List<Project> getProjectByManagerId(final long managerId) {
+        List<Project> project =
+                projectRepository.findAllByManagerId(managerId);
+        if (!project.isEmpty()) {
             return project;
         } else {
             throw new ResourceAlreadyExistsException("Project does not exist");
         }
-//        Optional<Project> projectDetails = projectRepository
-//                .findByProjectID(projectID);
-//        Project project = projectDetails.orElseThrow(
-//                () -> new ResourceNotFoundException(
-//                "Project Id does not exist"));
-//        return projectDetails;
     }
+
 
 }

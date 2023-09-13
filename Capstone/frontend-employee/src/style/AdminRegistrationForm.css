@@ -1,11 +1,13 @@
 body {
-  background: linear-gradient(#2A00B7, #d2b6e4);
+  background-color: #2f4796;
+  /* background: linear-gradient(#2A00B7, #d2b6e4); */
   margin: 0;
   font-family: Arial, sans-serif;
 }
 
 .signup-container {
   display: flex;
+  background-color: rgb(248, 204, 244);
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -44,6 +46,11 @@ select.input{
 .form-section {
   display: flex;
   justify-content: space-between;
+  overflow-y: scroll;
+  height: 70vh;
+}
+.form-section::-webkit-scrollbar{
+  background-color: transparent;
 }
 
 .column {
@@ -129,7 +136,9 @@ span{
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   z-index: 9999;
 }
-
+.skill_addProject{
+  width:28.5rem;
+}
 .popup button {
   margin-top: 10px;
 }
@@ -139,4 +148,68 @@ span{
 }
 #login-input-email{
   width: 90%;
+}
+
+.custom-multi-select {
+  position: relative;
+  width: 53%;
+  margin-bottom: 3px;
+}
+
+.dropdown {
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  width: 190%;
+}
+
+.selected-values {
+  flex: 1;
+}
+
+.dropdown-arrow {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #333;
+}
+​
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  z-index: 1;
+  display: none;
+}
+
+.dropdown.open + .dropdown-options {
+  display: block;
+}
+.dropdown-option {
+  padding: 10px;
+  width: 190%;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dropdown-option:hover {
+  background-color: #f0f0f0;
+}
+
+.selected {
+  background-color: #007bff;
+  color: #fff;
+  font-size: 14px;
+  width: 190%;
+  margin-bottom: 3px;
 }

@@ -3,6 +3,7 @@ package com.employee.employeeManagement.service;
 import com.employee.employeeManagement.Model.User;
 import com.employee.employeeManagement.dto.LoginDto;
 import com.employee.employeeManagement.dto.UserDto;
+import com.employee.employeeManagement.dto.UserNameDto;
 import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
 import com.employee.employeeManagement.exception.ResourceNotFoundException;
 import com.employee.employeeManagement.repository.UserRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Optional;
 
 /**
  * Service class that handles operations related to users.
@@ -62,7 +64,7 @@ public class UserService {
             modelMapper.getConfiguration()
                     .setMatchingStrategy(MatchingStrategies.STRICT);
             User user = this.modelMapper.map(userDto, User.class);
-            if (userRepository.findByEmail(user.getEmail()) != null) {
+            if (userRepository.findByEmail(user.getEmail()).isPresent()) {
                 throw new ResourceAlreadyExistsException(
                         "This email id already exists");
             }
@@ -117,5 +119,27 @@ public class UserService {
         User user = this.modelMapper.map(userDto, User.class);
         userRepository.save(user);
         return user;
+    }
+
+    public final UserNameDto getEmployeeById(final String userId) {
+        if(userRepository.findByUserId(userId).isEmpty()){
+            throw new ResourceNotFoundException("This id doesnot exists");
+        }
+        Optional<User> optionalUser = userRepository.findByUserId(userId);
+        User user = optionalUser.orElseThrow(
+                () -> new ResourceNotFoundException("Employee Id does not exist"));
+        UserNameDto userNameDto = new UserNameDto(user.getName());
+        return userNameDto;
+
+    }
+    public final UserNameDto getEmployeeByLongId(final Long id){
+        if(userRepository.findById(id).isEmpty()){
+            throw new ResourceNotFoundException("This id doesnot exists");
+        }
+        Optional<User> optionalUser = userRepository.findById(id);
+        User user = optionalUser.orElseThrow(
+                () -> new ResourceNotFoundException("Employee Id does not exist"));
+        UserNameDto userNameDto = new UserNameDto(user.getName());
+        return userNameDto;
     }
 }

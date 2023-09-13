@@ -14,13 +14,14 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 
+import java.util.List;
+
 /**
  * Represents a user.
  */
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "User")
 public class User {
@@ -100,12 +101,51 @@ public class User {
      * The skills or expertise possessed by the user.
      */
     @Column
-    private String skills;
+    private List<String> skills;
 
     /**
      * The name of the manager of user.
      */
     @Column
     private String managerId;
+    /**
+     * All arguments constructor.
+     * @param nameParam .
+     * @param emailParam .
+     * @param userIdParam .
+     * @param dobParam .
+     * @param dojParam .
+     * @param locationParam .
+     * @param designationParam .
+     * @param contactNoParam .
+     * @param projectIdParam .
+     * @param roleParam .
+     * @param passwordParam .
+     * @param skillsParam .
+     * @param managerIdParam .
+     */
+    public User(final String nameParam, final String emailParam,
+                   final String userIdParam, final String dobParam,
+                   final String dojParam, final Location locationParam,
+                   final Designation designationParam,
+                   final Long contactNoParam,
+                   final String projectIdParam, final Role roleParam,
+                   final String passwordParam,
+                   final List<String> skillsParam,
+                   final String managerIdParam) {
+        this.name = nameParam;
+        this.email = emailParam;
+        this.userId = userIdParam;
+        this.dob = dobParam;
+        this.doj = dojParam;
+        this.location = locationParam;
+        this.designation = designationParam;
+        this.contactNo = contactNoParam;
+        this.projectId = projectIdParam;
+        this.role = roleParam;
+        this.password = passwordParam;
+        this.skills = skillsParam;
+        this.managerId = managerIdParam;
+    }
 }
 

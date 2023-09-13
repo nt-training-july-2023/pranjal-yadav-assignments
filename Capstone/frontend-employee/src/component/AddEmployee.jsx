@@ -7,8 +7,9 @@ import AddEmployeeService from "../service/AddEmployeeService";
 import "../style/AdminRegistrationForm.css";
 import PopUp from "./Popup";
 import R from "../list/role";
-import Select from "react-select";
+// import Select from "react-select";
 import Skills from "../list/skills";
+import MultiSelectDropDown from "./MultiSelectDropDown";
 
 const AddEmployee = () => {
   var bcrypt = require("bcryptjs");
@@ -42,6 +43,7 @@ const AddEmployee = () => {
   const [roleError, setRoleError] = useState("");
   const [popMessage, setPopUpMessage] = useState("");
   const [showPopUp, setShowPopUp] = useState(false);
+  const [selectedSkills] = useState([]);
   //HANDLE BLURS
 
 const selectedSkillsValue={};
@@ -144,6 +146,7 @@ const selectedSkillsValue={};
   }
 
   const reversedDate = reverseDateFormat(dob);
+  const reversedoj = reverseDateFormat(doj);
   const saveEmp = (e) => {
     e.preventDefault();
     if (
@@ -174,7 +177,8 @@ const selectedSkillsValue={};
       return;
     }
 
-    const pwd = userId + dob;
+    const part1 = dob.replace(/-/g, '');
+    const pwd = userId + "@" + part1;
     const password = bcrypt.hashSync(pwd, 10);
     const date = dob.split("-").reverse().join("-");
     setDob(date)
@@ -183,7 +187,7 @@ const selectedSkillsValue={};
       email,
       userId,
       dob : reversedDate,
-      doj,
+      doj : reversedoj,
       location,
       designation,
       contactNo,
@@ -413,21 +417,9 @@ const selectedSkillsValue={};
                 <span>{roleError}</span>
               </div>
 
-              {/* <div className="form-group">
-                <label>Skills</label>
-                <input
-                  className="input"
-                  type="text"
-                  value={skills}
-                  onChange={(e) => {
-                    setSkills(e.target.value);
-                  }}
-                  onBlur={handleskills}
-                />
-                <span>{skillserror}</span>
-              </div> */}
               <div className="form-group">
-                <Select
+              <label>SKills</label>
+                {/* <Select
                 options={Skills.map((skill) => ({
                   value: skill,
                   label: skill,
@@ -437,16 +429,23 @@ const selectedSkillsValue={};
                 placeholder="Select skills"
                 onChange={handleSkillChange}
                 value={skills.map((skill) => ({ value: skill, label: skill }))}
-              /></div>
+              /> */}
+              <MultiSelectDropDown
+              className="skill_addProject"
+            options={Skills.map((skill) => ({
+              value: skill,
+              label: skill,
+            }))}
+            selectedOptions={selectedSkills.map((skill) => ({
+              value: skill,
+              label: skill,
+            }))}
+            onChange={handleSkillChange}
+            placeholder="Select Skills"
+            // onBlur={handleSkillsBlur}
+          />
+              </div>
               
-              {/* <div>
-                Selected Skills:
-                <ul>
-                  {selectedSkills.map((skill) => (
-                    <li key={skill.value}>{skill.label}</li>
-                  ))}
-                </ul>
-              </div> */}
             </div>
           </div>
           <button

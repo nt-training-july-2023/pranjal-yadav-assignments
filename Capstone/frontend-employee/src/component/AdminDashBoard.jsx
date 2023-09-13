@@ -19,7 +19,11 @@ const AdminDashBoard = () => {
 
   return (
     <div className="top">
-      <div className="admin_heading">Admin Dashboard</div>
+      {/* <div className="admin_heading">Admin Dashboard</div> */}
+      <Link to="/" className="btn-logout">
+        Log out
+      </Link>
+      
       <div className="admin_tabs">
         <div
           className={`admin_employee ${
@@ -42,18 +46,16 @@ const AdminDashBoard = () => {
           Project
         </div>
       </div>
-      <Link to="/" className="btn-logout">
-        Log out
-      </Link>
       {activeTab==="EMPLOYEE" && (<Link to="/addEmployee" className="btn-addEmployee">
         Add Employee
       </Link>)}
-      {/* {activeTab==="MANAGER" && (<Link to="/addEmployee" className="btn-addEmployee">
+      {activeTab==="MANAGER" && (<Link className="btn-addManager">
         Add Manager
-      </Link>)} */}
+      </Link>)}
       {activeTab==="PROJECT" && (<Link to="/addProject" className="btn-addEmployee">
         Add Project
       </Link>)}
+      
       <div className="card_container">
         {activeTab === "EMPLOYEE" && (
           <div>

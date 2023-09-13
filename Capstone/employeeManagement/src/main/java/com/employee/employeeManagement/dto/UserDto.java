@@ -9,7 +9,6 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
@@ -18,7 +17,6 @@ import java.util.List;
  * Data Transfer Object (DTO) representing user information.
  */
 @Getter
-@AllArgsConstructor
 @Setter
 @Data
 @NoArgsConstructor
@@ -77,6 +75,7 @@ public class UserDto {
      * The password of the user.
      */
     private String password;
+
     /**
      * The list of skills possessed by the user.
      */
@@ -85,4 +84,44 @@ public class UserDto {
      * The name of the user's manager.
      */
     private String managerId;
+
+    /**
+     * All arguments constructor.
+     * @param nameParam .
+     * @param emailParam .
+     * @param userIdParam .
+     * @param dobParam .
+     * @param dojParam .
+     * @param locationParam .
+     * @param designationParam .
+     * @param contactNoParam .
+     * @param projectIdParam .
+     * @param roleParam .
+     * @param passwordParam .
+     * @param skillsParam .
+     * @param managerIdParam .
+     */
+    public UserDto(final String nameParam, final String emailParam,
+                   final String userIdParam, final String dobParam,
+                   final String dojParam, final Location locationParam,
+                   final Designation designationParam,
+                   final Long contactNoParam,
+                   final String projectIdParam, final Role roleParam,
+                   final String passwordParam,
+                   final List<String> skillsParam,
+                   final String managerIdParam) {
+        this.name = nameParam;
+        this.email = emailParam;
+        this.userId = userIdParam;
+        this.dob = dobParam;
+        this.doj = dojParam;
+        this.location = locationParam;
+        this.designation = designationParam;
+        this.contactNo = contactNoParam;
+        this.projectId = projectIdParam;
+        this.role = roleParam;
+        this.password = passwordParam;
+        this.skills = skillsParam;
+        this.managerId = managerIdParam;
+    }
 }
