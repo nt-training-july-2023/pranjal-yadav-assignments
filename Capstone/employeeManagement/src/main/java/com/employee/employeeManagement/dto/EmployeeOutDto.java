@@ -3,65 +3,43 @@ package com.employee.employeeManagement.dto;
 import com.employee.employeeManagement.enums.Designation;
 import com.employee.employeeManagement.enums.Location;
 import com.employee.employeeManagement.enums.Role;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.Data;
 
 import java.util.List;
 
-/**
- * Data Transfer Object (DTO) representing user information.
- */
-@Data
-@NoArgsConstructor
-public class UserDto {
-    /**
-     * The name of the user.
-     */
-    @Pattern(regexp = "^[[A-Za-z\\s]*$]")
+public class EmployeeOutDto {
+    private Long id;
     private String name;
     /**
      * The email of user.
      */
-    @Email
     private String email;
     /**
      * The ID of the user.
      */
-    @NotBlank
-    @Pattern(regexp = "^[Nn]\\d{4}$")
     private String userId;
     /**
      * The date of birth of the user.
      */
-    @NotBlank
     private String dob;
     /**
      * The date of joining of the user.
      */
-    @NotBlank
     private String doj;
 
     /**
      * The location of the user.
      */
-    @NotBlank
     private Location location;
     /**
      * The designation of the user.
      */
-    @NotBlank
     private Designation designation;
     /**
      * The contact number of the user.
      */
     private Long contactNo;
     /**
-     * The name of the project the user is associated with.
+     * The id of the project the user is associated with.
      */
 
     private Long projectId;
@@ -69,58 +47,22 @@ public class UserDto {
      * The role of the user.
      */
     private Role role;
-    /**
-     * The password of the user.
-     */
-    private String password;
+    private String managerName;
+    private String projectName;
 
     /**
      * The list of skills possessed by the user.
      */
     private List<String> skills;
     /**
-     * The name of the user's manager.
+     * The id of the user's manager.
      */
     private Long managerId;
-
-    /**
-     * All arguments constructor.
-     * @param nameParam .
-     * @param emailParam .
-     * @param userIdParam .
-     * @param dobParam .
-     * @param dojParam .
-     * @param locationParam .
-     * @param designationParam .
-     * @param contactNoParam .
-     * @param projectIdParam .
-     * @param roleParam .
-     * @param passwordParam .
-     * @param skillsParam .
-     * @param managerIdParam .
-     */
-    public UserDto(final String nameParam, final String emailParam,
-                   final String userIdParam, final String dobParam,
-                   final String dojParam, final Location locationParam,
-                   final Designation designationParam,
-                   final Long contactNoParam,
-                   final Long projectIdParam, final Role roleParam,
-                   final String passwordParam,
-                   final List<String> skillsParam,
-                   final Long managerIdParam) {
-        this.name = nameParam;
-        this.email = emailParam;
-        this.userId = userIdParam;
-        this.dob = dobParam;
-        this.doj = dojParam;
-        this.location = locationParam;
-        this.designation = designationParam;
-        this.contactNo = contactNoParam;
-        this.projectId = projectIdParam;
-        this.role = roleParam;
-        this.password = passwordParam;
-        this.skills = skillsParam;
-        this.managerId = managerIdParam;
+    public Long getId(){
+        return id;
+    }
+    public void setId(Long id){
+        this.id = id;
     }
 
     public String getName() {
@@ -203,12 +145,12 @@ public class UserDto {
         this.role = role;
     }
 
-    public String getPassword() {
-        return password;
+    public String getManagerName() {
+        return managerName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
     }
 
     public List<String> getSkills() {
@@ -225,5 +167,13 @@ public class UserDto {
 
     public void setManagerId(Long managerId) {
         this.managerId = managerId;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 }

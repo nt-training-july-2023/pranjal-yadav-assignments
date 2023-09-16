@@ -13,6 +13,8 @@ import DisplayManager from './component/DisplayManager';
 import DisplayProject from './component/DisplayProject';
 import AddProject from './component/AddProject';
 import EmployeeDashBoard from './component/EmployeeComponents/EmployeeDashBoard';
+import AssignProject from './component/AssignProject';
+import EmpDisplayEmployee from './component/EmployeeComponents/EmpDisplayEmployee';
 
 
 
@@ -21,18 +23,20 @@ function App() {
     <div className="App">
     {/* // <div>  */}
        <Header/>
-      <BrowserRouter>
+       <BrowserRouter>
       <Routes>
         <Route path='/' element={<Login/>}></Route>
         <Route path='/adminRegister' element={<AdminRegistrationForm/>}></Route>
         <Route path='/dashboard' element= {<Dashboard/>}></Route>
         <Route path='/MANAGER' element={<DisplayManager/>} />
         <Route path='/EMPLOYEE' element={<DisplayEmployee/>} />
+        <Route path='/Organization' element={<EmpDisplayEmployee/>} />
         <Route path='/adminDashboard' element={<AdminDashBoard/>} />
         <Route path='/addEmployee' element={<AddEmployee/>} />
         <Route path='/PROJECT' element={<DisplayProject/>} />
         <Route path='/addProject' element={<AddProject/>} />
         <Route path='/employeeDashboard' element={<EmployeeDashBoard/>} />
+        <Route path='/assignProject/:id' element={<AssignProject />} />
       </Routes>
       </BrowserRouter>
       

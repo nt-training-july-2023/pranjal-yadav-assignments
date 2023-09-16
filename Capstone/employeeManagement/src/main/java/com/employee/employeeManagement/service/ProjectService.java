@@ -1,7 +1,7 @@
 package com.employee.employeeManagement.service;
 
 import com.employee.employeeManagement.Model.Project;
-import com.employee.employeeManagement.Model.Role;
+import com.employee.employeeManagement.enums.Role;
 import com.employee.employeeManagement.Model.User;
 import com.employee.employeeManagement.dto.ManagerDto;
 import com.employee.employeeManagement.dto.ProjectDto;

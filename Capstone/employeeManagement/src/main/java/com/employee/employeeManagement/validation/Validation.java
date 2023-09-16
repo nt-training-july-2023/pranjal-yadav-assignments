@@ -1,9 +1,14 @@
 package com.employee.employeeManagement.validation;
 
+import com.employee.employeeManagement.Model.User;
 import com.employee.employeeManagement.dto.LoginDto;
 import com.employee.employeeManagement.dto.UserDto;
 import com.employee.employeeManagement.exception.WrongCredentialsExceptions;
+import com.employee.employeeManagement.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 
 /**
@@ -11,16 +16,15 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class Validation {
+    @Autowired
+    UserRepository userRepository;
     /**
      * This method returns true if the name is valid.
      * @param name String that represents name.
      * @return boolean value.
      */
     public final boolean checkName(final String name) {
-        if (!name.isEmpty() && name.matches("^[A-Za-z ]+$")) {
-            return true;
-        }
-        return false;
+        return !name.isEmpty() && name.matches("^[A-Za-z ]+$");
     }
 
     /**
@@ -40,7 +44,7 @@ public class Validation {
      * @return boolean value.
      */
     public final boolean checkUserId(final String userId) {
-        if (!userId.isEmpty() && userId.matches("N\\d{3}$")) {
+        if (!userId.isEmpty() && userId.matches("N\\d{4}$")) {
             return true;
         }
         return false;

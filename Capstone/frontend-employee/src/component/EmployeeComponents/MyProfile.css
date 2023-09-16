@@ -1,3 +1,32 @@
-.sus{
-    font-weight: 100;
-}
+/* MyProfile.css */
+
+.main-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    width: 90%;
+  }
+  
+  .my-details-container {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    width: 200%; /* Adjust as needed */
+    display: flex;
+    /* max-width: 400px; Adjust as needed */
+    justify-content: space-evenly;
+  }
+  
+  .column-my-details {
+    margin: 10px;
+    flex: 1;
+  }
+  
+  .field_input {
+    margin: 0;
+    padding: 0;
+  }
+  

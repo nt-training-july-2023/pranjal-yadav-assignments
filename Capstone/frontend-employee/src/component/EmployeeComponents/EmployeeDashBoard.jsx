@@ -2,7 +2,9 @@ import React, {useState} from 'react'
 import { Link } from "react-router-dom";
 import DisplayEmployee from '../DisplayEmployee';
 import DisplayManager from "../DisplayManager";
+import './MyProfile.css';
 import MyProfile from './MyProfile';
+import EmpDisplayEmployee from './EmpDisplayEmployee';
 
 const EmployeeDashBoard = () => {
   const [activeTab, setActiveTab] = useState("MyProfile");
@@ -16,8 +18,8 @@ const EmployeeDashBoard = () => {
     setActiveTab("PROJECT");
   };
   return (
-    <div className="top">
-    <div className="admin_heading">Employee DashBoard</div>
+    <div className="top-employee">
+    <div style={{textAlign : 'center'}} className="employee_heading">Employee DashBoard</div>
     <div className="admin_tabs">
       <div
         className={`admin_employee ${
@@ -31,7 +33,7 @@ const EmployeeDashBoard = () => {
         className={`admin_manager ${activeTab === "Organization" ? "active" : ""}`}
         onClick={switchToManagerTab}
       >
-        Manager
+        Organization
       </div>
     </div>
     <Link to="/" className="btn-logout">
@@ -44,9 +46,9 @@ const EmployeeDashBoard = () => {
           <MyProfile/>
         </div>
       )}
-      {activeTab === "MANAGER" && (
+      {activeTab === "Organization" && (
         <div>
-          <DisplayManager />
+          <EmpDisplayEmployee />
         </div>
       )}
       {/* {activeTab === "PROJECT" && (

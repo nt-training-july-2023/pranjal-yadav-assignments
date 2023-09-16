@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
  * Data Transfer Object (DTO) representing a response
  * containing success status and a message.
  */
-@Getter
-@Setter
 @NoArgsConstructor
 public class ResponseEntityDto {
     /**
@@ -30,6 +28,19 @@ public class ResponseEntityDto {
     public final boolean getIsSuccess() {
         return isSuccess;
     }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setSuccess(boolean success) {
+        isSuccess = success;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     /**
      * Constructs a new ResponseEntityDto with success status and message.
      *

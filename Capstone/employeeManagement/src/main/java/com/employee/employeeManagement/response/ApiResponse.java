@@ -1,6 +1,6 @@
 package com.employee.employeeManagement.response;
 
-import com.employee.employeeManagement.Model.Role;
+import com.employee.employeeManagement.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -47,7 +47,7 @@ const Login = () => {
 
           localStorage.setItem("userRole", response.data.role);
           localStorage.setItem("isLoggedIn", response.status);
-          // localStorage.setItem("email", email);
+          localStorage.setItem("email", admin1.email);
 
         })
         .catch((error) => {

@@ -1,4 +1,4 @@
-package com.employee.employeeManagement.Model;
+package com.employee.employeeManagement.enums;
 
 /**
  * Enumeration representing different roles.

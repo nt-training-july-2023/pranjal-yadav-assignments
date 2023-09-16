@@ -38,7 +38,7 @@ public class CustomExceptionHandlerTest {
     @Test
     public void handleIllegalArgumentException() {
         ValidationException ex = new ValidationException("Validation error");
-        ApiResponse apiResponse = customExceptionHandler.handleIllegalArgumentException(ex);
+        ApiResponse apiResponse = customExceptionHandler.IllegalArgumentException(ex);
 
         assertEquals("Validation error", apiResponse.getMessage());
     }

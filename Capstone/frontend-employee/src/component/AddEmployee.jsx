@@ -46,7 +46,7 @@ const AddEmployee = () => {
   const [selectedSkills] = useState([]);
   //HANDLE BLURS
 
-const selectedSkillsValue={};
+  const selectedSkillsValue = {};
   const handleNameBlur = () => {
     if (/^-?\\d/.test(name) || name === "") {
       setErrorMessage("Give valid name");
@@ -58,7 +58,7 @@ const selectedSkillsValue={};
     }
   };
   const handleEmpIDBlur = () => {
-    if (!/^[N]\d{3}$/.test(userId) || userId === "") {
+    if (!/^[N]\d{4}$/.test(userId) || userId === "") {
       setEmpIdError("Employee ID should be in pattern NXXX");
     } else {
       setEmpIdError("");
@@ -115,23 +115,7 @@ const selectedSkillsValue={};
     const selectedSkillsValues = selectedOptions.map((option) => option.value);
     setSkills(selectedSkillsValues);
   };
-  
-  // const handlePassword = () => {
-  //   if (password !== confirmPassword) {
-  //     setPasswordError("Password and confirm password do not match");
-  //     setConfirmPasswordError("Password and confirm password do not match");
-  //     //alert("Passwords dont match");
-  //   } else {
-  //     setPasswordError("");
-  //     setConfirmPasswordError("");
-  //   }
-  // };
 
-  // const handleskills = () => {
-  //   if (skills === "") {
-  //     setSkillsError("Give skills");
-  //   }
-  // };
 
   function reverseDateFormat(inputDate) {
     const dateParts = inputDate.split("-");
@@ -177,17 +161,17 @@ const selectedSkillsValue={};
       return;
     }
 
-    const part1 = dob.replace(/-/g, '');
+    const part1 = dob.replace(/-/g, "");
     const pwd = userId + "@" + part1;
     const password = bcrypt.hashSync(pwd, 10);
     const date = dob.split("-").reverse().join("-");
-    setDob(date)
+    setDob(date);
     const employee = {
       name,
       email,
       userId,
-      dob : reversedDate,
-      doj : reversedoj,
+      dob: reversedDate,
+      doj: reversedoj,
       location,
       designation,
       contactNo,
@@ -211,9 +195,9 @@ const selectedSkillsValue={};
           setShowPopUp(true);
           setPopUpMessage(error.response.data.message);
         }
-        if(error.response.status === 500){
-          setShowPopUp(true)
-          setPopUpMessage("This employee already exists")
+        if (error.response.status === 500) {
+          setShowPopUp(true);
+          setPopUpMessage("This employee already exists");
         }
       });
   };
@@ -370,6 +354,24 @@ const selectedSkillsValue={};
                 </select>
                 <span>{designationError}</span>
               </div>
+              <div className="form-group">
+                <label>Skills</label>
+
+                <MultiSelectDropDown
+                  className="skill_addProject"
+                  options={Skills.map((skill) => ({
+                    value: skill,
+                    label: skill,
+                  }))}
+                  selectedOptions={selectedSkills.map((skill) => ({
+                    value: skill,
+                    label: skill,
+                  }))}
+                  onChange={handleSkillChange}
+                  placeholder="Select Skills"
+                  // onBlur={handleSkillsBlur}
+                />
+              </div>
 
               <div className="form-group">
                 <label>Contact Number</label>
@@ -417,34 +419,6 @@ const selectedSkillsValue={};
                 <span>{roleError}</span>
               </div>
 
-              <div className="form-group">
-              <label>SKills</label>
-                {/* <Select
-                options={Skills.map((skill) => ({
-                  value: skill,
-                  label: skill,
-                }))}
-                isMulti={true}
-                className="select-input"
-                placeholder="Select skills"
-                onChange={handleSkillChange}
-                value={skills.map((skill) => ({ value: skill, label: skill }))}
-              /> */}
-              <MultiSelectDropDown
-              className="skill_addProject"
-            options={Skills.map((skill) => ({
-              value: skill,
-              label: skill,
-            }))}
-            selectedOptions={selectedSkills.map((skill) => ({
-              value: skill,
-              label: skill,
-            }))}
-            onChange={handleSkillChange}
-            placeholder="Select Skills"
-            // onBlur={handleSkillsBlur}
-          />
-              </div>
               
             </div>
           </div>

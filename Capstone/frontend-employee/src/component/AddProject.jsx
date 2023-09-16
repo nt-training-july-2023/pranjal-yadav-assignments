@@ -4,7 +4,7 @@ import Skills from "../list/skills";
 import AddProjectService from "../service/AddProjectService";
 import PopUp from "./Popup";
 import Select from "react-select";
-import '../style/DIsplay.css'
+import "../style/DIsplay.css";
 import MultiSelectDropDown from "./MultiSelectDropDown";
 
 const AddProject = () => {
@@ -18,7 +18,7 @@ const AddProject = () => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [managers, setManagers] = useState([]);
   const [managerId, setManagerId] = useState("");
-  const [selectedSkills ] = useState([]);
+  const [selectedSkills] = useState([]);
 
   const navigate = useNavigate();
 
@@ -59,27 +59,27 @@ const AddProject = () => {
       setManagerIdError("");
     }
   };
-  const handleDescriptionBlur = () =>{
-    if(description ===""){
-      setDescriptionError("Give Description")
-    }else{
-      setDescriptionError("")
+  const handleDescriptionBlur = () => {
+    if (description === "") {
+      setDescriptionError("Give Description");
+    } else {
+      setDescriptionError("");
     }
-  }
-  const handleStartDateBlur =()=>{
-    if(startDate ===""){
-      setStartDateError("Give start date")
-    }else{
-      setStartDateError("")
+  };
+  const handleStartDateBlur = () => {
+    if (startDate === "") {
+      setStartDateError("Give start date");
+    } else {
+      setStartDateError("");
     }
-  }
-  const handleSkillsBlur = () =>{
-    if(skills.length ===0 ){
-      setSkillsError("Give skills")
-    }else{
-      setSkillsError("")
+  };
+  const handleSkillsBlur = () => {
+    if (skills.length === 0) {
+      setSkillsError("Give skills");
+    } else {
+      setSkillsError("");
     }
-  }
+  };
   useEffect(() => {
     fetchManagers();
   }, []);
@@ -102,7 +102,7 @@ const AddProject = () => {
     }
     // setManagerId(returnManager.id);
     // console.log(managerId);
-    // const id = 
+    // const id =
     const project = {
       projectName,
       description,
@@ -165,7 +165,7 @@ const AddProject = () => {
                 <label>Manager</label>
                 <select
                   // value={location}
-                  
+
                   placeholder="Enter Manager"
                   name="manager"
                   className="input-addproject-manager"
@@ -174,17 +174,50 @@ const AddProject = () => {
                 >
                   <option value="">Select Manager</option>
                   {managers.map((item) => {
-                    {console.log(item)}
+                    {
+                      console.log(item);
+                    }
                     return (
                       <option key={item.id} value={item.id}>
-                        {item.name} : {item.userId}
+                        {item.userId} : {item.name} 
                       </option>
                     );
                   })}
                 </select>
                 <span>{managerIdError}</span>
               </div>
+              <div>
 
+              
+              <MultiSelectDropDown
+                className="skill_addProject"
+                options={Skills.map((skill) => ({
+                  value: skill,
+                  label: skill,
+                }))}
+                selectedOptions={selectedSkills.map((skill) => ({
+                  value: skill,
+                  label: skill,
+                }))}
+                onChange={handleSkillChange}
+                placeholder="Select Skills"
+                onBlur={handleSkillsBlur}
+              />
+              <span>{skillsError}</span>
+              </div>
+              
+
+              <div className="form-group">
+                <label>Start Date</label>
+                <input
+                  type="date"
+                  className="input "
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  onBlur={handleStartDateBlur}
+                />
+                <span>{startDateError}</span>
+              </div>
               <div className="form-group">
                 <label>Description</label>
                 <textarea
@@ -201,45 +234,6 @@ const AddProject = () => {
                 />
                 <span>{descriptionError}</span>
               </div>
-
-              <div className="form-group">
-                <label>Start Date</label>
-                <input
-                  type="date"
-                  className="input "
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  onBlur={handleStartDateBlur}
-                />
-                <span>{startDateError}</span>
-              </div>
-              {/* <Select
-                options={Skills.map((skill) => ({
-                  value: skill,
-                  label: skill,
-                }))}
-                isMulti={true}
-                placeholder="Select skills"
-                className="skill_addProject"
-                onChange={handleSkillChange}
-                onBlur={handleSkillsBlur}
-                value={skills.map((skill) => ({ value: skill, label: skill }))}
-              /> */}
-              <MultiSelectDropDown
-              className="skill_addProject"
-            options={Skills.map((skill) => ({
-              value: skill,
-              label: skill,
-            }))}
-            selectedOptions={selectedSkills.map((skill) => ({
-              value: skill,
-              label: skill,
-            }))}
-            onChange={handleSkillChange}
-            placeholder="Select Skills"
-            onBlur={handleSkillsBlur}
-          />
-              <span>{skillsError}</span>
             </div>
           </div>
           <button

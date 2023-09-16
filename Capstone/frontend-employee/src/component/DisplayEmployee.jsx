@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import '../style/DIsplay.css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import AssignProject from "./AssignProject";
 
 
 const DisplayEmployee = () => {
@@ -11,46 +12,11 @@ const DisplayEmployee = () => {
   const [managerName, setManagerName]  = useState("");
   const [managerId_usestate, setmanagerId_usestate] = useState("");
   const [managerNames, setManagerNames] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllEmployees();
   }, []);
-
-  useEffect(() => {
-    getManagerById();
-  }, [employees]);
-
-  // const getManagerById = async () =>{
-  //   try{
-  //     const response = await axios.get(`http://localhost:8080/user/getManagerById/${employees.managerId}`)
-  //     console.log(response.data)
-  //     setManagerName(response.data);
-  //     return {id : employee.id, managerName : response.data.name}
-  //   }
-  //   catch(error){
-  //     console.log(error);
-  //   }
-  // }
-  async function getManagerById() {
-    const managerNamePromises = employees.map(async (employee) => {
-      try {
-        const res = await axios.get(
-          `http://localhost:8080/user/getEmployee/${employee.managerId}`
-        );
-        return { id: employee.id, managerName: res.data.name };
-      } catch (error) {
-        console.log(error);
-        return { id: employee.id, managerName: "Error fetching name" };
-      }
-    });
-    const managerNameResults = await Promise.all(managerNamePromises);
-    const managerNameMap = {};
-    managerNameResults.forEach((result) => {
-      managerNameMap[result.id] = result.managerName;
-    });
-    console.log("manager name map", managerNameMap);
-    setManagerNames(managerNameMap);
-  }
 
   const getAllEmployees = async () => {
     try {
@@ -70,21 +36,21 @@ const DisplayEmployee = () => {
     <div >
       <div className="card-container">
         {employees.map((employee) => (
-          <div className="card" key={employee.userId}>
+          <div className="card" key={employee.id}>
             <div className="column">
               <div className="name-designation">
               <h2>{employee.name}</h2>
             <p >{employee.designation}</p>
               </div>
             
-            <p><span className="highlight-span">Project Name : </span> {employee.project}</p>
-            <p><span className="highlight-span">Manager :</span>{managerNames[employee.id]}</p>
+            <p><span className="highlight-span">Project Name : </span> {employee.projectName}</p>
+            <p><span className="highlight-span">Manager :</span>{employee.managerName}</p>
             {/* <p>Manager : Ankita Sharma</p> */}
             <p><span className="highlight-span">Contact : </span>{employee.contactNo}</p>
             <p><span className="highlight-span">Email : </span>{employee.email}</p>
             {!employee.project && (
                 
-                  <button className="assign-button">Assign Project</button>
+                  <Link className="assign-button" to={`/assignProject/${employee.id}`} return employee ={employee}>Assign Project</Link>
                 
               )}
             </div>

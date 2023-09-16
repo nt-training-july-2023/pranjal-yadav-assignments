@@ -1,8 +1,7 @@
 
 *{
     margin: 0;
-    padding: 0;
-    background-image: url("");
+    padding: 0; 
 }
 
 .top{
@@ -131,6 +130,22 @@
     /* width: 1000%;  */
     
 }
+/* .input-project-dd{
+  color: #000;
+}
+.option-assign{
+  color: #000;
+} */
+
+.custom-select {
+  background-color: rgb(255, 255, 255);
+  color: rgb(14, 0, 2);
+}
+
+.custom-select option {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
 
 .card {
     display: flex;
@@ -255,6 +270,7 @@
     color: rgb(248, 204, 244);
     text-decoration: none;
     border: none; 
+    opacity: 0;
     border-radius: 5px;
     /* cursor: pointer;  */
     margin-left: 60rem;

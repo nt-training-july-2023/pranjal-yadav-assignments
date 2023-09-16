@@ -1,11 +1,8 @@
 package com.employee.employeeManagement.service;
 
-import com.employee.employeeManagement.Model.Project;
-import com.employee.employeeManagement.Model.Role;
+import com.employee.employeeManagement.enums.Role;
 import com.employee.employeeManagement.Model.User;
 import com.employee.employeeManagement.dto.ManagerDto;
-import com.employee.employeeManagement.dto.ProjectDto;
-import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
 import com.employee.employeeManagement.repository.ProjectRepository;
 import com.employee.employeeManagement.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,11 +11,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

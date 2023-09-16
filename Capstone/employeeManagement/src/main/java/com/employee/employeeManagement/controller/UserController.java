@@ -1,7 +1,8 @@
 package com.employee.employeeManagement.controller;
 
-import com.employee.employeeManagement.Model.Role;
+import com.employee.employeeManagement.enums.Role;
 import com.employee.employeeManagement.Model.User;
+import com.employee.employeeManagement.dto.EmployeeOutDto;
 import com.employee.employeeManagement.dto.LoginDto;
 import com.employee.employeeManagement.dto.UserDto;
 import com.employee.employeeManagement.dto.UserNameDto;
@@ -10,15 +11,12 @@ import com.employee.employeeManagement.repository.UserRepository;
 import com.employee.employeeManagement.response.ApiResponse;
 import com.employee.employeeManagement.service.UserService;
 import jakarta.validation.Valid;
+import jakarta.validation.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controller class for managing user operations.
@@ -35,6 +33,7 @@ public class UserController {
     /**
      * Repository for accessing user data.
      */
+    private Validation validation;
     @Autowired
     private UserRepository userRepository;
     /**
@@ -45,16 +44,7 @@ public class UserController {
      */
     @PostMapping(path = "/save")
     public final ApiResponse saveAdmin(final @RequestBody UserDto userDto) {
-        UserDto createdUser = userService.addUser(userDto);
-        if (createdUser != null) {
-            ApiResponse response = new ApiResponse(
-                    "Admin added successfully", createdUser.getRole());
-            return response;
-        } else {
-            ApiResponse response = new ApiResponse(
-                    "Invalid credentials", null);
-            return response;
-        }
+        return userService.addUser(userDto);
     }
     /**
      * Endpoint for user login.
@@ -89,9 +79,8 @@ public class UserController {
     @PostMapping(path = "/save-emp")
     public final ApiResponse saveEmp(@RequestBody final UserDto userDto) {
             User user = userService.saveEmp(userDto);
-            ApiResponse apiResponse = new ApiResponse(
-                    "User added", user.getRole());
-            return apiResponse;
+        return new ApiResponse(
+                "User added", user.getRole());
     }
     /**
      * Endpoint for retrieving all employees by their role.
@@ -101,18 +90,32 @@ public class UserController {
      * with the specified role.
      */
     @GetMapping(path = "/all/{roleName}")
-    public final List<User> getEmployeesByRole(
+    public final List<EmployeeOutDto> getEmployeesByRole(
             @PathVariable final String roleName) {
-        Role role = Role.valueOf(roleName);
-        List<User> employees = userRepository.findByRole(role);
-        return employees;
+        return userService.allUserByRole(roleName);
+    }
+    @GetMapping(path = "/allUsers")
+    public final List<EmployeeOutDto> getAllUsers(){
+        return userService.getAllUsers();
     }
     @GetMapping(path = "/getEmployee/{userId}")
-    public final UserNameDto getEmployeeById (@PathVariable final String userId) {
-        return userService.getEmployeeById(userId);
+    public final UserNameDto getEmployeeNameById (@PathVariable final String userId) {
+        return userService.getEmployeeNameById(userId);
     }
     @GetMapping(path = "getEmployeeById/{id}")
-    public final UserNameDto getEmployeeByLongId(@PathVariable final Long id){
-        return userService.getEmployeeByLongId(id);
+    public final UserNameDto getEmployeeNameByLongId(@PathVariable final Long id){
+        return userService.getEmployeeNameByLongId(id);
+    }
+    @GetMapping(path = "getUserById/{id}")
+    public final EmployeeOutDto getEmployeeById(@PathVariable final Long id){
+        return userService.getEmployeeById(id);
+    }
+    @GetMapping(path = "/email/{email}")
+    public final EmployeeOutDto getEmployeeByEmail(@PathVariable final String email){
+        return userService.getEmployeeByEmail(email);
+    }
+    @PutMapping(path = "/{id}/assignProject")
+    public final ApiResponse updateEmployee(@PathVariable Long id, @RequestBody Map<String, Long> updatedDetails){
+        return userService.updateEmployee(id, updatedDetails);
     }
 }

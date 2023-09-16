@@ -5,7 +5,6 @@ const ManagerCard = ({manager}) => {
 
     const [projectList, setProjectList] = useState([]);
     const [selectedProject, setSelectedProject] = useState("");
-    const [defaultProject, setDefaultProject] = useState("")
 
     useEffect(() => {
         getAllProjects();
@@ -51,9 +50,9 @@ const ManagerCard = ({manager}) => {
                                     })}
                 </select>
               </p>
-            <p><span className="highlight-span"> Manager : </span>{manager.managerId}</p>
+            <p><span className="highlight-span"> Manager : </span>{manager.managerName}</p>
             <p> <span className='highlight-span'>Contact</span> : {manager.contactNo}</p>
-            <p><span className="highlight-span"> Email : </span>{manager.email}</p>
+            <p><span className="highlight-span"> Email:</span>{manager.email}</p>
             </div>
             <div className="column">
             <p style={{fontSize:"15px"}}><span className="highlight-span">Employee id :  </span> {manager.userId}</p>

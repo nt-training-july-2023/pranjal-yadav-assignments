@@ -1,5 +1,8 @@
 package com.employee.employeeManagement.Model;
 
+import com.employee.employeeManagement.enums.Designation;
+import com.employee.employeeManagement.enums.Location;
+import com.employee.employeeManagement.enums.Role;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
@@ -7,21 +10,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a user.
  */
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @Table(name = "User")
 public class User {
@@ -83,7 +82,7 @@ public class User {
      * The name of the project associated with the user.
      */
     @Column
-    private String projectId;
+    private Long projectId;
 
     /**
      * The role of the user within the organization.
@@ -107,7 +106,120 @@ public class User {
      * The name of the manager of user.
      */
     @Column
-    private String managerId;
+    private Long managerId;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getDoj() {
+        return doj;
+    }
+
+    public void setDoj(String doj) {
+        this.doj = doj;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Designation getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(Designation designation) {
+        this.designation = designation;
+    }
+
+    public long getContactNo() {
+        return contactNo;
+    }
+
+    public void setContactNo(long contactNo) {
+        this.contactNo = contactNo;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<String> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
+    }
+
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
+    }
+
     /**
      * All arguments constructor.
      * @param nameParam .
@@ -129,10 +241,10 @@ public class User {
                    final String dojParam, final Location locationParam,
                    final Designation designationParam,
                    final Long contactNoParam,
-                   final String projectIdParam, final Role roleParam,
+                   final Long projectIdParam, final Role roleParam,
                    final String passwordParam,
                    final List<String> skillsParam,
-                   final String managerIdParam) {
+                   final Long managerIdParam) {
         this.name = nameParam;
         this.email = emailParam;
         this.userId = userIdParam;
@@ -146,6 +258,32 @@ public class User {
         this.password = passwordParam;
         this.skills = skillsParam;
         this.managerId = managerIdParam;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+        return getId() == user.getId() && getContactNo() == user.getContactNo()
+                && Objects.equals(getName(), user.getName()) &&
+                Objects.equals(getEmail(), user.getEmail()) &&
+                Objects.equals(getUserId(), user.getUserId()) &&
+                Objects.equals(getDob(), user.getDob()) &&
+                Objects.equals(getDoj(), user.getDoj()) && getLocation() ==
+                user.getLocation() && getDesignation() == user.getDesignation()
+                && Objects.equals(getProjectId(), user.getProjectId()) &&
+                getRole() == user.getRole() && Objects.equals(getPassword(),
+                user.getPassword()) &&
+                Objects.equals(getSkills(), user.getSkills()) &&
+                Objects.equals(getManagerId(), user.getManagerId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getEmail(), getUserId(),
+                getDob(), getDoj(), getLocation(), getDesignation(),
+                getContactNo(), getProjectId(), getRole(), getPassword(),
+                getSkills(), getManagerId());
     }
 }
 

@@ -2,6 +2,7 @@
     display: flex;
     /* flex-direction: column; */
     flex-wrap: wrap;
+    /* scroll; */
     
     overflow-y: scroll !important; 
     /* max-height: 400px !important; */
@@ -52,7 +53,8 @@ p {
     background-color: #0056b3;
 }
  .card_container::-webkit-scrollbar {
-    width: 0.5rem;
+    /* width: 0.5rem; */
+    display: none;
 }
 
 .card_container::-webkit-scrollbar-thumb {
@@ -89,4 +91,7 @@ p {
   }
   .emp-id{
     margin-bottom: 20px;
+  }
+  .assign{
+    text-align: center;
   }

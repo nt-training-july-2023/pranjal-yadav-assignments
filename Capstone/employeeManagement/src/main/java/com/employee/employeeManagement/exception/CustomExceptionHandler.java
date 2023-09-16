@@ -20,6 +20,7 @@ public class CustomExceptionHandler {
      * ApiResponse with a NOT_FOUND status.
      */
     @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public final ResponseEntity<ApiResponse> handleNotFoundException(
             final ResourceNotFoundException ex) {
         ApiResponse apiResponse = new ApiResponse(ex.getMessage());
@@ -46,7 +47,7 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public final ApiResponse handleIllegalArgumentException(
+    public final ApiResponse IllegalArgumentException(
             final ValidationException ex) {
         String message = ex.getMessage();
         return new ApiResponse(message);

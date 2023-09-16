@@ -78,7 +78,7 @@ const AdminRegistrationForm = () => {
   };
 
   const handleEmpIDBlur = () => {
-    if (!/^[N]\d{3}$/.test(userId)) {
+    if (!/^[N]\d{4}$/.test(userId)) {
       setEmpIdError("Employee ID should be in pattern NXXX");
     } else {
       setEmpIdError("");
@@ -132,7 +132,6 @@ const AdminRegistrationForm = () => {
     if (password !== confirmPassword) {
       setPasswordError("Password and confirm password do not match");
       setConfirmPasswordError("Password and confirm password do not match");
-      //alert("Passwords dont match");
     } else {
       setPasswordError("");
       setConfirmPasswordError("");
@@ -142,7 +141,6 @@ const AdminRegistrationForm = () => {
   const saveAdmin = (e) => {
     e.preventDefault();
     try {
-      //var hash = bcrypt.hashSync(password, salt);
       if (
         name === "" ||
         dob === "" ||
@@ -169,16 +167,6 @@ const AdminRegistrationForm = () => {
         setConfirmPasswordError("Mandatory field");
         return;
       }
-
-      // if(emailError.length==0 && errorMessage.length==0 &&
-      //   passwordError.length==0 &&empIdError.length==0 &&
-      //   contactNumberError.length==0 &&
-      //   passwordError.length==0 &&
-      //   dobError.length==0 &&
-      //   dojError.length==0 &&
-      //   confirmPasswordError.length==0){
-
-      // }
 
       const hashedPassword = bcrypt.hashSync(password, 10);
 

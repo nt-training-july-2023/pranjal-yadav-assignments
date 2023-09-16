@@ -1,8 +1,8 @@
 //package com.employee.employeeManagement.Model;
 //
-//import com.employee.employeeManagement.Model.Designation;
-//import com.employee.employeeManagement.Model.Location;
-//import com.employee.employeeManagement.Model.Role;
+//import com.employee.employeeManagement.enums.Designation;
+//import com.employee.employeeManagement.enums.Location;
+//import com.employee.employeeManagement.enums.Role;
 //import com.employee.employeeManagement.Model.User;
 //import org.junit.jupiter.api.Test;
 //
