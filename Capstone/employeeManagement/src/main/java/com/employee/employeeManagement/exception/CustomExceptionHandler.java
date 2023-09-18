@@ -21,7 +21,7 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public final ResponseEntity<ApiResponse> handleNotFoundException(
+    public final ResponseEntity<ApiResponse> notFoundException(
             final ResourceNotFoundException ex) {
         ApiResponse apiResponse = new ApiResponse(ex.getMessage());
         return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
@@ -34,7 +34,7 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(WrongCredentialsExceptions.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public final ApiResponse handleWrongCredentialException(
+    public final ApiResponse wrongCredentialException(
             final WrongCredentialsExceptions ex) {
         String message = ex.getMessage();
         return new ApiResponse(message);
@@ -47,7 +47,7 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public final ApiResponse IllegalArgumentException(
+    public final ApiResponse illegalArgumentException(
             final ValidationException ex) {
         String message = ex.getMessage();
         return new ApiResponse(message);
@@ -60,7 +60,7 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(ResourceAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.FOUND)
-    public final ApiResponse handleResourceAlreadyExistsException(
+    public final ApiResponse resourceAlreadyExistsException(
             final ResourceAlreadyExistsException ex) {
         String message = ex.getMessage();
         return new ApiResponse(message);

@@ -1,19 +1,27 @@
 package com.employee.employeeManagement.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
-
-@AllArgsConstructor
+/**
+ * Data Transfer Object (DTO) representing a user's name.
+ */
 public class UserNameDto {
+    /**
+     * Name of the user.
+     */
     private String name;
-
-    public String getName() {
+    /**
+     * Get the name of the user.
+     *
+     * @return The user's name.
+     */
+    public final String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Set the name of the user.
+     *
+     * @param nameParam The user's name.
+     */
+    public final void setName(final String nameParam) {
+        this.name = nameParam;
     }
 }

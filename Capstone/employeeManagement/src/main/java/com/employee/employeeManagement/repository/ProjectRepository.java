@@ -14,14 +14,22 @@ import java.util.Optional;
 public interface ProjectRepository extends JpaRepository<Project, Long> {
     /**
      * findAllByManagerID.
-     * @param managerId manger empID
-     * @return List project
+     * @param managerId manger empID.
+     * @return List project.
      */
     List<Project> findAllByManagerId(Long managerId);
     /**
      * findByProjectID.
-     * @param projectId project Id
-     * @return project
+     * @param projectId project Id.
+     * @return project.
      */
     Optional<Project> findByProjectId(Long projectId);
+
+    /**
+     * findByProjectName.
+     * @param projectName Name of the project.
+     * @return project.
+     */
+    Optional<Project> findByProjectName(String projectName);
+
 }

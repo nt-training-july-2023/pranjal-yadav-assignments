@@ -1,21 +1,21 @@
 package com.employee.employeeManagement.exceptionTest;
 
-import com.employee.employeeManagement.exception.ResourceNotFoundException;
+import com.employee.employeeManagement.exception.ValidationException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ResourceNotFoundTest {
+public class ValidationExceptionTest {
     @Test
     public void testConstructorWithMessage() {
-        String errorMessage = "Resource not found";
-        ResourceNotFoundException exception = new ResourceNotFoundException(errorMessage);
+        String errorMessage = "Validation error occurred";
+        ValidationException exception = new ValidationException(errorMessage);
         assertEquals(errorMessage, exception.getMessage());
     }
 
     @Test
     public void testConstructorWithoutMessage() {
-        ResourceNotFoundException exception = new ResourceNotFoundException(null);
+        ValidationException exception = new ValidationException(null);
         assertEquals(null, exception.getMessage());
     }
 }

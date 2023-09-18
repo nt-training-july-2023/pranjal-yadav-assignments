@@ -1,21 +1,21 @@
 package com.employee.employeeManagement.exceptionTest;
 
-import com.employee.employeeManagement.exception.ResourceNotFoundException;
+import com.employee.employeeManagement.exception.WrongCredentialsExceptions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ResourceNotFoundTest {
+public class WrongCredentialsExceptionTest {
     @Test
     public void testConstructorWithMessage() {
-        String errorMessage = "Resource not found";
-        ResourceNotFoundException exception = new ResourceNotFoundException(errorMessage);
+        String errorMessage = "Invalid credentials";
+        WrongCredentialsExceptions exception = new WrongCredentialsExceptions(errorMessage);
         assertEquals(errorMessage, exception.getMessage());
     }
 
     @Test
     public void testConstructorWithoutMessage() {
-        ResourceNotFoundException exception = new ResourceNotFoundException(null);
+        WrongCredentialsExceptions exception = new WrongCredentialsExceptions(null);
         assertEquals(null, exception.getMessage());
     }
 }

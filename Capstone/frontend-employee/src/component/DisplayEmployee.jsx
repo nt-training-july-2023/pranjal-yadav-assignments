@@ -45,14 +45,9 @@ const DisplayEmployee = () => {
             
             <p><span className="highlight-span">Project Name : </span> {employee.projectName}</p>
             <p><span className="highlight-span">Manager :</span>{employee.managerName}</p>
-            {/* <p>Manager : Ankita Sharma</p> */}
             <p><span className="highlight-span">Contact : </span>{employee.contactNo}</p>
             <p><span className="highlight-span">Email : </span>{employee.email}</p>
-            {!employee.project && (
-                
-                  <Link className="assign-button" to={`/assignProject/${employee.id}`} return employee ={employee}>Assign Project</Link>
-                
-              )}
+            
             </div>
             <div className="column">
             <p className="emp-id" style={{fontSize:"15px"}}><span className="highlight-span">Employee id : </span>{employee.userId}</p>
@@ -60,8 +55,13 @@ const DisplayEmployee = () => {
             <p><span className="highlight-span">DOB : </span>{employee.dob}</p>
             <p><span className="highlight-span">DOJ: </span>{employee.doj}</p>
             <p><span className="highlight-span">Location : </span>{employee.location}</p>
-            {/* <p>Skills: {(employee.skills) ? (employee.skills.replace(/[\[\]'+/g,'') ): "NA" } </p> */}
-            {/* <p style={{marginTop:"1rem"}}> <span className="highlight-span">Skills :  </span> {(employee.skills)?(employee.skills.join(",")):"NA"}</p> */}
+            
+            <br />
+            {!employee.projectId && (
+                
+                <Link className="assign-button" to={`/assignProject/${employee.id}`} return employee ={employee}>Assign Project</Link>
+              
+            )}
             </div>
             
 

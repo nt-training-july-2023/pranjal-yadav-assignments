@@ -1,7 +1,5 @@
 package com.employee.employeeManagement.dto;
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 
@@ -29,17 +27,34 @@ public class ResponseEntityDto {
         return isSuccess;
     }
 
-    public String getMessage() {
+    /**
+     * Get the message.
+     *
+     * @return The message.
+     */
+    public final String getMessage() {
         return message;
     }
 
-    public void setSuccess(boolean success) {
-        isSuccess = success;
+    /**
+     * Set the success status.
+     *
+     * @param successParam The success status to set.
+     */
+    public final void setSuccess(final
+            boolean successParam) {
+        isSuccess = successParam;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    /**
+     * Set the message.
+     *
+     * @param messageParam The message to set.
+     */
+    public final void setMessage(final String messageParam) {
+        this.message = messageParam;
     }
+
 
     /**
      * Constructs a new ResponseEntityDto with success status and message.

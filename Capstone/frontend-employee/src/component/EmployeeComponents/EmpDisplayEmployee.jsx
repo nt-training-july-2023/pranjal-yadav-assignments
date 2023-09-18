@@ -43,7 +43,7 @@ const EmpDisplayEmployee = () => {
     <div>
       <div className="card-container">
         {employees.map((employee) => (
-          <div className="card" key={employee.userId}>
+          <div className="card org" key={employee.userId}>
             <div className="column">
               <div className="name-designation">
                 <h2>{employee.name}</h2>

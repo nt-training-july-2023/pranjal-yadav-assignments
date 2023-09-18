@@ -1,6 +1,5 @@
 package com.employee.employeeManagement;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -12,25 +11,25 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @SpringBootApplication
 public class EmployeeManagementApplication {
+	/**
+	 * Runs the main application.
+	 * @param args Command line arguments.
+	 */
+	public final void run(final String[] args) {
+		SpringApplication.run(
+				EmployeeManagementApplication.class, args);
+	}
 /**
  * The main method that starts the Spring Boot application.
  * @param args Command line arguments passed to the application.
  */
    public static void main(final String[] args) {
 
-		SpringApplication.run(EmployeeManagementApplication.class,
-				args);
+//		SpringApplication.run(EmployeeManagementApplication.class,
+//				args);
+	   new EmployeeManagementApplication().run(args);
 	}
-	/**
-	 * Bean definition for creating and configuring the
-	 * ModelMapper instance.
-	 *
-	 * @return A configured ModelMapper instance.
-	 */
-	@Bean
-	public ModelMapper getModelMapper() {
-		return new ModelMapper();
-	}
+
 	/**
 	 * Bean definition for creating and configuring the
 	 * PasswordEncoder instance.

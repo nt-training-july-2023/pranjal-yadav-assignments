@@ -4,176 +4,361 @@ import com.employee.employeeManagement.enums.Designation;
 import com.employee.employeeManagement.enums.Location;
 import com.employee.employeeManagement.enums.Role;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
+/**
+ * Data Transfer Object (DTO) representing employee information.
+ */
 public class EmployeeOutDto {
-    private Long id;
-    private String name;
     /**
-     * The email of user.
+     * The unique ID of the employee.
+     */
+    private Long id;
+
+    /**
+     * The name of the employee.
+     */
+    private String name;
+
+    /**
+     * The email address of the employee.
      */
     private String email;
+
     /**
-     * The ID of the user.
+     * The user ID of the employee.
      */
     private String userId;
+
     /**
-     * The date of birth of the user.
+     * The date of birth of the employee.
      */
     private String dob;
+
     /**
-     * The date of joining of the user.
+     * The date of joining of the employee.
      */
     private String doj;
 
     /**
-     * The location of the user.
+     * The location of the employee.
      */
     private Location location;
+
     /**
-     * The designation of the user.
+     * The designation of the employee.
      */
     private Designation designation;
+
     /**
-     * The contact number of the user.
+     * The contact number of the employee.
      */
     private Long contactNo;
-    /**
-     * The id of the project the user is associated with.
-     */
 
-    private Long projectId;
     /**
-     * The role of the user.
+     * The ID of the project the employee is associated with.
+     */
+    private Long projectId;
+
+    /**
+     * The role of the employee.
      */
     private Role role;
+
+    /**
+     * The name of the manager of the employee.
+     */
     private String managerName;
+
+    /**
+     * The name of the project the employee is associated with.
+     */
     private String projectName;
 
     /**
-     * The list of skills possessed by the user.
+     * The list of skills possessed by the employee.
      */
     private List<String> skills;
+
     /**
-     * The id of the user's manager.
+     * The ID of the employee's manager.
      */
     private Long managerId;
-    public Long getId(){
+
+    /**
+     * Get the unique ID of the employee.
+     *
+     * @return The employee's ID.
+     */
+    public final Long getId() {
         return id;
     }
-    public void setId(Long id){
-        this.id = id;
+
+    /**
+     * Set the unique ID of the employee.
+     *
+     * @param idParam The employee's ID.
+     */
+    public final void setId(final Long idParam) {
+        this.id = idParam;
     }
 
-    public String getName() {
+    /**
+     * Get the name of the employee.
+     *
+     * @return The employee's name.
+     */
+    public final String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Set the name of the employee.
+     *
+     * @param nameParam The employee's name.
+     */
+    public final void setName(final String nameParam) {
+        this.name = nameParam;
     }
 
-    public String getEmail() {
+
+    /**
+     * Get the email address of the employee.
+     *
+     * @return The employee's email address.
+     */
+    public final String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    /**
+     * Set the email address of the employee.
+     *
+     * @param emailParam The employee's email address.
+     */
+    public final void setEmail(final String emailParam) {
+        this.email = emailParam;
     }
 
-    public String getUserId() {
+    /**
+     * Get the user ID of the employee.
+     *
+     * @return The employee's user ID.
+     */
+    public final String getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    /**
+     * Set the user ID of the employee.
+     *
+     * @param userIdParam The employee's user ID.
+     */
+    public final void setUserId(final String userIdParam) {
+        this.userId = userIdParam;
     }
 
-    public String getDob() {
+    /**
+     * Get the date of birth of the employee.
+     *
+     * @return The employee's date of birth.
+     */
+    public final String getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    /**
+     * Set the date of birth of the employee.
+     *
+     * @param dobParam The employee's date of birth.
+     */
+    public final void setDob(final String dobParam) {
+        this.dob = dobParam;
     }
 
-    public String getDoj() {
+    /**
+     * Get the date of joining of the employee.
+     *
+     * @return The employee's date of joining.
+     */
+    public final String getDoj() {
         return doj;
     }
 
-    public void setDoj(String doj) {
-        this.doj = doj;
+    /**
+     * Set the date of joining of the employee.
+     *
+     * @param dojParam The employee's date of joining.
+     */
+    public final void setDoj(final String dojParam) {
+        this.doj = dojParam;
     }
 
-    public Location getLocation() {
+    /**
+     * Get the location of the employee.
+     *
+     * @return The employee's location.
+     */
+    public final Location getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    /**
+     * Set the location of the employee.
+     *
+     * @param locationParam The employee's location.
+     */
+    public final void setLocation(final Location locationParam) {
+        this.location = locationParam;
     }
 
-    public Designation getDesignation() {
+    /**
+     * Get the designation of the employee.
+     *
+     * @return The employee's designation.
+     */
+    public final Designation getDesignation() {
         return designation;
     }
 
-    public void setDesignation(Designation designation) {
-        this.designation = designation;
+    /**
+     * Set the designation of the employee.
+     *
+     * @param designationParam The employee's designation.
+     */
+    public final void setDesignation(final Designation designationParam) {
+        this.designation = designationParam;
     }
 
-    public Long getContactNo() {
+    /**
+     * Get the contact number of the employee.
+     *
+     * @return The employee's contact number.
+     */
+    public final Long getContactNo() {
         return contactNo;
     }
 
-    public void setContactNo(Long contactNo) {
-        this.contactNo = contactNo;
+    /**
+     * Set the contact number of the employee.
+     *
+     * @param contactNoParam The employee's contact number.
+     */
+    public final void setContactNo(final Long contactNoParam) {
+        this.contactNo = contactNoParam;
     }
 
-    public Long getProjectId() {
+    /**
+     * Get the ID of the project the employee is associated with.
+     *
+     * @return The ID of the associated project.
+     */
+    public final Long getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
+    /**
+     * Set the ID of the project the employee is associated with.
+     *
+     * @param projectIdParam The ID of the associated project.
+     */
+    public final void setProjectId(final Long projectIdParam) {
+        this.projectId = projectIdParam;
     }
 
-    public Role getRole() {
+    /**
+     * Get the role of the employee.
+     *
+     * @return The employee's role.
+     */
+    public final Role getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    /**
+     * Set the role of the employee.
+     *
+     * @param roleParam The employee's role.
+     */
+    public final void setRole(final Role roleParam) {
+        this.role = roleParam;
     }
 
-    public String getManagerName() {
+    /**
+     * Get the name of the manager of the employee.
+     *
+     * @return The name of the manager.
+     */
+    public final String getManagerName() {
         return managerName;
     }
 
-    public void setManagerName(String managerName) {
-        this.managerName = managerName;
+    /**
+     * Set the name of the manager of the employee.
+     *
+     * @param managerNameParam The name of the manager.
+     */
+    public final void setManagerName(final String managerNameParam) {
+        this.managerName = managerNameParam;
     }
 
-    public List<String> getSkills() {
-        return skills;
+    /**
+     * Get the list of skills possessed by the employee.
+     *
+     * @return The list of skills.
+     */
+    public final List<String> getSkills() {
+        return Collections.unmodifiableList(skills);
     }
 
-    public void setSkills(List<String> skills) {
-        this.skills = skills;
+    /**
+     * Set the list of skills possessed by the employee.
+     *
+     * @param skillsParam The list of skills.
+     */
+    public final void setSkills(final List<String> skillsParam) {
+        if (skillsParam != null) {
+            this.skills = new ArrayList<>(skillsParam);
+        } else {
+            this.skills = null;
+        }
     }
 
-    public Long getManagerId() {
+    /**
+     * Get the ID of the employee's manager.
+     *
+     * @return The ID of the manager.
+     */
+    public final Long getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(Long managerId) {
-        this.managerId = managerId;
+    /**
+     * Set the ID of the employee's manager.
+     *
+     * @param managerIdParam The ID of the manager.
+     */
+    public final void setManagerId(final Long managerIdParam) {
+        this.managerId = managerIdParam;
     }
 
-    public String getProjectName() {
+    /**
+     * Get the name of the project the employee is associated with.
+     *
+     * @return The name of the associated project.
+     */
+    public final String getProjectName() {
         return projectName;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    /**
+     * Set the name of the project the employee is associated with.
+     *
+     * @param projectNameParam The name of the associated project.
+     */
+    public final void setProjectName(final String projectNameParam) {
+        this.projectName = projectNameParam;
     }
+
 }

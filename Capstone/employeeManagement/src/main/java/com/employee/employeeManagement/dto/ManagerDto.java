@@ -1,13 +1,10 @@
 package com.employee.employeeManagement.dto;
 
-import lombok.Getter;
-import lombok.Setter;
 /**
  * Data Transfer Object (DTO) of manager, used in drop-down
  * for adding project.
  */
-@Getter
-@Setter
+
 public class ManagerDto {
     /**
      * The name of the manager.
@@ -22,28 +19,59 @@ public class ManagerDto {
      */
     private Long id;
 
-    public String getName() {
+    /**
+     * Get the name.
+     *
+     * @return The name.
+     */
+    public final String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Set the name.
+     *
+     * @param nameParam The name to set.
+     */
+    public final void setName(final String nameParam) {
+        this.name = nameParam;
     }
 
-    public String getUserId() {
+    /**
+     * Get the user ID.
+     *
+     * @return The user ID.
+     */
+    public final String getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    /**
+     * Set the user ID.
+     *
+     * @param userIdParam The user ID to set.
+     */
+    public final void setUserId(final String userIdParam) {
+        this.userId = userIdParam;
     }
 
-    public Long getId() {
+    /**
+     * Get the ID.
+     *
+     * @return The ID.
+     */
+    public final Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    /**
+     * Set the ID.
+     *
+     * @param idParam The ID to set.
+     */
+    public final void setId(final Long idParam) {
+        this.id = idParam;
     }
+
 
 }

@@ -1,0 +1,49 @@
+.center-container-ap  {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 90vh; 
+  }
+  
+  .assign {
+    text-align: center; 
+    background-color: #f0f0f0; 
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+  
+  #label {
+    font-size: 18px; /* Adjust label font size */
+  }
+  
+  #emp-name {
+    font-size: 24px; /* Adjust employee name font size */
+    margin-top: 10px; /* Add spacing between label and employee name */
+  }
+  
+  #custom-select {
+    width: 100%; /* Make the select element full width */
+    margin-top: 10px; /* Add spacing between employee name and select */
+    padding: 10px; /* Add padding for styling */
+    border-radius: 5px;
+  }
+  
+  .option-assign {
+    font-size: 16px; /* Adjust option font size */
+  }
+  
+  button {
+    background-color: #007bff; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove button border */
+    padding: 10px 20px; /* Add padding for styling */
+    margin-top: 10px; /* Add spacing between select and button */
+    cursor: pointer; /* Change cursor on hover */
+    border-radius: 5px; /* Add rounded corners for styling */
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Change button color on hover */
+  }
+  

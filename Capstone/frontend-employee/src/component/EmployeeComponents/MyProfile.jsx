@@ -34,9 +34,11 @@ const MyProfile = () => {
   return (
     <div className="main-profile">
       {employee ? (
-        <div>
+        <div >
+          <div className="MyProfile_form">
           <div className="my-details-container">
             <div className="column-my-details">
+            <h3 style={{marginBottom:"20px"}}>Welcome, {employee.name}</h3>
               <strong>Name</strong>
               <p className="field_input">{employee.name}</p>
               <strong>Email</strong>
@@ -53,7 +55,7 @@ const MyProfile = () => {
               <strong>Contact No</strong>
               <p className="field_input">{employee.contactNo}</p>
               <strong>Project Name</strong>
-              <p className="field_input">{employee.project}</p>
+              <p className="field_input">{employee.projectName}</p>
 
               <strong>Manager</strong>
               <p className="field_input">{employee.managerName}</p>
@@ -66,9 +68,11 @@ const MyProfile = () => {
             </div>
           </div>
         </div>
+        </div>
       ) : (
         <p>Loading employee details...</p>
       )}
+     
     </div>
   );
 };

@@ -1,12 +1,17 @@
 //package com.employee.employeeManagement.service;
 //
 //import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.junit.jupiter.api.Assertions.assertNotNull;
 //import static org.mockito.Mockito.*;
 //
 //import com.employee.employeeManagement.Model.User;
+//import com.employee.employeeManagement.dto.LoginDto;
 //import com.employee.employeeManagement.dto.UserDto;
+//import com.employee.employeeManagement.enums.Role;
 //import com.employee.employeeManagement.repository.UserRepository;
-//import com.employee.employeeManagement.validation.Validation;
+//import com.employee.employeeManagement.response.ApiResponse;
+//import com.employee.employeeManagement.validation.UserValidation;
+//import org.aspectj.lang.annotation.Before;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
 //import org.mockito.InjectMocks;
@@ -14,64 +19,69 @@
 //import org.mockito.MockitoAnnotations;
 //import org.modelmapper.ModelMapper;
 //import org.modelmapper.convention.MatchingStrategies;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+//
+//import java.util.Optional;
 //
 //public class UserServiceTest {
-//
-//    @Mock
-//    private Validation validation;
-//
-//    @Mock
-//    private ModelMapper modelMapper;
-//
-//    @Mock
-//    private UserRepository userRepository;
 //
 //    @InjectMocks
 //    private UserService userService;
 //
+//    @Mock
+//    private UserRepository userRepository;
+//
+//    @Mock
+//    private PasswordEncoder passwordEncoder;
+//
+//    @Mock
+//    private UserValidation userValidation;
+//
 //    @BeforeEach
 //    public void setUp() {
-//        MockitoAnnotations.openMocks(this);
+//        MockitoAnnotations.initMocks(this);
 //    }
 //
-////    @Test
-////    public void testSaveEmpWithValidData() {
-////        UserDto userDto = new UserDto();
-////        userDto.setName("Pranjal Yadav");
-////        userDto.setEmail("pranjal@nucleusteq.com");
-////        userDto.setUserId("N123");
-////        userDto.setContactNo(1234567890L);
-////
-////        when(validation.checkEmail(userDto.getEmail())).thenReturn(true);
-////        when(validation.checkName(userDto.getName())).thenReturn(true);
-////        when(validation.checkId(userDto.getUserId())).thenReturn(true);
-////        when(validation.checkPhone(userDto.getContactNo())).thenReturn(true);
-////        modelMapper.getConfiguration()
-////                .setMatchingStrategy(MatchingStrategies.STRICT);
-////        when(modelMapper.map(userDto, User.class)).thenReturn(new User());
-////
-////        String result = userService.saveEmp(userDto);
-////
-////        assertEquals("John Doe", result);
-////    }
+//    @Test
+//    public void testAddUser() {
+//        UserDto userDto = new UserDto();
+//        userDto.setName("John Doe");
+//        userDto.setEmail("john.doe@example.com");
+//        userDto.setRole(Role.MANAGER);
+//        // Set other userDto properties
 //
-////    @Test
-////    public void testSaveEmpWithInvalidData() {
-////        // Arrange
-////        UserDto userDto = new UserDto();
-////        userDto.setName("Pranjal Yadav");
-////        userDto.setEmail("email@email.com");
-////        userDto.setUserId("N123");
-////        userDto.setContactNo(1234567890L);
-////
-////        when(validation.checkEmail(userDto.getEmail())).thenReturn(false);
-////
-////        IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(
-////                IllegalArgumentException.class,
-////                () -> userService.saveEmp(userDto)
-////        );
-////
-////        assertEquals("Give valid credentials", exception.getMessage());
-////    }
+//        User user =
+//        // Set user properties
+//
+//
+////        when(userValidation.validateUsero(userDto)).thenReturn(true);
+//        when(userRepository.save(any(User.class))).thenReturn(user);
+//
+//        ApiResponse response = userService.addUser(userDto);
+//
+//        assertNotNull(response);
+//        assertEquals("User Added successfully", response.getMessage());
+//    }
+//
+//    @Test
+//    public void testLogin() {
+//        LoginDto loginDto = new LoginDto();
+//        loginDto.setEmail("john.doe@example.com");
+//        // Set other loginDto properties
+//
+//        User user = new User();
+//        user.setRole(Role.EMPLOYEE);
+//        // Set other user properties
+//
+//        when(userRepository.findByEmail(loginDto.getEmail())).thenReturn(Optional.of(user));
+//
+//        ApiResponse response = userService.login(loginDto);
+//
+//        assertNotNull(response);
+//        assertEquals("Logged in successfully", response.getMessage());
+//        assertEquals(Role.EMPLOYEE, response.getRole());
+//    }
+//
+//
 //}
 //

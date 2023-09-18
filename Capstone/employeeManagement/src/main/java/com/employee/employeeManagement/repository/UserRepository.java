@@ -34,4 +34,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return A list of users with the specified role.
      */
     List<User> findByRole(Role role);
+    List<User> findAllByProjectId(Long projectId);
 }

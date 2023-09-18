@@ -1,6 +1,8 @@
 package com.employee.employeeManagement.service;
 
 import com.employee.employeeManagement.Model.Project;
+import com.employee.employeeManagement.ProjectOutDto;
+import com.employee.employeeManagement.dto.UserNameDto;
 import com.employee.employeeManagement.enums.Role;
 import com.employee.employeeManagement.Model.User;
 import com.employee.employeeManagement.dto.ManagerDto;
@@ -8,8 +10,7 @@ import com.employee.employeeManagement.dto.ProjectDto;
 import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
 import com.employee.employeeManagement.repository.ProjectRepository;
 import com.employee.employeeManagement.repository.UserRepository;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
+import com.employee.employeeManagement.response.ProjectApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +22,6 @@ import java.util.List;
  */
 @Service
 public class ProjectService {
-    /**
-     * ModelMapper autowired to map dto to entity and vice versa.
-     */
-    @Autowired
-    private ModelMapper modelMapper;
     /**
      * ProjectRepository autowired for adding and retrieving from database.
      */
@@ -40,15 +36,23 @@ public class ProjectService {
      * Adds a new project.
      *
      * @param projectDto The project details to be added.
-     * @return The added project details.
+     * @return Response indicating successfully adding user.
      */
-    public final ProjectDto addProject(final ProjectDto projectDto) {
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.STRICT);
-        Project project = this.modelMapper.map(projectDto, Project.class);
+    public final ProjectApiResponse addProject(final ProjectDto projectDto) {
+        Project project = dtoToProject(projectDto);
         projectRepository.save(project);
-        return projectDto;
+        return new ProjectApiResponse("Project added successfully!");
     }
+    public final List<ProjectOutDto> getAllProjects(){
+        List<Project> allProjects = projectRepository.findAll();
+        List<ProjectOutDto> returnedList = new ArrayList<>();
+        for(Project project : allProjects){
+            ProjectOutDto projectOutDto = projectToOutDto(project);
+            returnedList.add(projectOutDto);
+        }
+        return returnedList;
+    }
+
     /**
      * Retrieves all managers as ManagerDto objects.
      *
@@ -82,6 +86,37 @@ public class ProjectService {
             throw new ResourceAlreadyExistsException("Project does not exist");
         }
     }
+    /**
+     * Converts a ProjectDto object to a Project object.
+     *
+     * @param projectDto The ProjectDto object to be converted.
+     * @return A Project object created from the provided ProjectDto.
+     */
+    public final Project dtoToProject(final ProjectDto projectDto) {
+        Project project = new Project();
+        project.setProjectId(projectDto.getProjectId());
+        project.setProjectName(projectDto.getProjectName());
+        project.setManagerId(projectDto.getManagerId());
+        project.setDescription(projectDto.getDescription());
+        project.setSkills(projectDto.getSkills());
+        return project;
+    }
+    public final ProjectOutDto projectToOutDto(Project project){
+        ProjectOutDto projectOutDto = new ProjectOutDto();
+        projectOutDto.setDescription(project.getDescription());
+        projectOutDto.setProjectName(project.getProjectName());
+        projectOutDto.setSkills(project.getSkills());
+        projectOutDto.setStartDate(project.getStartDate());
+        projectOutDto.setManagerId(project.getProjectId());
+        List<User> team = userRepository.findAllByProjectId(project.getProjectId());
+        List<UserNameDto> teamName = new ArrayList<>();
+        for(User currUser: team){
+            UserNameDto userNameDto = new UserNameDto();
+            userNameDto.setName(currUser.getName());
+            teamName.add(userNameDto);
+        }
+        projectOutDto.setTeam(teamName);
+        return projectOutDto;
 
-
+    }
 }

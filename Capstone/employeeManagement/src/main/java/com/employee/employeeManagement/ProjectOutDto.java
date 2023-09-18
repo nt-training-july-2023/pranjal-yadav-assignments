@@ -1,55 +1,47 @@
-package com.employee.employeeManagement.Model;
+package com.employee.employeeManagement;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
+import com.employee.employeeManagement.dto.UserNameDto;
 import jakarta.persistence.Column;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
-/**
- * Represents a Project entity in the database.
- */
-@Table(name = "Project")
-@Entity
-public class Project {
-    /**
-     * The unique identifier of the project.
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+public class ProjectOutDto {
     private Long projectId;
     /**
      * The name of the project.
      */
-    @Column
     private String projectName;
     /**
      * The manager's user ID associated with the project.
      */
-    @Column
     private Long managerId;
     /**
      * The description of the project.
      */
-    @Column
     private String description;
     /**
      * The start date of the project.
      */
-    @Column
     private String startDate;
     /**
      * The skills required for the project.
      */
-    @Column
     private List<String> skills;
+
+    public List<UserNameDto> getTeam() {
+        return team;
+    }
+
+    public void setTeam(List<UserNameDto> team) {
+        this.team = team;
+    }
+
+    /**
+     * The team which is working on the project.
+     */
+    private List<UserNameDto> team;
 
     /**
      * Get the project ID.
@@ -162,66 +154,4 @@ public class Project {
             this.skills = null;
         }
     }
-
-    /**
-     * Default constructor for the Project class.
-     */
-    public Project() {
-    }
-
-
-    /**
-     * Computes the hash code of the Project based on its projectId.
-     *
-     * @return The hash code value for this Project.
-     */
-    @Override
-    public final int hashCode() {
-        return Objects.hash(getProjectId(), getProjectName(),
-                getManagerId(), getDescription(), getStartDate(),
-                getSkills());
-    }
-    /**
-     * equals.
-     * @param obj object
-     * @return boolean
-     */
-    @Override
-    public final boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Project other = (Project) obj;
-        return Objects.equals(description, other.description)
-                && Objects.equals(managerId, other.managerId)
-                && Objects.equals(projectId, other.projectId)
-                && Objects.equals(projectName, other.projectName)
-                && Objects.equals(skills, other.skills)
-                && Objects.equals(startDate, other.startDate);
-    }
-
-
-    /**
-     * Generates a string representation of the Project.
-     *
-     * @return A string representation of the Project.
-     */
-    @Override
-    public final String toString() {
-        return "Project{"
-                + "projectId=" + projectId
-                + ", projectName='" + projectName + '\''
-                + ", managerId=" + managerId
-                + ", description='" + description + '\''
-                + ", startDate='" + startDate + '\''
-                + ", skills=" + skills + '}';
-    }
-
-
 }

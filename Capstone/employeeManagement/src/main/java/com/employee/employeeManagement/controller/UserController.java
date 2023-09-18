@@ -1,19 +1,24 @@
 package com.employee.employeeManagement.controller;
 
-import com.employee.employeeManagement.enums.Role;
-import com.employee.employeeManagement.Model.User;
 import com.employee.employeeManagement.dto.EmployeeOutDto;
 import com.employee.employeeManagement.dto.LoginDto;
 import com.employee.employeeManagement.dto.UserDto;
 import com.employee.employeeManagement.dto.UserNameDto;
-import com.employee.employeeManagement.exception.WrongCredentialsExceptions;
-import com.employee.employeeManagement.repository.UserRepository;
 import com.employee.employeeManagement.response.ApiResponse;
 import com.employee.employeeManagement.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import jakarta.validation.Valid;
-import jakarta.validation.Validation;
+import com.employee.employeeManagement.validation.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 import java.util.Map;
@@ -33,9 +38,14 @@ public class UserController {
     /**
      * Repository for accessing user data.
      */
-    private Validation validation;
     @Autowired
-    private UserRepository userRepository;
+    private UserValidation userValidation;
+    /**
+     * The logger for this class.
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(UserController.class);
+    /**
     /**
      * Endpoint for saving an admin user.
      *
@@ -44,6 +54,7 @@ public class UserController {
      */
     @PostMapping(path = "/save")
     public final ApiResponse saveAdmin(final @RequestBody UserDto userDto) {
+        userValidation.checkUser(userDto);
         return userService.addUser(userDto);
     }
     /**
@@ -51,23 +62,14 @@ public class UserController {
      *
      * @param loginDto The login credentials.
      * @return ApiResponse indicating the status of the login operation.
-     * @throws WrongCredentialsExceptions If the provided
      * credentials are incorrect.
      */
     @PostMapping(path = "/login")
     public final ApiResponse loginUser(
             @Valid @RequestBody final LoginDto loginDto) {
-        if (userService.login(loginDto) == null) {
-            throw new WrongCredentialsExceptions("Wrong credentials");
-        } else {
-            User user = userService.login(loginDto);
-            if(user.getRole() == Role.ADMIN)
-                return new ApiResponse("Login successful", Role.ADMIN);
-            else if (user.getRole() == Role.MANAGER)
-                return new ApiResponse("Login successful", Role.MANAGER);
-            else
-                return new ApiResponse("Login successful", Role.EMPLOYEE);
-        }
+        LOGGER.info("Logging user.");
+        userValidation.checkLoginDto(loginDto);
+        return userService.login(loginDto);
 
     }
     /**
@@ -78,9 +80,9 @@ public class UserController {
      */
     @PostMapping(path = "/save-emp")
     public final ApiResponse saveEmp(@RequestBody final UserDto userDto) {
-            User user = userService.saveEmp(userDto);
-        return new ApiResponse(
-                "User added", user.getRole());
+        LOGGER.info("Adding employee.");
+        userValidation.checkUser(userDto);
+        return userService.saveEmp(userDto);
     }
     /**
      * Endpoint for retrieving all employees by their role.
@@ -92,30 +94,84 @@ public class UserController {
     @GetMapping(path = "/all/{roleName}")
     public final List<EmployeeOutDto> getEmployeesByRole(
             @PathVariable final String roleName) {
+        LOGGER.info("All users by role.");
         return userService.allUserByRole(roleName);
     }
+    /**
+     * Retrieves a list of all users.
+     *
+     * @return A list of EmployeeOutDto objects representing all users.
+     */
     @GetMapping(path = "/allUsers")
-    public final List<EmployeeOutDto> getAllUsers(){
+    public final List<EmployeeOutDto> getAllUsers() {
+        LOGGER.info("All users");
         return userService.getAllUsers();
     }
+
+    /**
+     * Retrieves the name of an employee by their user ID.
+     *
+     * @param userId The user ID of the employee.
+     * @return A UserNameDto object representing the employee's name.
+     */
     @GetMapping(path = "/getEmployee/{userId}")
-    public final UserNameDto getEmployeeNameById (@PathVariable final String userId) {
+    public final UserNameDto getEmployeeNameById(
+            @PathVariable final String userId) {
+        LOGGER.info("Getting user name by user id");
         return userService.getEmployeeNameById(userId);
     }
+
+    /**
+     * Retrieves the name of an employee by their ID.
+     *
+     * @param id The ID of the employee.
+     * @return A UserNameDto object representing the employee's name.
+     */
     @GetMapping(path = "getEmployeeById/{id}")
-    public final UserNameDto getEmployeeNameByLongId(@PathVariable final Long id){
+    public final UserNameDto getEmployeeNameByLongId(
+            @PathVariable final Long id) {
+        LOGGER.info("Getting user name by id");
         return userService.getEmployeeNameByLongId(id);
     }
+
+    /**
+     * Retrieves an employee by their ID.
+     *
+     * @param id The ID of the employee.
+     * @return An EmployeeOutDto object representing the employee.
+     */
     @GetMapping(path = "getUserById/{id}")
-    public final EmployeeOutDto getEmployeeById(@PathVariable final Long id){
+    public final EmployeeOutDto getEmployeeById(@PathVariable final Long id) {
+        LOGGER.info("Getting employee by id");
         return userService.getEmployeeById(id);
     }
+
+    /**
+     * Retrieves an employee by their email address.
+     *
+     * @param email The email address of the employee.
+     * @return An EmployeeOutDto object representing the employee.
+     */
     @GetMapping(path = "/email/{email}")
-    public final EmployeeOutDto getEmployeeByEmail(@PathVariable final String email){
+    public final EmployeeOutDto getEmployeeByEmail(@PathVariable
+                                                       final String email) {
+        LOGGER.info("Getting employee by email");
         return userService.getEmployeeByEmail(email);
     }
+
+    /**
+     * Updates an employee's details about assigned project.
+     *
+     * @param id The ID of the employee to be updated.
+     * @param updatedDetails A Map containing updated employee details.
+     * @return An ApiResponse indicating the result of the update operation.
+     */
     @PutMapping(path = "/{id}/assignProject")
-    public final ApiResponse updateEmployee(@PathVariable Long id, @RequestBody Map<String, Long> updatedDetails){
+    public final ApiResponse updateEmployee(@PathVariable final Long id,
+                                            @RequestBody final Map<String,
+                                            Long> updatedDetails) {
+        LOGGER.info("Assigning project.");
         return userService.updateEmployee(id, updatedDetails);
     }
+
 }

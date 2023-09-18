@@ -1,11 +1,13 @@
 package com.employee.employeeManagement.controller;
 
 import com.employee.employeeManagement.Model.Project;
+import com.employee.employeeManagement.ProjectOutDto;
 import com.employee.employeeManagement.dto.ManagerDto;
 import com.employee.employeeManagement.dto.ProjectDto;
 import com.employee.employeeManagement.repository.ProjectRepository;
-import com.employee.employeeManagement.response.ApiResponse;
+import com.employee.employeeManagement.response.ProjectApiResponse;
 import com.employee.employeeManagement.service.ProjectService;
+import com.employee.employeeManagement.validation.ProjectValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,23 +37,21 @@ public class ProjectController {
     @Autowired
     private ProjectRepository projectRepository;
     /**
+     * Project validation for checking the user.
+     */
+    @Autowired
+    private ProjectValidation projectValidation;
+    /**
      * Endpoint for adding a new project.
      *
      * @param projectDto The project details to be added.
      * @return ApiResponse indicating the status of the operation.
      */
     @PostMapping("/addProject")
-    public final ApiResponse addProject(
+    public final ProjectApiResponse addProject(
             @RequestBody final ProjectDto projectDto) {
-        ProjectDto createdProject = projectService.addProject(projectDto);
-        if (createdProject != null) {
-            ApiResponse response = new ApiResponse(
-                    "Project added successfully");
-            return response;
-        } else {
-            ApiResponse response = new ApiResponse("Invalid credentials");
-            return response;
-        }
+        projectValidation.checkName(projectDto.getProjectName());
+       return projectService.addProject(projectDto);
     }
     /**
      * Endpoint for retrieving all projects.
@@ -59,9 +59,8 @@ public class ProjectController {
      * @return List of Project representing all projects.
      */
     @GetMapping("/getAllProjects")
-    public final List<Project> getAllProject() {
-        List<Project> allProjects = projectRepository.findAll();
-        return allProjects;
+    public final List<ProjectOutDto> getAllProject() {
+        return projectService.getAllProjects();
     }
     /**
      * Endpoint for retrieving all managers as ManagerDto objects.

@@ -24,6 +24,10 @@
     margin: 10px;
     width: 25rem;
 }
+.org{
+    margin-left: 8rem !important;
+
+}
 
 .column {
     flex: 1;

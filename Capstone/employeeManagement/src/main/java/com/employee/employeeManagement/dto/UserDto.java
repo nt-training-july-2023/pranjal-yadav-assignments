@@ -6,18 +6,15 @@ import com.employee.employeeManagement.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Data Transfer Object (DTO) representing user information.
  */
-@Data
-@NoArgsConstructor
+
 public class UserDto {
     /**
      * The name of the user.
@@ -28,6 +25,8 @@ public class UserDto {
      * The email of user.
      */
     @Email
+    @Pattern(regexp = ".*@nucleusteq\\.com$",
+            message = "Email should ends with nucleusteq.com.")
     private String email;
     /**
      * The ID of the user.
@@ -83,147 +82,243 @@ public class UserDto {
      */
     private Long managerId;
 
-    /**
-     * All arguments constructor.
-     * @param nameParam .
-     * @param emailParam .
-     * @param userIdParam .
-     * @param dobParam .
-     * @param dojParam .
-     * @param locationParam .
-     * @param designationParam .
-     * @param contactNoParam .
-     * @param projectIdParam .
-     * @param roleParam .
-     * @param passwordParam .
-     * @param skillsParam .
-     * @param managerIdParam .
-     */
-    public UserDto(final String nameParam, final String emailParam,
-                   final String userIdParam, final String dobParam,
-                   final String dojParam, final Location locationParam,
-                   final Designation designationParam,
-                   final Long contactNoParam,
-                   final Long projectIdParam, final Role roleParam,
-                   final String passwordParam,
-                   final List<String> skillsParam,
-                   final Long managerIdParam) {
-        this.name = nameParam;
-        this.email = emailParam;
-        this.userId = userIdParam;
-        this.dob = dobParam;
-        this.doj = dojParam;
-        this.location = locationParam;
-        this.designation = designationParam;
-        this.contactNo = contactNoParam;
-        this.projectId = projectIdParam;
-        this.role = roleParam;
-        this.password = passwordParam;
-        this.skills = skillsParam;
-        this.managerId = managerIdParam;
-    }
 
-    public String getName() {
+    /**
+     * Get the name of the user.
+     *
+     * @return The name.
+     */
+    public final String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Set the name of the user.
+     *
+     * @param nameParam The name to set.
+     */
+    public final void setName(final String nameParam) {
+        this.name = nameParam;
     }
 
-    public String getEmail() {
+    /**
+     * Get the email of the user.
+     *
+     * @return The email.
+     */
+    public final String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    /**
+     * Set the email of the user.
+     *
+     * @param emailParam The email to set.
+     */
+    public final void setEmail(final String emailParam) {
+        this.email = emailParam;
     }
 
-    public String getUserId() {
+    /**
+     * Get the user ID.
+     *
+     * @return The user ID.
+     */
+    public final String getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    /**
+     * Set the user ID.
+     *
+     * @param userIdParam The user ID to set.
+     */
+    public final void setUserId(final String userIdParam) {
+        this.userId = userIdParam;
     }
 
-    public String getDob() {
+    /**
+     * Get the date of birth of the user.
+     *
+     * @return The date of birth.
+     */
+    public final String getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    /**
+     * Set the date of birth of the user.
+     *
+     * @param dobParam The date of birth to set.
+     */
+    public final void setDob(final String dobParam) {
+        this.dob = dobParam;
     }
 
-    public String getDoj() {
+    /**
+     * Get the date of joining of the user.
+     *
+     * @return The date of joining.
+     */
+    public final String getDoj() {
         return doj;
     }
 
-    public void setDoj(String doj) {
-        this.doj = doj;
+    /**
+     * Set the date of joining of the user.
+     *
+     * @param dojParam The date of joining to set.
+     */
+    public final void setDoj(final String dojParam) {
+        this.doj = dojParam;
     }
 
-    public Location getLocation() {
+    /**
+     * Get the location of the user.
+     *
+     * @return The location.
+     */
+    public final Location getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    /**
+     * Set the location of the user.
+     *
+     * @param locationParam The location to set.
+     */
+    public final void setLocation(final Location locationParam) {
+        this.location = locationParam;
     }
 
-    public Designation getDesignation() {
+    /**
+     * Get the designation of the user.
+     *
+     * @return The designation.
+     */
+    public final Designation getDesignation() {
         return designation;
     }
 
-    public void setDesignation(Designation designation) {
-        this.designation = designation;
+    /**
+     * Set the designation of the user.
+     *
+     * @param designationParam The designation to set.
+     */
+    public final void setDesignation(final Designation designationParam) {
+        this.designation = designationParam;
     }
 
-    public Long getContactNo() {
+    /**
+     * Get the contact number of the user.
+     *
+     * @return The contact number.
+     */
+    public final Long getContactNo() {
         return contactNo;
     }
 
-    public void setContactNo(Long contactNo) {
-        this.contactNo = contactNo;
+    /**
+     * Set the contact number of the user.
+     *
+     * @param contactNoParam The contact number to set.
+     */
+    public final void setContactNo(final Long contactNoParam) {
+        this.contactNo = contactNoParam;
     }
 
-    public Long getProjectId() {
+    /**
+     * Get the project ID associated with the user.
+     *
+     * @return The project ID.
+     */
+    public final Long getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
+    /**
+     * Set the project ID associated with the user.
+     *
+     * @param projectIdParam The project ID to set.
+     */
+    public final void setProjectId(final Long projectIdParam) {
+        this.projectId = projectIdParam;
     }
 
-    public Role getRole() {
+    /**
+     * Get the role of the user.
+     *
+     * @return The role.
+     */
+    public final Role getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    /**
+     * Set the role of the user.
+     *
+     * @param roleParam The role to set.
+     */
+    public final void setRole(final Role roleParam) {
+        this.role = roleParam;
     }
 
-    public String getPassword() {
+    /**
+     * Get the user's password.
+     *
+     * @return The password.
+     */
+    public final String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    /**
+     * Set the user's password.
+     *
+     * @param passwordParam The password to set.
+     */
+    public final void setPassword(final String passwordParam) {
+        this.password = passwordParam;
     }
 
-    public List<String> getSkills() {
-        return skills;
+    /**
+     * Get the list of skills possessed by the user.
+     *
+     * @return The list of skills.
+     */
+    public final List<String> getSkills() {
+        return  Collections.unmodifiableList(skills);
     }
 
-    public void setSkills(List<String> skills) {
-        this.skills = skills;
+    /**
+     * Set the list of skills possessed by the user.
+     *
+     * @param skillsParam The list of skills to set.
+     */
+    public final void setSkills(final List<String> skillsParam) {
+        if (skillsParam != null) {
+            this.skills = new ArrayList<>(skillsParam);
+        } else {
+            this.skills = null;
+        }
     }
 
-    public Long getManagerId() {
+    /**
+     * Get the ID of the user's manager.
+     *
+     * @return The manager ID.
+     */
+    public final Long getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(Long managerId) {
-        this.managerId = managerId;
+    /**
+     * Set the ID of the user's manager.
+     *
+     * @param managerIdParam The manager ID to set.
+     */
+    public final void setManagerId(final Long managerIdParam) {
+        this.managerId = managerIdParam;
     }
+
 }

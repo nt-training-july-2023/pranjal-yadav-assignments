@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import '../style/AssignProject.css'
 const AssignProject = () => {
   const { id } = useParams();
   useEffect(() => {
@@ -34,7 +34,7 @@ const AssignProject = () => {
       console.log(response.data);
       setProjects(response.data);
     } catch (error) {
-      console.log("There is an error"); 
+      console.log("There is an error");
       console.log(error);
     }
   };
@@ -53,23 +53,23 @@ const AssignProject = () => {
     }
   };
 
-const handleSelectChange = (e
-  )=>{
-  const selectedOption = e.target.options[e.target.selectedIndex]
-  const selectedProjectId = e.target.value;
-  const selectedManagerId = selectedOption.getAttribute('data-managerid')
-  setProjectId(selectedProjectId)
-  setManagerId(selectedManagerId)
-}
+  const handleSelectChange = (e) => {
+    const selectedOption = e.target.options[e.target.selectedIndex];
+    const selectedProjectId = e.target.value;
+    const selectedManagerId = selectedOption.getAttribute("data-managerid");
+    setProjectId(selectedProjectId);
+    setManagerId(selectedManagerId);
+  };
 
   return (
-    <div className="assign">
-      <label>Assign Project</label>
-      <h3>{employee.name}</h3>
+    <div className="center-container-ap">
+<div className="assign">
+      <label id="label">Assign Project</label>
+      <h3 id="emp-name">{employee.name}</h3>
       <select
-      onChange={handleSelectChange}
+        onChange={handleSelectChange}
         type="text"
-        className="custom-select"
+        id="custom-select"
         placeholder="Enter designation"
         name="location"
       >
@@ -81,7 +81,7 @@ const handleSelectChange = (e
               className="option-assign"
               key={project.projectId}
               value={project.projectId}
-              data-managerid ={project.managerId}
+              data-managerid={project.managerId}
             >
               {project.projectId} : {project.projectName}
             </option>
@@ -91,6 +91,8 @@ const handleSelectChange = (e
       {/* <span>{designationError}</span> */}
       <button onClick={(e) => update(e)}> Assign Project </button>
     </div>
+    </div>
+    
   );
 };
 

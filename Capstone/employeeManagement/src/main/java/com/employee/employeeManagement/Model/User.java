@@ -14,8 +14,9 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Represents a user.
@@ -108,182 +109,294 @@ public class User {
     @Column
     private Long managerId;
 
-    public long getId() {
+    /**
+     * Get the ID of the employee.
+     *
+     * @return The employee ID.
+     */
+    public final long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getDob() {
-        return dob;
-    }
-
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
-
-    public String getDoj() {
-        return doj;
-    }
-
-    public void setDoj(String doj) {
-        this.doj = doj;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public Designation getDesignation() {
-        return designation;
-    }
-
-    public void setDesignation(Designation designation) {
-        this.designation = designation;
-    }
-
-    public long getContactNo() {
-        return contactNo;
-    }
-
-    public void setContactNo(long contactNo) {
-        this.contactNo = contactNo;
-    }
-
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<String> getSkills() {
-        return skills;
-    }
-
-    public void setSkills(List<String> skills) {
-        this.skills = skills;
-    }
-
-    public Long getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(Long managerId) {
-        this.managerId = managerId;
+    /**
+     * Set the ID of the employee.
+     *
+     * @param idParam The employee ID to set.
+     */
+    public final void setId(final long idParam) {
+        this.id = idParam;
     }
 
     /**
-     * All arguments constructor.
-     * @param nameParam .
-     * @param emailParam .
-     * @param userIdParam .
-     * @param dobParam .
-     * @param dojParam .
-     * @param locationParam .
-     * @param designationParam .
-     * @param contactNoParam .
-     * @param projectIdParam .
-     * @param roleParam .
-     * @param passwordParam .
-     * @param skillsParam .
-     * @param managerIdParam .
+     * Get the name of the employee.
+     *
+     * @return The employee name.
      */
-    public User(final String nameParam, final String emailParam,
-                   final String userIdParam, final String dobParam,
-                   final String dojParam, final Location locationParam,
-                   final Designation designationParam,
-                   final Long contactNoParam,
-                   final Long projectIdParam, final Role roleParam,
-                   final String passwordParam,
-                   final List<String> skillsParam,
-                   final Long managerIdParam) {
+    public final String getName() {
+        return name;
+    }
+
+    /**
+     * Set the name of the employee.
+     *
+     * @param nameParam The employee name to set.
+     */
+    public final void setName(final String nameParam) {
         this.name = nameParam;
+    }
+
+    /**
+     * Get the email of the employee.
+     *
+     * @return The employee email.
+     */
+    public final String getEmail() {
+        return email;
+    }
+
+    /**
+     * Set the email of the employee.
+     *
+     * @param emailParam The employee email to set.
+     */
+    public final void setEmail(final String emailParam) {
         this.email = emailParam;
+    }
+
+    /**
+     * Get the user ID of the employee.
+     *
+     * @return The employee user ID.
+     */
+    public final String getUserId() {
+        return userId;
+    }
+
+    /**
+     * Set the user ID of the employee.
+     *
+     * @param userIdParam The employee user ID to set.
+     */
+    public final void setUserId(final String userIdParam) {
         this.userId = userIdParam;
+    }
+
+    /**
+     * Get the date of birth of the employee.
+     *
+     * @return The date of birth.
+     */
+    public final String getDob() {
+        return dob;
+    }
+
+    /**
+     * Set the date of birth of the employee.
+     *
+     * @param dobParam The date of birth to set.
+     */
+    public final void setDob(final String dobParam) {
         this.dob = dobParam;
+    }
+
+    /**
+     * Get the date of joining of the employee.
+     *
+     * @return The date of joining.
+     */
+    public final String getDoj() {
+        return doj;
+    }
+
+    /**
+     * Set the date of joining of the employee.
+     *
+     * @param dojParam The date of joining to set.
+     */
+    public final void setDoj(final String dojParam) {
         this.doj = dojParam;
+    }
+
+    /**
+     * Get the location of the employee.
+     *
+     * @return The employee location.
+     */
+    public final Location getLocation() {
+        return location;
+    }
+
+    /**
+     * Set the location of the employee.
+     *
+     * @param locationParam The employee location to set.
+     */
+    public final void setLocation(final Location locationParam) {
         this.location = locationParam;
+    }
+
+    /**
+     * Get the designation of the employee.
+     *
+     * @return The employee designation.
+     */
+    public final Designation getDesignation() {
+        return designation;
+    }
+
+    /**
+     * Set the designation of the employee.
+     *
+     * @param designationParam The employee designation to set.
+     */
+    public final void setDesignation(final Designation designationParam) {
         this.designation = designationParam;
+    }
+
+    /**
+     * Get the contact number of the employee.
+     *
+     * @return The employee contact number.
+     */
+    public final long getContactNo() {
+        return contactNo;
+    }
+
+    /**
+     * Set the contact number of the employee.
+     *
+     * @param contactNoParam The employee contact number to set.
+     */
+    public final void setContactNo(final long contactNoParam) {
         this.contactNo = contactNoParam;
+    }
+
+    /**
+     * Get the project ID associated with the employee.
+     *
+     * @return The project ID.
+     */
+    public final Long getProjectId() {
+        return projectId;
+    }
+
+    /**
+     * Set the project ID associated with the employee.
+     *
+     * @param projectIdParam The project ID to set.
+     */
+    public final void setProjectId(final Long projectIdParam) {
         this.projectId = projectIdParam;
+    }
+
+    /**
+     * Get the role of the employee.
+     *
+     * @return The employee role.
+     */
+    public final Role getRole() {
+        return role;
+    }
+
+    /**
+     * Set the role of the employee.
+     *
+     * @param roleParam The employee role to set.
+     */
+    public final void setRole(final Role roleParam) {
         this.role = roleParam;
+    }
+
+    /**
+     * Get the password of the employee.
+     *
+     * @return The employee password.
+     */
+    public final String getPassword() {
+        return password;
+    }
+
+    /**
+     * Set the password of the employee.
+     *
+     * @param passwordParam The employee password to set.
+     */
+    public final void setPassword(final String passwordParam) {
         this.password = passwordParam;
-        this.skills = skillsParam;
+    }
+
+    /**
+     * Get the list of skills possessed by the employee.
+     *
+     * @return The list of skills.
+     */
+    public final List<String> getSkills() {
+        return Collections.unmodifiableList(skills);
+    }
+
+    /**
+     * Set the list of skills possessed by the employee.
+     *
+     * @param skillsParam The list of skills to set.
+     */
+    public final void setSkills(final List<String> skillsParam) {
+        if (skillsParam != null) {
+            this.skills = new ArrayList<>(skillsParam);
+        } else {
+            this.skills = null;
+        }
+    }
+
+    /**
+     * Get the ID of the employee's manager.
+     *
+     * @return The manager's ID.
+     */
+    public final Long getManagerId() {
+        return managerId;
+    }
+
+    /**
+     * Set the ID of the employee's manager.
+     *
+     * @param managerIdParam The manager's ID to set.
+     */
+    public final void setManagerId(final Long managerIdParam) {
         this.managerId = managerIdParam;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-        return getId() == user.getId() && getContactNo() == user.getContactNo()
-                && Objects.equals(getName(), user.getName()) &&
-                Objects.equals(getEmail(), user.getEmail()) &&
-                Objects.equals(getUserId(), user.getUserId()) &&
-                Objects.equals(getDob(), user.getDob()) &&
-                Objects.equals(getDoj(), user.getDoj()) && getLocation() ==
-                user.getLocation() && getDesignation() == user.getDesignation()
-                && Objects.equals(getProjectId(), user.getProjectId()) &&
-                getRole() == user.getRole() && Objects.equals(getPassword(),
-                user.getPassword()) &&
-                Objects.equals(getSkills(), user.getSkills()) &&
-                Objects.equals(getManagerId(), user.getManagerId());
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), getEmail(), getUserId(),
-                getDob(), getDoj(), getLocation(), getDesignation(),
-                getContactNo(), getProjectId(), getRole(), getPassword(),
-                getSkills(), getManagerId());
-    }
+
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof User user)) return false;
+//        return getId() == user.getId()
+//        && getContactNo() == user
+//        .getContactNo()
+//                && Objects.equals(getName(), user.getName()) &&
+//                Objects.equals(getEmail(), user.getEmail()) &&
+//                Objects.equals(getUserId(), user.getUserId()) &&
+//                Objects.equals(getDob(), user.getDob()) &&
+//                Objects.equals(getDoj(),
+//                user.getDoj()) && getLocation() ==
+//                user.getLocation()
+//                && getDesignation() == user.getDesignation()
+//                && Objects.equals(getProjectId(),
+//                user.getProjectId()) &&
+//                getRole() == user.getRole() && Objects.equals(getPassword(),
+//                user.getPassword()) &&
+//                Objects.equals(getSkills(), user.getSkills()) &&
+//                Objects.equals(getManagerId(), user.getManagerId());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(getId(), getName(), getEmail(), getUserId(),
+//                getDob(), getDoj(), getLocation(), getDesignation(),
+//                getContactNo(), getProjectId(), getRole(), getPassword(),
+//                getSkills(), getManagerId());
+//    }
 }
 

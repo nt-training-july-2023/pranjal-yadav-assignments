@@ -19,8 +19,8 @@ const EmployeeDashBoard = () => {
   };
   return (
     <div className="top-employee">
-    <div style={{textAlign : 'center'}} className="employee_heading">Employee DashBoard</div>
-    <div className="admin_tabs">
+    <div style={{textAlign : 'center'}} className="employee_heading"></div>
+    <div className="emp_tabs">
       <div
         className={`admin_employee ${
           activeTab === "MyProfile" ? "active" : ""

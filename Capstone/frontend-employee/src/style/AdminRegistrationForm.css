@@ -48,7 +48,7 @@ select.input{
 .form-section {
   display: flex;
   justify-content: space-between;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   height: 70vh;
 }
 .form-section::-webkit-scrollbar{

@@ -1,4 +1,21 @@
-//package com.employee.employeeManagement.controller;
+package com.employee.employeeManagement.controller;
+
+import com.employee.employeeManagement.dto.UserDto;
+import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
+import com.employee.employeeManagement.response.ApiResponse;
+import com.employee.employeeManagement.service.UserService;
+import com.employee.employeeManagement.validation.UserValidation;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
+
 //
 //import com.employee.employeeManagement.dto.LoginDto;
 //import com.employee.employeeManagement.dto.UserDto;
@@ -137,3 +154,46 @@
 //        assertEquals(2, result.size());
 //    }
 //}
+public class UserControllerTest {
+    @InjectMocks
+    private UserController userController;
+
+    @Mock
+    private UserService userService;
+
+    @Mock
+    private UserValidation userValidation;
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+    @Test
+    public void testSaveAdmin() {
+        UserDto userDto = new UserDto();
+        userDto.setName("Ankita Sharma");
+        userDto.setEmail("ankita.sharma@nucleusteq.com");
+        userDto.setUserId("N1000");
+        when(userService.addUser(userDto)).thenReturn(new ApiResponse("User added successfully"));
+
+        ApiResponse response = userController.saveAdmin(userDto);
+
+        assertEquals("User added successfully", response.getMessage());
+    }
+
+    @Test
+    public void testSaveAdminWrong() {
+        UserDto userDto = new UserDto();
+        userDto.setName("Ankita Sharma");
+        userDto.setEmail("ankita.sharma@nucleusteq.com");
+        userDto.setUserId("N1000");
+        Mockito.doNothing().when(userValidation).checkUser(userDto);
+        when(userService.addUser(userDto)).thenThrow(new ResourceAlreadyExistsException("User creation " +
+                "failed"));
+         ResourceAlreadyExistsException exception=
+                 assertThrows(ResourceAlreadyExistsException.class, () -> {
+            userController.saveAdmin(userDto);
+        });
+//         Assert the exception message or properties if needed
+        assertEquals("User creation failed", exception.getMessage());
+    }
+}
