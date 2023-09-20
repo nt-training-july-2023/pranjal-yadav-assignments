@@ -1,8 +1,7 @@
 package com.employee.employeeManagement.service;
 
 import com.employee.employeeManagement.Model.Project;
-import com.employee.employeeManagement.ProjectOutDto;
-import com.employee.employeeManagement.dto.UserNameDto;
+import com.employee.employeeManagement.outDtos.ProjectOutDto;
 import com.employee.employeeManagement.enums.Role;
 import com.employee.employeeManagement.Model.User;
 import com.employee.employeeManagement.dto.ManagerDto;
@@ -109,11 +108,9 @@ public class ProjectService {
         projectOutDto.setStartDate(project.getStartDate());
         projectOutDto.setManagerId(project.getProjectId());
         List<User> team = userRepository.findAllByProjectId(project.getProjectId());
-        List<UserNameDto> teamName = new ArrayList<>();
+        List<String> teamName = new ArrayList<>();
         for(User currUser: team){
-            UserNameDto userNameDto = new UserNameDto();
-            userNameDto.setName(currUser.getName());
-            teamName.add(userNameDto);
+            teamName.add(currUser.getName());
         }
         projectOutDto.setTeam(teamName);
         return projectOutDto;

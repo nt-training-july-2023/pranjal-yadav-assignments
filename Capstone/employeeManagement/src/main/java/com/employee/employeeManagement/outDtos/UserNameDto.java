@@ -1,4 +1,4 @@
-package com.employee.employeeManagement.dto;
+package com.employee.employeeManagement.outDtos;
 
 /**
  * Data Transfer Object (DTO) representing a user's name.

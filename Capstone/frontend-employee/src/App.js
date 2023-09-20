@@ -15,6 +15,8 @@ import AddProject from './component/AddProject';
 import EmployeeDashBoard from './component/EmployeeComponents/EmployeeDashBoard';
 import AssignProject from './component/AssignProject';
 import EmpDisplayEmployee from './component/EmployeeComponents/EmpDisplayEmployee';
+import ManagerDashBoard from './component/ManagerComponent/ManagerDashBoard';
+import UpdateSkills from './component/EmployeeComponents/UpdateSkills';
 
 
 
@@ -36,7 +38,9 @@ function App() {
         <Route path='/PROJECT' element={<DisplayProject/>} />
         <Route path='/addProject' element={<AddProject/>} />
         <Route path='/employeeDashboard' element={<EmployeeDashBoard/>} />
+        <Route path='/managerDashboard' element={<ManagerDashBoard/>} />
         <Route path='/assignProject/:id' element={<AssignProject />} />
+        <Route path='/updateSkills/:id' element={<UpdateSkills />} />
       </Routes>
       </BrowserRouter>
       

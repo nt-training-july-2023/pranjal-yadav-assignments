@@ -1,7 +1,7 @@
 package com.employee.employeeManagement.controller;
 
 import com.employee.employeeManagement.Model.Project;
-import com.employee.employeeManagement.ProjectOutDto;
+import com.employee.employeeManagement.outDtos.ProjectOutDto;
 import com.employee.employeeManagement.dto.ManagerDto;
 import com.employee.employeeManagement.dto.ProjectDto;
 import com.employee.employeeManagement.repository.ProjectRepository;

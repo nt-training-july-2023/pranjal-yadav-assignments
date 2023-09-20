@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import '../../style/MyProfile.css'
 import "../../style/MyProfile.css";
+import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -8,6 +9,7 @@ const MyProfile = () => {
   useEffect(() => {
     getEmployee();
   }, []);
+  const navigate = useNavigate()
   const [employee, setEmployee] = useState([]);
   const [managerName, setManagerName] = useState("");
 
@@ -38,20 +40,26 @@ const MyProfile = () => {
           <div className="MyProfile_form">
           <div className="my-details-container">
             <div className="column-my-details">
-            <h3 style={{marginBottom:"20px"}}>Welcome, {employee.name}</h3>
+            <h3 style={{marginBottom:"22px"}}>Welcome, {employee.name}</h3>
               <strong>Name</strong>
               <p className="field_input">{employee.name}</p>
               <strong>Email</strong>
-              <p className="field_input">{employee.email}</p>
+              <p style={{marginBottom:"10px"}} className="field_input">{employee.email}</p>
 
               <strong>DOB</strong>
               <p className="field_input">{employee.dob}</p>
 
               <strong>Skills</strong>
-              <p className="field_input">{employee.skills}</p>
+              {/* <p className="field_input">{employee.skills.join(", ")}</p> */}
+              <p className="field_input">{employee.skills ? employee.skills.join(",") : "N/A"}</p>
+              <p><button className='btn' onClick={()=>{navigate(`/updateSkills/${employee.id}`)}}>Update Skills</button></p>
+          
             </div>
 
             <div className="column-my-details">
+              <br />
+              <br />
+              <br />
               <strong>Contact No</strong>
               <p className="field_input">{employee.contactNo}</p>
               <strong>Project Name</strong>

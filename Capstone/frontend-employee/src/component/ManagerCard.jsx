@@ -26,7 +26,6 @@ const ManagerCard = ({manager}) => {
   return (
     <div>
         <div className="card" key={manager.userId}>
-        
             <div className="column">
               <div className="name-designation">
               <h2>{manager.name}</h2>
@@ -57,8 +56,8 @@ const ManagerCard = ({manager}) => {
             <div className="column">
             <p style={{fontSize:"15px"}}><span className="highlight-span">Employee id :  </span> {manager.userId}</p>
             <br></br>
-            <p><span className="highlight-span">DOB : </span>{manager.dob}</p>
-            <p><span className="highlight-span"> DOJ: </span>{manager.doj}</p>
+            {/* <p><span className="highlight-span">DOB : </span>{manager.dob}</p>
+            <p><span className="highlight-span"> DOJ: </span>{manager.doj}</p> */}
             <p><span className="highlight-span"> Location </span>: {manager.location}</p>
             {/* <p style={{marginTop:"1rem"}}>Skills :   {(manager.skills)?(manager.skills.replace(/[\[\]']+/g,'')):"NA"}</p> */}
             <p style={{ marginTop: "1rem" }}>

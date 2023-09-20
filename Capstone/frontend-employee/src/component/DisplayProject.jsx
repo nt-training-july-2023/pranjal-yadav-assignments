@@ -112,6 +112,7 @@ const handlePopupClose = () => {
             <p><span className="highlight-span">Start Date</span> : {reverseDateFormat(project.startDate)}</p>
             <p><span className="highlight-span">Project ID:</span> {project.projectId}</p>
             <p> <span className="highlight-span">Skills: </span>{project.skills.join(" , ")}</p>
+            <p> <span className="highlight-span">Team: </span>{project.team.join(" , ")}</p>
             {showPopup && (
         <ProjectPopup description={selectedDescription} onClose={handlePopupClose} />
       )}

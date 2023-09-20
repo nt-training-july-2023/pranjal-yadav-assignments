@@ -1,9 +1,9 @@
 package com.employee.employeeManagement.controller;
 
-import com.employee.employeeManagement.dto.EmployeeOutDto;
+import com.employee.employeeManagement.outDtos.EmployeeOutDto;
 import com.employee.employeeManagement.dto.LoginDto;
 import com.employee.employeeManagement.dto.UserDto;
-import com.employee.employeeManagement.dto.UserNameDto;
+import com.employee.employeeManagement.outDtos.UserNameDto;
 import com.employee.employeeManagement.response.ApiResponse;
 import com.employee.employeeManagement.service.UserService;
 import org.slf4j.Logger;
@@ -172,6 +172,12 @@ public class UserController {
                                             Long> updatedDetails) {
         LOGGER.info("Assigning project.");
         return userService.updateEmployee(id, updatedDetails);
+    }
+    @PutMapping(path = "/{id}/skill")
+    public final ApiResponse updateSkills(@PathVariable final Long id,
+                                          @RequestBody final Map<String,List<String>> skills){
+        LOGGER.info("Updating skills for " + id);
+        return userService.updateSkills(id, skills.get("skills"));
     }
 
 }

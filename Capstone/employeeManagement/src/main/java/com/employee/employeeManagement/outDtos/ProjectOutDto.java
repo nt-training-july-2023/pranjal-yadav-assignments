@@ -1,7 +1,4 @@
-package com.employee.employeeManagement;
-
-import com.employee.employeeManagement.dto.UserNameDto;
-import jakarta.persistence.Column;
+package com.employee.employeeManagement.outDtos;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,18 +27,18 @@ public class ProjectOutDto {
      */
     private List<String> skills;
 
-    public List<UserNameDto> getTeam() {
+    public List<String> getTeam() {
         return team;
     }
 
-    public void setTeam(List<UserNameDto> team) {
+    public void setTeam(List<String> team) {
         this.team = team;
     }
 
     /**
      * The team which is working on the project.
      */
-    private List<UserNameDto> team;
+    private List<String> team;
 
     /**
      * Get the project ID.

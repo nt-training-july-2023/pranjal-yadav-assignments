@@ -1,4 +1,4 @@
-package com.employee.employeeManagement.dto;
+package com.employee.employeeManagement.outDtos;
 
 import com.employee.employeeManagement.enums.Designation;
 import com.employee.employeeManagement.enums.Location;

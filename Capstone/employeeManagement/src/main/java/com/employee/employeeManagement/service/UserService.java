@@ -3,10 +3,10 @@ package com.employee.employeeManagement.service;
 import com.employee.employeeManagement.Model.Project;
 import com.employee.employeeManagement.enums.Role;
 import com.employee.employeeManagement.Model.User;
-import com.employee.employeeManagement.dto.EmployeeOutDto;
+import com.employee.employeeManagement.outDtos.EmployeeOutDto;
 import com.employee.employeeManagement.dto.LoginDto;
 import com.employee.employeeManagement.dto.UserDto;
-import com.employee.employeeManagement.dto.UserNameDto;
+import com.employee.employeeManagement.outDtos.UserNameDto;
 import com.employee.employeeManagement.exception.ResourceNotFoundException;
 import com.employee.employeeManagement.repository.ProjectRepository;
 import com.employee.employeeManagement.repository.UserRepository;
@@ -232,6 +232,14 @@ public class UserService {
         userRepository.save(employee);
 
         return new ApiResponse("Updated Successfully");
+
+    }
+    public final ApiResponse updateSkills(Long id, List<String> skills){
+        Optional<User> optionalUser = userRepository.findById(id);
+        User user = optionalUser.get();
+        user.setSkills(skills);
+        userRepository.save(user);
+        return new ApiResponse("Skills are updated.");
 
     }
     /**

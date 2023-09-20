@@ -1,15 +1,14 @@
 package com.employee.employeeManagement.dtoTest;
 
-import com.employee.employeeManagement.dto.EmployeeOutDto;
+import com.employee.employeeManagement.outDtos.EmployeeOutDto;
 import com.employee.employeeManagement.enums.Designation;
 import com.employee.employeeManagement.enums.Location;
 import com.employee.employeeManagement.enums.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EmployeeOutDtoTest {
