@@ -79,8 +79,12 @@ public class ProjectController {
      * @return Project object from given project id.
      */
     @GetMapping("/project/{managerId}")
-    public final List<Project> getProjectByManagerId(
+    public final List<ProjectOutDto> getProjectByManagerId(
             @PathVariable final long managerId) {
         return projectService.getProjectByManagerId(managerId);
+    }
+    @GetMapping("/manager/{email}")
+    public final List<ProjectOutDto> getProjectByEmail(@PathVariable String email) {
+        return projectService.getProjectByEmail(email);
     }
 }

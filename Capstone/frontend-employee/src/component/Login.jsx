@@ -46,6 +46,7 @@ const Login = () => {
           if(response.data.role === "EMPLOYEE") navigate('/employeeDashboard');
           if(response.data.role === "MANAGER") navigate('/managerDashboard');
           localStorage.setItem("userRole", response.data.role);
+          localStorage.setItem("userName", response.data.name);
           localStorage.setItem("isLoggedIn", response.status);
           localStorage.setItem("email", admin1.email);
 

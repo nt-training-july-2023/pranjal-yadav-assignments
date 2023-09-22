@@ -47,6 +47,12 @@ public class ProjectService {
         List<ProjectOutDto> returnedList = new ArrayList<>();
         for(Project project : allProjects){
             ProjectOutDto projectOutDto = projectToOutDto(project);
+            List<User> team = userRepository.findAllByProjectId(project.getProjectId());
+            List<String> teamName = new ArrayList<>();
+            for(User currUser: team){
+                teamName.add(currUser.getName());
+            }
+            projectOutDto.setTeam(teamName);
             returnedList.add(projectOutDto);
         }
         return returnedList;
@@ -76,14 +82,47 @@ public class ProjectService {
      * @param managerId .
      * @return Optional value project or exception.
      */
-    public final List<Project> getProjectByManagerId(final long managerId) {
-        List<Project> project =
+    public final List<ProjectOutDto> getProjectByManagerId(final long managerId) {
+        List<Project> projectList =
                 projectRepository.findAllByManagerId(managerId);
-        if (!project.isEmpty()) {
-            return project;
+        if (!projectList.isEmpty()) {
+            List<ProjectOutDto> listProjectOut = new ArrayList<>();
+            for(Project currProject : projectList){
+                ProjectOutDto projectOutDto = projectToOutDto(currProject);
+                List<User> team =
+                        userRepository.findAllByProjectId(currProject.getProjectId());
+                List<String> teamName = new ArrayList<>();
+                for(User currUser: team){
+                    teamName.add(currUser.getName());
+                }
+                projectOutDto.setTeam(teamName);
+                listProjectOut.add(projectOutDto);
+            }
+            return listProjectOut;
         } else {
             throw new ResourceAlreadyExistsException("Project does not exist");
         }
+    }
+
+    public final List<ProjectOutDto> getProjectByEmail(String email){
+        User user = userRepository.findByEmail(email).get();
+        Long managerId = user.getId();
+        List<Project> projectDetails = projectRepository
+                .findAllByManagerId(managerId);
+        List<ProjectOutDto> projectList = new ArrayList<ProjectOutDto>();
+        for (Project project : projectDetails) {
+            ProjectOutDto projectOutDTO = new ProjectOutDto();
+            projectOutDTO.setProjectId(project.getProjectId());
+            projectOutDTO.setProjectName(project.getProjectName());
+            projectOutDTO.setManagerId(project.getManagerId());
+            projectOutDTO.setSkills(project.getSkills());
+            List<String> team = new ArrayList<>();
+
+            projectOutDTO.setTeam(team);
+            projectList.add(projectOutDTO);
+
+        }
+        return projectList;
     }
     /**
      * Converts a ProjectDto object to a Project object.
@@ -93,7 +132,7 @@ public class ProjectService {
      */
     public final Project dtoToProject(final ProjectDto projectDto) {
         Project project = new Project();
-        project.setProjectId(projectDto.getProjectId());
+//        project.setProjectId(projectDto.getProjectId());
         project.setProjectName(projectDto.getProjectName());
         project.setManagerId(projectDto.getManagerId());
         project.setDescription(projectDto.getDescription());
@@ -103,16 +142,14 @@ public class ProjectService {
     public final ProjectOutDto projectToOutDto(Project project){
         ProjectOutDto projectOutDto = new ProjectOutDto();
         projectOutDto.setDescription(project.getDescription());
+        projectOutDto.setProjectId(project.getProjectId());
         projectOutDto.setProjectName(project.getProjectName());
         projectOutDto.setSkills(project.getSkills());
         projectOutDto.setStartDate(project.getStartDate());
-        projectOutDto.setManagerId(project.getProjectId());
-        List<User> team = userRepository.findAllByProjectId(project.getProjectId());
-        List<String> teamName = new ArrayList<>();
-        for(User currUser: team){
-            teamName.add(currUser.getName());
-        }
-        projectOutDto.setTeam(teamName);
+        projectOutDto.setManagerId(project.getManagerId());
+        User user = userRepository.findById(project.getManagerId()).get();
+        projectOutDto.setManagerName(user.getName());
+
         return projectOutDto;
 
     }

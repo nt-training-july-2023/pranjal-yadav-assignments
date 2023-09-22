@@ -31,6 +31,7 @@ const DisplayManager = () => {
   return (
     
     <div >
+       
       <div className="card-container">
         {employees.map((manager) => {
          return <ManagerCard manager={manager} />

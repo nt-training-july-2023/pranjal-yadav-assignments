@@ -5,8 +5,8 @@
 }
 
 .top{
-    position: fixed;
-    margin-left: 125px;
+    /* position: fixed; */
+    margin-left:9rem;
 }
 
 .admin_heading {
@@ -100,10 +100,10 @@
     border: none; 
     border-radius: 5px;
     cursor: pointer; 
-    margin-left: 60rem;
+    margin-left: 69rem;
     margin-top: 1px;
     margin-bottom: 4px;
-    width:105px;
+    width:3.5rem;
     transition: background-color 0.3s; 
 }
 .btn_cancel{
@@ -206,8 +206,8 @@
     border: none; 
     border-radius: 5px;
     cursor: pointer; 
-    margin-left: 60rem;
-    margin-top: 1rem;
+    margin-left: 57rem;
+    /* margin-bottom: 3rem; */
     transition: background-color 0.3s; 
 }
 

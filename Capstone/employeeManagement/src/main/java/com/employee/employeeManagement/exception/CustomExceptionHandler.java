@@ -34,7 +34,7 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(WrongCredentialsExceptions.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public final ApiResponse wrongCredentialException(
+    public final ApiResponse invalidCredentialException(
             final WrongCredentialsExceptions ex) {
         String message = ex.getMessage();
         return new ApiResponse(message);

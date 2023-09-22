@@ -12,6 +12,7 @@ const MyProfile = () => {
   const navigate = useNavigate()
   const [employee, setEmployee] = useState([]);
   const [managerName, setManagerName] = useState("");
+  const [empName, setEmpName] = useState("")
 
   const getEmployee = async () => {
     const empEmail = localStorage.getItem("email");
@@ -20,6 +21,7 @@ const MyProfile = () => {
       `http://localhost:8080/user/email/${empEmail}`
     );
     setEmployee(response.data);
+    setEmpName(employee.name)
   };
 
   const getManager = async () => {
@@ -35,6 +37,7 @@ const MyProfile = () => {
   };
   return (
     <div className="main-profile">
+      {/* <h2 className="welcom-emp">Welcome {empName}</h2> */}
       {employee ? (
         <div >
           <div className="MyProfile_form">

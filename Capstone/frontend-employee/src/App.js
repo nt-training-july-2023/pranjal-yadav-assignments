@@ -17,6 +17,9 @@ import AssignProject from './component/AssignProject';
 import EmpDisplayEmployee from './component/EmployeeComponents/EmpDisplayEmployee';
 import ManagerDashBoard from './component/ManagerComponent/ManagerDashBoard';
 import UpdateSkills from './component/EmployeeComponents/UpdateSkills';
+import ManagerDisplayEmployee from './component/ManagerComponent/ManagerDisplayEmployee';
+import RequestResource from './component/ManagerComponent/RequestResource';
+import RequestNotification from './component/RequestNotification';
 
 
 
@@ -24,7 +27,7 @@ function App() {
   return (
     <div className="App">
     {/* // <div>  */}
-       <Header/>
+       {/* <Header/> */}
        <BrowserRouter>
       <Routes>
         <Route path='/' element={<Login/>}></Route>
@@ -41,6 +44,9 @@ function App() {
         <Route path='/managerDashboard' element={<ManagerDashBoard/>} />
         <Route path='/assignProject/:id' element={<AssignProject />} />
         <Route path='/updateSkills/:id' element={<UpdateSkills />} />
+        <Route path='/ManagerDisplayEmp' element={<ManagerDisplayEmployee/>} />
+        <Route path='/requestResource/:id' element={<RequestResource/>} />
+        <Route path='/requests' element={<RequestNotification/>} />
       </Routes>
       </BrowserRouter>
       

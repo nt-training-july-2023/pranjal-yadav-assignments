@@ -23,6 +23,7 @@ const AdminDashBoard = () => {
       <Link to="/" className="btn-logout">
         Log out
       </Link>
+      <Link className="btn-logout" to="/requests">Requests</Link>
       
       <div className="admin_tabs">
         <div
@@ -48,7 +49,8 @@ const AdminDashBoard = () => {
       </div>
       {activeTab==="EMPLOYEE" && (<Link to="/addEmployee" className="btn-addEmployee">
         Add Employee
-      </Link>)}
+      </Link>
+      )}
       {activeTab==="MANAGER" && (<Link className="btn-addManager">
         Add Manager
       </Link>)}

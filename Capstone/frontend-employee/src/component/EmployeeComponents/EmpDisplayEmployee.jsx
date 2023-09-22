@@ -52,7 +52,7 @@ const EmpDisplayEmployee = () => {
 
               <p><strong>Manager : </strong>{employee.managerName}</p>
               <p><strong>Contact : </strong>{employee.contactNo}</p>
-              <p><strong>Email : </strong>{employee.email}</p>
+              <p><strong>Email:</strong>{employee.email}</p>
             </div>
             <div className="column">
               <p style={{ fontSize: "15px" }}>

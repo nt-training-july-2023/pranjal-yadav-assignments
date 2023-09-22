@@ -20,7 +20,7 @@ const ManagerCard = ({manager}) => {
     }
     const handleProjectChange = async (event) => {
         setSelectedProject(event.target.value);
-        console.log(selectedProject);
+        console.log("Selected project "+selectedProject);
        
       };
   return (
@@ -56,15 +56,11 @@ const ManagerCard = ({manager}) => {
             <div className="column">
             <p style={{fontSize:"15px"}}><span className="highlight-span">Employee id :  </span> {manager.userId}</p>
             <br></br>
-            {/* <p><span className="highlight-span">DOB : </span>{manager.dob}</p>
-            <p><span className="highlight-span"> DOJ: </span>{manager.doj}</p> */}
             <p><span className="highlight-span"> Location </span>: {manager.location}</p>
-            {/* <p style={{marginTop:"1rem"}}>Skills :   {(manager.skills)?(manager.skills.replace(/[\[\]']+/g,'')):"NA"}</p> */}
             <p style={{ marginTop: "1rem" }}>
                 <span className='highlight-span' style={{ fontWeight: "bold" }}>Project Skills : </span>{" "}
                 {
                                    projectList.map((project) => {
-                                    // console.log(project.projectId, "===", selectedProject)
                                     if ((project.projectId + "") === selectedProject) {
                                         return project.skills
                                             .map((skill, index) => {
@@ -78,6 +74,15 @@ const ManagerCard = ({manager}) => {
                                     }
                                 })}
               </p>
+              <p><strong>Team : </strong>{projectList.map((project) => {
+                if ((project.projectId+"") === selectedProject) {
+                    return project.team.map((team, index) => {
+                  const isLast = index === project.team.length - 1;
+                  return isLast ? team : team + ",";
+                });
+              }
+              return null;
+            })}</p>
             </div>
             
 

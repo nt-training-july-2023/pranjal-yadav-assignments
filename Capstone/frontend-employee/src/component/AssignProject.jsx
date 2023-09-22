@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import '../style/AssignProject.css'
 const AssignProject = () => {
   const { id } = useParams();
@@ -13,6 +13,7 @@ const AssignProject = () => {
   const [employee, setEmployee] = useState([]);
   const [projectId, setProjectId] = useState();
   const [managerId, setManagerId] = useState();
+  const navigate = useNavigate();
 
   const getEmployeeById = async () => {
     try {
@@ -48,6 +49,8 @@ const AssignProject = () => {
         }
       );
       console.log(response.data);
+      navigate("/adminDashboard")
+      
     } catch (error) {
       console.error(error);
     }

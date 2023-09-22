@@ -49,9 +49,13 @@ const UpdateSkills = () => {
       setSelectedSkills(employeeDetails.skills);
     }
   }, [employeeDetails]);
+  
   const handleUpdate = async () => {
     ValidateSkill();
     if (updateSkillsError) {
+      return;
+    }
+    if(skills.length ===0){
       return;
     }
     try {

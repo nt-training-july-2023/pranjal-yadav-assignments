@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import RequestResource from './RequestResource';
 
 const ManagerDisplayEmployee = () => {
     const [employees, setEmployees] = useState([]);
@@ -39,7 +40,7 @@ const ManagerDisplayEmployee = () => {
               <p><span className="highlight-span">Manager :</span>{employee.managerName}</p>
               <p><span className="highlight-span">Contact : </span>{employee.contactNo}</p>
               <p><span className="highlight-span">Email : </span>{employee.email}</p>
-              <p><span className="highlight-span">Skills : </span>{employee.skills}</p>
+              <p><span className="highlight-span">Skills : </span>{employee.skills.join(", ")}</p>
               
               </div>
               <div className="column">
@@ -50,8 +51,8 @@ const ManagerDisplayEmployee = () => {
               <p><span className="highlight-span">Location : </span>{employee.location}</p>
               
               {!employee.projectId && (
-                
-                <Link className="assign-button">Request Resource</Link>
+
+                <Link className="assign-button" to={`/requestResource/${employee.id}`}>Request Resource</Link>
               
             )}
     

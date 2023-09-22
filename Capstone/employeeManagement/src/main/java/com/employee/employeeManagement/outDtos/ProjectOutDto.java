@@ -27,6 +27,16 @@ public class ProjectOutDto {
      */
     private List<String> skills;
 
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
+    }
+
+    private String managerName;
+
     public List<String> getTeam() {
         return team;
     }

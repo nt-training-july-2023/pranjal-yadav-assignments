@@ -1,8 +1,10 @@
 package com.employee.employeeManagement.controller;
 
+import com.employee.employeeManagement.dto.RequestResourceDto;
 import com.employee.employeeManagement.outDtos.EmployeeOutDto;
 import com.employee.employeeManagement.dto.LoginDto;
 import com.employee.employeeManagement.dto.UserDto;
+import com.employee.employeeManagement.outDtos.RequestResourceOutDto;
 import com.employee.employeeManagement.outDtos.UserNameDto;
 import com.employee.employeeManagement.response.ApiResponse;
 import com.employee.employeeManagement.service.UserService;
@@ -11,14 +13,7 @@ import org.slf4j.LoggerFactory;
 import jakarta.validation.Valid;
 import com.employee.employeeManagement.validation.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -179,5 +174,37 @@ public class UserController {
         LOGGER.info("Updating skills for " + id);
         return userService.updateSkills(id, skills.get("skills"));
     }
+    @PostMapping(path = "/request/resource")
+    public final ApiResponse requestResource(@RequestBody final RequestResourceDto requestResourceDto){
+        return userService.requestResource(requestResourceDto);
+    }
+    @GetMapping(path = "/all/request")
+    public final List<RequestResourceOutDto> getAllRequests(){
+        return userService.getAllRequests();
+    }
+    @DeleteMapping(path = "/request/delete/{resourceId}")
+    public final ApiResponse deleteRequest(@PathVariable Long resourceId){
+        return userService.deleteRequest(resourceId);
+    }
+    @PutMapping("/update-details/{employeeId}")
+    public final ApiResponse updateEmployeeDetails(
+            @PathVariable final Long employeeId,
+            @RequestBody final Map<String, Long> updatedDetails) {
+        Long projectId = updatedDetails.get("projectId");
+        Long managerId = updatedDetails.get("managerId");
+        return userService.updateEmployeeDetails(employeeId, projectId,
+                managerId);
+    }
+    @GetMapping(path = "employees/skills")
+    public final List<EmployeeOutDto> employeeWithSkill(@RequestParam List<String> skills,
+                                                        @RequestParam boolean isCheck){
+        return userService.searchBySkills(skills, isCheck);
+    }
+
+    @GetMapping(path = "employee/unassigned")
+    public final List<EmployeeOutDto> unassignedEmployee(){
+        return userService.searchUnassigned();
+    }
+
 
 }

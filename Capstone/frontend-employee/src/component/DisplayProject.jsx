@@ -32,13 +32,16 @@ const DisplayProject = () => {
     }
   };
   function reverseDateFormat(inputDate) {
-    const dateParts = inputDate.split("-");
-    if (dateParts.length === 3) {
-      const reversedDate =
-        dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
-      return reversedDate;
+    if (inputDate) {
+      const dateParts = inputDate.split("-");
+      if (dateParts.length === 3) {
+        const reversedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
+        return reversedDate;
+      } else {
+        return "Invalid Date Format";
+      }
     } else {
-      return "Invalid Date Format";
+      return "Date is missing or undefined";
     }
   }
   async function getManagerNames() {

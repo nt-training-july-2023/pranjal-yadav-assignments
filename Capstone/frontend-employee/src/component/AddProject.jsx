@@ -117,7 +117,7 @@ const AddProject = () => {
         setShowPopUp(true);
         setPopUpMessage("Project Added successfully");
         const navigateToDashboard = () => {
-          navigate("/AdminDashboard");
+          navigate("/adminDashboard");
         };
         setTimeout(navigateToDashboard, 2000);
       })

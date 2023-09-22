@@ -7,10 +7,8 @@ import com.employee.employeeManagement.enums.Role;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-/**
- * Data Transfer Object (DTO) representing employee information.
- */
-public class EmployeeOutDto {
+
+public class ManagerOutDto {
     /**
      * The unique ID of the employee.
      */
@@ -81,11 +79,6 @@ public class EmployeeOutDto {
      */
     private List<String> skills;
 
-    /**
-     * The ID of the employee's manager.
-     */
-    private Long managerId;
-
     public List<String> getTeam() {
         return team;
     }
@@ -95,10 +88,11 @@ public class EmployeeOutDto {
     }
 
     /**
-     * Team of the employee/manager.
+     * The ID of the employee's manager.
      */
-    private List<String> team;
+    private Long managerId;
 
+    private List<String> team;
     /**
      * Get the unique ID of the employee.
      *
@@ -373,5 +367,4 @@ public class EmployeeOutDto {
     public final void setProjectName(final String projectNameParam) {
         this.projectName = projectNameParam;
     }
-
 }

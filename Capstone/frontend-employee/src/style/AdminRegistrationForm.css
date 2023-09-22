@@ -173,7 +173,14 @@ span{
 
 .selected-values {
   display: flex;
+  overflow-x: scroll;
+  /* width:2rem; */
+  /* height:8rem; */
   /* flex: 1; */
+}
+.selected-values::-webkit-scrollbar{
+  /* background-color: transparent; */
+  display: none;
 }
 
 .dropdown-arrow {
@@ -188,16 +195,16 @@ span{
   position: absolute;
   top: 100%;
   left: 0;
-  width: 190%;
+  width: 203%;
   max-height: 200px;
-  /* overflow-y: auto; */
+  overflow-y: auto;
   border: 1px solid #ccc;
   background-color: #fff;
   z-index: 100;
   display: none;
 }
 .dropdown-option{
-  text-align: left;
+width: 3rem;
 }
 .dropdown.open + .dropdown-options {
   display: inline;
@@ -208,7 +215,8 @@ span{
 
 .dropdown-option {
   padding: 10px;
-  width: 190%;
+  width: 90%;
+  text-align: left;
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -223,4 +231,9 @@ span{
   font-size: 14px;
   width: 190%;
   margin-bottom: 3px;
+}
+.dropdown{
+  height: 0.9rem;
+  border-radius: 0.2rem;
+  margin-top: -0.1rem;
 }
