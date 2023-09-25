@@ -79,19 +79,13 @@ public class ManagerOutDto {
      */
     private List<String> skills;
 
-    public List<String> getTeam() {
-        return team;
-    }
-
-    public void setTeam(List<String> team) {
-        this.team = team;
-    }
-
     /**
      * The ID of the employee's manager.
      */
     private Long managerId;
-
+    /**
+     * List of team members.
+     */
     private List<String> team;
     /**
      * Get the unique ID of the employee.
@@ -366,5 +360,25 @@ public class ManagerOutDto {
      */
     public final void setProjectName(final String projectNameParam) {
         this.projectName = projectNameParam;
+    }
+
+    /**
+     * Set team.
+     * @return List of team members.
+     */
+    public final List<String> getTeam() {
+        return Collections.unmodifiableList(team);
+    }
+
+    /**
+     * get team.
+     * @param teamParams List of team members.
+     */
+    public final void setTeam(final List<String> teamParams) {
+        if (teamParams != null) {
+            this.team = new ArrayList<>(teamParams);
+        } else {
+            this.team = null;
+        }
     }
 }

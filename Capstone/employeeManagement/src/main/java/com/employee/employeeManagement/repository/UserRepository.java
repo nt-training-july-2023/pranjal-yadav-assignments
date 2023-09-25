@@ -27,6 +27,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return An optional containing user if found.
      */
     Optional<User> findByUserId(String userId);
+
+    /**
+     * finding user by id.
+     * @param id id.
+     * @return optiona; user.
+     */
     Optional<User> findById(Long id);
     /**
      * Finds users by their role.
@@ -35,5 +41,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return A list of users with the specified role.
      */
     List<User> findByRole(Role role);
+
+    /**
+     * finds users by project id.
+     * @param projectId project id.
+     * @return list of users.
+     */
     List<User> findAllByProjectId(Long projectId);
 }

@@ -17,7 +17,7 @@ public class ProjectValidation {
      * Project repository Autowired.
      */
     @Autowired
-    ProjectRepository projectRepository;
+    private ProjectRepository projectRepository;
     /**
      * Checks if a project with the given name already exists.
      *

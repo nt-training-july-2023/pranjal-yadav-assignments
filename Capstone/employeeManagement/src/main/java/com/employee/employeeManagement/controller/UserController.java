@@ -1,6 +1,7 @@
 package com.employee.employeeManagement.controller;
 
 import com.employee.employeeManagement.dto.RequestResourceDto;
+import com.employee.employeeManagement.dto.IsRequested;
 import com.employee.employeeManagement.outDtos.EmployeeOutDto;
 import com.employee.employeeManagement.dto.LoginDto;
 import com.employee.employeeManagement.dto.UserDto;
@@ -13,7 +14,17 @@ import org.slf4j.LoggerFactory;
 import jakarta.validation.Valid;
 import com.employee.employeeManagement.validation.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
+
 
 import java.util.List;
 import java.util.Map;
@@ -48,7 +59,7 @@ public class UserController {
      * @return ApiResponse indicating the status of the operation.
      */
     @PostMapping(path = "/save")
-    public final ApiResponse saveAdmin(final @RequestBody UserDto userDto) {
+    public final ApiResponse saveAdmin(final @Valid@RequestBody UserDto userDto) {
         userValidation.checkUser(userDto);
         return userService.addUser(userDto);
     }
@@ -74,7 +85,7 @@ public class UserController {
      * @return ResponseEntityDto indicating the status of the operation.
      */
     @PostMapping(path = "/save-emp")
-    public final ApiResponse saveEmp(@RequestBody final UserDto userDto) {
+    public final ApiResponse saveEmp(@RequestBody @Valid final UserDto userDto) {
         LOGGER.info("Adding employee.");
         userValidation.checkUser(userDto);
         return userService.saveEmp(userDto);
@@ -168,43 +179,96 @@ public class UserController {
         LOGGER.info("Assigning project.");
         return userService.updateEmployee(id, updatedDetails);
     }
+
+    /**
+     * Endpoint for updating skills of an employee.
+     * @param id Id of employee.
+     * @param skills Updated skills.
+     * @return Response.
+     */
     @PutMapping(path = "/{id}/skill")
     public final ApiResponse updateSkills(@PathVariable final Long id,
-                                          @RequestBody final Map<String,List<String>> skills){
+                                          @RequestBody final Map<String,
+                                                  List<String>> skills) {
         LOGGER.info("Updating skills for " + id);
         return userService.updateSkills(id, skills.get("skills"));
     }
+
+    /**
+     * Endpoint for adding a request for resource.
+     * @param requestResourceDto Request.
+     * @return Response.
+     */
     @PostMapping(path = "/request/resource")
-    public final ApiResponse requestResource(@RequestBody final RequestResourceDto requestResourceDto){
+    public final ApiResponse requestResource(
+            @RequestBody final RequestResourceDto requestResourceDto) {
         return userService.requestResource(requestResourceDto);
     }
+
+    /**
+     * Endpoint for retrieving all requested resources.
+     * @return List of requested resources.
+     */
     @GetMapping(path = "/all/request")
-    public final List<RequestResourceOutDto> getAllRequests(){
+    public final List<RequestResourceOutDto> getAllRequests() {
         return userService.getAllRequests();
     }
+
+    /**
+     * Endpoint for deleting a requested resource.
+     * @param resourceId Id of that resource.
+     * @return Response.
+     */
     @DeleteMapping(path = "/request/delete/{resourceId}")
-    public final ApiResponse deleteRequest(@PathVariable Long resourceId){
+    public final ApiResponse deleteRequest(
+            @PathVariable final Long resourceId) {
         return userService.deleteRequest(resourceId);
     }
-    @PutMapping("/update-details/{employeeId}")
-    public final ApiResponse updateEmployeeDetails(
-            @PathVariable final Long employeeId,
-            @RequestBody final Map<String, Long> updatedDetails) {
-        Long projectId = updatedDetails.get("projectId");
-        Long managerId = updatedDetails.get("managerId");
-        return userService.updateEmployeeDetails(employeeId, projectId,
-                managerId);
+
+    /**
+     * Endpoint for accepting request.
+     * @param resourceId of requested resource.
+     * @return Response.
+     */
+    @PostMapping("/accept/{resourceId}")
+    public final ApiResponse acceptRequest(
+            @PathVariable final Long resourceId) {
+        return userService.acceptRequest(resourceId);
     }
+
+    /**
+     *Endpoint for getting all employees with given skills.
+     * @param skills required skills in employees.
+     * @param isCheck If true then all unassigned.
+     *                If false then all assigned.
+     * @return List of employees.
+     */
     @GetMapping(path = "employees/skills")
-    public final List<EmployeeOutDto> employeeWithSkill(@RequestParam List<String> skills,
-                                                        @RequestParam boolean isCheck){
+    public final List<EmployeeOutDto> employeeWithSkill(
+            @RequestParam final List<String> skills,
+            @RequestParam final boolean isCheck) {
         return userService.searchBySkills(skills, isCheck);
     }
 
-    @GetMapping(path = "employee/unassigned")
-    public final List<EmployeeOutDto> unassignedEmployee(){
-        return userService.searchUnassigned();
+    /**
+     * Endpoint to un-assign employee from a
+     * project.
+     * @param id Id of employee.
+     * @return Response.
+     */
+    @PutMapping(path = "/unassign/{id}")
+    public final ApiResponse unAssignProject(@PathVariable final Long id) {
+        return userService.unAssignProject(id);
     }
 
-
+    /**
+     * Check if that particular employee is already
+     * requested by that manager.
+     * @param reqDto requested resource dto.
+     * @return boolean value.
+     */
+    @PostMapping("/employee/isRequested")
+    public boolean isRequested(@RequestBody final IsRequested reqDto) {
+        return userService.isRequested(reqDto);
+    }
 }

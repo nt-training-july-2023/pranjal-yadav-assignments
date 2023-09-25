@@ -1,25 +1,26 @@
 
 //import './App.css';
-import Footer from './component/Footer';
-import Header from './component/Header';
-import AdminRegistrationForm from './component/AdminRegistrationForm';
-import Login from './component/Login';
+import Footer from './component/Footer/Footer';
+import Header from './component/Header/Header';
+import AdminRegistrationForm from './Pages/Registration/AdminRegistrationForm';
+import Login from './Pages/LoginPage/Login';
 import { Route,BrowserRouter,Routes } from 'react-router-dom';
-import Dashboard from './component/Dashboard';
-import AdminDashBoard from './component/AdminDashBoard';
-import AddEmployee from './component/AddEmployee';
-import DisplayEmployee from './component/DisplayEmployee';
-import DisplayManager from './component/DisplayManager';
-import DisplayProject from './component/DisplayProject';
-import AddProject from './component/AddProject';
-import EmployeeDashBoard from './component/EmployeeComponents/EmployeeDashBoard';
-import AssignProject from './component/AssignProject';
-import EmpDisplayEmployee from './component/EmployeeComponents/EmpDisplayEmployee';
-import ManagerDashBoard from './component/ManagerComponent/ManagerDashBoard';
-import UpdateSkills from './component/EmployeeComponents/UpdateSkills';
-import ManagerDisplayEmployee from './component/ManagerComponent/ManagerDisplayEmployee';
-import RequestResource from './component/ManagerComponent/RequestResource';
-import RequestNotification from './component/RequestNotification';
+// import Dashboard from './component/Dashboard';
+import AdminDashBoard from './Pages/AdminDashboard/AdminDashBoard';
+import AddEmployee from './component/AddEmployee/AddEmployee';
+import DisplayEmployee from './Pages/AdminDashboard/Employee/DisplayEmployee';
+import DisplayManager from './Pages/AdminDashboard/Manager/DisplayManager';
+import DisplayProject from './Pages/AdminDashboard/Project/DisplayProject';
+import AddProject from './component/AddProject/AddProject';
+import EmployeeDashBoard from './Pages/EmployeeDashboard/EmployeeDashBoard';
+import AssignProject from './component/AssignProject/AssignProject';
+import EmpDisplayEmployee from '../src/Pages/EmployeeDashboard/EmployeeDashBoard';
+import ManagerDashBoard from './Pages/ManagerDashboard/ManagerDashBoard';
+import UpdateSkills from './component/UpdateSkills/UpdateSkills';
+import ManagerDisplayEmployee from './Pages/ManagerDashboard/Employee/ManagerDisplayEmployee';
+import RequestResource from './component/RequestResource/RequestResource';
+import RequestNotification from './component/RequestNotification/RequestNotification';
+import UnassignProject from './component/AssignProject/UnassignProject';
 
 
 
@@ -32,7 +33,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Login/>}></Route>
         <Route path='/adminRegister' element={<AdminRegistrationForm/>}></Route>
-        <Route path='/dashboard' element= {<Dashboard/>}></Route>
+        {/* <Route path='/dashboard' element= {<Dashboard/>}></Route> */}
         <Route path='/MANAGER' element={<DisplayManager/>} />
         <Route path='/EMPLOYEE' element={<DisplayEmployee/>} />
         <Route path='/Organization' element={<EmpDisplayEmployee/>} />
@@ -47,6 +48,7 @@ function App() {
         <Route path='/ManagerDisplayEmp' element={<ManagerDisplayEmployee/>} />
         <Route path='/requestResource/:id' element={<RequestResource/>} />
         <Route path='/requests' element={<RequestNotification/>} />
+        <Route path='/unassign/:id' element={<UnassignProject/>} />
       </Routes>
       </BrowserRouter>
       

@@ -39,7 +39,6 @@ public class EmployeeOutDtoTest {
         employee.setSkills(Arrays.asList("Java", "SQL"));
         employee.setManagerId(2L);
 
-        // Check values using getters
         assertEquals(1L, employee.getId());
         assertEquals("Rashmi Shukla", employee.getName());
         assertEquals("rashmi@nucleusteq.com", employee.getEmail());

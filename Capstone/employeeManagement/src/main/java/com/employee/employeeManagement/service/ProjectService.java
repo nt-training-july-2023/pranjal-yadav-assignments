@@ -42,14 +42,20 @@ public class ProjectService {
         projectRepository.save(project);
         return new ProjectApiResponse("Project added successfully!");
     }
-    public final List<ProjectOutDto> getAllProjects(){
+
+    /**
+     * Getting all projects.
+     * @return List of all projects.
+     */
+    public final List<ProjectOutDto> getAllProjects() {
         List<Project> allProjects = projectRepository.findAll();
         List<ProjectOutDto> returnedList = new ArrayList<>();
-        for(Project project : allProjects){
+        for (Project project : allProjects) {
             ProjectOutDto projectOutDto = projectToOutDto(project);
-            List<User> team = userRepository.findAllByProjectId(project.getProjectId());
+            List<User> team = userRepository.findAllByProjectId(
+                    project.getProjectId());
             List<String> teamName = new ArrayList<>();
-            for(User currUser: team){
+            for (User currUser: team) {
                 teamName.add(currUser.getName());
             }
             projectOutDto.setTeam(teamName);
@@ -82,17 +88,19 @@ public class ProjectService {
      * @param managerId .
      * @return Optional value project or exception.
      */
-    public final List<ProjectOutDto> getProjectByManagerId(final long managerId) {
+    public final List<ProjectOutDto> getProjectByManagerId(
+            final long managerId) {
         List<Project> projectList =
                 projectRepository.findAllByManagerId(managerId);
         if (!projectList.isEmpty()) {
             List<ProjectOutDto> listProjectOut = new ArrayList<>();
-            for(Project currProject : projectList){
+            for (Project currProject : projectList) {
                 ProjectOutDto projectOutDto = projectToOutDto(currProject);
                 List<User> team =
-                        userRepository.findAllByProjectId(currProject.getProjectId());
+                        userRepository.findAllByProjectId(
+                                currProject.getProjectId());
                 List<String> teamName = new ArrayList<>();
-                for(User currUser: team){
+                for (User currUser: team) {
                     teamName.add(currUser.getName());
                 }
                 projectOutDto.setTeam(teamName);
@@ -104,7 +112,12 @@ public class ProjectService {
         }
     }
 
-    public final List<ProjectOutDto> getProjectByEmail(String email){
+    /**
+     * Getting project by manager email.
+     * @param email Email of manager.
+     * @return List of projects.
+     */
+    public final List<ProjectOutDto> getProjectByEmail(final String email) {
         User user = userRepository.findByEmail(email).get();
         Long managerId = user.getId();
         List<Project> projectDetails = projectRepository
@@ -132,14 +145,19 @@ public class ProjectService {
      */
     public final Project dtoToProject(final ProjectDto projectDto) {
         Project project = new Project();
-//        project.setProjectId(projectDto.getProjectId());
         project.setProjectName(projectDto.getProjectName());
         project.setManagerId(projectDto.getManagerId());
         project.setDescription(projectDto.getDescription());
         project.setSkills(projectDto.getSkills());
         return project;
     }
-    public final ProjectOutDto projectToOutDto(Project project){
+
+    /**
+     *  Converts a Project object to a ProjectDto object.
+     * @param project The Project object to be converted.
+     * @return A ProjectDto object created from the provided Project.
+     */
+    public final ProjectOutDto projectToOutDto(final Project project) {
         ProjectOutDto projectOutDto = new ProjectOutDto();
         projectOutDto.setDescription(project.getDescription());
         projectOutDto.setProjectId(project.getProjectId());

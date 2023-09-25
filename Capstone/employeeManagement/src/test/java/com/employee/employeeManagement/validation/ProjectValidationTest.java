@@ -5,15 +5,18 @@ import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
 import com.employee.employeeManagement.repository.ProjectRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class ProjectValidationTest {
+    @InjectMocks
     private ProjectValidation projectValidation;
 
     @Mock
@@ -21,27 +24,27 @@ public class ProjectValidationTest {
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        projectValidation = new ProjectValidation();
-        projectValidation.projectRepository = projectRepository;
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testCheckName_ProjectWithNameExists() {
-        String projectName = "ExistingProject";
-        Project existingProject = new Project();
-        existingProject.setProjectName(projectName);
+    public void testCheckNameProjectExists() {
+        String projectName = "ProjectA";
 
-        when(projectRepository.findByProjectName(projectName)).thenReturn(Optional.of(existingProject));
+        when(projectRepository.findByProjectName(projectName)).thenReturn(Optional.of(new Project()));
 
-        assertThrows(ResourceAlreadyExistsException.class, () -> projectValidation.checkName(projectName));
+        ResourceAlreadyExistsException exception = assertThrows(ResourceAlreadyExistsException.class, () -> {
+            projectValidation.checkName(projectName);
+        });
 
         verify(projectRepository, times(1)).findByProjectName(projectName);
+
+        assertEquals("This project name ProjectA already exists", exception.getMessage());
     }
 
     @Test
-    public void testCheckName_ProjectWithNameDoesNotExist() {
-        String projectName = "NewProject";
+    public void testCheckNameProjectDoesNotExist() {
+        String projectName = "ProjectB";
 
         when(projectRepository.findByProjectName(projectName)).thenReturn(Optional.empty());
 

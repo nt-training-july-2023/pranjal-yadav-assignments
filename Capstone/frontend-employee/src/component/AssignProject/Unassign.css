@@ -1,0 +1,47 @@
+
+.unassign_div {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.unassign_question {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.answer_yes {
+    background-color: #4caf50; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.answer_no {
+    background-color: #f44336; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.answer_yes:hover {
+    background-color: #45a049; 
+}
+
+.answer_no:hover {
+    background-color: #d32f2f; 
+}

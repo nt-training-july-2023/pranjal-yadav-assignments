@@ -5,6 +5,7 @@ import com.employee.employeeManagement.enums.Location;
 import com.employee.employeeManagement.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 import java.util.ArrayList;
@@ -58,15 +59,17 @@ public class UserDto {
     /**
      * The contact number of the user.
      */
+    @NotNull
     private Long contactNo;
     /**
      * The name of the project the user is associated with.
      */
-
+@NotNull
     private Long projectId;
     /**
      * The role of the user.
      */
+    @NotBlank
     private Role role;
     /**
      * The password of the user.
@@ -76,6 +79,7 @@ public class UserDto {
     /**
      * The list of skills possessed by the user.
      */
+    @NotBlank
     private List<String> skills;
     /**
      * The name of the user's manager.

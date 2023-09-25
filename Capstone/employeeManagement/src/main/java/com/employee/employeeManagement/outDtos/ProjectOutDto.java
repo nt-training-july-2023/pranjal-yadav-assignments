@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class ProjectOutDto {
+    /**
+     * ID of project.
+     */
     private Long projectId;
     /**
      * The name of the project.
@@ -27,22 +30,45 @@ public class ProjectOutDto {
      */
     private List<String> skills;
 
-    public String getManagerName() {
+    /**
+     * get manager name.
+     * @return manager name.
+     */
+    public final String getManagerName() {
         return managerName;
     }
 
-    public void setManagerName(String managerName) {
-        this.managerName = managerName;
+    /**
+     * set manager name.
+     * @param managerNameParam manager name.
+     */
+    public final void setManagerName(final String managerNameParam) {
+        this.managerName = managerNameParam;
     }
 
+    /**
+     * Name of manager.
+     */
     private String managerName;
 
-    public List<String> getTeam() {
-        return team;
+    /**
+     * get team.
+     * @return list of team members.
+     */
+    public final List<String> getTeam() {
+        return Collections.unmodifiableList(team);
     }
 
-    public void setTeam(List<String> team) {
-        this.team = team;
+    /**
+     * set team.
+     * @param teamParam list of team members.
+     */
+    public final void setTeam(final List<String> teamParam) {
+        if (teamParam != null) {
+            this.team = new ArrayList<>(teamParam);
+        } else {
+            this.team = null;
+        }
     }
 
     /**

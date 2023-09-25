@@ -16,11 +16,9 @@ public class LoginDtoTest {
 
     @Test
     public void testGettersAndSetters() {
-        // Set values using setters
         loginDto.setEmail("admin@nucleusteq.com");
         loginDto.setPassword("Password@123");
 
-        // Check values using getters
         assertEquals("admin@nucleusteq.com", loginDto.getEmail());
         assertEquals("Password@123", loginDto.getPassword());
     }

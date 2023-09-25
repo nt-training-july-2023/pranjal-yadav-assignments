@@ -86,18 +86,10 @@ public class EmployeeOutDto {
      */
     private Long managerId;
 
-    public List<String> getTeam() {
-        return team;
-    }
-
-    public void setTeam(List<String> team) {
-        this.team = team;
-    }
-
     /**
      * Team of the employee/manager.
      */
-    private List<String> team;
+//    private List<String> team;
 
     /**
      * Get the unique ID of the employee.
@@ -374,4 +366,24 @@ public class EmployeeOutDto {
         this.projectName = projectNameParam;
     }
 
+    /**
+     * Get team.
+     * @return list of string containing name of team members.
+     */
+//    public final List<String> getTeam() {
+//        return Collections.unmodifiableList(team);
+//    }
+//
+//    /**
+//     * set team.
+//     * @param teamParams List of string containing name
+//     *             of team members.
+//     */
+//    public final void setTeam(final List<String> teamParams) {
+//        if (teamParams != null) {
+//            this.team = new ArrayList<>(teamParams);
+//        } else {
+//            this.team = null;
+//        }
+//    }
 }

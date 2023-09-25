@@ -1,8 +1,8 @@
 import React from "react";
 import "../style/DashBoard.css";
 import { Link, Route, Routes } from "react-router-dom";
-import DisplayEmployee from "./DisplayEmployee";
-import DisplayManager from "./DisplayManager";
+import DisplayEmployee from "../Pages/AdminDashboard/Employee/DisplayEmployee";
+import DisplayManager from "../Pages/AdminDashboard/Manager/DisplayManager";
 
 const Dashboard = () => {
   return (

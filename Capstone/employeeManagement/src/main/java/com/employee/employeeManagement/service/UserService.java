@@ -3,6 +3,7 @@ package com.employee.employeeManagement.service;
 import com.employee.employeeManagement.Model.Project;
 import com.employee.employeeManagement.Model.RequestResource;
 import com.employee.employeeManagement.dto.RequestResourceDto;
+import com.employee.employeeManagement.dto.IsRequested;
 import com.employee.employeeManagement.enums.Role;
 import com.employee.employeeManagement.Model.User;
 import com.employee.employeeManagement.outDtos.EmployeeOutDto;
@@ -21,7 +22,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashSet;
+import java.util.Base64;
 import java.util.stream.Collectors;
 
 /**
@@ -49,6 +55,9 @@ public class UserService {
      */
     @Autowired
     private UserValidation userValidation;
+    /**
+     * RequestResourceRepository autowired.
+     */
     @Autowired
     private RequestResourceRepository requestResourceRepository;
     /**
@@ -123,8 +132,8 @@ public class UserService {
                     System.out.println(currUser);
                     team.add(currUser.getName());
                 }
-               System.out.println(team);
-                employeeOutDto.setTeam(team);
+//               System.out.println(team);
+//                employeeOutDto.setTeam(null);
 
         outUsers.add(employeeOutDto);
     }
@@ -248,7 +257,15 @@ public class UserService {
         return new ApiResponse("Updated Successfully");
 
     }
-    public final ApiResponse updateSkills(Long id, List<String> skills){
+    /**
+     * Updates the skills of a user.
+     *
+     * @param id     The ID of the user whose skills are to be updated.
+     * @param skills The list of skills to update.
+     * @return An ApiResponse indicating the status of the operation.
+     */
+    public final ApiResponse updateSkills(
+            final Long id, final List<String> skills) {
         Optional<User> optionalUser = userRepository.findById(id);
         User user = optionalUser.get();
         user.setSkills(skills);
@@ -256,85 +273,136 @@ public class UserService {
         return new ApiResponse("Skills are updated.");
 
     }
-    public final ApiResponse requestResource(final RequestResourceDto requestResourceDto){
+    /**
+     * Requests a resource based on the provided RequestResourceDto.
+     *
+     * @param requestResourceDto The RequestResourceDto
+     *                           containing the request details.
+     * @return An ApiResponse indicating the status of the operation.
+     */
+    public final ApiResponse requestResource(
+            final RequestResourceDto requestResourceDto) {
         RequestResource requestResource =
                 dtoToRequestResource(requestResourceDto);
         requestResourceRepository.save(requestResource);
         return new ApiResponse("Resource added.");
     }
+    /**
+     * Retrieves a list of all request resources and
+     * converts them to RequestResourceOutDto objects.
+     *
+     * @return A list of RequestResourceOutDto
+     * objects representing all request resources.
+     */
     public final List<RequestResourceOutDto> getAllRequests() {
         List<RequestResource> requestResourceList =
                 requestResourceRepository.findAll();
         List<RequestResourceOutDto> returnedList = new ArrayList<>();
-        for(RequestResource r: requestResourceList){
+        for (RequestResource r: requestResourceList) {
             RequestResourceOutDto requestResourceOutDto = requestToOutDto(r);
             returnedList.add(requestResourceOutDto);
         }
         return returnedList;
     }
-    public ApiResponse deleteRequest(Long resourceId) {
+    /**
+     * Deletes a request resource by its ID.
+     *
+     * @param resourceId The ID of the request resource to delete.
+     * @return An ApiResponse indicating the status of the operation.
+     */
+    public ApiResponse deleteRequest(final Long resourceId) {
         requestResourceRepository.deleteById(resourceId);
         return new ApiResponse("Deleted successfully!");
     }
-    public final ApiResponse updateEmployeeDetails(final Long id,
-                                                   final Long projectId, final Long managerId) {
-        User employee = userRepository.findById(id).orElse(null);
-        if (employee != null) {
-            employee.setProjectId(projectId);
-            employee.setManagerId(managerId);
-            userRepository.save(employee);
-            System.out.println(employee);
-            return new ApiResponse("Updated Successfully");
+    /**
+     * Accepts a request by updating the project and manager for an employee.
+     *
+     * @param id        The ID of the employee.
+     * @return An ApiResponse indicating the status of the operation.
+     */
+    public final ApiResponse acceptRequest(
+            final Long id) {
+        RequestResource requestResource =
+                requestResourceRepository.findById(id).get();
+        User employee =
+                userRepository.findById(requestResource.getEmployeeId()).get();
+        employee.setProjectId(requestResource.getProjectId());
+        employee.setManagerId(requestResource.getManagerId());
+        this.userRepository.save(employee);
+        deleteRequest(id);
+
+        List<RequestResource> employeeRequests =
+                requestResourceRepository.findByEmployeeId(employee.getId());
+        for (RequestResource req : employeeRequests) {
+            deleteRequest(req.getResourceId());
         }
-        return new ApiResponse("Employee Not Found");
+        return new ApiResponse("Accepted");
     }
-    public final List<EmployeeOutDto> searchBySkills(List<String> skills,
-                                                     boolean isCheck){
-//        List<User> allEmployees = userRepository.findByRole(Role.EMPLOYEE);
-//        List<User> employeesWithSkills =
-//                allEmployees.stream().filter(user -> new HashSet<>(user.getSkills()).containsAll(skills)).toList();
-//        List<EmployeeOutDto> returnedEmployee = new ArrayList<>();
-//        for(User currEmployee : employeesWithSkills){
-//            EmployeeOutDto employeeOutDto = userToOutDto(currEmployee);
-//            returnedEmployee.add(employeeOutDto);
-//        }
-//        return returnedEmployee;
+    /**
+     * Searches for employees by skills and availability.
+     *
+     * @param skills  The list of skills to search for.
+     * @param isCheck Flag indicating whether
+     *               to check availability (project unassigned).
+     * @return A list of EmployeeOutDto objects representing matching employees.
+     */
+    public final List<EmployeeOutDto> searchBySkills(
+            final List<String> skills, final boolean isCheck) {
+
         List<User> allEmployees = userRepository.findByRole(Role.EMPLOYEE);
         List<User> employeesWithSkills =
-                allEmployees.stream().filter(user -> new HashSet<>(user.getSkills()).containsAll(skills)).toList();
+                allEmployees.stream().filter(
+                        user -> new HashSet<>(user.getSkills()).containsAll(
+                                skills)).toList();
         List<User> returnedList;
-        if(isCheck){
-            List<User> unAssignedEmployees = employeesWithSkills.stream()
-                    .filter(employee -> employee.getProjectId()==null)
+        if (isCheck) {
+            returnedList = employeesWithSkills.stream()
+                    .filter(employee -> employee.getProjectId() == null)
                     .collect(Collectors.toList());
-            returnedList = unAssignedEmployees;
         } else {
             returnedList = employeesWithSkills;
         }
         List<EmployeeOutDto> outList = new ArrayList<>();
-        for(User user : returnedList){
+        for (User user : returnedList) {
             EmployeeOutDto currOut = userToOutDto(user);
             outList.add(currOut);
         }
         return outList;
-
-
     }
-    public final List<EmployeeOutDto> searchUnassigned(){
-        List<User> allEmployees = userRepository.findByRole(Role.EMPLOYEE);
-        List<User> unAssignedEmployees = allEmployees.stream()
-                .filter(employee -> employee.getProjectId()==null)
-                .toList();
-        List<EmployeeOutDto> returnedEmployees =
-                new ArrayList<>();
-        for(User currUser : unAssignedEmployees){
-            EmployeeOutDto employeeOutDto = userToOutDto(currUser);
-            returnedEmployees.add(employeeOutDto);
+    /**
+     * Unassigns a project from an employee.
+     *
+     * @param id The ID of the employee to unassign the project from.
+     * @return An ApiResponse indicating the status of the operation.
+     */
+    public final ApiResponse unAssignProject(final Long id) {
+        User user = userRepository.findById(id).get();
+
+        User admin = userRepository.findByUserId("N0001").get();
+        user.setManagerId(admin.getId());
+        user.setProjectId(null);
+        this.userRepository.save(user);
+        return new ApiResponse("Project unassigned");
+    }
+
+    /**
+     * check if the resource is already requested.
+     * @param reqDto requested resource.
+     * @return boolean value.
+     */
+    public boolean isRequested(final IsRequested reqDto) {
+        User manager = userRepository
+                .findByEmail(reqDto.getManagerEmail()).get();
+
+        Optional<RequestResource> req =
+                requestResourceRepository.findByEmployeeIdAndManagerId(
+                        reqDto.getEmployeeId(),
+                        manager.getId());
+        if (req.isEmpty()) {
+            return false;
         }
-        return returnedEmployees;
-
+        return true;
     }
-
     /**
      * Converts a UserDto object to a User object.
      *
@@ -375,7 +443,7 @@ public class UserService {
         empDto.setDob(user.getDob());
         empDto.setDoj(user.getDoj());
         empDto.setLocation(user.getLocation());
-
+//        empDto.setTeam(null);
         empDto.setProjectId(user.getProjectId());
         empDto.setManagerId(user.getManagerId());
         User manager = userRepository
@@ -383,6 +451,7 @@ public class UserService {
         empDto.setManagerName(manager.getName());
         empDto.setSkills(user.getSkills());
         empDto.setRole(user.getRole());
+
         if (user.getProjectId() == null) {
             empDto.setProjectName("N/A");
         } else {
@@ -390,10 +459,17 @@ public class UserService {
                     user.getProjectId()).get();
             empDto.setProjectName(project.getProjectName());
         }
-
+        System.out.println(empDto.getSkills());
         return empDto;
     }
-    private RequestResource dtoToRequestResource(RequestResourceDto requestResourceDto) {
+    /**
+     * Converts a RequestResourceDto to a RequestResource entity.
+     *
+     * @param requestResourceDto The RequestResourceDto to convert.
+     * @return The corresponding RequestResource entity.
+     */
+    private RequestResource dtoToRequestResource(
+            final RequestResourceDto requestResourceDto) {
         RequestResource requestResource = new RequestResource();
         requestResource.setComment(requestResourceDto.getComment());
         requestResource.setManagerId(requestResourceDto.getManagerId());
@@ -401,7 +477,14 @@ public class UserService {
         requestResource.setProjectId(requestResourceDto.getProjectId());
         return requestResource;
     }
-    private RequestResourceOutDto requestToOutDto(RequestResource requestResource){
+    /**
+     * Converts a RequestResource entity to a RequestResourceOutDto.
+     *
+     * @param requestResource The RequestResource entity to convert.
+     * @return The corresponding RequestResourceOutDto.
+     */
+    private RequestResourceOutDto requestToOutDto(
+            final RequestResource requestResource) {
         RequestResourceOutDto r = new RequestResourceOutDto();
         r.setResourceId(requestResource.getResourceId());
         r.setComment(requestResource.getComment());
@@ -427,4 +510,3 @@ public class UserService {
 
 
 }
-

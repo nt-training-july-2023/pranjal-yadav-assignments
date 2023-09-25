@@ -1,6 +1,5 @@
 package com.employee.employeeManagement.controller;
 
-import com.employee.employeeManagement.Model.Project;
 import com.employee.employeeManagement.outDtos.ProjectOutDto;
 import com.employee.employeeManagement.dto.ManagerDto;
 import com.employee.employeeManagement.dto.ProjectDto;
@@ -8,6 +7,7 @@ import com.employee.employeeManagement.repository.ProjectRepository;
 import com.employee.employeeManagement.response.ProjectApiResponse;
 import com.employee.employeeManagement.service.ProjectService;
 import com.employee.employeeManagement.validation.ProjectValidation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -49,7 +49,7 @@ public class ProjectController {
      */
     @PostMapping("/addProject")
     public final ProjectApiResponse addProject(
-            @RequestBody final ProjectDto projectDto) {
+            @RequestBody @Valid final ProjectDto projectDto) {
         projectValidation.checkName(projectDto.getProjectName());
        return projectService.addProject(projectDto);
     }
@@ -83,8 +83,15 @@ public class ProjectController {
             @PathVariable final long managerId) {
         return projectService.getProjectByManagerId(managerId);
     }
+
+    /**
+     * Endpoint for getting projects by managerId.
+     * @param email email of manager.
+     * @return List of projects.
+     */
     @GetMapping("/manager/{email}")
-    public final List<ProjectOutDto> getProjectByEmail(@PathVariable String email) {
+    public final List<ProjectOutDto> getProjectByEmail(
+            @PathVariable final String email) {
         return projectService.getProjectByEmail(email);
     }
 }

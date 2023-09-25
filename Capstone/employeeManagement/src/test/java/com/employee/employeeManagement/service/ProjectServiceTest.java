@@ -1,145 +1,154 @@
-//package com.employee.employeeManagement.service;
-//
-//import com.employee.employeeManagement.Model.Project;
-//import com.employee.employeeManagement.dto.ProjectDto;
-//import com.employee.employeeManagement.enums.Role;
-//import com.employee.employeeManagement.Model.User;
-//import com.employee.employeeManagement.dto.ManagerDto;
-//import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
-//import com.employee.employeeManagement.repository.ProjectRepository;
-//import com.employee.employeeManagement.repository.UserRepository;
-//import com.employee.employeeManagement.response.ProjectApiResponse;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.MockitoAnnotations;
-//import org.modelmapper.ModelMapper;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//import static org.mockito.Mockito.*;
-//
-//public class ProjectServiceTest {
-//
-//    @InjectMocks
-//    private ProjectService projectService;
-//
-//    @Mock
-//    private ProjectRepository projectRepository;
-//
-//    @Mock
-//    private UserRepository userRepository;
-//
-//    @BeforeEach
-//    public void setUp() {
-//        MockitoAnnotations.initMocks(this);
-//    }
-//
-//
-//    @Test
-//    public void testGetManagers() {
-//        // Create a list of mock managers
-//        List<User> mockManagers = new ArrayList<>();
-//        User manager1 = new User();
-//        manager1.setName("Manager 1");
-//        manager1.setUserId("manager1");
-//        manager1.setId(1L);
-//        mockManagers.add(manager1);
-//
-//        // Mock the userRepository.findByRole method
-//        when(userRepository.findByRole(Role.MANAGER)).thenReturn(mockManagers);
-//
-//        List<ManagerDto> managerList = projectService.getManagers();
-//
-//        // Assert that the list is not empty
-//        assertFalse(managerList.isEmpty());
-//
-//        // Assert that the first manager in the list has the expected properties
-//        ManagerDto firstManager = managerList.get(0);
-//        assertEquals("Manager 1", firstManager.getName());
-//        assertEquals("manager1", firstManager.getUserId());
-//        assertEquals(1L, firstManager.getId());
-//
-//        // Verify that findByRole was called once
-//        verify(userRepository, times(1)).findByRole(Role.MANAGER);
-//    }
-//
-//    @Test
-//    public void testGetProjectByManagerId() {
-//        long managerId = 1L;
-//        List<Project> mockProjects = new ArrayList<>();
-//        Project project1 = new Project();
-//        project1.setProjectId(101L);
-//        project1.setProjectName("Project A");
-//        project1.setManagerId(managerId);
-//        project1.setDescription("Description A");
-//        List<String> expectedSkills = new ArrayList<>();
-//        expectedSkills.add("Java");
-//        expectedSkills.add("Spring");
-//        project1.setSkills(expectedSkills);
-//        mockProjects.add(project1);
-//
-//        // Mock the projectRepository.findAllByManagerId method
-//        when(projectRepository.findAllByManagerId(managerId)).thenReturn(mockProjects);
-//
-//        List<Project> projectList = projectService.getProjectByManagerId(managerId);
-//
-//        // Assert that the list is not empty
-//        assertFalse(projectList.isEmpty());
-//
-//        // Assert that the first project in the list has the expected properties
-//        Project firstProject = projectList.get(0);
-//        assertEquals(101L, firstProject.getProjectId());
-//        assertEquals("Project A", firstProject.getProjectName());
-//        assertEquals(managerId, firstProject.getManagerId());
-//        assertEquals("Description A", firstProject.getDescription());
-//
-//        // Assert that the skills property matches the expectedSkills list
-//        assertEquals(expectedSkills, firstProject.getSkills());
-//
-//        // Verify that findAllByManagerId was called once
-//        verify(projectRepository, times(1)).findAllByManagerId(managerId);
-//    }
-//
-//    @Test
-//    public void testGetProjectByManagerIdNotFound() {
-//        long managerId = 1L;
-//
-//        // Mock the projectRepository.findAllByManagerId method to return an empty list
-//        when(projectRepository.findAllByManagerId(managerId)).thenReturn(new ArrayList<>());
-//
-//        // Assert that calling getProjectByManagerId with an unknown managerId throws a ResourceAlreadyExistsException
-//        assertThrows(ResourceAlreadyExistsException.class, () -> projectService.getProjectByManagerId(managerId));
-//
-//        // Verify that findAllByManagerId was called once
-//        verify(projectRepository, times(1)).findAllByManagerId(managerId);
-//    }
-//
-//    @Test
-//    public void testDtoToProject() {
-//        ProjectDto projectDto = new ProjectDto();
-//        projectDto.setProjectId(101L);
-//        projectDto.setProjectName("Project A");
-//        projectDto.setManagerId(1L);
-//        projectDto.setDescription("Description A");
-//        List<String> expectedSkills = new ArrayList<>();
-//        expectedSkills.add("Java");
-//        expectedSkills.add("Spring");
-//        projectDto.setSkills(expectedSkills);
-//
-//        Project project = projectService.dtoToProject(projectDto);
-//
-//        // Assert that the project object has the expected properties
-//        assertEquals(101L, project.getProjectId());
-//        assertEquals("Project A", project.getProjectName());
-//        assertEquals(1L, project.getManagerId());
-//        assertEquals("Description A", project.getDescription());
-//
-//        // Assert that the skills property matches the expectedSkills list
-//        assertEquals(expectedSkills, project.getSkills());
-//    }
-//
-//}
+package com.employee.employeeManagement.service;
+
+import com.employee.employeeManagement.Model.Project;
+import com.employee.employeeManagement.Model.User;
+import com.employee.employeeManagement.dto.ManagerDto;
+import com.employee.employeeManagement.dto.ProjectDto;
+import com.employee.employeeManagement.enums.Role;
+import com.employee.employeeManagement.outDtos.ProjectOutDto;
+import com.employee.employeeManagement.repository.ProjectRepository;
+import com.employee.employeeManagement.repository.UserRepository;
+import com.employee.employeeManagement.response.ProjectApiResponse;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+public class ProjectServiceTest {
+    @InjectMocks
+    private ProjectService projectService;
+
+    @Mock
+    private ProjectRepository projectRepository;
+    @Mock
+    private UserRepository userRepository;
+    @Mock
+    private UserService userService;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
+    @Test
+    void testAddProject() {
+        ProjectDto projectDto = new ProjectDto();
+        projectDto.setProjectName("Test Project");
+        List<String> skills= new ArrayList<>();
+        skills.add("Java");
+        skills.add("React");
+        projectDto.setSkills(skills);
+
+        Project project = new Project();
+        when(projectRepository.save(any(Project.class))).thenReturn(project);
+
+        ProjectApiResponse response = projectService.addProject(projectDto);
+
+        verify(projectRepository).save(any(Project.class));
+
+        assertNotNull(response);
+        assertEquals("Project added successfully!", response.getMessage());
+    }
+    @Test
+    void testGetAllProjects() {
+        // Create sample data for testing
+        Project project1 = new Project();
+        project1.setProjectId(1L);
+        project1.setProjectName("Project 1");
+        List<String> skills1= new ArrayList<>();
+        skills1.add("Java");
+        skills1.add("React");
+        project1.setSkills(skills1);
+
+        Project project2 = new Project();
+        project2.setProjectId(2L);
+        project2.setProjectName("Project 2");
+        List<String> skills2= new ArrayList<>();
+        skills2.add("Java");
+        skills2.add("React");
+        project2.setSkills(skills2);
+
+        List<Project> allProjects = Arrays.asList(project1, project2);
+
+        User user1 = new User();
+        user1.setProjectId(1L);
+        user1.setName("User 1");
+        user1.setManagerId(3L);
+
+        User user2 = new User();
+        user2.setProjectId(1L);
+        user2.setName("User 2");
+        user2.setManagerId(3L);
+
+        when(projectRepository.findAll()).thenReturn(allProjects);
+        when(userRepository.findAllByProjectId(1L)).thenReturn(Arrays.asList(user1, user2));
+        when(userRepository.findAllByProjectId(2L)).thenReturn(new ArrayList<>());
+        when(userRepository.findById(project1.getManagerId())).thenReturn(Optional.of(user2));
+
+        // Call the getAllProjects method
+        List<ProjectOutDto> resultList = projectService.getAllProjects();
+
+        // Verify the size of the resultList
+        assertEquals(2, resultList.size());
+
+        // Verify the content of the resultList
+        ProjectOutDto projectOutDto1 = resultList.get(0);
+        assertEquals("Project 1", projectOutDto1.getProjectName());
+        assertEquals(2, projectOutDto1.getTeam().size());
+        assertTrue(projectOutDto1.getTeam().contains("User 1"));
+        assertTrue(projectOutDto1.getTeam().contains("User 2"));
+
+        ProjectOutDto projectOutDto2 = resultList.get(1);
+        assertEquals("Project 2", projectOutDto2.getProjectName());
+        assertTrue(projectOutDto2.getTeam().isEmpty());
+
+        // Verify that the repository methods were called with the expected arguments
+        verify(projectRepository).findAll();
+        verify(userRepository, times(2)).findAllByProjectId(anyLong());
+    }
+    @Test
+    void testGetManagers() {
+
+        User manager1 = new User();
+        manager1.setUserId("N1001");
+        manager1.setName("Manager 1");
+        manager1.setId(101L);
+
+        User manager2 = new User();
+        manager2.setUserId("N1001");
+        manager2.setName("Manager 2");
+        manager2.setId(102L);
+
+        List<User> allManagers = Arrays.asList(manager1, manager2);
+
+        when(userRepository.findByRole(Role.MANAGER)).thenReturn(allManagers);
+
+        List<ManagerDto> returnedManagers = projectService.getManagers();
+
+        assertEquals(2, returnedManagers.size());
+
+        ManagerDto managerDto1 = returnedManagers.get(0);
+        assertEquals("Manager 1", managerDto1.getName());
+        assertEquals("N1001", managerDto1.getUserId());
+        assertEquals(101L, managerDto1.getId());
+
+        ManagerDto managerDto2 = returnedManagers.get(1);
+        assertEquals("Manager 2", managerDto2.getName());
+        assertEquals("N1001", managerDto2.getUserId());
+        assertEquals(102L, managerDto2.getId());
+
+        verify(userRepository).findByRole(Role.MANAGER);
+    }
+}
+
