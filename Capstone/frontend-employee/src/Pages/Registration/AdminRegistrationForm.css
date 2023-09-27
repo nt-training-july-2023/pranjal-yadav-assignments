@@ -1,8 +1,8 @@
 body {
-  background-color: #2f4796;
+  /* background-color: #2f4796; */
   /* background: linear-gradient(#2A00B7, #d2b6e4); */
   margin: 0;
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
 }
 
 .signup-container {
@@ -13,6 +13,7 @@ body {
   align-items: center;
   height: 100vh;
   text-align: center;
+  margin-left: 25rem;
   
 }
 select.input{

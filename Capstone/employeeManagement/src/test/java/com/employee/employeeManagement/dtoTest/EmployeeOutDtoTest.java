@@ -1,6 +1,6 @@
 package com.employee.employeeManagement.dtoTest;
 
-import com.employee.employeeManagement.outDtos.EmployeeOutDto;
+import com.employee.employeeManagement.dto.EmployeeOutDto;
 import com.employee.employeeManagement.enums.Designation;
 import com.employee.employeeManagement.enums.Location;
 import com.employee.employeeManagement.enums.Role;

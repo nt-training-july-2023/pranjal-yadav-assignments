@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import './AssignProject.css'
+
 const AssignProject = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
   useEffect(() => {
     getAllProjects();
-    getEmployeeById();
   }, []);
 
   const [projects, setProjects] = useState([]);
@@ -14,18 +14,20 @@ const AssignProject = () => {
   const [projectId, setProjectId] = useState();
   const [managerId, setManagerId] = useState();
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state;
 
-  const getEmployeeById = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/user/getUserById/${id}`
-      );
-      console.log(response.data);
-      setEmployee(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getEmployeeById = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:8080/user/getUserById/${state.}`
+  //     );
+  //     console.log(response.data);
+  //     setEmployee(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const getAllProjects = async () => {
     try {
@@ -42,7 +44,7 @@ const AssignProject = () => {
   const update = async (e) => {
     try {
       const response = await axios.put(
-        `http://localhost:8080/user/${id}/assignProject`,
+        `http://localhost:8080/user/${state.empId}/assignProject`,
         {
           projectId: projectId,
           managerId: managerId,
@@ -67,8 +69,8 @@ const AssignProject = () => {
   return (
     <div className="center-container-ap">
 <div className="assign">
-      <label id="label">Assign Project</label>
-      <h3 id="emp-name">{employee.name}</h3>
+      <label id="label">Assign Project to</label>
+      <h3 id="emp-name">{state.empName}</h3>
       <select
         onChange={handleSelectChange}
         type="text"

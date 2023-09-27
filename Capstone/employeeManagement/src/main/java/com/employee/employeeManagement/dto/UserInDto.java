@@ -3,10 +3,7 @@ package com.employee.employeeManagement.dto;
 import com.employee.employeeManagement.enums.Designation;
 import com.employee.employeeManagement.enums.Location;
 import com.employee.employeeManagement.enums.Role;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,11 +13,11 @@ import java.util.List;
  * Data Transfer Object (DTO) representing user information.
  */
 
-public class UserDto {
+public class UserInDto {
     /**
      * The name of the user.
      */
-    @Pattern(regexp = "^[[A-Za-z\\s]*$]")
+    @NotBlank
     private String name;
     /**
      * The email of user.
@@ -28,6 +25,7 @@ public class UserDto {
     @Email
     @Pattern(regexp = ".*@nucleusteq\\.com$",
             message = "Email should ends with nucleusteq.com.")
+    @NotBlank
     private String email;
     /**
      * The ID of the user.
@@ -38,23 +36,21 @@ public class UserDto {
     /**
      * The date of birth of the user.
      */
-    @NotBlank
     private String dob;
     /**
      * The date of joining of the user.
      */
-    @NotBlank
     private String doj;
 
     /**
      * The location of the user.
      */
-    @NotBlank
+
     private Location location;
     /**
      * The designation of the user.
      */
-    @NotBlank
+
     private Designation designation;
     /**
      * The contact number of the user.
@@ -64,12 +60,10 @@ public class UserDto {
     /**
      * The name of the project the user is associated with.
      */
-@NotNull
     private Long projectId;
     /**
      * The role of the user.
      */
-    @NotBlank
     private Role role;
     /**
      * The password of the user.
@@ -79,7 +73,7 @@ public class UserDto {
     /**
      * The list of skills possessed by the user.
      */
-    @NotBlank
+    @NotEmpty(message = "Project skills required must not be empty")
     private List<String> skills;
     /**
      * The name of the user's manager.

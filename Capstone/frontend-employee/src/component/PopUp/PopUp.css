@@ -9,9 +9,23 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 9999;
   }
-  
+  .btn_popup{
+
+  }
   .popup button {
     margin-top: 10px;
+  }
+  .close_popup{
+    background-color: #f72828;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 30px;
+    cursor: pointer;
+    margin-right: 6px;
+  }
+  .close_popup:hover{
+    background-color: #ac1a1a;
   }
   
    /* @import url('https://fonts.googleapis.com/css2?family=Forum&display=swap');

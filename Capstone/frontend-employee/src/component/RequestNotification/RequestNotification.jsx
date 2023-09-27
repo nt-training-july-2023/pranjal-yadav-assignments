@@ -25,7 +25,8 @@ const RequestNotification = () => {
     try{
       const response = await axios.post(`http://localhost:8080/user/accept/${request.resourceId}`);
       console.log(response.data);
-      navigate("/requests")
+      window.location.reload()
+      // navigate("/requests")
      }
      catch(error){
       console.log(error);
@@ -34,7 +35,8 @@ const RequestNotification = () => {
   const reject = (resourceId)=>{
     try{
         axios.delete(`http://localhost:8080/user/request/delete/${resourceId}`)
-        navigate("/requests")
+        window.location.reload()
+        // navigate("/requests")
     }catch(error){
         console.log("error deleteing request : "+error);
     }
@@ -42,14 +44,14 @@ const RequestNotification = () => {
   }
   return (
     <div className="table-container">
-      <button onClick={() => {navigate("/adminDashboard")}} style={{background:"red"}}>Cancel</button>
+      <button onClick={() => {navigate("/adminDashboard")}} style={{background:"red", marginBottom : "8px"}}>Cancel</button>
     <table className="table" border="1">
       <thead>
         <tr>
          
-          <th>Employee Name</th>
+          <th>Employee</th>
           <th>Project Name</th>
-          <th>Manager Name</th>
+          <th>Manager</th>
           <th>Comments</th>
           <th>Actions</th>
         </tr>
@@ -60,7 +62,7 @@ const RequestNotification = () => {
             
             <td>{request.employeeUserId} - {request.employeeName}</td>
             <td>{request.projectName}</td>
-            <td>{request.employeeUserId} - {request.managerName}</td>
+            <td>{request.managerUserId} - {request.managerName}</td>
             <td>{request.comment}</td>
             <td>
               <button onClick={() => {accept(request)}} className="accept-button">Accept</button>

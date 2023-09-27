@@ -1,12 +1,12 @@
 .card-container {
-    display: flex;
+    /* display: flex; */
     /* flex-direction: column; */
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     /* scroll; */
     
-    overflow-y: scroll !important; 
+    /* overflow-y: scroll !important;  */
     /* max-height: 400px !important; */
-    margin-bottom: 5rem !important; 
+    /* margin-bottom: 5rem !important;  */
 }
 
 

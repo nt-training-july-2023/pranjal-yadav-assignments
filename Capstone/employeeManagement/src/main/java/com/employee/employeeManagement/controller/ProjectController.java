@@ -1,13 +1,15 @@
 package com.employee.employeeManagement.controller;
 
-import com.employee.employeeManagement.outDtos.ProjectOutDto;
+import com.employee.employeeManagement.dto.ProjectOutDto;
 import com.employee.employeeManagement.dto.ManagerDto;
-import com.employee.employeeManagement.dto.ProjectDto;
+import com.employee.employeeManagement.dto.ProjectInDto;
 import com.employee.employeeManagement.repository.ProjectRepository;
-import com.employee.employeeManagement.response.ProjectApiResponse;
+import com.employee.employeeManagement.response.ProjectResponseDto;
 import com.employee.employeeManagement.service.ProjectService;
 import com.employee.employeeManagement.validation.ProjectValidation;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -41,17 +43,22 @@ public class ProjectController {
      */
     @Autowired
     private ProjectValidation projectValidation;
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(UserController.class);
     /**
      * Endpoint for adding a new project.
      *
      * @param projectDto The project details to be added.
-     * @return ApiResponse indicating the status of the operation.
+     * @return ResponseDto indicating the status of the operation.
      */
     @PostMapping("/addProject")
-    public final ProjectApiResponse addProject(
-            @RequestBody @Valid final ProjectDto projectDto) {
+    public final ProjectResponseDto addProject(
+            @RequestBody @Valid final ProjectInDto projectDto) {
+        LOGGER.info("Adding project");
         projectValidation.checkName(projectDto.getProjectName());
-       return projectService.addProject(projectDto);
+        LOGGER.info("Project Dto: " + projectDto.toString());
+        ProjectResponseDto projectResponseDto = projectService.addProject(projectDto);
+       return projectResponseDto;
     }
     /**
      * Endpoint for retrieving all projects.
@@ -60,7 +67,9 @@ public class ProjectController {
      */
     @GetMapping("/getAllProjects")
     public final List<ProjectOutDto> getAllProject() {
-        return projectService.getAllProjects();
+        LOGGER.info("Getting all projects");
+        List<ProjectOutDto> list = projectService.getAllProjects();
+        return list;
     }
     /**
      * Endpoint for retrieving all managers as ManagerDto objects.
@@ -69,6 +78,7 @@ public class ProjectController {
      */
     @GetMapping("/getManagers")
     public final List<ManagerDto> getManager() {
+        LOGGER.info("Getting list of managers");
         List<ManagerDto> allManagers = projectService.getManagers();
         return allManagers;
     }
@@ -81,17 +91,11 @@ public class ProjectController {
     @GetMapping("/project/{managerId}")
     public final List<ProjectOutDto> getProjectByManagerId(
             @PathVariable final long managerId) {
-        return projectService.getProjectByManagerId(managerId);
+        LOGGER.info("Project by manager id" + managerId);
+        List<ProjectOutDto> list = projectService.getProjectByManagerId(managerId);
+        return list;
     }
 
-    /**
-     * Endpoint for getting projects by managerId.
-     * @param email email of manager.
-     * @return List of projects.
-     */
-    @GetMapping("/manager/{email}")
-    public final List<ProjectOutDto> getProjectByEmail(
-            @PathVariable final String email) {
-        return projectService.getProjectByEmail(email);
-    }
+
+
 }

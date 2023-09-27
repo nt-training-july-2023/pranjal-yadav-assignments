@@ -3,7 +3,7 @@ package com.employee.employeeManagement.outDtoTest;
 import com.employee.employeeManagement.enums.Designation;
 import com.employee.employeeManagement.enums.Location;
 import com.employee.employeeManagement.enums.Role;
-import com.employee.employeeManagement.outDtos.ManagerOutDto;
+import com.employee.employeeManagement.dto.ManagerOutDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -101,7 +101,7 @@ public class ManagerOutDtoTest {
 
     @Test
     public void testSkillsGetterSetter() {
-        List<String> skills = Arrays.asList("Skill1", "Skill2");
+        List<String> skills = Arrays.asList("Java", "React");
         managerOutDto.setSkills(skills);
         assertEquals(skills, managerOutDto.getSkills());
     }
@@ -114,7 +114,8 @@ public class ManagerOutDtoTest {
 
     @Test
     public void testTeamGetterSetter() {
-        List<String> team = new ArrayList<>(Arrays.asList("Member1", "Member2"));
+        List<String> team = new ArrayList<>(Arrays.asList("Nachiketa",
+                "Ishita"));
         managerOutDto.setTeam(team);
         assertEquals(team, managerOutDto.getTeam());
     }

@@ -1,6 +1,6 @@
 package com.employee.employeeManagement.dtoTest;
 
-import com.employee.employeeManagement.dto.ProjectDto;
+import com.employee.employeeManagement.dto.ProjectInDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ProjectDtoTest {
-    private ProjectDto projectDto;
+    private ProjectInDto projectDto;
 
     @BeforeEach
     public void setUp() {
-        projectDto = new ProjectDto();
+        projectDto = new ProjectInDto();
     }
 
     @Test
     public void testGettersAndSetters() {
-        projectDto.setProjectId(1L);
+//        projectDto.setProjectId(1L);
         projectDto.setProjectName("Petsmart");
         projectDto.setManagerId(2L);
         projectDto.setDescription("Description for Petsmart");
@@ -28,7 +28,7 @@ public class ProjectDtoTest {
         List<String> skills = Arrays.asList("Java", "Spring", "SQL");
         projectDto.setSkills(skills);
 
-        assertEquals(1L, projectDto.getProjectId());
+//        assertEquals(1L, projectDto.getProjectId());
         assertEquals("Petsmart", projectDto.getProjectName());
         assertEquals(2L, projectDto.getManagerId());
         assertEquals("Description for Petsmart", projectDto.getDescription());

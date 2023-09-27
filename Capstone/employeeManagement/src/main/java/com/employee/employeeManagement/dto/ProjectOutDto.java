@@ -1,4 +1,4 @@
-package com.employee.employeeManagement.outDtos;
+package com.employee.employeeManagement.dto;
 
 import java.util.ArrayList;
 import java.util.Collections;

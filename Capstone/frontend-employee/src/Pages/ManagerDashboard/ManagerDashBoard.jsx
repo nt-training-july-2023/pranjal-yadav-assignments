@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ManagerDisplayEmployee from './Employee/ManagerDisplayEmployee';
 import DisplayManager from '../AdminDashboard/Manager/DisplayManager';
 import DisplayProject from '../AdminDashboard/Project/DisplayProject';
+import '../ManagerDashboard/ManagerDashBoard.css'
 
 
 const ManagerDashBoard = () => {
@@ -51,7 +52,7 @@ const ManagerDashBoard = () => {
       <div className="card_container">
         {activeTab === "EMPLOYEE" && (
           <div>
-            <ManagerDisplayEmployee />
+            <ManagerDisplayEmployee/>
           </div>
         )}
         {activeTab === "MANAGER" && (

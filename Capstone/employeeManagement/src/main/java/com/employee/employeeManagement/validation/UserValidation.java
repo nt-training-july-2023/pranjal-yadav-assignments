@@ -2,7 +2,7 @@ package com.employee.employeeManagement.validation;
 
 import com.employee.employeeManagement.Model.User;
 import com.employee.employeeManagement.dto.LoginDto;
-import com.employee.employeeManagement.dto.UserDto;
+import com.employee.employeeManagement.dto.UserInDto;
 import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
 import com.employee.employeeManagement.exception.WrongCredentialsExceptions;
 import com.employee.employeeManagement.repository.UserRepository;
@@ -119,9 +119,9 @@ public class UserValidation {
     /**
      * A method that uses a few of the above methods to validate
      * a registering user.
-     * @param userDto parameter UserDto.
+     * @param userDto parameter UserInDto.
      */
-    public final void checkUser(final UserDto userDto) {
+    public final void checkUser(final UserInDto userDto) {
         checkName(userDto.getName());
         checkEmail(userDto.getEmail());
         checkUserId(userDto.getUserId());

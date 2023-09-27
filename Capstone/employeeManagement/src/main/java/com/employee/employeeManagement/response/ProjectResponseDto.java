@@ -3,18 +3,18 @@ package com.employee.employeeManagement.response;
 /**
  * Represents a response from the project-related API operations.
  */
-public class ProjectApiResponse {
+public class ProjectResponseDto {
     /**
      * The message to be sent.
      */
     private String message;
 
     /**
-     * Constructs a new ProjectApiResponse instance with the given message.
+     * Constructs a new ProjectResponseDto instance with the given message.
      *
      * @param messageParam The message to be included in the response.
      */
-    public ProjectApiResponse(final String messageParam) {
+    public ProjectResponseDto(final String messageParam) {
         this.message = messageParam;
     }
 

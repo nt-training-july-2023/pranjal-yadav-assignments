@@ -1,15 +1,15 @@
 package com.employee.employeeManagement.service;
 
 import com.employee.employeeManagement.Model.Project;
-import com.employee.employeeManagement.outDtos.ProjectOutDto;
+import com.employee.employeeManagement.dto.ProjectOutDto;
 import com.employee.employeeManagement.enums.Role;
 import com.employee.employeeManagement.Model.User;
 import com.employee.employeeManagement.dto.ManagerDto;
-import com.employee.employeeManagement.dto.ProjectDto;
+import com.employee.employeeManagement.dto.ProjectInDto;
 import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
 import com.employee.employeeManagement.repository.ProjectRepository;
 import com.employee.employeeManagement.repository.UserRepository;
-import com.employee.employeeManagement.response.ProjectApiResponse;
+import com.employee.employeeManagement.response.ProjectResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +37,10 @@ public class ProjectService {
      * @param projectDto The project details to be added.
      * @return Response indicating successfully adding user.
      */
-    public final ProjectApiResponse addProject(final ProjectDto projectDto) {
+    public final ProjectResponseDto addProject(final ProjectInDto projectDto) {
         Project project = dtoToProject(projectDto);
         projectRepository.save(project);
-        return new ProjectApiResponse("Project added successfully!");
+        return new ProjectResponseDto("Project added successfully!");
     }
 
     /**
@@ -113,39 +113,15 @@ public class ProjectService {
     }
 
     /**
-     * Getting project by manager email.
-     * @param email Email of manager.
-     * @return List of projects.
-     */
-    public final List<ProjectOutDto> getProjectByEmail(final String email) {
-        User user = userRepository.findByEmail(email).get();
-        Long managerId = user.getId();
-        List<Project> projectDetails = projectRepository
-                .findAllByManagerId(managerId);
-        List<ProjectOutDto> projectList = new ArrayList<ProjectOutDto>();
-        for (Project project : projectDetails) {
-            ProjectOutDto projectOutDTO = new ProjectOutDto();
-            projectOutDTO.setProjectId(project.getProjectId());
-            projectOutDTO.setProjectName(project.getProjectName());
-            projectOutDTO.setManagerId(project.getManagerId());
-            projectOutDTO.setSkills(project.getSkills());
-            List<String> team = new ArrayList<>();
-
-            projectOutDTO.setTeam(team);
-            projectList.add(projectOutDTO);
-
-        }
-        return projectList;
-    }
-    /**
-     * Converts a ProjectDto object to a Project object.
+     * Converts a ProjectInDto object to a Project object.
      *
-     * @param projectDto The ProjectDto object to be converted.
-     * @return A Project object created from the provided ProjectDto.
+     * @param projectDto The ProjectInDto object to be converted.
+     * @return A Project object created from the provided ProjectInDto.
      */
-    public final Project dtoToProject(final ProjectDto projectDto) {
+    public final Project dtoToProject(final ProjectInDto projectDto) {
         Project project = new Project();
         project.setProjectName(projectDto.getProjectName());
+        project.setStartDate(projectDto.getStartDate());
         project.setManagerId(projectDto.getManagerId());
         project.setDescription(projectDto.getDescription());
         project.setSkills(projectDto.getSkills());
@@ -153,9 +129,9 @@ public class ProjectService {
     }
 
     /**
-     *  Converts a Project object to a ProjectDto object.
+     *  Converts a Project object to a ProjectInDto object.
      * @param project The Project object to be converted.
-     * @return A ProjectDto object created from the provided Project.
+     * @return A ProjectInDto object created from the provided Project.
      */
     public final ProjectOutDto projectToOutDto(final Project project) {
         ProjectOutDto projectOutDto = new ProjectOutDto();

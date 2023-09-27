@@ -3,12 +3,12 @@ package com.employee.employeeManagement.service;
 import com.employee.employeeManagement.Model.Project;
 import com.employee.employeeManagement.Model.User;
 import com.employee.employeeManagement.dto.ManagerDto;
-import com.employee.employeeManagement.dto.ProjectDto;
+import com.employee.employeeManagement.dto.ProjectInDto;
 import com.employee.employeeManagement.enums.Role;
-import com.employee.employeeManagement.outDtos.ProjectOutDto;
+import com.employee.employeeManagement.dto.ProjectOutDto;
 import com.employee.employeeManagement.repository.ProjectRepository;
 import com.employee.employeeManagement.repository.UserRepository;
-import com.employee.employeeManagement.response.ProjectApiResponse;
+import com.employee.employeeManagement.response.ProjectResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -21,8 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -43,7 +42,7 @@ public class ProjectServiceTest {
     }
     @Test
     void testAddProject() {
-        ProjectDto projectDto = new ProjectDto();
+        ProjectInDto projectDto = new ProjectInDto();
         projectDto.setProjectName("Test Project");
         List<String> skills= new ArrayList<>();
         skills.add("Java");
@@ -53,7 +52,7 @@ public class ProjectServiceTest {
         Project project = new Project();
         when(projectRepository.save(any(Project.class))).thenReturn(project);
 
-        ProjectApiResponse response = projectService.addProject(projectDto);
+        ProjectResponseDto response = projectService.addProject(projectDto);
 
         verify(projectRepository).save(any(Project.class));
 
@@ -149,6 +148,57 @@ public class ProjectServiceTest {
         assertEquals(102L, managerDto2.getId());
 
         verify(userRepository).findByRole(Role.MANAGER);
+    }
+    @Test
+    void testDtoToProjectConversion() {
+        ProjectInDto projectDto = new ProjectInDto();
+        projectDto.setProjectName("Demo Project");
+        projectDto.setStartDate("2023-09-30");
+        projectDto.setManagerId(1L);
+        projectDto.setDescription("Description of demo project");
+        List<String> skills2= new ArrayList<>();
+        skills2.add("Java");
+        skills2.add("React");
+        projectDto.setSkills(skills2);
+
+        ProjectService projectService = new ProjectService();
+
+        Project project = projectService.dtoToProject(projectDto);
+
+        assertNotNull(project);
+        assertEquals(projectDto.getProjectName(), project.getProjectName());
+        assertEquals(projectDto.getStartDate(), project.getStartDate());
+        assertEquals(projectDto.getManagerId(), project.getManagerId());
+        assertEquals(projectDto.getDescription(), project.getDescription());
+        assertEquals(projectDto.getSkills(), project.getSkills());
+    }
+    @Test
+    void testProjectToOutDtoConversion() {
+        Project project = new Project();
+        project.setProjectId(1L);
+        project.setProjectName("Test Project");
+        List<String> skills2= new ArrayList<>();
+        skills2.add("Java");
+        skills2.add("React");
+        project.setSkills(skills2);
+        project.setStartDate("2023-09-30");
+        project.setManagerId(1L);
+
+        User user = new User();
+        user.setId(1L);
+        user.setName("Test Manager");
+
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+
+        ProjectOutDto projectOutDto = projectService.projectToOutDto(project);
+
+        assertNotNull(projectOutDto);
+        assertEquals(project.getProjectId(), projectOutDto.getProjectId());
+        assertEquals(project.getProjectName(), projectOutDto.getProjectName());
+        assertEquals(project.getSkills(), projectOutDto.getSkills());
+        assertEquals(project.getStartDate(), projectOutDto.getStartDate());
+        assertEquals(project.getManagerId(), projectOutDto.getManagerId());
+        assertEquals(user.getName(), projectOutDto.getManagerName());
     }
 }
 

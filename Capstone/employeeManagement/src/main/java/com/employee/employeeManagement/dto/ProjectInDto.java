@@ -2,6 +2,7 @@ package com.employee.employeeManagement.dto;
 
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
@@ -11,12 +12,7 @@ import java.util.List;
  * Data Transfer Object (DTO) for representing project information.
  */
 
-public class ProjectDto {
-    /**
-     * The unique identifier of the project.
-     */
-    @NotNull
-    private Long projectId;
+public class ProjectInDto {
 
     /**
      * The name of the project.
@@ -41,25 +37,9 @@ public class ProjectDto {
     /**
      * The list of skills required for the project.
      */
+    @NotEmpty
     private List<String> skills;
 
-    /**
-     * Get the unique identifier of the project.
-     *
-     * @return The unique identifier of the project.
-     */
-    public final Long getProjectId() {
-        return projectId;
-    }
-
-    /**
-     * Set the unique identifier of the project.
-     *
-     * @param projectIdParam The unique identifier of the project.
-     */
-    public final void setProjectId(final Long projectIdParam) {
-        this.projectId = projectIdParam;
-    }
 
     /**
      * Get the name of the project.

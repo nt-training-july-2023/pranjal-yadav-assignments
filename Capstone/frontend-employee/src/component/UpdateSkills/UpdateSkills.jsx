@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import MultiSelectDropdown from "../MultiSelectDropdown/MultiSelectDropDown";
 import Skills from "../Data/skills";
@@ -8,11 +8,13 @@ import './UpdateSkills.css'
 const UpdateSkills = () => {
   const [skills, setSkills] = useState([]);
   const [employeeDetails, setEmployeeDetails] = useState([]);
-  const { id } = useParams();
+  // const { id } = useParams();
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [updateSkillsError, setUpdateSkillsError] = useState("");
   const [fetchData, setFetchData] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state;
 
   const handleSkillChange = (selectedOptions) => {
     const selectedSkillsValues = selectedOptions.map((option) => option.value);
@@ -25,28 +27,12 @@ const UpdateSkills = () => {
       setUpdateSkillsError("");
     }
   };
-  useEffect(() => {
-    getEmployee();
-  }, []);
-  const getEmployee = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/user/getUserById/${id}`
-      );
-      setEmployeeDetails(response.data);
-      console.log(employeeDetails);
-      setTimeout(() => {
-        setFetchData(true);
-      }, 200);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
-    console.log(employeeDetails.skills);
-    if (employeeDetails.skills) {
-      setSelectedSkills(employeeDetails.skills);
+    console.log(state.empSkills);
+    if (state.empSkills) {
+      setSelectedSkills(state.empSkills);
+      setFetchData(true);
     }
   }, [employeeDetails]);
   
@@ -60,7 +46,7 @@ const UpdateSkills = () => {
     }
     try {
       const response = await axios.put(
-        `http://localhost:8080/user/${id}/skill`,
+        `http://localhost:8080/user/${state.empId}/skill`,
         {
           skills: skills,
         }
@@ -77,12 +63,13 @@ const UpdateSkills = () => {
       <div style={{marginTop: "150px"}} className="container-assign-project">
         <h3> Update Skills for</h3>
         <h3 style={{ fontWeight: "bold"}}>
-          {employeeDetails.name}
+          {state.empName}
         </h3>
         <div className="assign-container">
           
           {fetchData && (
             <MultiSelectDropdown
+            className="multi_update_skills"
               options={Skills.map((skill) => ({
                 value: skill,
                 label: skill,

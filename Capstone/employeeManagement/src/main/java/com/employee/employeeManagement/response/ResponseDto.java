@@ -5,7 +5,7 @@ import com.employee.employeeManagement.enums.Role;
 /**
  * Response class for API responses.
  */
-public class ApiResponse {
+public class ResponseDto {
     /**
      * The message included in the API response.
      */
@@ -57,7 +57,7 @@ public class ApiResponse {
      * @param messageParam .
      */
 
-    public ApiResponse(final String messageParam) {
+    public ResponseDto(final String messageParam) {
         this.message = messageParam;
     }
 
@@ -66,7 +66,7 @@ public class ApiResponse {
      * @param messageParam Mesaage to be sent.
      * @param roleParam Role of the current user.
      */
-    public ApiResponse(final String messageParam, final Role roleParam) {
+    public ResponseDto(final String messageParam, final Role roleParam) {
         this.message = messageParam;
         this.role = roleParam;
     }

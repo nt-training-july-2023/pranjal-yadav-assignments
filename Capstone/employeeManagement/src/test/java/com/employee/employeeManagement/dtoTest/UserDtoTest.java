@@ -1,6 +1,6 @@
 package com.employee.employeeManagement.dtoTest;
 
-import com.employee.employeeManagement.dto.UserDto;
+import com.employee.employeeManagement.dto.UserInDto;
 import com.employee.employeeManagement.enums.Designation;
 import com.employee.employeeManagement.enums.Location;
 import com.employee.employeeManagement.enums.Role;
@@ -13,11 +13,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserDtoTest {
-    private UserDto userDto;
+    private UserInDto userDto;
 
     @BeforeEach
     public void setUp() {
-        userDto = new UserDto();
+        userDto = new UserInDto();
     }
 
     @Test

@@ -7,11 +7,11 @@ const ProjectPopUp = ({ description, onClose }) => {
       <div className="project-popup-content">
         Description
         <p className='popup-description'>{description}</p>
-         
-      </div>
-      <a className="close-button" onClick={onClose}>
+        <a className="close-button" onClick={onClose}>
           Close
           </a>
+      </div>
+     
     </div>
   );
 };

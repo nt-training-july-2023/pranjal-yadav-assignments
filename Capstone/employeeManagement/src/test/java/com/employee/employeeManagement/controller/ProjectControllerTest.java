@@ -1,10 +1,10 @@
 //package com.employee.employeeManagement.controller;
 //
 //import com.employee.employeeManagement.dto.ManagerDto;
-//import com.employee.employeeManagement.dto.ProjectDto;
+//import com.employee.employeeManagement.dto.ProjectInDto;
 //import com.employee.employeeManagement.Model.Project;
 //import com.employee.employeeManagement.repository.ProjectRepository;
-//import com.employee.employeeManagement.response.ApiResponse;
+//import com.employee.employeeManagement.response.ResponseDto;
 //import com.employee.employeeManagement.service.ProjectService;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
@@ -38,21 +38,21 @@
 //
 //    @Test
 //    public void testAddProject() {
-//        ProjectDto projectDto = new ProjectDto();
+//        ProjectInDto projectDto = new ProjectInDto();
 //        projectDto.setProjectName("Test Project");
-//        when(projectService.addProject(any(ProjectDto.class))).thenReturn(projectDto);
+//        when(projectService.addProject(any(ProjectInDto.class))).thenReturn(projectDto);
 //
-//        ApiResponse response = projectController.addProject(projectDto);
+//        ResponseDto response = projectController.addProject(projectDto);
 //
 //        assertEquals("Project added successfully", response.getMessage());
 //    }
 //
 //    @Test
 //    public void testAddProjectWithInvalidCredentials() {
-//        ProjectDto projectDto = new ProjectDto();
-//        when(projectService.addProject(any(ProjectDto.class))).thenReturn(null);
+//        ProjectInDto projectDto = new ProjectInDto();
+//        when(projectService.addProject(any(ProjectInDto.class))).thenReturn(null);
 //
-//        ApiResponse response = projectController.addProject(projectDto);
+//        ResponseDto response = projectController.addProject(projectDto);
 //
 //        assertEquals("Invalid credentials", response.getMessage());
 //    }

@@ -1,6 +1,8 @@
 
 .table-container {
     overflow-x: auto; 
+    margin-left: 8rem;
+    width: 120%;
   }
   
   .table {

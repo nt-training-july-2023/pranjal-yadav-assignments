@@ -25,25 +25,25 @@ public class RequestResource {
     /**
      * The comment associated with the request.
      */
-    @Column
+    @Column(nullable = false)
     private String comment;
 
     /**
      * The ID of the manager responsible for the request.
      */
-    @Column
+    @Column(nullable = false)
     private Long managerId;
 
     /**
      * The ID of the employee associated with the request.
      */
-    @Column
+    @Column(nullable = false)
     private Long employeeId;
 
     /**
      * The ID of the project related to the request.
      */
-    @Column
+    @Column(nullable = false)
     private Long projectId;
 
     /**

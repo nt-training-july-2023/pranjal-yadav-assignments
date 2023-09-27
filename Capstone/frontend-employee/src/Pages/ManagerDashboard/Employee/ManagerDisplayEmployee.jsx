@@ -82,8 +82,8 @@ const ManagerDisplayEmployee = () => {
     return (
       
       <div >
-        <div>
-        <label>Search Skills:</label>
+        <div className='search_manager_skills'>
+        <label style={{marginLeft :"24rem", marginBottom :"5px"}}>Search Skills:</label>
         <div>
           <MultiSelectDropdown
             options={Skills.map((skill) => ({
@@ -122,7 +122,7 @@ const ManagerDisplayEmployee = () => {
                 <h2>{employee.name}</h2>
               <p >{employee.designation}</p>
                 </div>
-              
+              <br />
               <p><span className="highlight-span">Project Name : </span> {employee.projectName}</p>
               <p><span className="highlight-span">Manager :</span>{employee.managerName}</p>
               <p><span className="highlight-span">Contact : </span>{employee.contactNo}</p>
@@ -130,9 +130,10 @@ const ManagerDisplayEmployee = () => {
               <p><span className="highlight-span">Skills : </span>{employee.skills.join(", ")}</p>
               
               </div>
+
               <div className="column">
               <p className="emp-id" style={{fontSize:"15px"}}><span className="highlight-span">Employee id : </span>{employee.userId}</p>
-              <br></br>
+              <br></br><br /><br />
               <p><span className="highlight-span">DOB : </span>{employee.dob}</p>
               <p><span className="highlight-span">DOJ: </span>{employee.doj}</p>
               <p><span className="highlight-span">Location : </span>{employee.location}</p>
@@ -141,16 +142,13 @@ const ManagerDisplayEmployee = () => {
               <p>
                 { employee.isRequested ? (<button disabled>Requested</button>) :
                     (
-                      <button className="MD-btn" onClick ={() => {navigate(`/requestResource/${employee.id}`)}}>Request Resource </button>
+                      <button className="MD-btn" onClick ={() => {navigate("/requestResource", {state : {empId: employee.id, empName: employee.name
+                      }})}}>Request Resource </button>
                     )
                 }
               </p>
-             }
-    
+             }</div>
               </div>
-              
-  
-            </div>
           ))}
         </div>
       </div>

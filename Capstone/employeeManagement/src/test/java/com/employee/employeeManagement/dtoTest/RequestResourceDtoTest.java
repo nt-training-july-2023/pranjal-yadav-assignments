@@ -12,7 +12,7 @@ public class RequestResourceDtoTest {
         RequestResourceDto dto = new RequestResourceDto();
         assertNull(dto.getComment());
 
-        String comment = "Sample Comment";
+        String comment = "Comment Comment";
         dto.setComment(comment);
         assertEquals(comment, dto.getComment());
     }

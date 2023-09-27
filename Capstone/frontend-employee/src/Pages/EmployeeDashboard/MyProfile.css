@@ -1,6 +1,5 @@
-.main-profile{
 
-}
+/* 
 .emp_tabs{
   display: flex;
     flex-direction: row;
@@ -12,59 +11,137 @@
     border: 0.1rem solid rgb(3, 3, 3);
     border-radius: 1.5rem;
     width: 50rem;
-    margin-left: 17rem;
+    margin-left: 11rem;
+} */
+.my_details_container {
+  display: flex;
+  justify-content: space-between;
 }
 
-.MyProfile_form{
-margin-right: 17rem;
+.column_my_details {
+  flex: 1; 
+  margin-right: 20px; 
 }
-.my-details-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    /* margin-right: 10rem; */
-   /* padding: 10rem; */
-  }
 
-  .column01 {
-    flex: 1;
-    padding: 20px;
-    border: 1px solid #ccc;
-    margin: 10px;
-    box-shadow: 0px 0px 5px 0px #ccc;
-    background-color: #fff;
-  }
+.column_my_details strong {
+  font-weight: bold;
+}
+
+.field_input {
+  margin-top: 0.5rem;
+}
+.emp_tabs_dashboard{
+  position: fixed;
+  top: 0;
+  display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    align-items: center;
+    gap: 4rem;
+    padding: 0.5rem;
+    background-color: rgb(255, 255, 255);
+    border: 0.1rem solid rgb(3, 3, 3);
+    border-radius: 1.5rem;
+    width: 50rem;
+    margin-left: 18rem;
+    /* padding: 2rem; */
+}
+
+.main-profile {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  width: 50%;
+  margin: 0 auto;
+  height: 25rem;
+  margin-left: 23rem;
+  /* margin-top: 4rem; */
   
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    
-  }
-  
-  .field_input {
-    /* border:2px solid black;
-    border-radius: 12px;
-    border-style: bold; */
-    padding-top: 10px;
-    padding-left: 5px;
-    padding-bottom: 5px;
-    margin-top: 5px;
-    /* margin-top: 33px; */
-  width: 90%;
-  /* padding: 0px; */
+}
+
+.container{
+  height: 100vh;
+
+}
+.field_input_skills {
+  font-size: 16px;
+  /* margin-top: 33px; */
+  width: 80%;
+  /* padding: 5px; */
+  border: 1px solid #ccc;
+  font-size: 14px;
+  margin-top: 6px;
+  border-radius: 5px;
+  transition: border-color 0.3s; 
+  height: 16.5vh;
+}
+/* Style for the welcome message */
+.main-profile h3 {
+  font-size: 24px;
+  /* margin-bottom: 22px; */
+}
+
+/* Style for labels (e.g., Name, Email, etc.) */
+.main-profile strong {
+  font-weight: bold;
+}
+
+/* Style for field input data */
+.field_input {
+  font-size: 16px;
+  padding: 5px;
+
+  width: 80%;
   border: 1px solid #ccc;
   font-size: 14px;
   border-radius: 5px;
-  transition: border-color 0.3s;  
-    /* border-bottom: 1px solid #ccc; */
+  transition: border-color 0.3s; 
+}
+
+/* Style for the "Update Skills" button */
+.btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Style for the loading message */
+.main-profile p {
+  font-size: 16px;
+  /* text-align: center; */
+  /* margin-top: 20px; */
+}
+
+/* Style for the two columns */
+.column-my-details {
+  width: 50%;
+  float: left;
+}
+
+/* Clear floats after the columns */
+.my-details-container::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .main-profile {
+    width: 100%;
   }
-  
-  @media (max-width: 768px) {
-    .form-container {
-      flex-direction: column;
-    }
-    .column {
-      width: 100%;
-    }
+
+  .column-my-details {
+    width: 100%;
   }
+}
+

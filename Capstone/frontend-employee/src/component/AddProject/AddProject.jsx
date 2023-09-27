@@ -106,7 +106,7 @@ const AddProject = () => {
     const project = {
       projectName,
       description,
-      startDate,
+      startDate: startDate,
       managerId,
       skills,
     };

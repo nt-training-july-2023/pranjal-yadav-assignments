@@ -1,14 +1,32 @@
-.card-container {
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* flex-wrap: wrap; */
-    /* scroll; */
-    
-    /* overflow-y: scroll !important;  */
-    /* max-height: 400px !important; */
-    margin-top: 5rem !important; 
-}
 
+.admin_tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    align-items: center;
+    gap: 4rem;
+    padding: 0.5rem;
+    background-color: rgb(255, 255, 255);
+    border: 0.1rem solid rgb(3, 3, 3);
+    border-radius: 1.5rem;
+    width: 50rem;
+    margin-left: 17rem;
+}
+.card-container {
+    display: flex;
+    /* margin-top: 3rem; */
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* scroll; */
+    justify-content: center;
+    overflow-y: scroll !important; 
+    max-height: 70vh !important;
+    /* margin-bottom: 5rem !important;  */
+}
+.search_manager_skills{
+    width: 60%;
+    margin-left: 16rem;
+}
 
 .name-designation{
     margin-bottom: 5px;
@@ -22,8 +40,7 @@
     border-radius: 5px;
     /* background-color: #8a7171; */
     margin: 10px;
-    width: 25rem;
-    /* max-heighgt: 90vh; */
+    width: 30rem;
 }
 .org{
     margin-left: 8rem !important;
@@ -49,7 +66,21 @@ p {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 70rem;
+    margin-left: 60rem;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+.btn-requests{
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left:20px;
+    /* margin-left: 70rem; */
     margin-top: 1rem;
     transition: background-color 0.3s;
 }

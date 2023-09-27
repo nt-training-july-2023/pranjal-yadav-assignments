@@ -43,10 +43,10 @@ function App() {
         <Route path='/addProject' element={<AddProject/>} />
         <Route path='/employeeDashboard' element={<EmployeeDashBoard/>} />
         <Route path='/managerDashboard' element={<ManagerDashBoard/>} />
-        <Route path='/assignProject/:id' element={<AssignProject />} />
-        <Route path='/updateSkills/:id' element={<UpdateSkills />} />
+        <Route path='/assignProject' element={<AssignProject />} />
+        <Route path='/updateSkills' element={<UpdateSkills />} />
         <Route path='/ManagerDisplayEmp' element={<ManagerDisplayEmployee/>} />
-        <Route path='/requestResource/:id' element={<RequestResource/>} />
+        <Route path='/requestResource' element={<RequestResource/>} />
         <Route path='/requests' element={<RequestNotification/>} />
         <Route path='/unassign/:id' element={<UnassignProject/>} />
       </Routes>
