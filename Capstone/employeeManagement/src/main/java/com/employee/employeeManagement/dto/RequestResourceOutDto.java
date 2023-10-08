@@ -1,6 +1,8 @@
 package com.employee.employeeManagement.dto;
 
 
+import java.util.Objects;
+
 /**
  * Data Transfer Object (DTO) representing
  * a response for request resource details.
@@ -235,5 +237,62 @@ public class RequestResourceOutDto {
      */
     public void setManagerUserId(final String managerUserIdParam) {
         this.managerUserId = managerUserIdParam;
+    }
+
+    /**
+     * toString method for this class.
+     * @return String value.
+     */
+    @Override
+    public final String toString() {
+        return "RequestResourceOutDto{"
+                + "resourceId=" + resourceId
+                + ", comment='" + comment + '\''
+                + ", managerId=" + managerId
+                + ", employeeId=" + employeeId
+                + ", projectId=" + projectId
+                + ", projectName='" + projectName + '\''
+                + ", employeeName='" + employeeName + '\''
+                + ", managerName='" + managerName + '\''
+                + ", employeeUserId='" + employeeUserId + '\''
+                + ", managerUserId='" + managerUserId + '\''
+                + '}';
+    }
+
+    /**
+     * equals method for this class.
+     * @param o Object o.
+     * @return boolean value.
+     */
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RequestResourceOutDto that)) {
+            return false;
+        }
+        return Objects.equals(getResourceId(), that.getResourceId())
+                && Objects.equals(getComment(), that.getComment())
+                && Objects.equals(getManagerId(), that.getManagerId())
+                && Objects.equals(getEmployeeId(), that.getEmployeeId())
+                && Objects.equals(getProjectId(), that.getProjectId())
+                && Objects.equals(getProjectName(), that.getProjectName())
+                && Objects.equals(getEmployeeName(), that.getEmployeeName())
+                && Objects.equals(getManagerName(), that.getManagerName())
+                && Objects.equals(getEmployeeUserId(), that.getEmployeeUserId())
+                && Objects.equals(getManagerUserId(), that.getManagerUserId());
+    }
+
+    /**
+     * hashcode for this class.
+     * @return int value.
+     */
+    @Override
+    public final int hashCode() {
+        return Objects.hash(getResourceId(), getComment(), getManagerId(),
+                getEmployeeId(), getProjectId(), getProjectName(),
+                getEmployeeName(), getManagerName(), getEmployeeUserId(),
+                getManagerUserId());
     }
 }

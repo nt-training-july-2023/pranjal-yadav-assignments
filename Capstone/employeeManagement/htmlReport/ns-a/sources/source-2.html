@@ -1,0 +1,188 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RequestResourceValidation</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.employee.employeeManagement.validation</a>
+</div>
+
+<h1>Coverage Summary for Class: RequestResourceValidation (com.employee.employeeManagement.validation)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RequestResourceValidation</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    60%
+  </span>
+  <span class="absValue">
+    (3/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    38.1%
+  </span>
+  <span class="absValue">
+    (8/21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.employee.employeeManagement.validation;
+&nbsp;
+&nbsp;import com.employee.employeeManagement.model.RequestResource;
+&nbsp;import com.employee.employeeManagement.model.User;
+&nbsp;import com.employee.employeeManagement.dto.RequestResourceDto;
+&nbsp;import com.employee.employeeManagement.enums.Role;
+&nbsp;import com.employee.employeeManagement.constants.ErrorConstants;
+&nbsp;import com.employee.employeeManagement.exception.ResourceNotFoundException;
+&nbsp;import com.employee.employeeManagement.exception.ValidationException;
+&nbsp;import com.employee.employeeManagement.repository.ProjectRepository;
+&nbsp;import com.employee.employeeManagement.repository.RequestResourceRepository;
+&nbsp;import com.employee.employeeManagement.repository.UserRepository;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;
+&nbsp;@Component
+<b class="fc">&nbsp;public class RequestResourceValidation {</b>
+&nbsp;    /**
+&nbsp;     * RequestResource repository autowired.
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private RequestResourceRepository requestResourceRepository;
+&nbsp;    /**
+&nbsp;     * User repository autowired.
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private UserRepository userRepository;
+&nbsp;    /**
+&nbsp;     * Project repository autowired.
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private ProjectRepository projectRepository;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checking request before adding.
+&nbsp;     * @param requestResourceDto Request resource dto.
+&nbsp;     */
+&nbsp;    public final void checkRequest(
+&nbsp;            final RequestResourceDto requestResourceDto) {
+<b class="fc">&nbsp;                userRepository.findById(requestResourceDto.getEmployeeId())</b>
+<b class="nc">&nbsp;                        .orElseThrow(() -&gt; new ResourceNotFoundException(</b>
+&nbsp;                                ErrorConstants.EMPLOYEE_NOT_EXIST));
+<b class="nc">&nbsp;        userRepository.findById(requestResourceDto.getManagerId())</b>
+<b class="nc">&nbsp;                        .orElseThrow(() -&gt;  new ResourceNotFoundException(</b>
+&nbsp;                                ErrorConstants.MANAGER_NOT_EXIST));
+<b class="nc">&nbsp;        projectRepository.findByProjectId(</b>
+<b class="nc">&nbsp;                        requestResourceDto.getProjectId()).</b>
+<b class="nc">&nbsp;                        orElseThrow(() -&gt; new ResourceNotFoundException(</b>
+&nbsp;                                ErrorConstants.PROJECT_NOT_EXIST));
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Method to check Accepted request.
+&nbsp;     * @param resourceId primary key of request resource.
+&nbsp;     */
+&nbsp;    public final void checkResourceIdAccept(final Long resourceId) {
+<b class="fc">&nbsp;        RequestResource requestResource =</b>
+<b class="fc">&nbsp;                requestResourceRepository.findById(resourceId).orElseThrow(()</b>
+<b class="nc">&nbsp;                        -&gt; new ResourceNotFoundException(ErrorConstants.RESOURCE_NOT_EXIST));</b>
+<b class="fc">&nbsp;        User user =</b>
+<b class="fc">&nbsp;                userRepository.findById(requestResource.getEmployeeId()).get();</b>
+<b class="fc">&nbsp;        if (user.getProjectId() != null) {</b>
+<b class="fc">&nbsp;            throw new ValidationException(ErrorConstants.EMPLOYEE_ALREADY_ASSIGNED);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Method to check isRequested.
+&nbsp;     * @param empId Employee id.
+&nbsp;     * @param managerId Manager id.
+&nbsp;     */
+&nbsp;    public final void checkIsRequested(final Long empId, Long managerId) {
+<b class="nc">&nbsp;        User employee = userRepository.findById(empId).orElse(null);</b>
+<b class="nc">&nbsp;        if (employee == null || employee.getRole() != Role.EMPLOYEE) {</b>
+<b class="nc">&nbsp;            throw new ResourceNotFoundException(</b>
+&nbsp;                    ErrorConstants.EMPLOYEE_NOT_EXIST);
+&nbsp;        }
+<b class="nc">&nbsp;        User manager = userRepository.findById(managerId).orElse(null);</b>
+<b class="nc">&nbsp;        if (manager == null || manager.getRole() != Role.MANAGER) {</b>
+<b class="nc">&nbsp;            throw new ResourceNotFoundException(</b>
+&nbsp;                    ErrorConstants.MANAGER_NOT_EXIST);
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-06 13:05</div>
+</div>
+</body>
+</html>

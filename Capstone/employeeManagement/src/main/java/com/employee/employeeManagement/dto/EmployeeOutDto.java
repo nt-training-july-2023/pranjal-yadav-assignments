@@ -7,6 +7,8 @@ import com.employee.employeeManagement.enums.Role;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+
 /**
  * Data Transfer Object (DTO) representing employee information.
  */
@@ -86,10 +88,6 @@ public class EmployeeOutDto {
      */
     private Long managerId;
 
-    /**
-     * Team of the employee/manager.
-     */
-//    private List<String> team;
 
     /**
      * Get the unique ID of the employee.
@@ -367,23 +365,69 @@ public class EmployeeOutDto {
     }
 
     /**
-     * Get team.
-     * @return list of string containing name of team members.
+     * toString method for EmployeeOutDto.
+     * @return String.
      */
-//    public final List<String> getTeam() {
-//        return Collections.unmodifiableList(team);
-//    }
-//
-//    /**
-//     * set team.
-//     * @param teamParams List of string containing name
-//     *             of team members.
-//     */
-//    public final void setTeam(final List<String> teamParams) {
-//        if (teamParams != null) {
-//            this.team = new ArrayList<>(teamParams);
-//        } else {
-//            this.team = null;
-//        }
-//    }
+    @Override
+    public final String toString() {
+        return "EmployeeOutDto{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", email='" + email + '\''
+                + ", userId='" + userId + '\''
+                + ", dob='" + dob + '\''
+                + ", doj='" + doj + '\''
+                + ", location=" + location
+                + ", designation=" + designation
+                + ", contactNo=" + contactNo
+                + ", projectId=" + projectId
+                + ", role=" + role
+                + ", managerName='" + managerName + '\''
+                + ", projectName='" + projectName + '\''
+                + ", skills=" + skills
+                + ", managerId=" + managerId
+                + '}';
+    }
+
+    /**
+     * equals mathod for EmployeeOutDto.
+     * @param o
+     * @return boolean value.
+     */
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof EmployeeOutDto that)) {
+            return false;
+        }
+        return Objects.equals(getId(), that.getId())
+                && Objects.equals(getName(), that.getName())
+                && Objects.equals(getEmail(), that.getEmail())
+                && Objects.equals(getUserId(), that.getUserId())
+                && Objects.equals(getDob(), that.getDob())
+                && Objects.equals(getDoj(), that.getDoj())
+                && getLocation() == that.getLocation()
+                && getDesignation() == that.getDesignation()
+                && Objects.equals(getContactNo(), that.getContactNo())
+                && Objects.equals(getProjectId(), that.getProjectId())
+                && getRole() == that.getRole()
+                && Objects.equals(getManagerName(), that.getManagerName())
+                && Objects.equals(getProjectName(), that.getProjectName())
+                && Objects.equals(getSkills(), that.getSkills())
+                && Objects.equals(getManagerId(), that.getManagerId());
+    }
+
+    /**
+     * Hashcode for EmployeeOutDto.
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getEmail(), getUserId(),
+                getDob(), getDoj(), getLocation(), getDesignation(),
+                getContactNo(), getProjectId(), getRole(), getManagerName(),
+                getProjectName(), getSkills(), getManagerId());
+    }
 }

@@ -1,7 +1,7 @@
 package com.employee.employeeManagement.service;
 
-import com.employee.employeeManagement.Model.Project;
-import com.employee.employeeManagement.Model.User;
+import com.employee.employeeManagement.model.Project;
+import com.employee.employeeManagement.model.User;
 import com.employee.employeeManagement.dto.ManagerDto;
 import com.employee.employeeManagement.dto.ProjectInDto;
 import com.employee.employeeManagement.enums.Role;
@@ -95,13 +95,10 @@ public class ProjectServiceTest {
         when(userRepository.findAllByProjectId(2L)).thenReturn(new ArrayList<>());
         when(userRepository.findById(project1.getManagerId())).thenReturn(Optional.of(user2));
 
-        // Call the getAllProjects method
         List<ProjectOutDto> resultList = projectService.getAllProjects();
 
-        // Verify the size of the resultList
         assertEquals(2, resultList.size());
 
-        // Verify the content of the resultList
         ProjectOutDto projectOutDto1 = resultList.get(0);
         assertEquals("Project 1", projectOutDto1.getProjectName());
         assertEquals(2, projectOutDto1.getTeam().size());
@@ -112,7 +109,6 @@ public class ProjectServiceTest {
         assertEquals("Project 2", projectOutDto2.getProjectName());
         assertTrue(projectOutDto2.getTeam().isEmpty());
 
-        // Verify that the repository methods were called with the expected arguments
         verify(projectRepository).findAll();
         verify(userRepository, times(2)).findAllByProjectId(anyLong());
     }
@@ -199,6 +195,55 @@ public class ProjectServiceTest {
         assertEquals(project.getStartDate(), projectOutDto.getStartDate());
         assertEquals(project.getManagerId(), projectOutDto.getManagerId());
         assertEquals(user.getName(), projectOutDto.getManagerName());
+    }
+    @Test
+    void testGetProjectByManagerId() {
+        long managerId = 1L;
+        List<String> skills = new ArrayList<>();
+        skills.add("Data Science");
+        skills.add("Java");
+        List<Project> projectList = new ArrayList<>();
+        Project project1 = new Project();
+        project1.setProjectId(101L);
+        project1.setManagerId(managerId);
+        project1.setSkills(skills);
+
+        Project project2 = new Project();
+        project2.setProjectId(102L);
+        project2.setManagerId(managerId);
+        project2.setSkills(skills);
+
+        projectList.add(project1);
+        projectList.add(project2);
+
+        when(projectRepository.findAllByManagerId(managerId)).thenReturn(projectList);
+
+        List<User> teamForProject1 = new ArrayList<>();
+        User user1 = new User();
+        user1.setName("User 1");
+        teamForProject1.add(user1);
+
+        when(userRepository.findAllByProjectId(101L)).thenReturn(teamForProject1);
+
+        List<User> teamForProject2 = new ArrayList<>();
+        User user2 = new User();
+        user2.setName("User 2");
+        teamForProject2.add(user2);
+
+        User manager = new User();
+        manager.setId(2L);
+        manager.setName("Vanshika");
+        when(userRepository.findAllByProjectId(102L)).thenReturn(teamForProject2);
+        when(userRepository.findById(any())).thenReturn(Optional.of(manager));
+
+        List<ProjectOutDto> projectOutDtoList =
+                projectService.getProjectByManagerId(managerId);
+
+        assertEquals(2, projectOutDtoList.size()); // Expecting two projects
+
+        verify(projectRepository, times(1)).findAllByManagerId(managerId);
+        verify(userRepository, times(1)).findAllByProjectId(101L);
+        verify(userRepository, times(1)).findAllByProjectId(102L);
     }
 }
 

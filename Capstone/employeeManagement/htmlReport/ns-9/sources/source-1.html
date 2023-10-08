@@ -1,0 +1,253 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ProjectService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.employee.employeeManagement.service</a>
+</div>
+
+<h1>Coverage Summary for Class: ProjectService (com.employee.employeeManagement.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProjectService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    81.2%
+  </span>
+  <span class="absValue">
+    (52/64)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.employee.employeeManagement.service;
+&nbsp;
+&nbsp;import com.employee.employeeManagement.model.Project;
+&nbsp;import com.employee.employeeManagement.dto.ProjectOutDto;
+&nbsp;import com.employee.employeeManagement.enums.Role;
+&nbsp;import com.employee.employeeManagement.model.User;
+&nbsp;import com.employee.employeeManagement.dto.ManagerDto;
+&nbsp;import com.employee.employeeManagement.dto.ProjectInDto;
+&nbsp;import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
+&nbsp;import com.employee.employeeManagement.repository.ProjectRepository;
+&nbsp;import com.employee.employeeManagement.repository.UserRepository;
+&nbsp;import com.employee.employeeManagement.response.ProjectResponseDto;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * Service class for managing project-related operations.
+&nbsp; */
+&nbsp;@Service
+<b class="fc">&nbsp;public class ProjectService {</b>
+&nbsp;    /**
+&nbsp;     * ProjectRepository autowired for adding and retrieving from database.
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private ProjectRepository projectRepository;
+&nbsp;    /**
+&nbsp;     * UserRepository autowired for adding to database.
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private UserRepository userRepository;
+&nbsp;    /**
+&nbsp;     * Adds a new project.
+&nbsp;     *
+&nbsp;     * @param projectDto The project details to be added.
+&nbsp;     * @return Response indicating successfully adding user.
+&nbsp;     */
+&nbsp;    public final ProjectResponseDto addProject(final ProjectInDto projectDto) {
+<b class="fc">&nbsp;        Project project = dtoToProject(projectDto);</b>
+<b class="fc">&nbsp;        projectRepository.save(project);</b>
+<b class="fc">&nbsp;        return new ProjectResponseDto(&quot;Project added successfully!&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Getting all projects.
+&nbsp;     * @return List of all projects.
+&nbsp;     */
+&nbsp;    public final List&lt;ProjectOutDto&gt; getAllProjects() {
+<b class="fc">&nbsp;        List&lt;Project&gt; allProjects = projectRepository.findAll();</b>
+<b class="fc">&nbsp;        List&lt;ProjectOutDto&gt; returnedList = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (Project project : allProjects) {</b>
+<b class="fc">&nbsp;            ProjectOutDto projectOutDto = projectToOutDto(project);</b>
+<b class="fc">&nbsp;            List&lt;User&gt; team = userRepository.findAllByProjectId(</b>
+<b class="fc">&nbsp;                    project.getProjectId());</b>
+<b class="fc">&nbsp;            List&lt;String&gt; teamName = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;            for (User currUser: team) {</b>
+<b class="fc">&nbsp;                teamName.add(currUser.getName());</b>
+<b class="fc">&nbsp;            }</b>
+<b class="fc">&nbsp;            projectOutDto.setTeam(teamName);</b>
+<b class="fc">&nbsp;            returnedList.add(projectOutDto);</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return returnedList;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves all managers as ManagerDto objects.
+&nbsp;     *
+&nbsp;     * @return List of ManagerDto objects representing all managers.
+&nbsp;     */
+&nbsp;    public final List&lt;ManagerDto&gt; getManagers() {
+<b class="fc">&nbsp;        Role role = Role.valueOf(&quot;MANAGER&quot;);</b>
+<b class="fc">&nbsp;        List&lt;User&gt; allManagers = userRepository.findByRole(role);</b>
+<b class="fc">&nbsp;        List&lt;ManagerDto&gt; returnedManagers = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (User manager: allManagers) {</b>
+<b class="fc">&nbsp;            ManagerDto currManager = new ManagerDto();</b>
+<b class="fc">&nbsp;            currManager.setName(manager.getName());</b>
+<b class="fc">&nbsp;            currManager.setUserId(manager.getUserId());</b>
+<b class="fc">&nbsp;            currManager.setId(manager.getId());</b>
+<b class="fc">&nbsp;            returnedManagers.add(currManager);</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return returnedManagers;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Method returning project form given id.
+&nbsp;     * @param managerId .
+&nbsp;     * @return Optional value project or exception.
+&nbsp;     */
+&nbsp;    public final List&lt;ProjectOutDto&gt; getProjectByManagerId(
+&nbsp;            final long managerId) {
+<b class="fc">&nbsp;        List&lt;Project&gt; projectList =</b>
+<b class="fc">&nbsp;                projectRepository.findAllByManagerId(managerId);</b>
+<b class="fc">&nbsp;        if (!projectList.isEmpty()) {</b>
+<b class="fc">&nbsp;            List&lt;ProjectOutDto&gt; listProjectOut = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;            for (Project currProject : projectList) {</b>
+<b class="fc">&nbsp;                ProjectOutDto projectOutDto = projectToOutDto(currProject);</b>
+<b class="nc">&nbsp;                List&lt;User&gt; team =</b>
+<b class="nc">&nbsp;                        userRepository.findAllByProjectId(</b>
+<b class="nc">&nbsp;                                currProject.getProjectId());</b>
+<b class="nc">&nbsp;                List&lt;String&gt; teamName = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;                for (User currUser: team) {</b>
+<b class="nc">&nbsp;                    teamName.add(currUser.getName());</b>
+<b class="nc">&nbsp;                }</b>
+<b class="nc">&nbsp;                projectOutDto.setTeam(teamName);</b>
+<b class="nc">&nbsp;                listProjectOut.add(projectOutDto);</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;            return listProjectOut;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            throw new ResourceAlreadyExistsException(&quot;Project does not exist&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Converts a ProjectInDto object to a Project object.
+&nbsp;     *
+&nbsp;     * @param projectDto The ProjectInDto object to be converted.
+&nbsp;     * @return A Project object created from the provided ProjectInDto.
+&nbsp;     */
+&nbsp;    public final Project dtoToProject(final ProjectInDto projectDto) {
+<b class="fc">&nbsp;        Project project = new Project();</b>
+<b class="fc">&nbsp;        project.setProjectName(projectDto.getProjectName());</b>
+<b class="fc">&nbsp;        project.setStartDate(projectDto.getStartDate());</b>
+<b class="fc">&nbsp;        project.setManagerId(projectDto.getManagerId());</b>
+<b class="fc">&nbsp;        project.setDescription(projectDto.getDescription());</b>
+<b class="fc">&nbsp;        project.setSkills(projectDto.getSkills());</b>
+<b class="fc">&nbsp;        return project;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     *  Converts a Project object to a ProjectInDto object.
+&nbsp;     * @param project The Project object to be converted.
+&nbsp;     * @return A ProjectInDto object created from the provided Project.
+&nbsp;     */
+&nbsp;    public final ProjectOutDto projectToOutDto(final Project project) {
+<b class="fc">&nbsp;        ProjectOutDto projectOutDto = new ProjectOutDto();</b>
+<b class="fc">&nbsp;        projectOutDto.setDescription(project.getDescription());</b>
+<b class="fc">&nbsp;        projectOutDto.setProjectId(project.getProjectId());</b>
+<b class="fc">&nbsp;        projectOutDto.setProjectName(project.getProjectName());</b>
+<b class="fc">&nbsp;        projectOutDto.setSkills(project.getSkills());</b>
+<b class="fc">&nbsp;        projectOutDto.setStartDate(project.getStartDate());</b>
+<b class="fc">&nbsp;        projectOutDto.setManagerId(project.getManagerId());</b>
+<b class="fc">&nbsp;        User user = userRepository.findById(project.getManagerId()).get();</b>
+<b class="fc">&nbsp;        projectOutDto.setManagerName(user.getName());</b>
+&nbsp;
+<b class="fc">&nbsp;        return projectOutDto;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-06 13:05</div>
+</div>
+</body>
+</html>

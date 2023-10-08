@@ -3,11 +3,16 @@ package com.employee.employeeManagement.dto;
 import com.employee.employeeManagement.enums.Designation;
 import com.employee.employeeManagement.enums.Location;
 import com.employee.employeeManagement.enums.Role;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Email;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Data Transfer Object (DTO) representing user information.
@@ -24,14 +29,15 @@ public class UserInDto {
      */
     @Email
     @Pattern(regexp = ".*@nucleusteq\\.com$",
-            message = "Email should ends with nucleusteq.com.")
+            message = "Email should end with nucleusteq.com.")
     @NotBlank
     private String email;
     /**
      * The ID of the user.
      */
     @NotBlank
-    @Pattern(regexp = "^[Nn]\\d{4}$")
+    @Pattern(regexp = "^[Nn]\\d{4}$", message = "User id must be of the "
+            + "format NXXXX")
     private String userId;
     /**
      * The date of birth of the user.
@@ -55,7 +61,7 @@ public class UserInDto {
     /**
      * The contact number of the user.
      */
-    @NotNull
+    @NotNull(message = "Contact number is required.")
     private Long contactNo;
     /**
      * The name of the project the user is associated with.
@@ -68,6 +74,7 @@ public class UserInDto {
     /**
      * The password of the user.
      */
+
     private String password;
 
     /**
@@ -319,4 +326,66 @@ public class UserInDto {
         this.managerId = managerIdParam;
     }
 
+    /**
+     * toString method for this class.
+     * @return String value.
+     */
+    @Override
+    public final String toString() {
+        return "UserInDto{"
+                + "name='" + name + '\''
+                + ", email='" + email + '\''
+                + ", userId='" + userId + '\''
+                + ", dob='" + dob + '\''
+                + ", doj='" + doj + '\''
+                + ", location=" + location
+                + ", designation=" + designation
+                + ", contactNo=" + contactNo
+                + ", projectId=" + projectId
+                + ", role=" + role
+                + ", password='" + password + '\''
+                + ", skills=" + skills
+                + ", managerId=" + managerId
+                + '}';
+    }
+
+    /**
+     * equals method for this class.
+     * @param o Objec o.
+     * @return boolean value.
+     */
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UserInDto userInDto)) {
+            return false;
+        }
+        return Objects.equals(getName(), userInDto.getName())
+                && Objects.equals(getEmail(), userInDto.getEmail())
+                && Objects.equals(getUserId(), userInDto.getUserId())
+                && Objects.equals(getDob(), userInDto.getDob())
+                && Objects.equals(getDoj(), userInDto.getDoj())
+                && getLocation() == userInDto.getLocation()
+                && getDesignation() == userInDto.getDesignation()
+                && Objects.equals(getContactNo(), userInDto.getContactNo())
+                && Objects.equals(getProjectId(), userInDto.getProjectId())
+                && getRole() == userInDto.getRole()
+                && Objects.equals(getPassword(), userInDto.getPassword())
+                && Objects.equals(getSkills(), userInDto.getSkills())
+                && Objects.equals(getManagerId(), userInDto.getManagerId());
+    }
+
+    /**
+     * hashcode for this class.
+     * @return int value.
+     */
+    @Override
+    public final int hashCode() {
+        return Objects.hash(getName(), getEmail(), getUserId(), getDob(),
+                getDoj(), getLocation(), getDesignation(), getContactNo(),
+                getProjectId(), getRole(), getPassword(), getSkills(),
+                getManagerId());
+    }
 }

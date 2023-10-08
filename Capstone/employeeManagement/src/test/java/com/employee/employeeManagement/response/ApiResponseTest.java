@@ -37,7 +37,7 @@ public class ApiResponseTest {
     public void testApiResponseConstructorWithMessage() {
         ResponseDto response = new ResponseDto("Test Message");
         assertEquals("Test Message", response.getMessage());
-        assertNull(response.getRole()); // Role should be null in this constructor
+        assertNull(response.getRole());
     }
 
     @Test

@@ -1,0 +1,558 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ManagerOutDto</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.employee.employeeManagement.dto</a>
+</div>
+
+<h1>Coverage Summary for Class: ManagerOutDto (com.employee.employeeManagement.dto)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ManagerOutDto</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91.7%
+  </span>
+  <span class="absValue">
+    (33/36)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    55.6%
+  </span>
+  <span class="absValue">
+    (35/63)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.employee.employeeManagement.dto;
+&nbsp;
+&nbsp;import com.employee.employeeManagement.enums.Designation;
+&nbsp;import com.employee.employeeManagement.enums.Location;
+&nbsp;import com.employee.employeeManagement.enums.Role;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Objects;
+&nbsp;
+<b class="fc">&nbsp;public class ManagerOutDto {</b>
+&nbsp;    /**
+&nbsp;     * The unique ID of the employee.
+&nbsp;     */
+&nbsp;    private Long id;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The name of the employee.
+&nbsp;     */
+&nbsp;    private String name;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The email address of the employee.
+&nbsp;     */
+&nbsp;    private String email;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The user ID of the employee.
+&nbsp;     */
+&nbsp;    private String userId;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The date of birth of the employee.
+&nbsp;     */
+&nbsp;    private String dob;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The date of joining of the employee.
+&nbsp;     */
+&nbsp;    private String doj;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The location of the employee.
+&nbsp;     */
+&nbsp;    private Location location;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The designation of the employee.
+&nbsp;     */
+&nbsp;    private Designation designation;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The contact number of the employee.
+&nbsp;     */
+&nbsp;    private Long contactNo;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The ID of the project the employee is associated with.
+&nbsp;     */
+&nbsp;    private Long projectId;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The role of the employee.
+&nbsp;     */
+&nbsp;    private Role role;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The name of the manager of the employee.
+&nbsp;     */
+&nbsp;    private String managerName;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The name of the project the employee is associated with.
+&nbsp;     */
+&nbsp;    private String projectName;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The list of skills possessed by the employee.
+&nbsp;     */
+&nbsp;    private List&lt;String&gt; skills;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The ID of the employee&#39;s manager.
+&nbsp;     */
+&nbsp;    private Long managerId;
+&nbsp;    /**
+&nbsp;     * List of team members.
+&nbsp;     */
+&nbsp;    private List&lt;String&gt; team;
+&nbsp;    /**
+&nbsp;     * Get the unique ID of the employee.
+&nbsp;     *
+&nbsp;     * @return The employee&#39;s ID.
+&nbsp;     */
+&nbsp;    public final Long getId() {
+<b class="fc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the unique ID of the employee.
+&nbsp;     *
+&nbsp;     * @param idParam The employee&#39;s ID.
+&nbsp;     */
+&nbsp;    public final void setId(final Long idParam) {
+<b class="fc">&nbsp;        this.id = idParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the name of the employee.
+&nbsp;     *
+&nbsp;     * @return The employee&#39;s name.
+&nbsp;     */
+&nbsp;    public final String getName() {
+<b class="fc">&nbsp;        return name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the name of the employee.
+&nbsp;     *
+&nbsp;     * @param nameParam The employee&#39;s name.
+&nbsp;     */
+&nbsp;    public final void setName(final String nameParam) {
+<b class="fc">&nbsp;        this.name = nameParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the email address of the employee.
+&nbsp;     *
+&nbsp;     * @return The employee&#39;s email address.
+&nbsp;     */
+&nbsp;    public final String getEmail() {
+<b class="fc">&nbsp;        return email;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the email address of the employee.
+&nbsp;     *
+&nbsp;     * @param emailParam The employee&#39;s email address.
+&nbsp;     */
+&nbsp;    public final void setEmail(final String emailParam) {
+<b class="fc">&nbsp;        this.email = emailParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the user ID of the employee.
+&nbsp;     *
+&nbsp;     * @return The employee&#39;s user ID.
+&nbsp;     */
+&nbsp;    public final String getUserId() {
+<b class="fc">&nbsp;        return userId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the user ID of the employee.
+&nbsp;     *
+&nbsp;     * @param userIdParam The employee&#39;s user ID.
+&nbsp;     */
+&nbsp;    public final void setUserId(final String userIdParam) {
+<b class="fc">&nbsp;        this.userId = userIdParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the date of birth of the employee.
+&nbsp;     *
+&nbsp;     * @return The employee&#39;s date of birth.
+&nbsp;     */
+&nbsp;    public final String getDob() {
+<b class="fc">&nbsp;        return dob;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the date of birth of the employee.
+&nbsp;     *
+&nbsp;     * @param dobParam The employee&#39;s date of birth.
+&nbsp;     */
+&nbsp;    public final void setDob(final String dobParam) {
+<b class="fc">&nbsp;        this.dob = dobParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the date of joining of the employee.
+&nbsp;     *
+&nbsp;     * @return The employee&#39;s date of joining.
+&nbsp;     */
+&nbsp;    public final String getDoj() {
+<b class="fc">&nbsp;        return doj;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the date of joining of the employee.
+&nbsp;     *
+&nbsp;     * @param dojParam The employee&#39;s date of joining.
+&nbsp;     */
+&nbsp;    public final void setDoj(final String dojParam) {
+<b class="fc">&nbsp;        this.doj = dojParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the location of the employee.
+&nbsp;     *
+&nbsp;     * @return The employee&#39;s location.
+&nbsp;     */
+&nbsp;    public final Location getLocation() {
+<b class="fc">&nbsp;        return location;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the location of the employee.
+&nbsp;     *
+&nbsp;     * @param locationParam The employee&#39;s location.
+&nbsp;     */
+&nbsp;    public final void setLocation(final Location locationParam) {
+<b class="fc">&nbsp;        this.location = locationParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the designation of the employee.
+&nbsp;     *
+&nbsp;     * @return The employee&#39;s designation.
+&nbsp;     */
+&nbsp;    public final Designation getDesignation() {
+<b class="fc">&nbsp;        return designation;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the designation of the employee.
+&nbsp;     *
+&nbsp;     * @param designationParam The employee&#39;s designation.
+&nbsp;     */
+&nbsp;    public final void setDesignation(final Designation designationParam) {
+<b class="fc">&nbsp;        this.designation = designationParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the contact number of the employee.
+&nbsp;     *
+&nbsp;     * @return The employee&#39;s contact number.
+&nbsp;     */
+&nbsp;    public final Long getContactNo() {
+<b class="fc">&nbsp;        return contactNo;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the contact number of the employee.
+&nbsp;     *
+&nbsp;     * @param contactNoParam The employee&#39;s contact number.
+&nbsp;     */
+&nbsp;    public final void setContactNo(final Long contactNoParam) {
+<b class="fc">&nbsp;        this.contactNo = contactNoParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the ID of the project the employee is associated with.
+&nbsp;     *
+&nbsp;     * @return The ID of the associated project.
+&nbsp;     */
+&nbsp;    public final Long getProjectId() {
+<b class="fc">&nbsp;        return projectId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the ID of the project the employee is associated with.
+&nbsp;     *
+&nbsp;     * @param projectIdParam The ID of the associated project.
+&nbsp;     */
+&nbsp;    public final void setProjectId(final Long projectIdParam) {
+<b class="fc">&nbsp;        this.projectId = projectIdParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the role of the employee.
+&nbsp;     *
+&nbsp;     * @return The employee&#39;s role.
+&nbsp;     */
+&nbsp;    public final Role getRole() {
+<b class="fc">&nbsp;        return role;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the role of the employee.
+&nbsp;     *
+&nbsp;     * @param roleParam The employee&#39;s role.
+&nbsp;     */
+&nbsp;    public final void setRole(final Role roleParam) {
+<b class="fc">&nbsp;        this.role = roleParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the name of the manager of the employee.
+&nbsp;     *
+&nbsp;     * @return The name of the manager.
+&nbsp;     */
+&nbsp;    public final String getManagerName() {
+<b class="fc">&nbsp;        return managerName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the name of the manager of the employee.
+&nbsp;     *
+&nbsp;     * @param managerNameParam The name of the manager.
+&nbsp;     */
+&nbsp;    public final void setManagerName(final String managerNameParam) {
+<b class="fc">&nbsp;        this.managerName = managerNameParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the list of skills possessed by the employee.
+&nbsp;     *
+&nbsp;     * @return The list of skills.
+&nbsp;     */
+&nbsp;    public final List&lt;String&gt; getSkills() {
+<b class="fc">&nbsp;        return Collections.unmodifiableList(skills);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the list of skills possessed by the employee.
+&nbsp;     *
+&nbsp;     * @param skillsParam The list of skills.
+&nbsp;     */
+&nbsp;    public final void setSkills(final List&lt;String&gt; skillsParam) {
+<b class="fc">&nbsp;        if (skillsParam != null) {</b>
+<b class="fc">&nbsp;            this.skills = new ArrayList&lt;&gt;(skillsParam);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            this.skills = null;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the ID of the employee&#39;s manager.
+&nbsp;     *
+&nbsp;     * @return The ID of the manager.
+&nbsp;     */
+&nbsp;    public final Long getManagerId() {
+<b class="fc">&nbsp;        return managerId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the ID of the employee&#39;s manager.
+&nbsp;     *
+&nbsp;     * @param managerIdParam The ID of the manager.
+&nbsp;     */
+&nbsp;    public final void setManagerId(final Long managerIdParam) {
+<b class="fc">&nbsp;        this.managerId = managerIdParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the name of the project the employee is associated with.
+&nbsp;     *
+&nbsp;     * @return The name of the associated project.
+&nbsp;     */
+&nbsp;    public final String getProjectName() {
+<b class="fc">&nbsp;        return projectName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the name of the project the employee is associated with.
+&nbsp;     *
+&nbsp;     * @param projectNameParam The name of the associated project.
+&nbsp;     */
+&nbsp;    public final void setProjectName(final String projectNameParam) {
+<b class="fc">&nbsp;        this.projectName = projectNameParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set team.
+&nbsp;     * @return List of team members.
+&nbsp;     */
+&nbsp;    public final List&lt;String&gt; getTeam() {
+<b class="fc">&nbsp;        return Collections.unmodifiableList(team);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get team.
+&nbsp;     * @param teamParams List of team members.
+&nbsp;     */
+&nbsp;    public final void setTeam(final List&lt;String&gt; teamParams) {
+<b class="fc">&nbsp;        if (teamParams != null) {</b>
+<b class="fc">&nbsp;            this.team = new ArrayList&lt;&gt;(teamParams);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            this.team = null;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * toString method for managerOutDto.
+&nbsp;     * @return String value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final String toString() {
+<b class="nc">&nbsp;        return &quot;ManagerOutDto{&quot;</b>
+&nbsp;                + &quot;id=&quot; + id
+&nbsp;                + &quot;, name=&#39;&quot; + name + &#39;\&#39;&#39;
+&nbsp;                + &quot;, email=&#39;&quot; + email + &#39;\&#39;&#39;
+&nbsp;                + &quot;, userId=&#39;&quot; + userId + &#39;\&#39;&#39;
+&nbsp;                + &quot;, dob=&#39;&quot; + dob + &#39;\&#39;&#39;
+&nbsp;                + &quot;, doj=&#39;&quot; + doj + &#39;\&#39;&#39;
+&nbsp;                + &quot;, location=&quot; + location
+&nbsp;                + &quot;, designation=&quot; + designation
+&nbsp;                + &quot;, contactNo=&quot; + contactNo
+&nbsp;                + &quot;, projectId=&quot; + projectId
+&nbsp;                + &quot;, role=&quot; + role
+&nbsp;                + &quot;, managerName=&#39;&quot; + managerName + &#39;\&#39;&#39;
+&nbsp;                + &quot;, projectName=&#39;&quot; + projectName + &#39;\&#39;&#39;
+&nbsp;                + &quot;, skills=&quot; + skills
+&nbsp;                + &quot;, managerId=&quot; + managerId
+&nbsp;                + &quot;, team=&quot; + team
+&nbsp;                + &#39;}&#39;;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * equals method for managerOutDto.
+&nbsp;     * @param o object.
+&nbsp;     * @return boolean value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final boolean equals(final Object o) {
+<b class="nc">&nbsp;        if (this == o) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (!(o instanceof ManagerOutDto that)) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return Objects.equals(getId(), that.getId())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getName(), that.getName())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getEmail(), that.getEmail())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getUserId(), that.getUserId())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getDob(), that.getDob())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getDoj(), that.getDoj())</b>
+<b class="nc">&nbsp;                &amp;&amp; getLocation() == that.getLocation()</b>
+<b class="nc">&nbsp;                &amp;&amp; getDesignation() == that.getDesignation()</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getContactNo(), that.getContactNo())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getProjectId(), that.getProjectId())</b>
+<b class="nc">&nbsp;                &amp;&amp; getRole() == that.getRole()</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getManagerName(), that.getManagerName())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getProjectName(), that.getProjectName())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getSkills(), that.getSkills())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getManagerId(), that.getManagerId())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getTeam(), that.getTeam());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * hashcode method for ManagerOutDto.
+&nbsp;     * @return int value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public int hashCode() {
+<b class="nc">&nbsp;        return Objects.hash(getId(), getName(),</b>
+<b class="nc">&nbsp;                getEmail(), getUserId(), getDob(),</b>
+<b class="nc">&nbsp;                getDoj(), getLocation(), getDesignation(),</b>
+<b class="nc">&nbsp;                getContactNo(), getProjectId(), getRole(), getManagerName(),</b>
+<b class="nc">&nbsp;                getProjectName(), getSkills(), getManagerId(), getTeam());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-06 13:05</div>
+</div>
+</body>
+</html>

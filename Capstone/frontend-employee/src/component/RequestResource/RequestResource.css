@@ -1,48 +1,66 @@
-body {
-    display: flex;
-    /* justify-content: center;
-    align-items: center; */
-    min-height: 100vh;
-    /* height: 0; */
-    margin: 0;
-    background-image: linear-gradient(rgb(248, 204, 244), rgb(253, 255, 126));
-  }
-  
-  .req-Resource {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    max-width: 400px;
-  }
-  
-  .cancel-assign {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: red;
-    /* color: #fff; */
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 10px;
-  }.cancel-assign:hover {
-    background-color: darkred;
-  }
-  
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
-  
-  .assign-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: blue;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .assign-btn:hover {
-    background-color: darkblue;
-  }
+body {
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  /* min-height: 100vh; */
+  /* height: 100%; */
+  height: auto;
+  background-size: auto;
+  background-repeat: no-repeat;
+  margin: 0;
+  background: rgb(8, 3, 105);
+  background: linear-gradient(
+    0deg,
+    rgba(8, 3, 105, 1) 0%,
+    rgba(9, 9, 121, 1) 12%,
+    rgba(8, 28, 133, 1) 23%,
+    /* rgba(0, 212, 255, 1) 100% */
+    rgb(0, 132, 255) 100%
+  );
+}
+
+.req-Resource {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  max-width: 400px;
+  margin-left: 30rem;
+  margin-top: 8rem;
+  margin-bottom: 10rem;
+}
+
+.cancel-assign {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  width: 140px;
+  margin-left: 10px;
+}
+.cancel-assign:hover {
+  background-color: darkred;
+}
+.comment_error {
+  color: red;
+}
+
+.assign-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: blue;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.assign-btn:hover {
+  background-color: darkblue;
+}

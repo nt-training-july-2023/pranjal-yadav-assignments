@@ -1,0 +1,220 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ManagerDto</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.employee.employeeManagement.dto</a>
+</div>
+
+<h1>Coverage Summary for Class: ManagerDto (com.employee.employeeManagement.dto)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ManagerDto</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (14/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.employee.employeeManagement.dto;
+&nbsp;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;/**
+&nbsp; * Data Transfer Object (DTO) of manager, used in drop-down
+&nbsp; * for adding project.
+&nbsp; */
+&nbsp;
+<b class="fc">&nbsp;public class ManagerDto {</b>
+&nbsp;    /**
+&nbsp;     * The name of the manager.
+&nbsp;     */
+&nbsp;    private String name;
+&nbsp;    /**
+&nbsp;     * The user ID of the manager.
+&nbsp;     */
+&nbsp;    private String userId;
+&nbsp;    /**
+&nbsp;     * Id of manager.
+&nbsp;     */
+&nbsp;    private Long id;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the name.
+&nbsp;     *
+&nbsp;     * @return The name.
+&nbsp;     */
+&nbsp;    public final String getName() {
+<b class="fc">&nbsp;        return name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the name.
+&nbsp;     *
+&nbsp;     * @param nameParam The name to set.
+&nbsp;     */
+&nbsp;    public final void setName(final String nameParam) {
+<b class="fc">&nbsp;        this.name = nameParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the user ID.
+&nbsp;     *
+&nbsp;     * @return The user ID.
+&nbsp;     */
+&nbsp;    public final String getUserId() {
+<b class="fc">&nbsp;        return userId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the user ID.
+&nbsp;     *
+&nbsp;     * @param userIdParam The user ID to set.
+&nbsp;     */
+&nbsp;    public final void setUserId(final String userIdParam) {
+<b class="fc">&nbsp;        this.userId = userIdParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the ID.
+&nbsp;     *
+&nbsp;     * @return The ID.
+&nbsp;     */
+&nbsp;    public final Long getId() {
+<b class="fc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the ID.
+&nbsp;     *
+&nbsp;     * @param idParam The ID to set.
+&nbsp;     */
+&nbsp;    public final void setId(final Long idParam) {
+<b class="fc">&nbsp;        this.id = idParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * toString method for managerDto.
+&nbsp;     * @return String value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final String toString() {
+<b class="fc">&nbsp;        return &quot;ManagerDto{&quot;</b>
+&nbsp;                + &quot;name=&#39;&quot; + name + &#39;\&#39;&#39;
+&nbsp;                + &quot;, userId=&#39;&quot; + userId + &#39;\&#39;&#39;
+&nbsp;                + &quot;, id=&quot; + id
+&nbsp;                + &#39;}&#39;;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Equals method for managerDto.
+&nbsp;     * @param o object.
+&nbsp;     * @return boolean value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final boolean equals(final Object o) {
+<b class="fc">&nbsp;        if (this == o) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (!(o instanceof ManagerDto that)) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return Objects.equals(getName(), that.getName())</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getUserId(), that.getUserId())</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getId(), that.getId());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * hashcode for managerDto.
+&nbsp;     * @return int value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public int hashCode() {
+<b class="fc">&nbsp;        return Objects.hash(getName(), getUserId(), getId());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-06 13:05</div>
+</div>
+</body>
+</html>

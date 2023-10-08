@@ -1,0 +1,127 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.employee.employeeManagement.repository</a>
+</div>
+
+<h1>Coverage Summary for Class: UserRepository (com.employee.employeeManagement.repository)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">UserRepository$MockitoMock$hipiI4HQ</td>
+  </tr>
+  <tr>
+    <td class="name">UserRepository$MockitoMock$hipiI4HQ$auxiliary$k93VOYQH</td>
+  </tr>
+  <tr>
+    <td class="name">UserRepository$MockitoMock$hipiI4HQ$auxiliary$Oau32EYS</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.employee.employeeManagement.repository;
+&nbsp;
+&nbsp;import com.employee.employeeManagement.enums.Role;
+&nbsp;import com.employee.employeeManagement.model.User;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.stereotype.Repository;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;/**
+&nbsp; * Repository interface for managing User entities.
+&nbsp; */
+&nbsp;@Repository
+&nbsp;public interface UserRepository extends JpaRepository&lt;User, Long&gt; {
+&nbsp;    /**
+&nbsp;     * Finds a user by their email address.
+&nbsp;     *
+&nbsp;     * @param email The email address to search for.
+&nbsp;     * @return An Optional containing the user if found, or empty if not found.
+&nbsp;     */
+&nbsp;    Optional&lt;User&gt; findByEmail(String email);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Finds user by their User id.
+&nbsp;     * @param userId .
+&nbsp;     * @return An optional containing user if found.
+&nbsp;     */
+&nbsp;    Optional&lt;User&gt; findByUserId(String userId);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * finding user by id.
+&nbsp;     * @param id id.
+&nbsp;     * @return optiona; user.
+&nbsp;     */
+&nbsp;    Optional&lt;User&gt; findById(Long id);
+&nbsp;    /**
+&nbsp;     * Finds users by their role.
+&nbsp;     *
+&nbsp;     * @param role The role to filter users by.
+&nbsp;     * @return A list of users with the specified role.
+&nbsp;     */
+&nbsp;    List&lt;User&gt; findByRole(Role role);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * finds users by project id.
+&nbsp;     * @param projectId project id.
+&nbsp;     * @return list of users.
+&nbsp;     */
+&nbsp;    List&lt;User&gt; findAllByProjectId(Long projectId);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-06 13:05</div>
+</div>
+</body>
+</html>

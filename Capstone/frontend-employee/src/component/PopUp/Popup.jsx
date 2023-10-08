@@ -3,12 +3,6 @@ import './PopUp.css'
 
 const Popup = ({message ,onClose, showAcceptButton, onAccept}) => {
   return (
-    // <div className="popup">
-    //         <div className="popup-content">
-    //             <p>{message}</p>
-    //             <button onClick={onClose}>Close</button>
-    //         </div>
-    //     </div>
     <div className="popup">
             <div className="popup-content">
                 <p className="popup-message">{message}</p>
@@ -18,7 +12,6 @@ const Popup = ({message ,onClose, showAcceptButton, onAccept}) => {
                     <button className="accept-button" onClick={onAccept}>Accept</button>
                 )}
                 </div>
-               
             </div>
         </div>
   )

@@ -3,9 +3,16 @@ package com.employee.employeeManagement.exception;
 import com.employee.employeeManagement.response.ResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Global exception handling class for handling custom exceptions and
  * providing appropriate responses.
@@ -27,15 +34,15 @@ public class CustomExceptionHandler {
         return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
     }
     /**
-     * Exception handler for WrongCredentialsExceptions.
+     * Exception handler for InvalidCredentialsExceptions.
      *
-     * @param ex The WrongCredentialsExceptions to handle.
+     * @param ex The InvalidCredentialsExceptions to handle.
      * @return ResponseDto with an UNAUTHORIZED status.
      */
-    @ExceptionHandler(WrongCredentialsExceptions.class)
+    @ExceptionHandler(InvalidCredentialsExceptions.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public final ResponseDto invalidCredentialException(
-            final WrongCredentialsExceptions ex) {
+            final InvalidCredentialsExceptions ex) {
         String message = ex.getMessage();
         return new ResponseDto(message);
     }
@@ -59,11 +66,30 @@ public class CustomExceptionHandler {
      * @return ResponseDto with a FOUND status.
      */
     @ExceptionHandler(ResourceAlreadyExistsException.class)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.CONFLICT)
     public final ResponseDto resourceAlreadyExistsException(
             final ResourceAlreadyExistsException ex) {
         String message = ex.getMessage();
         return new ResponseDto(message);
+    }
+
+    /**
+     * Hnadles validation exceptions.
+     * @param ex exception.
+     * @return response.
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public final Map<String, String> handleEmptyDataValidation(
+            final MethodArgumentNotValidException ex) {
+        Map<String, String> resp = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String message = error.getDefaultMessage();
+            resp.put(fieldName, message);
+        });
+        return resp;
     }
 
 }

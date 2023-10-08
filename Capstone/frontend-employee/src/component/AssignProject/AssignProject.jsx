@@ -1,41 +1,28 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
-import './AssignProject.css'
+import {useNavigate, useLocation } from "react-router-dom";
+import "./AssignProject.css";
+import ProjectService from "../../service/ProjectService";
+import AdminService from "../../service/AdminService";
+import CustomButton from "../CustomButton";
 
 const AssignProject = () => {
-  // const { id } = useParams();
   useEffect(() => {
     getAllProjects();
   }, []);
 
   const [projects, setProjects] = useState([]);
-  const [employee, setEmployee] = useState([]);
   const [projectId, setProjectId] = useState();
   const [managerId, setManagerId] = useState();
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;
 
-  // const getEmployeeById = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:8080/user/getUserById/${state.}`
-  //     );
-  //     console.log(response.data);
-  //     setEmployee(response.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const getAllProjects = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8080/project/getAllProjects"
-      );
-      console.log(response.data);
-      setProjects(response.data);
+      ProjectService.getAllProjects().then((response) => {
+        console.log(response.data);
+        setProjects(response.data);
+      });
     } catch (error) {
       console.log("There is an error");
       console.log(error);
@@ -43,16 +30,14 @@ const AssignProject = () => {
   };
   const update = async (e) => {
     try {
-      const response = await axios.put(
-        `http://localhost:8080/user/${state.empId}/assignProject`,
-        {
-          projectId: projectId,
-          managerId: managerId,
-        }
-      );
-      console.log(response.data);
-      navigate("/adminDashboard")
-      
+      AdminService.assignProject(
+        state.empId,
+        projectId,
+        managerId
+      ).then((response) => {
+        console.log(response.data);
+        navigate("/adminDashboard");
+      });
     } catch (error) {
       console.error(error);
     }
@@ -68,36 +53,39 @@ const AssignProject = () => {
 
   return (
     <div className="center-container-ap">
-<div className="assign">
-      <label id="label">Assign Project to</label>
-      <h3 id="emp-name">{state.empName}</h3>
-      <select
-        onChange={handleSelectChange}
-        type="text"
-        id="custom-select"
-        placeholder="Enter designation"
-        name="location"
-      >
-        <option value="">Select Project</option>
-        {projects.map((project) => {
-          return (
-            <option
-              style={{ color: "black" }}
-              className="option-assign"
-              key={project.projectId}
-              value={project.projectId}
-              data-managerid={project.managerId}
-            >
-              {project.projectId} : {project.projectName}
-            </option>
-          );
-        })}
-      </select>
-      {/* <span>{designationError}</span> */}
-      <button onClick={(e) => update(e)}> Assign Project </button>
+      <div className="assign_project">
+        <label id="label">Assign Project to</label>
+        <h3 id="emp-name">{state.empName}</h3>
+        <select
+          onChange={handleSelectChange}
+          type="text"
+          id="custom-select"
+          placeholder="Enter designation"
+          name="location"
+        >
+          <option value="">Select Project</option>
+          {projects.map((project) => {
+            return (
+              <option
+                style={{ color: "black" }}
+                className="option-assign"
+                key={project.projectId}
+                value={project.projectId}
+                data-managerid={project.managerId}
+              >
+                {project.projectId} : {project.projectName}
+              </option>
+            );
+          })}
+        </select>
+        <CustomButton onClick={(e) => update(e)} text={"Assign Project"} style={"update"}/>
+        <CustomButton
+          onClick={() => navigate("/adminDashBoard")}
+          style={"close-popup"}
+          text={"Cancel"}
+        />
+      </div>
     </div>
-    </div>
-    
   );
 };
 

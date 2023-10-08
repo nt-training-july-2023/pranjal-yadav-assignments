@@ -3,6 +3,9 @@ import axios from "axios";
 import '../../../style/DIsplay.css';
 import { Link } from "react-router-dom";
 import ProjectPopup from '../../../component/PopUp/ProjectPopUp'
+import ProjectService from "../../../service/ProjectService";
+import AdminService from "../../../service/AdminService";
+import SingleProjectCard from '../../../component/SingleProjectCard'
 
 const DisplayProject = () => {
   const [projects, setProjects] = useState([]);
@@ -22,11 +25,14 @@ const DisplayProject = () => {
 
   const getAllProjects = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8080/project/getAllProjects"
-      );
-      console.log(response.data);
-      setProjects(response.data);
+      // const response = await axios.get(
+      //   "http://localhost:8080/project/getAllProjects"
+      // );
+      // console.log(response.data);
+      // setProjects(response.data);
+      ProjectService.getAllProjects().then((response) =>{
+        setProjects(response.data);
+      })
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -84,47 +90,20 @@ const handlePopupClose = () => {
 };
   return (
     <div >
-      <div className="card-container">
+     <div className="card_container">
         {projects.map((project) => (
-          <div className="card" key={project.projectid}>
-            <div className="column">
-            <h2>{project.projectName}</h2>
-            {/* <p>Manager : {project.managerId}</p> */}
-            <p>
-                <span className="highlight-span">Head :</span>
-                {managerNames[project.projectId]
-                  ? managerNames[project.projectId]
-                  : "Loading..."}
-              </p>
-            <p><span className="highlight-span">Description: </span>
-            {project.description.length > 40 ? (
-              <p> {project.description.slice(0, 30)}{""} 
-              <span
-                    style={{color:'blue',textDecorationLine:'underline'}}
-                      onClick={() => handleReadMoreClick(project.description)}
-                    >
-                      <br />
-                      Read More
-                    </span></p>
-            ) : ( <p>{project.description}</p>
-            )}
-            </p>
-            </div>
-            <div className="column">
-            <br></br>
-            <p><span className="highlight-span">Start Date</span> : {reverseDateFormat(project.startDate)}</p>
-            <p><span className="highlight-span">Project ID:</span> {project.projectId}</p>
-            <p> <span className="highlight-span">Skills: </span>{project.skills.join(" , ")}</p>
-            <p> <span className="highlight-span">Team: </span>{project.team.join(" , ")}</p>
-            {showPopup && (
-        <ProjectPopup description={selectedDescription} onClose={handlePopupClose} />
-      )}
-            </div>
-            
-
-          </div>
+          <SingleProjectCard
+            key={project.projectId}
+            project={project}
+            managerName={managerNames[project.projectId]}
+            reverseDateFormat={reverseDateFormat}
+            handleReadMoreClick={handleReadMoreClick}
+          />
         ))}
       </div>
+      {showPopup && (
+        <ProjectPopup description={selectedDescription} onClose={handlePopupClose} />
+      )}
     </div>
   )
 }

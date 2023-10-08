@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ManagerDisplayEmployee from './Employee/ManagerDisplayEmployee';
 import DisplayManager from '../AdminDashboard/Manager/DisplayManager';
 import DisplayProject from '../AdminDashboard/Project/DisplayProject';
 import '../ManagerDashboard/ManagerDashBoard.css'
-
+// import UnauthorisedAccess from '../../component/UnauthorisedAccess';
+import UnauthorisedAccess from '../../component/UnauthorizedAccess/UnauthorisedAccess';
+import CustomButton from '../../component/CustomButton'
+import Header from '../../component/Header/Header';
 
 const ManagerDashBoard = () => {
     const [activeTab, setActiveTab] = useState("EMPLOYEE");
+    const navigate = useNavigate();
   const switchToEmployeeTab = () => {
     setActiveTab("EMPLOYEE");
   };
@@ -17,15 +21,34 @@ const ManagerDashBoard = () => {
   const switchToProjectTab = () => {
     setActiveTab("PROJECT");
   };
+  const role = localStorage.getItem("useRole")
+  if(role != "MANAGER"){
+    <UnauthorisedAccess/>
+    // return;  
+  }
+  const logout=()=>{
+    localStorage.removeItem("userRole")
+    localStorage.removeItem("id")
+    localStorage.removeItem("isLoggedIn")
+    localStorage.removeItem("name")
+    localStorage.removeItem("email")
+    navigate('/')
+  }
+  const userRole = localStorage.getItem("userRole")
+  if(userRole != "MANAGER"){
+    return(
+     <UnauthorisedAccess/>
+    )
+  }
 
   return (
-    <div className="top">
+    <div className="">
       {/* <div className="admin_heading">Admin Dashboard</div> */}
-      <Link to="/" className="btn-logout">
-        Log out
-      </Link>
-      
-      <div className="admin_tabs">
+      {/* <button onClick={logout} className="btn-logout">
+        Logout
+      </button> */}
+{/* <CustomButton onClick={logout} style={"btn_logout"} text={"Logout"}/>       */}
+      {/* <div className="admin_tabs_manager">
         <div
           className={`admin_employee ${
             activeTab === "EMPLOYEE" ? "active" : ""
@@ -46,10 +69,17 @@ const ManagerDashBoard = () => {
         >
           Project
         </div>
-      </div>
-     
+      </div> */}
+      <div className="admindashboard_header">
+      <Header
+            activeTab={activeTab}
+            switchToEmployeeTab={switchToEmployeeTab}
+            switchToManagerTab={switchToManagerTab}
+            switchToProjectTab={switchToProjectTab}
+          />
+          </div>
       
-      <div className="card_container">
+      <div className="">
         {activeTab === "EMPLOYEE" && (
           <div>
             <ManagerDisplayEmployee/>

@@ -3,15 +3,16 @@ package com.employee.employeeManagement.service;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import com.employee.employeeManagement.Model.Project;
-import com.employee.employeeManagement.Model.RequestResource;
-import com.employee.employeeManagement.Model.User;
+import com.employee.employeeManagement.model.Project;
+import com.employee.employeeManagement.model.User;
 import com.employee.employeeManagement.dto.*;
 import com.employee.employeeManagement.enums.Designation;
 import com.employee.employeeManagement.enums.Location;
 import com.employee.employeeManagement.enums.Role;
 import com.employee.employeeManagement.exception.ResourceNotFoundException;
+import com.employee.employeeManagement.dto.UserNameDto;
 import com.employee.employeeManagement.repository.ProjectRepository;
+import com.employee.employeeManagement.repository.RequestResourceRepository;
 import com.employee.employeeManagement.repository.UserRepository;
 import com.employee.employeeManagement.response.ResponseDto;
 import com.employee.employeeManagement.validation.UserValidation;
@@ -19,9 +20,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class UserServiceTest {
@@ -31,6 +35,11 @@ public class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private RequestResourceRepository requestResourceRepository;
+    @Mock
+    private RequestResourceService requestResourceService;
+
 
     @Mock
     private PasswordEncoder passwordEncoder;
@@ -163,7 +172,7 @@ public class UserServiceTest {
         });
         verify(userRepository, times(1)).findById(userId);
 
-        assertEquals("Resource not found.", exception.getMessage());
+        assertEquals("This employee does not exist", exception.getMessage());
     }
     @Test
     void testGetEmployeeByIdWhenExists() {
@@ -171,7 +180,7 @@ public class UserServiceTest {
         User user = new User();
         user.setId(userId);
         user.setName("Test User");
-        user.setManagerId(2L); // Assuming a manager with ID 2 exists
+        user.setManagerId(2L);
         List<String> skills= new ArrayList<>();
         user.setDesignation(Designation.ENGINEER);
         user.setLocation(Location.BANGALORE);
@@ -220,47 +229,41 @@ public class UserServiceTest {
         });
     }
     @Test
-    void testRequestToOutDto() {
-        RequestResource requestResource = new RequestResource();
-        requestResource.setResourceId(1L);
-        requestResource.setComment("Test comment");
-        requestResource.setEmployeeId(2L);
-        requestResource.setManagerId(3L);
-        requestResource.setProjectId(4L);
-
-        User employee = new User();
-        employee.setId(2L);
-        employee.setName("Employee User");
-        employee.setUserId("employee123");
+    void testAllUserByRole() {
+        Role role = Role.EMPLOYEE;
+        User user1 = new User();
+        user1.setRole(role);
+        user1.setName("Rashmi Shukla");
+        user1.setEmail("rashmi@nucleusteq.com");
+        user1.setProjectId(1L);
+        user1.setManagerId(3L);
+        user1.setRole(Role.EMPLOYEE);
+        List<String> skills = new ArrayList<>();
+        skills.add("Spring boot");
+        skills.add("Data Analysis");
+        user1.setSkills(skills);
+        user1.setProjectId(5L);
+        when(userRepository.findByRole(role)).thenReturn(List.of(user1));
 
         User manager = new User();
-        manager.setId(3L);
-        manager.setName("Manager User");
-        manager.setUserId("manager123");
-
-        when(userRepository.findById(2L)).thenReturn(Optional.of(employee));
+        manager.setName("Vanshika");
         when(userRepository.findById(3L)).thenReturn(Optional.of(manager));
 
         Project project = new Project();
-        project.setProjectId(4L);
-        project.setProjectName("Test Project");
+        project.setProjectId(5L);
+        project.setProjectName("Petsmart");
+        when(projectRepository.findByProjectId(5L)).thenReturn(Optional.of(project));
 
-        when(projectRepository.findById(4L)).thenReturn(Optional.of(project));
+        List<EmployeeOutDto> outUsers = userService.allUserByRole(role.toString());
 
-        RequestResourceOutDto dto = userService.requestToOutDto(requestResource);
+        assertEquals(1, outUsers.size());
+        EmployeeOutDto employeeOutDto = outUsers.get(0);
 
-        assertNotNull(dto);
-        assertEquals(requestResource.getResourceId(), dto.getResourceId());
-        assertEquals(requestResource.getComment(), dto.getComment());
-        assertEquals(requestResource.getEmployeeId(), dto.getEmployeeId());
-        assertEquals(requestResource.getManagerId(), dto.getManagerId());
-        assertEquals(requestResource.getProjectId(), dto.getProjectId());
-        assertEquals(employee.getName(), dto.getEmployeeName());
-        assertEquals(employee.getUserId(), dto.getEmployeeUserId());
-        assertEquals(manager.getName(), dto.getManagerName());
-        assertEquals(manager.getUserId(), dto.getManagerUserId());
-        assertEquals(project.getProjectName(), dto.getProjectName());
+        verify(userRepository, times(1)).findByRole(role);
+        verify(userRepository, times(1)).findById(3L);
+        verify(projectRepository, times(1)).findByProjectId(5L);
     }
+
     @Test
     void testUserToOutDto() {
         User user = new User();
@@ -311,6 +314,189 @@ public class UserServiceTest {
         assertEquals(user.getSkills(), employeeOutDto.getSkills());
         assertEquals(user.getRole(), employeeOutDto.getRole());
         assertEquals(project.getProjectName(), employeeOutDto.getProjectName());
+    }
+    @Test
+    public void testGetEmployeeNameByLongId_ExistingId() {
+        Long id = 1L;
+        User user = new User();
+        user.setId(id);
+        user.setName("Ankita Sharma");
+        List<String> skills = new ArrayList<>();
+        skills.add("Java");
+        skills.add("React");
+        user.setSkills(skills);
+        when(userRepository.findById(id)).thenReturn(Optional.of(user));
+        UserNameDto result = userService.getEmployeeNameByLongId(id);
+        assertEquals("Ankita Sharma", result.getName());
+    }
+
+    @Test
+    public void testGetEmployeeNameByLongId_NonExistingId() {
+        Long id = 2L;
+        when(userRepository.findById(id)).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> {
+            userService.getEmployeeNameByLongId(id);
+        });
+    }
+
+    @Test
+    public void testUnAssignProject() {
+        Long userId = 1L;
+
+        User user = new User();
+        user.setUserId("Pranjal");
+        user.setName("N1111");
+        user.setEmail("pranjal@nucleusteq.com");
+        user.setContactNo(8839069226L);
+        user.setManagerId(2L);
+        user.setProjectId(3L);
+
+        User admin = new User();
+        admin.setUserId("N0001");
+        admin.setName("Ankita");
+        admin.setEmail("ankita.sharma@nucleusteq.com");
+        admin.setContactNo(9876501234L);
+        admin.setId(2L); // Assuming admin user ID is 2
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(userRepository.findByUserId("N0001")).thenReturn(Optional.of(admin));
+
+        ResponseDto responseDto = userService.unAssignProject(userId);
+
+        assertEquals(admin.getId(), user.getManagerId());
+
+        assertNull(user.getProjectId());
+
+        verify(userRepository, times(1)).save(user);
+
+        assertEquals("Project unassigned", responseDto.getMessage());
+
+    }
+    @Test
+    public void testUserDtoToUser() {
+        List<String> skills = new ArrayList<>();
+        skills.add("Java");
+        skills.add("SQL");
+        UserInDto userDto = new UserInDto();
+        userDto.setName("Pranjal Yadagv");
+        userDto.setRole(Role.EMPLOYEE);
+        userDto.setProjectId(1L);
+        userDto.setPassword("password123");
+        userDto.setDob("1990-01-01");
+        userDto.setDoj("2022-01-01");
+        userDto.setEmail("pranjal@nucleusteq.com");
+        userDto.setUserId("N1111");
+        userDto.setLocation(Location.RAIPUR);
+        userDto.setDesignation(Designation.ENGINEER);
+        userDto.setContactNo(1234567890L);
+        userDto.setSkills(skills);
+        userDto.setManagerId(2L);
+
+
+        UserService userService = new UserService();
+        User user = userService.userDtoToUser(userDto);
+
+        assertEquals(userDto.getName(), user.getName());
+        assertEquals(userDto.getRole(), user.getRole());
+        assertEquals(userDto.getProjectId(), user.getProjectId());
+        assertEquals(userDto.getPassword(), user.getPassword());
+        assertEquals(userDto.getDob(), user.getDob());
+        assertEquals(userDto.getDoj(), user.getDoj());
+        assertEquals(userDto.getEmail(), user.getEmail());
+        assertEquals(userDto.getUserId(), user.getUserId());
+        assertEquals(userDto.getLocation(), user.getLocation());
+        assertEquals(userDto.getDesignation(), user.getDesignation());
+        assertEquals(userDto.getContactNo(), user.getContactNo());
+        assertEquals(userDto.getSkills(), user.getSkills());
+        assertEquals(userDto.getManagerId(), user.getManagerId());
+    }
+    @Test
+    public void testGetEmployeeNameById() {
+
+        String userId = "N1111";
+
+        User user = new User();
+        user.setName("Pranjal Yadav");
+        user.setUserId(userId);
+        user.setEmail("pranjal@nucleusteq.com");
+        user.setId(9L);
+        user.setContactNo(8839069226L);
+
+        Mockito.when(userRepository.findByUserId(userId)).thenReturn(Optional.of(user));
+
+        UserNameDto userNameDto = userService.getEmployeeNameById(userId);
+
+        assertEquals("Pranjal Yadav", userNameDto.getName());
+
+        Mockito.verify(userRepository, Mockito.times(1)).findByUserId(userId);
+    }
+    @Test
+    public void testGetEmployeeNameByIdUserNotFound() {
+        String userId = "N1010";
+
+        Mockito.when(userRepository.findByUserId(userId)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> userService.getEmployeeNameById(userId));
+
+        Mockito.verify(userRepository, Mockito.times(1)).findByUserId(userId);
+
+    }
+    @Test
+    public void testDeleteRequest() {
+        Long resourceIdToDelete = 1L;
+
+        doNothing().when(requestResourceRepository).deleteById(resourceIdToDelete);
+
+        ResponseDto responseDto = userService.deleteRequest(resourceIdToDelete);
+
+        assertEquals("Deleted successfully!", responseDto.getMessage());
+        verify(requestResourceRepository, times(1)).deleteById(resourceIdToDelete);
+    }
+
+    @Test
+    void testDecodePassword() {
+        String originalPassword = "mySecretPassword123";
+        String encodedPassword = Base64.getEncoder().encodeToString(originalPassword.getBytes(StandardCharsets.UTF_8));
+
+        String decodedPassword = userService.decodePassword(encodedPassword);
+        assertEquals(originalPassword, decodedPassword);
+    }
+    @Test
+    void testGetAllUsers() {
+        MockitoAnnotations.openMocks(this);
+
+        List<String> skills = new ArrayList<>();
+        skills.add("Hibernate");
+        skills.add("Data Science");
+        User adminUser = new User();
+        adminUser.setRole(Role.ADMIN);
+        adminUser.setSkills(skills);
+
+        User employeeUser = new User();
+        employeeUser.setRole(Role.EMPLOYEE);
+        employeeUser.setSkills(skills);
+
+        User managerUser = new User();
+        managerUser.setRole(Role.MANAGER);
+        managerUser.setSkills(skills);
+
+        List<User> userList = new ArrayList<>();
+        userList.add(adminUser);
+        userList.add(employeeUser);
+        userList.add(managerUser);
+
+        Project project = new Project();
+        project.setProjectId(4L);
+        project.setProjectName("Fyndr");
+        when(userRepository.findAll()).thenReturn(userList);
+        when(userRepository.findById(any())).thenReturn(Optional.of(adminUser));
+        when(projectRepository.findByProjectId(any())).thenReturn(Optional.of(project));
+
+        List<EmployeeOutDto> userDtoList = userService.getAllUsers();
+
+        assertEquals(2, userDtoList.size()); // Expecting two non-admin users
+
+        verify(userRepository, times(1)).findAll();
     }
 
 }

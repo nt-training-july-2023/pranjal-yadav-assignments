@@ -1,6 +1,10 @@
 package com.employee.employeeManagement.dto;
 
 
+import jakarta.validation.constraints.NotBlank;
+
+import java.util.Objects;
+
 /**
  * Data Transfer Object (DTO) representing a request resource.
  * This class is used for transferring data
@@ -11,6 +15,7 @@ public class RequestResourceDto {
     /**
      * The comment associated with the request.
      */
+    @NotBlank
     private String comment;
 
     /**
@@ -98,5 +103,48 @@ public class RequestResourceDto {
      */
     public void setProjectId(final Long projectIdParam) {
         this.projectId = projectIdParam;
+    }
+
+    /**
+     * toString method of this class.
+     * @return String value.
+     */
+    @Override
+    public final String toString() {
+        return "RequestResourceDto{"
+                + "comment='" + comment + '\''
+                + ", managerId=" + managerId
+                + ", employeeId=" + employeeId
+                + ", projectId=" + projectId
+                + '}';
+    }
+
+    /**
+     * Equals method for this class.
+     * @param o object o.
+     * @return boolean value.
+     */
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RequestResourceDto that)) {
+            return false;
+        }
+        return Objects.equals(getComment(), that.getComment())
+                && Objects.equals(getManagerId(), that.getManagerId())
+                && Objects.equals(getEmployeeId(), that.getEmployeeId())
+                && Objects.equals(getProjectId(), that.getProjectId());
+    }
+
+    /**
+     * hashcode method of this class.
+     * @return int value.
+     */
+    @Override
+    public final int hashCode() {
+        return Objects.hash(getComment(),
+                getManagerId(), getEmployeeId(), getProjectId());
     }
 }

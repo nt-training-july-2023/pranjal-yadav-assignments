@@ -1,35 +1,39 @@
 
-.admin_tabs {
+.admin_tabs_manager {
     display: flex;
     flex-direction: row;
     justify-content:space-evenly;
     align-items: center;
     gap: 4rem;
     padding: 0.5rem;
-    background-color: rgb(255, 255, 255);
+    background-image:radial-gradient(rgb(248, 204, 244), rgb(253, 255, 126));
     border: 0.1rem solid rgb(3, 3, 3);
     border-radius: 1.5rem;
     width: 50rem;
     margin-left: 17rem;
 }
-.card-container {
+.btn_logout {
+    background-color: red;
+    font-family: "Montserrat", sans-serif;
+    
+}
+.card_container {
     display: flex;
-    /* margin-top: 3rem; */
     flex-direction: row;
     flex-wrap: wrap;
-    /* scroll; */
     justify-content: center;
-    overflow-y: scroll !important; 
-    max-height: 70vh !important;
-    /* margin-bottom: 5rem !important;  */
+    /* overflow-y: scroll !important;  */
+    /* max-height: 70vh !important; */
+    margin-top: 2rem;
 }
 .search_manager_skills{
     width: 60%;
     margin-left: 16rem;
+    padding: -15rem;
 }
 
 .name-designation{
-    margin-bottom: 5px;
+    margin-bottom: -17px;
     font-weight: 100;
     background-color: #ffffff;
 }
@@ -57,49 +61,54 @@ p {
     font-size: 12px;
 }
 
-.btn-addEmployee {
+.addEmployee {
     display: inline-block;
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
     background-color: #007bff;
     color: #fff;
     text-decoration: none;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 60rem;
-    margin-top: 1rem;
+    /* margin-left:     60rem; */
+    /* margin-top: 1rem; */
     transition: background-color 0.3s;
 }
-.btn-requests{
+.requests{
     display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
+    background-color: rgb(16 149 31);
     color: #fff;
     text-decoration: none;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-left:20px;
-    /* margin-left: 70rem; */
-    margin-top: 1rem;
     transition: background-color 0.3s;
 }
-
+.requests:hover{
+    background-color: darkgreen;
+}
 .btn-addEmployee:hover {
     background-color: #0056b3;
 }
  .card_container::-webkit-scrollbar {
-    /* width: 0.5rem; */
     display: none;
 }
 
 .card_container::-webkit-scrollbar-thumb {
     background-color: transparent;
 } 
-
+.check_box {
+    margin-top: 10px;
+}
 
 .card_container::-webkit-scrollbar-track {
     background-color: transparent;
+}
+.search_check_and_button {
+    margin-top: 20px;
+display: flex;
+justify-content: center;
 }
 
 .assign-button{
@@ -108,11 +117,12 @@ p {
     padding: 5px 10px;
     color: #fff;
     border: none;
+    margin-top: 12px;
     border-radius: 5px;
     cursor: pointer;
+    font-family: "Montserrat", sans-serif;
 }
 .input-addproject-manager{
-    /* margin-top: 33px; */
     width: 105%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -130,4 +140,27 @@ p {
   }
   .assign{
     text-align: center;
+  }
+  .search_skills {
+    /* margin-left: 200px; */
+    /* margin-bottom: 30px; */
+    margin-top: 2px;
+    background-color: darkgreen;
+  }
+  .search_skills:hover {
+    background-color: rgb(0, 78, 0);
+  }
+  @media (max-width: 600px) {
+    .requests {
+        display: inline-block;
+    }
+    .search_manager_skills {
+        margin-left: 3.7rem;
+        width: 30%;
+    }
+    .search_skills{
+        /* margin-top: -100px; */
+        margin-left: 2rem;
+    }
+    
   }

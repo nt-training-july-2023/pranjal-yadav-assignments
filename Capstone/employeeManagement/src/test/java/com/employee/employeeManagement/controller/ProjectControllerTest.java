@@ -1,94 +1,134 @@
-//package com.employee.employeeManagement.controller;
-//
-//import com.employee.employeeManagement.dto.ManagerDto;
-//import com.employee.employeeManagement.dto.ProjectInDto;
-//import com.employee.employeeManagement.Model.Project;
-//import com.employee.employeeManagement.repository.ProjectRepository;
-//import com.employee.employeeManagement.response.ResponseDto;
-//import com.employee.employeeManagement.service.ProjectService;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.MockitoAnnotations;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Optional;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.Mockito.*;
-//
-//public class ProjectControllerTest {
-//
-//    @InjectMocks
-//    private ProjectController projectController;
-//
-//    @Mock
-//    private ProjectService projectService;
-//
-//    @Mock
-//    private ProjectRepository projectRepository;
-//
-//    @BeforeEach
-//    public void setUp() {
-//        MockitoAnnotations.initMocks(this);
-//    }
-//
-//    @Test
-//    public void testAddProject() {
-//        ProjectInDto projectDto = new ProjectInDto();
-//        projectDto.setProjectName("Test Project");
-//        when(projectService.addProject(any(ProjectInDto.class))).thenReturn(projectDto);
-//
-//        ResponseDto response = projectController.addProject(projectDto);
-//
-//        assertEquals("Project added successfully", response.getMessage());
-//    }
-//
-//    @Test
-//    public void testAddProjectWithInvalidCredentials() {
-//        ProjectInDto projectDto = new ProjectInDto();
-//        when(projectService.addProject(any(ProjectInDto.class))).thenReturn(null);
-//
-//        ResponseDto response = projectController.addProject(projectDto);
-//
-//        assertEquals("Invalid credentials", response.getMessage());
-//    }
-//
-//    @Test
-//    public void testGetAllProject() {
-//        List<Project> projectList = new ArrayList<>();
-//        projectList.add(new Project());
-//        projectList.add(new Project());
-//        when(projectRepository.findAll()).thenReturn(projectList);
-//
-//        List<Project> result = projectController.getAllProject();
-//
-//        assertEquals(2, result.size());
-//    }
-//
-//    @Test
-//    public void testGetManagers() {
-//        List<ManagerDto> managerList = new ArrayList<>();
-//        managerList.add(new ManagerDto());
-//        managerList.add(new ManagerDto());
-//        when(projectService.getManagers()).thenReturn(managerList);
-//
-//        List<ManagerDto> result = projectController.getManager();
-//
-//        assertEquals(2, result.size());
-//    }
-//
-////    @Test
-////    public void testGetProjectByEmpId() {
-////        long projectId = 1L;
-////        Project project = new Project();
-////        when(projectService.getProjectByManagerId(projectId)).thenReturn(Optional.of(project));
-////
-////        Optional<Project> result = projectController.getProjectByEmpId(projectId);
-////
-////        assertEquals(project, result.orElse(null));
-////    }
-//}
+package com.employee.employeeManagement.controller;
+
+import com.employee.employeeManagement.dto.ManagerDto;
+import com.employee.employeeManagement.dto.ManagerOutDto;
+import com.employee.employeeManagement.dto.ProjectInDto;
+import com.employee.employeeManagement.dto.ProjectOutDto;
+import com.employee.employeeManagement.response.ProjectResponseDto;
+import com.employee.employeeManagement.response.ResponseDto;
+import com.employee.employeeManagement.service.ProjectService;
+import com.employee.employeeManagement.validation.ProjectValidation;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.Validation;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.parameters.P;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+@WebMvcTest(ProjectController.class)
+class ProjectControllerTest{
+    @InjectMocks
+    private ProjectController projectController;
+    @Autowired
+    private MockMvc mockMvc;
+    @MockBean
+    private ProjectService projectService;
+    @MockBean
+    ProjectValidation validation;
+    @BeforeEach
+    public void setUp(){
+        MockitoAnnotations.openMocks(this);
+    }
+    List<String> skills = new ArrayList<>();
+    @Test
+    void testAddProject() throws Exception {
+        skills.add("SQL");
+        skills.add("Java");
+        ProjectInDto project = new ProjectInDto();
+        project.setProjectName("Petsmart");
+        project.setSkills(skills);
+        project.setDescription("Description of project");
+        project.setStartDate("20-09-2023");
+        project.setManagerId(3L);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String inputJson = objectMapper.writeValueAsString(project);
+        ProjectResponseDto response = new ProjectResponseDto("Project added " +
+                "successfully!");
+        doNothing().when(validation).checkName(project.getProjectName());
+        when(projectService.addProject(Mockito.any())).thenReturn(response);
+        MvcResult mvcResult =
+                mockMvc.perform(post("/project/addProject").contentType(MediaType.APPLICATION_JSON).content(inputJson)).andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+    }
+    @Test
+    void testGetAllProjects() throws Exception {
+        List<ProjectOutDto> list = new ArrayList<>();
+        List<String> teams = new ArrayList<>();
+        ProjectOutDto prjDto = new ProjectOutDto();
+        prjDto.setProjectName("AAA");
+        prjDto.setManagerId(1L);
+        prjDto.setStartDate("2023-06-07");
+        prjDto.setSkills(skills);
+        prjDto.setDescription("Description");
+        prjDto.setManagerName("Pranjal Yadav");
+        prjDto.setProjectId(0L);
+        prjDto.setTeam(teams);
+        list.add(prjDto);
+
+
+        when(projectService.getAllProjects()).thenReturn(list);
+
+        MvcResult mvcResult = this.mockMvc.perform(get("/project" +
+                        "/getAllProjects")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+    }
+    @Test
+    void testGetManager() throws Exception {
+        List<ManagerDto> list = new ArrayList<>();
+        ManagerDto managerDto = new ManagerDto();
+        managerDto.setId(2L);
+        managerDto.setName("Rashmi Shukla");
+        list.add(managerDto);
+        when(projectService.getManagers()).thenReturn(list);
+        MvcResult mvcResult =
+                mockMvc.perform(get("/project/getManagers").contentType(MediaType.APPLICATION_JSON)).andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+    }
+    @Test
+    void testGetProjectByManagerId() throws Exception{
+        List<ProjectOutDto> list = new ArrayList<>();
+        List<String> teams = new ArrayList<>();
+        ProjectOutDto prjDto = new ProjectOutDto();
+        prjDto.setProjectName("Fynder");
+        prjDto.setManagerId(1L);
+        prjDto.setStartDate("2023-06-07");
+        prjDto.setSkills(skills);
+        prjDto.setDescription("Description");
+        prjDto.setManagerName("Ankita Sharma");
+        prjDto.setProjectId(null);
+        prjDto.setTeam(teams);
+        list.add(prjDto);
+
+
+        when(projectService.getProjectByManagerId(prjDto.getManagerId())).thenReturn(list);
+        MvcResult mvcResult = this.mockMvc.perform(get("/project/project/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+    }
+}

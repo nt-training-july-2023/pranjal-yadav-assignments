@@ -2,15 +2,16 @@ import React from "react";
 import { useState } from "react";
 import Lcn from "../Data/location";
 import Desgn from "../Data/designation";
-import { useNavigate } from "react-router-dom";
-import AddEmployeeService from "../../service/AddEmployeeService";
-// import "../style/AdminRegistrationForm.css";
+import { useNavigate, Link } from "react-router-dom";
+// import AddEmployeeService from "../../service/AddEmployeeService";
+import AdminService from '../../service/AdminService'
 import '../../Pages/Registration/AdminRegistrationForm.css'
 import PopUp from "../PopUp/Popup";
 import R from "../Data/role";
-// import Select from "react-select";
 import Skills from "../Data/skills";
 import MultiSelectDropDown from "../MultiSelectDropdown/MultiSelectDropDown";
+import CustomButton from "../CustomButton";
+import InputComponent from "../Input/InputComponent";
 
 const AddEmployee = () => {
   var bcrypt = require("bcryptjs");
@@ -125,7 +126,6 @@ const AddEmployee = () => {
         dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
       return reversedDate;
     } else {
-      // Handle invalid input format
       return "Invalid Date Format";
     }
   }
@@ -166,15 +166,16 @@ const AddEmployee = () => {
     const pwd = userId + "@" + part1;
     const password = bcrypt.hashSync(pwd, 10);
     const date = dob.split("-").reverse().join("-");
+    const dojDate = doj.split("-").reverse().join("-")
     setDob(date);
+    console.log(dob);
+    console.log(date);
     const employee = {
       name,
       email,
       userId,
-      dob,
-      doj,
-      // dob: reversedDate,
-      // doj: reversedoj,
+      dob:date,
+      doj:dojDate,
       location,
       designation,
       contactNo,
@@ -183,12 +184,12 @@ const AddEmployee = () => {
       password,
     };
     console.log(employee);
-    AddEmployeeService.createEmp(employee)
+    AdminService.addUser(employee)
       .then((response) => {
         setPopUpMessage("Added Successfully");
         setShowPopUp(true);
         const navigateToDashboard = () => {
-          navigate("/AdminDashboard");
+          navigate("/adminDashboard");
         };
         setTimeout(navigateToDashboard, 2000);
       })
@@ -222,7 +223,7 @@ const AddEmployee = () => {
             <div className="column">
               <div className="form-group">
                 <label>Name</label>
-                <input
+                {/* <input
                   type="text"
                   required
                   className="input"
@@ -232,13 +233,24 @@ const AddEmployee = () => {
                     setErrorMessage("");
                   }}
                   onBlur={handleNameBlur}
+                /> */}
+                <InputComponent
+                type="text"
+                required
+                className="input"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  setErrorMessage("");
+                }}
+                onBlur={handleNameBlur}
                 />
                 <span>{errorMessage}</span>
               </div>
 
               <div className="form-group">
                 <label>Email Id</label>
-                <input
+                {/* <input
                   className="input"
                   onChange={(e) => {
                     setEmail(e.target.value);
@@ -246,13 +258,22 @@ const AddEmployee = () => {
                   }}
                   onBlur={handleEmailBlur}
                   type="text"
+                /> */}
+                <InputComponent
+                className="input"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setEmailError("");
+                }}
+                onBlur={handleEmailBlur}
+                type="text"
                 />
                 <span>{emailError}</span>
               </div>
 
               <div className="form-group">
                 <label>Employee id</label>
-                <input
+                {/* <input
                   type="text"
                   className="input"
                   value={userId}
@@ -261,46 +282,58 @@ const AddEmployee = () => {
                     setEmpIdError("");
                   }}
                   onBlur={handleEmpIDBlur}
+                /> */}
+                <InputComponent
+                type="text"
+                className="input"
+                value={userId}
+                onChange={(e) => {
+                  setId(e.target.value);
+                  setEmpIdError("");
+                }}
+                onBlur={handleEmpIDBlur}
                 />
                 <span>{empIdError}</span>
               </div>
 
               <div className="form-group">
                 <label>DOB</label>
-                <input
+                {/* <input
                   type="date"
                   className="input"
                   value={dob}
                   onChange={(e) => setDob(e.target.value)}
                   onBlur={handleDobBlur}
+                /> */}
+                <InputComponent
+                type="date"
+                className="input"
+                value={dob}
+                onChange={(e) => setDob(e.target.value)}
+                onBlur={handleDobBlur}
                 />
                 <span>{dobError}</span>
               </div>
 
               <div className="form-group">
                 <label>DOJ</label>
-                <input
+                {/* <input
                   className="input"
                   type="date"
                   value={doj}
                   onChange={(e) => setDoj(e.target.value)}
                   onBlur={handleDojblur}
+                /> */}
+                <InputComponent
+                className="input"
+                type="date"
+                value={doj}
+                onChange={(e) => setDoj(e.target.value)}
+                onBlur={handleDojblur}
                 />
                 <span>{dojError}</span>
               </div>
             </div>
-            {/* ///////////////////////////////////////////// */}
-            {/* <div className="column">
-              <div className="form-group">
-                <label>Location</label>
-                <input
-                  className="input"
-                  type="text"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                />
-                <span>{locationError}</span>
-              </div> */}
             <div className="column">
               <div className="form-group">
                 <label>Location</label>
@@ -378,7 +411,7 @@ const AddEmployee = () => {
 
               <div className="form-group">
                 <label>Contact Number</label>
-                <input
+                {/* <input
                   className="input"
                   type="text"
                   value={contactNo}
@@ -386,6 +419,15 @@ const AddEmployee = () => {
                     setContactNumber(e.target.value);
                   }}
                   onBlur={handlePhoneNo}
+                /> */}
+                <InputComponent
+                className="input"
+                type="text"
+                value={contactNo}
+                onChange={(e) => {
+                  setContactNumber(e.target.value);
+                }}
+                onBlur={handlePhoneNo}
                 />
                 <span>{contactNumberError}</span>
               </div>
@@ -425,13 +467,9 @@ const AddEmployee = () => {
               
             </div>
           </div>
-          <button
-            className="submit-button"
-            onClick={(e) => saveEmp(e)}
-            type="submit"
-          >
-            Add Employee
-          </button>
+          
+          <CustomButton text={"Add Employee"} style={"submit-button"} onClick={(e) => {saveEmp(e)}}/> 
+          <Link to="/adminDashBoard">Cancel</Link>
         </form>
       </div>
     </div>

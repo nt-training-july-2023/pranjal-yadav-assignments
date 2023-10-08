@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+
 /**
  * Data Transfer Object (DTO) for representing project information.
  */
@@ -17,12 +19,12 @@ public class ProjectInDto {
     /**
      * The name of the project.
      */
-    @NotBlank
+    @NotBlank(message = "Project name is required.")
     private String projectName;
     /**
      * The manager's user ID associated with the project.
      */
-    @NotNull
+    @NotNull(message = "Manager Id is required")
     private Long managerId;
     /**
      * The description of the project.
@@ -135,6 +137,49 @@ public class ProjectInDto {
         }
     }
 
+    /**
+     * toString method for ProjectInDto.
+     * @return String value.
+     */
+    @Override
+    public final String toString() {
+        return "ProjectInDto{"
+                + "projectName='" + projectName + '\''
+                + ", managerId=" + managerId
+                + ", description='" + description + '\''
+                + ", startDate='" + startDate + '\''
+                + ", skills=" + skills
+                + '}';
+    }
 
+    /**
+     * equals method for ProjectInDto.
+     * @param o object.
+     * @return boolean value.
+     */
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ProjectInDto that)) {
+            return false;
+        }
+        return Objects.equals(getProjectName(), that.getProjectName())
+                && Objects.equals(getManagerId(), that.getManagerId())
+                && Objects.equals(getDescription(), that.getDescription())
+                && Objects.equals(getStartDate(), that.getStartDate())
+                && Objects.equals(getSkills(), that.getSkills());
+    }
+
+    /**
+     * hashcode for ProjectInDto.
+     * @return int value.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(getProjectName(), getManagerId(), getDescription(),
+                getStartDate(), getSkills());
+    }
 }
 

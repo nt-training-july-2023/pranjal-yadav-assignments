@@ -67,4 +67,5 @@ public class ResponseEntityDto {
         this.isSuccess = isSuccessParam;
         this.message = messageParam;
     }
+
 }

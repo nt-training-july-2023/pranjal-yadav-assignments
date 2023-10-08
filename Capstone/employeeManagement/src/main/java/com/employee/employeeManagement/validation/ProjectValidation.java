@@ -1,6 +1,7 @@
 package com.employee.employeeManagement.validation;
 
-import com.employee.employeeManagement.Model.Project;
+import com.employee.employeeManagement.model.Project;
+import com.employee.employeeManagement.constants.ErrorConstants;
 import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
 import com.employee.employeeManagement.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,7 @@ public class ProjectValidation {
             return;
         } else {
             throw new ResourceAlreadyExistsException(
-                    "This project name " + name
-                            + " already exists");
+                    ErrorConstants.PROJECT_NAME);
         }
     }
 }

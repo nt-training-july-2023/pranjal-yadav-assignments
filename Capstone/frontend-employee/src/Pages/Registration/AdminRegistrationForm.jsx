@@ -6,6 +6,8 @@ import Lcn from "../../component/Data/location";
 import Desgn from "../../component/Data/designation";
 import axios from "axios";
 import PopUp from "../../component/PopUp/Popup";
+import CustomButton from "../../component/CustomButton";
+import InputComponent from "../../component/Input/InputComponent";
 
 var bcrypt = require("bcryptjs");
 //var salt = bcrypt.genSaltSync(10);
@@ -219,7 +221,7 @@ const AdminRegistrationForm = () => {
             <div className="column">
               <div className="form-group">
                 <label>Name</label>
-                <input
+                {/* <input
                   type="text"
                   required
                   className="input"
@@ -229,13 +231,24 @@ const AdminRegistrationForm = () => {
                     setErrorMessage("");
                   }}
                   onBlur={handleNameBlur}
+                /> */}
+                <InputComponent
+                 type="text"
+                 required
+                 className="input"
+                 value={name}
+                 onChange={(e) => {
+                   setName(e.target.value);
+                   setErrorMessage("");
+                 }}
+                 onBlur={handleNameBlur}
                 />
                 <span>{errorMessage}</span>
               </div>
 
               <div className="form-group">
                 <label>Email Id</label>
-                <input
+                {/* <input
                   className="input"
                   onChange={(e) => {
                     setEmail(e.target.value);
@@ -243,13 +256,22 @@ const AdminRegistrationForm = () => {
                   }}
                   onBlur={handleEmailBlur}
                   type="text"
-                />
+                /> */}
+              <InputComponent
+              className="input"
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailError("");
+              }}
+              onBlur={handleEmailBlur}
+              type="text"
+              />
                 <span>{emailError}</span>
               </div>
 
               <div className="form-group">
                 <label>Employee id</label>
-                <input
+                {/* <input
                   type="text"
                   className="input"
                   value={userId}
@@ -258,46 +280,60 @@ const AdminRegistrationForm = () => {
                     setEmpIdError("");
                   }}
                   onBlur={handleEmpIDBlur}
+                /> */}
+                <InputComponent
+                type="text"
+                className="input"
+                value={userId}
+                onChange={(e) => {
+                  setId(e.target.value);
+                  setEmpIdError("");
+                }}
+                onBlur={handleEmpIDBlur}
                 />
                 <span>{empIdError}</span>
               </div>
 
               <div className="form-group">
                 <label>DOB</label>
-                <input
+                {/* <input
                   type="date"
                   className="input"
                   value={dob}
                   onChange={(e) => setDob(e.target.value)}
                   onBlur={handleDobBlur}
+                /> */}
+                <InputComponent
+                type="date"
+                className="input"
+                value={dob}
+                onChange={(e) => setDob(e.target.value)}
+                onBlur={handleDobBlur}
                 />
                 <span>{dobError}</span>
               </div>
 
               <div className="form-group">
                 <label>DOJ</label>
-                <input
+                {/* <input
                   className="input"
                   type="date"
                   value={doj}
                   onChange={(e) => setDoj(e.target.value)}
                   onBlur={handleDojblur}
+                /> */}
+                <InputComponent
+                className="input"
+                type="date"
+                value={doj}
+                onChange={(e) => setDoj(e.target.value)}
+                onBlur={handleDojblur}
                 />
                 <span>{dojError}</span>
               </div>
             </div>
             {/* ///////////////////////////////////////////// */}
-            {/* <div className="column">
-              <div className="form-group">
-                <label>Location</label>
-                <input
-                  className="input"
-                  type="text"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                />
-                <span>{locationError}</span>
-              </div> */}
+            
             <div className="column">
               <div className="form-group">
                 <label>Location</label>
@@ -322,16 +358,6 @@ const AdminRegistrationForm = () => {
                 <span>{locationError}</span>
               </div>
 
-              {/* <div className="form-group">
-                <label>Designation</label>
-                <input
-                  className="input"
-                  type="text"
-                  value={designation}
-                  onChange={(e) => setDesignation(e.target.value)}
-                />
-                <span>{designationError}</span>
-              </div> */}
 
               <div className="form-group">
                 <label>Designation</label>
@@ -357,7 +383,7 @@ const AdminRegistrationForm = () => {
 
               <div className="form-group">
                 <label>Contact Number</label>
-                <input
+                {/* <input
                   className="input"
                   type="text"
                   value={contactNo}
@@ -365,24 +391,39 @@ const AdminRegistrationForm = () => {
                     setContactNumber(e.target.value);
                   }}
                   onBlur={handlePhoneNo}
+                /> */}
+                <InputComponent 
+                className="input"
+                type="text"
+                value={contactNo}
+                onChange={(e) => {
+                  setContactNumber(e.target.value);
+                }}
+                onBlur={handlePhoneNo}
                 />
                 <span>{contactNumberError}</span>
               </div>
 
               <div className="form-group">
                 <label>Password</label>
-                <input
+                {/* <input
                   className="input"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                /> */}
+                <InputComponent
+                className="input"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 />
                 <span>{passwordError}</span>
               </div>
 
               <div className="form-group">
                 <label>Confirm Password</label>
-                <input
+                {/* <input
                   className="input"
                   type="password"
                   value={confirmPassword}
@@ -390,18 +431,21 @@ const AdminRegistrationForm = () => {
                     setconfirmPassword(e.target.value);
                   }}
                   onBlur={handlePassword}
+                /> */}
+                <InputComponent
+                className="input"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => {
+                  setconfirmPassword(e.target.value);
+                }}
+                onBlur={handlePassword}
                 />
                 <span>{confirmPasswordError}</span>
               </div>
             </div>
           </div>
-          <button
-            className="submit-button"
-            onClick={(e) => saveAdmin(e)}
-            type="submit"
-          >
-            Sign Up
-          </button>
+          <CustomButton text={"Sign Up"}  onClick={(e) => saveAdmin(e)} style={"submit-button"}/>
         </form>
       </div>
     </div>

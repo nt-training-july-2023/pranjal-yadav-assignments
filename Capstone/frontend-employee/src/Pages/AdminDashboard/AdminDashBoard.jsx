@@ -4,6 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import DisplayEmployee from "./Employee/DisplayEmployee";
 import DisplayManager from "./Manager/DisplayManager";
 import DisplayProject from "./Project/DisplayProject";
+import UnauthorisedAccess from "../../component/UnauthorizedAccess/UnauthorisedAccess";
+import CustomButton from "../../component/CustomButton";
+import Header from "../../component/Header/Header";
 
 const AdminDashBoard = () => {
   const navigate = useNavigate();
@@ -17,25 +20,26 @@ const AdminDashBoard = () => {
   const switchToProjectTab = () => {
     setActiveTab("PROJECT");
   };
-  const logout=()=>{
-    localStorage.removeItem("email")
-    localStorage.removeItem("name")
-    localStorage.removeItem("id")
-    localStorage.removeItem("userRole")
+  const logout = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("name");
+    localStorage.removeItem("id");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("isLoggedIn");
     navigate("/");
+  };
+  const role = localStorage.getItem("userRole");
+  if (role != "ADMIN") {
+    return <UnauthorisedAccess />;
+
+    // return
   }
 
   return (
-    <div className="top">
-      {/* <div className="admin_heading">Admin Dashboard</div> */}
-      <button onClick={logout} className="btn-logout">
-        Logout
-      </button>
-      {/* <Link className="btn-logout" to="/requests">
-        Requests
-      </Link> */}
+    <div className="">
+      {/* <CustomButton text={"Logout"} onClick={logout} style={"btn-logout"} /> */}
 
-      <div className="admin_tabs">
+      {/* <div className="admin_tabs">
         <div
           className={`admin_employee ${
             activeTab === "EMPLOYEE" ? "active" : ""
@@ -56,43 +60,54 @@ const AdminDashBoard = () => {
         >
           Project
         </div>
-      </div>
+      </div> */}
+       <div className="admindashboard_header">
+      <Header
+            activeTab={activeTab}
+            switchToEmployeeTab={switchToEmployeeTab}
+            switchToManagerTab={switchToManagerTab}
+            switchToProjectTab={switchToProjectTab}
+          />
+          </div>
       {activeTab === "EMPLOYEE" && (
         <div className="add_and_request">
-          <Link to="/addEmployee" className="btn-addEmployee">
-        Add Employee
-
-      </Link><Link to="/requests" className="btn-requests">
-       Requests
-
-      </Link></div>
           
-        )}
-
+          <CustomButton text={"Add Employee"} onClick={() => {navigate("/addEmployee")}} style={"addEmployee_admin "}/>
+          <CustomButton text={"Requests"} onClick={() => {navigate("/requests")}} style={"requests_admin"}/>
+        </div>
+      )}
       {activeTab === "MANAGER" && (
-        <Link className="btn-addManager">Add Manager</Link>
-      )}
+        
+        
+        <CustomButton text={"Requests"} onClick={() => {navigate("/requests")}} style={"requests request_manager"}/>
+      ) }
+
       {activeTab === "PROJECT" && (
-        <Link to="/addProject" className="btn-addEmployee">
+        <>
+                <CustomButton text={"Add Project"} onClick={() => {navigate("/addProject")}} style={"addProject_admin"}/>
+
+        <CustomButton text={"Requests"} onClick={() => {navigate("/requests")}} style={"requests request_project"}/>
+        {/* <Link to="/addProject" className="btn-addEmployee">
           Add Project
-        </Link>
+        </Link> */}
+        </>
       )}
 
-      <div className="card_container">
+      <div className="">
         {activeTab === "EMPLOYEE" && (
-          <div>
+          
             <DisplayEmployee />
-          </div>
+         
         )}
         {activeTab === "MANAGER" && (
-          <div>
+          
             <DisplayManager />
-          </div>
+          
         )}
         {activeTab === "PROJECT" && (
-          <div>
+          
             <DisplayProject />
-          </div>
+        
         )}
       </div>
     </div>

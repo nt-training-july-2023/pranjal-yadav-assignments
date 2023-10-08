@@ -1,6 +1,6 @@
 package com.employee.employeeManagement.validation;
 
-import com.employee.employeeManagement.Model.Project;
+import com.employee.employeeManagement.model.Project;
 import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
 import com.employee.employeeManagement.repository.ProjectRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +39,7 @@ public class ProjectValidationTest {
 
         verify(projectRepository, times(1)).findByProjectName(projectName);
 
-        assertEquals("This project name ProjectA already exists", exception.getMessage());
+        assertEquals("This project name already exists", exception.getMessage());
     }
 
     @Test

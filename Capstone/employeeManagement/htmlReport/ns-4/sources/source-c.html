@@ -1,0 +1,492 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserInDto</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.employee.employeeManagement.dto</a>
+</div>
+
+<h1>Coverage Summary for Class: UserInDto (com.employee.employeeManagement.dto)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserInDto</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96.7%
+  </span>
+  <span class="absValue">
+    (29/30)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86.3%
+  </span>
+  <span class="absValue">
+    (44/51)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.employee.employeeManagement.dto;
+&nbsp;
+&nbsp;import com.employee.employeeManagement.enums.Designation;
+&nbsp;import com.employee.employeeManagement.enums.Location;
+&nbsp;import com.employee.employeeManagement.enums.Role;
+&nbsp;import jakarta.validation.constraints.NotEmpty;
+&nbsp;import jakarta.validation.constraints.NotBlank;
+&nbsp;import jakarta.validation.constraints.NotNull;
+&nbsp;import jakarta.validation.constraints.Pattern;
+&nbsp;import jakarta.validation.constraints.Email;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;/**
+&nbsp; * Data Transfer Object (DTO) representing user information.
+&nbsp; */
+&nbsp;
+<b class="fc">&nbsp;public class UserInDto {</b>
+&nbsp;    /**
+&nbsp;     * The name of the user.
+&nbsp;     */
+&nbsp;    @NotBlank
+&nbsp;    private String name;
+&nbsp;    /**
+&nbsp;     * The email of user.
+&nbsp;     */
+&nbsp;    @Email
+&nbsp;    @Pattern(regexp = &quot;.*@nucleusteq\\.com$&quot;,
+&nbsp;            message = &quot;Email should ends with nucleusteq.com.&quot;)
+&nbsp;    @NotBlank
+&nbsp;    private String email;
+&nbsp;    /**
+&nbsp;     * The ID of the user.
+&nbsp;     */
+&nbsp;    @NotBlank
+&nbsp;    @Pattern(regexp = &quot;^[Nn]\\d{4}$&quot;)
+&nbsp;    private String userId;
+&nbsp;    /**
+&nbsp;     * The date of birth of the user.
+&nbsp;     */
+&nbsp;    private String dob;
+&nbsp;    /**
+&nbsp;     * The date of joining of the user.
+&nbsp;     */
+&nbsp;    private String doj;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The location of the user.
+&nbsp;     */
+&nbsp;
+&nbsp;    private Location location;
+&nbsp;    /**
+&nbsp;     * The designation of the user.
+&nbsp;     */
+&nbsp;
+&nbsp;    private Designation designation;
+&nbsp;    /**
+&nbsp;     * The contact number of the user.
+&nbsp;     */
+&nbsp;    @NotNull
+&nbsp;    private Long contactNo;
+&nbsp;    /**
+&nbsp;     * The name of the project the user is associated with.
+&nbsp;     */
+&nbsp;    private Long projectId;
+&nbsp;    /**
+&nbsp;     * The role of the user.
+&nbsp;     */
+&nbsp;    private Role role;
+&nbsp;    /**
+&nbsp;     * The password of the user.
+&nbsp;     */
+&nbsp;    private String password;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The list of skills possessed by the user.
+&nbsp;     */
+&nbsp;    @NotEmpty(message = &quot;Project skills required must not be empty&quot;)
+&nbsp;    private List&lt;String&gt; skills;
+&nbsp;    /**
+&nbsp;     * The name of the user&#39;s manager.
+&nbsp;     */
+&nbsp;    private Long managerId;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the name of the user.
+&nbsp;     *
+&nbsp;     * @return The name.
+&nbsp;     */
+&nbsp;    public final String getName() {
+<b class="fc">&nbsp;        return name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the name of the user.
+&nbsp;     *
+&nbsp;     * @param nameParam The name to set.
+&nbsp;     */
+&nbsp;    public final void setName(final String nameParam) {
+<b class="fc">&nbsp;        this.name = nameParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the email of the user.
+&nbsp;     *
+&nbsp;     * @return The email.
+&nbsp;     */
+&nbsp;    public final String getEmail() {
+<b class="fc">&nbsp;        return email;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the email of the user.
+&nbsp;     *
+&nbsp;     * @param emailParam The email to set.
+&nbsp;     */
+&nbsp;    public final void setEmail(final String emailParam) {
+<b class="fc">&nbsp;        this.email = emailParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the user ID.
+&nbsp;     *
+&nbsp;     * @return The user ID.
+&nbsp;     */
+&nbsp;    public final String getUserId() {
+<b class="fc">&nbsp;        return userId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the user ID.
+&nbsp;     *
+&nbsp;     * @param userIdParam The user ID to set.
+&nbsp;     */
+&nbsp;    public final void setUserId(final String userIdParam) {
+<b class="fc">&nbsp;        this.userId = userIdParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the date of birth of the user.
+&nbsp;     *
+&nbsp;     * @return The date of birth.
+&nbsp;     */
+&nbsp;    public final String getDob() {
+<b class="fc">&nbsp;        return dob;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the date of birth of the user.
+&nbsp;     *
+&nbsp;     * @param dobParam The date of birth to set.
+&nbsp;     */
+&nbsp;    public final void setDob(final String dobParam) {
+<b class="fc">&nbsp;        this.dob = dobParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the date of joining of the user.
+&nbsp;     *
+&nbsp;     * @return The date of joining.
+&nbsp;     */
+&nbsp;    public final String getDoj() {
+<b class="fc">&nbsp;        return doj;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the date of joining of the user.
+&nbsp;     *
+&nbsp;     * @param dojParam The date of joining to set.
+&nbsp;     */
+&nbsp;    public final void setDoj(final String dojParam) {
+<b class="fc">&nbsp;        this.doj = dojParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the location of the user.
+&nbsp;     *
+&nbsp;     * @return The location.
+&nbsp;     */
+&nbsp;    public final Location getLocation() {
+<b class="fc">&nbsp;        return location;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the location of the user.
+&nbsp;     *
+&nbsp;     * @param locationParam The location to set.
+&nbsp;     */
+&nbsp;    public final void setLocation(final Location locationParam) {
+<b class="fc">&nbsp;        this.location = locationParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the designation of the user.
+&nbsp;     *
+&nbsp;     * @return The designation.
+&nbsp;     */
+&nbsp;    public final Designation getDesignation() {
+<b class="fc">&nbsp;        return designation;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the designation of the user.
+&nbsp;     *
+&nbsp;     * @param designationParam The designation to set.
+&nbsp;     */
+&nbsp;    public final void setDesignation(final Designation designationParam) {
+<b class="fc">&nbsp;        this.designation = designationParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the contact number of the user.
+&nbsp;     *
+&nbsp;     * @return The contact number.
+&nbsp;     */
+&nbsp;    public final Long getContactNo() {
+<b class="fc">&nbsp;        return contactNo;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the contact number of the user.
+&nbsp;     *
+&nbsp;     * @param contactNoParam The contact number to set.
+&nbsp;     */
+&nbsp;    public final void setContactNo(final Long contactNoParam) {
+<b class="fc">&nbsp;        this.contactNo = contactNoParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the project ID associated with the user.
+&nbsp;     *
+&nbsp;     * @return The project ID.
+&nbsp;     */
+&nbsp;    public final Long getProjectId() {
+<b class="fc">&nbsp;        return projectId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the project ID associated with the user.
+&nbsp;     *
+&nbsp;     * @param projectIdParam The project ID to set.
+&nbsp;     */
+&nbsp;    public final void setProjectId(final Long projectIdParam) {
+<b class="fc">&nbsp;        this.projectId = projectIdParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the role of the user.
+&nbsp;     *
+&nbsp;     * @return The role.
+&nbsp;     */
+&nbsp;    public final Role getRole() {
+<b class="fc">&nbsp;        return role;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the role of the user.
+&nbsp;     *
+&nbsp;     * @param roleParam The role to set.
+&nbsp;     */
+&nbsp;    public final void setRole(final Role roleParam) {
+<b class="fc">&nbsp;        this.role = roleParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the user&#39;s password.
+&nbsp;     *
+&nbsp;     * @return The password.
+&nbsp;     */
+&nbsp;    public final String getPassword() {
+<b class="fc">&nbsp;        return password;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the user&#39;s password.
+&nbsp;     *
+&nbsp;     * @param passwordParam The password to set.
+&nbsp;     */
+&nbsp;    public final void setPassword(final String passwordParam) {
+<b class="fc">&nbsp;        this.password = passwordParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the list of skills possessed by the user.
+&nbsp;     *
+&nbsp;     * @return The list of skills.
+&nbsp;     */
+&nbsp;    public final List&lt;String&gt; getSkills() {
+<b class="fc">&nbsp;        return  Collections.unmodifiableList(skills);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the list of skills possessed by the user.
+&nbsp;     *
+&nbsp;     * @param skillsParam The list of skills to set.
+&nbsp;     */
+&nbsp;    public final void setSkills(final List&lt;String&gt; skillsParam) {
+<b class="fc">&nbsp;        if (skillsParam != null) {</b>
+<b class="fc">&nbsp;            this.skills = new ArrayList&lt;&gt;(skillsParam);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            this.skills = null;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the ID of the user&#39;s manager.
+&nbsp;     *
+&nbsp;     * @return The manager ID.
+&nbsp;     */
+&nbsp;    public final Long getManagerId() {
+<b class="fc">&nbsp;        return managerId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the ID of the user&#39;s manager.
+&nbsp;     *
+&nbsp;     * @param managerIdParam The manager ID to set.
+&nbsp;     */
+&nbsp;    public final void setManagerId(final Long managerIdParam) {
+<b class="fc">&nbsp;        this.managerId = managerIdParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * toString method for this class.
+&nbsp;     * @return String value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final String toString() {
+<b class="fc">&nbsp;        return &quot;UserInDto{&quot;</b>
+&nbsp;                + &quot;name=&#39;&quot; + name + &#39;\&#39;&#39;
+&nbsp;                + &quot;, email=&#39;&quot; + email + &#39;\&#39;&#39;
+&nbsp;                + &quot;, userId=&#39;&quot; + userId + &#39;\&#39;&#39;
+&nbsp;                + &quot;, dob=&#39;&quot; + dob + &#39;\&#39;&#39;
+&nbsp;                + &quot;, doj=&#39;&quot; + doj + &#39;\&#39;&#39;
+&nbsp;                + &quot;, location=&quot; + location
+&nbsp;                + &quot;, designation=&quot; + designation
+&nbsp;                + &quot;, contactNo=&quot; + contactNo
+&nbsp;                + &quot;, projectId=&quot; + projectId
+&nbsp;                + &quot;, role=&quot; + role
+&nbsp;                + &quot;, password=&#39;&quot; + password + &#39;\&#39;&#39;
+&nbsp;                + &quot;, skills=&quot; + skills
+&nbsp;                + &quot;, managerId=&quot; + managerId
+&nbsp;                + &#39;}&#39;;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * equals method for this class.
+&nbsp;     * @param o Objec o.
+&nbsp;     * @return boolean value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final boolean equals(final Object o) {
+<b class="fc">&nbsp;        if (this == o) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (!(o instanceof UserInDto userInDto)) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return Objects.equals(getName(), userInDto.getName())</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getEmail(), userInDto.getEmail())</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getUserId(), userInDto.getUserId())</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getDob(), userInDto.getDob())</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getDoj(), userInDto.getDoj())</b>
+<b class="fc">&nbsp;                &amp;&amp; getLocation() == userInDto.getLocation()</b>
+<b class="fc">&nbsp;                &amp;&amp; getDesignation() == userInDto.getDesignation()</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getContactNo(), userInDto.getContactNo())</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getProjectId(), userInDto.getProjectId())</b>
+<b class="fc">&nbsp;                &amp;&amp; getRole() == userInDto.getRole()</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getPassword(), userInDto.getPassword())</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getSkills(), userInDto.getSkills())</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getManagerId(), userInDto.getManagerId());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * hashcode for this class.
+&nbsp;     * @return int value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final int hashCode() {
+<b class="nc">&nbsp;        return Objects.hash(getName(), getEmail(), getUserId(), getDob(),</b>
+<b class="nc">&nbsp;                getDoj(), getLocation(), getDesignation(), getContactNo(),</b>
+<b class="nc">&nbsp;                getProjectId(), getRole(), getPassword(), getSkills(),</b>
+<b class="nc">&nbsp;                getManagerId());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-06 13:05</div>
+</div>
+</body>
+</html>

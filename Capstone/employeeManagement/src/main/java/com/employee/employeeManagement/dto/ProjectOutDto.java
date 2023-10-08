@@ -3,6 +3,7 @@ package com.employee.employeeManagement.dto;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class ProjectOutDto {
     /**
@@ -186,5 +187,58 @@ public class ProjectOutDto {
         } else {
             this.skills = null;
         }
+    }
+
+    /**
+     * toString method for ProjectOutDto.
+     *
+     * @return String.
+     */
+    @Override
+    public final String toString() {
+        return "ProjectOutDto{"
+                + "projectId=" + projectId
+                + ", projectName='" + projectName + '\''
+                + ", managerId=" + managerId
+                + ", description='" + description + '\''
+                + ", startDate='" + startDate + '\''
+                + ", skills=" + skills
+                + ", managerName='" + managerName + '\''
+                + ", team=" + team
+                + '}';
+    }
+
+    /**
+     * Equals method for projectOutDto class.
+     * @param o Object o.
+     * @return boolean value.
+     */
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ProjectOutDto that)) {
+            return false;
+        }
+        return Objects.equals(getProjectId(), that.getProjectId())
+                && Objects.equals(getProjectName(), that.getProjectName())
+                && Objects.equals(getManagerId(), that.getManagerId())
+                && Objects.equals(getDescription(), that.getDescription())
+                && Objects.equals(getStartDate(), that.getStartDate())
+                && Objects.equals(getSkills(), that.getSkills())
+                && Objects.equals(getManagerName(), that.getManagerName())
+                && Objects.equals(getTeam(), that.getTeam());
+    }
+
+    /**
+     * Hashcode method for ProjectOutDto.
+     * @return int value.
+     */
+    @Override
+    public final int hashCode() {
+        return Objects.hash(getProjectId(), getProjectName(), getManagerId(),
+                getDescription(), getStartDate(), getSkills(),
+                getManagerName(), getTeam());
     }
 }

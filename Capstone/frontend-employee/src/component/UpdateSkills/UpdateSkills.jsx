@@ -4,6 +4,8 @@ import axios from "axios";
 import MultiSelectDropdown from "../MultiSelectDropdown/MultiSelectDropDown";
 import Skills from "../Data/skills";
 import './UpdateSkills.css'
+import AdminService from "../../service/AdminService";
+import CustomButton from "../CustomButton";
 
 const UpdateSkills = () => {
   const [skills, setSkills] = useState([]);
@@ -45,22 +47,30 @@ const UpdateSkills = () => {
       return;
     }
     try {
-      const response = await axios.put(
-        `http://localhost:8080/user/${state.empId}/skill`,
-        {
-          skills: skills,
-        }
-      );
+      // const response = await axios.put(
+      //   `http://localhost:8080/user/${state.empId}/skill`,
+      //   {
+      //     skills: skills,
+      //   }
+      // );
 
-      console.log("Employee updated:", response.data);
-      navigate("/EmployeeDashboard");
+      // console.log("Employee updated:", response.data);
+      // navigate("/EmployeeDashboard");
+
+      AdminService.updateSkills(state.empId, {
+        skills : skills
+      }).then((response) =>{
+        console.log("Update successfully " + response.data);
+        navigate("/EmployeeDashboard")
+      })
+
     } catch (error) {
       console.error("Error updating employee:", error);
     }
   };
   return (
     <>
-      <div style={{marginTop: "150px"}} className="container-assign-project">
+      <div style={{marginTop: "150px"}} className="container_assign_project">
         <h3> Update Skills for</h3>
         <h3 style={{ fontWeight: "bold"}}>
           {state.empName}
@@ -78,6 +88,7 @@ const UpdateSkills = () => {
                 value: skill,
                 label: skill,
               }))}
+              
               onChange={handleSkillChange}
               placeholder="Select Skills"
             />
@@ -87,7 +98,7 @@ const UpdateSkills = () => {
           <span style={{ color: "red" }}>{updateSkillsError}</span>
         )}
         <div className="buttons">
-          <button className="button-submit" onClick={handleUpdate}>
+          {/* <button className="button-submit" onClick={handleUpdate}>
             Submit
           </button>
           <button
@@ -97,7 +108,13 @@ const UpdateSkills = () => {
             }}
           >
             Cancel
-          </button>
+          </button> */}
+          <CustomButton text={"Submit"} onClick={handleUpdate} style={"button-submit"}/>
+          <CustomButton text={"Cancel"} onClick={() => {
+              navigate("/EmployeeDashboard");
+            }} 
+            style={"button-cancel"}
+            />
         </div>
       </div>
     </>

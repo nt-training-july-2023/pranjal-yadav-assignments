@@ -3,7 +3,6 @@ package com.employee.employeeManagement.controller;
 import com.employee.employeeManagement.dto.ProjectOutDto;
 import com.employee.employeeManagement.dto.ManagerDto;
 import com.employee.employeeManagement.dto.ProjectInDto;
-import com.employee.employeeManagement.repository.ProjectRepository;
 import com.employee.employeeManagement.response.ProjectResponseDto;
 import com.employee.employeeManagement.service.ProjectService;
 import com.employee.employeeManagement.validation.ProjectValidation;
@@ -34,15 +33,13 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
     /**
-     * Repository for accessing project data.
-     */
-    @Autowired
-    private ProjectRepository projectRepository;
-    /**
      * Project validation for checking the user.
      */
     @Autowired
     private ProjectValidation projectValidation;
+    /**
+     * Logger for project controller.
+     */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserController.class);
     /**
@@ -57,7 +54,8 @@ public class ProjectController {
         LOGGER.info("Adding project");
         projectValidation.checkName(projectDto.getProjectName());
         LOGGER.info("Project Dto: " + projectDto.toString());
-        ProjectResponseDto projectResponseDto = projectService.addProject(projectDto);
+        ProjectResponseDto projectResponseDto =
+                projectService.addProject(projectDto);
        return projectResponseDto;
     }
     /**
@@ -90,12 +88,10 @@ public class ProjectController {
      */
     @GetMapping("/project/{managerId}")
     public final List<ProjectOutDto> getProjectByManagerId(
-            @PathVariable final long managerId) {
+            @PathVariable final Long managerId) {
         LOGGER.info("Project by manager id" + managerId);
-        List<ProjectOutDto> list = projectService.getProjectByManagerId(managerId);
+        List<ProjectOutDto> list =
+                projectService.getProjectByManagerId(managerId);
         return list;
     }
-
-
-
 }

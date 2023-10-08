@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-// import "../../../style/DIsplay.css";
 import '../../EmployeeDashboard/Organization/EmpDisplayEmployee.css'
-import { Link } from "react-router-dom";
+import AdminService from "../../../service/AdminService";
+import ProjectService from "../../../service/ProjectService";
+import CustomButton from "../../../component/CustomButton";
 
 const EmpDisplayEmployee = () => {
   const [employees, setEmployees] = useState([]);
-  const [doj, setdoj] = useState("");
   const [projects, setProjects] = useState([]);
   const [manager, setManager] = useState("");
 
@@ -19,21 +18,19 @@ const EmpDisplayEmployee = () => {
   }, []);
   const getAllProjects = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8080/project/getAllProjects"
-      );
-      console.log(response.data);
-      setProjects(response.data.projectName);
+      ProjectService.getAllProjects().then((response) =>{
+        setProjects(response.data.projectName)
+      })
     } catch (error) {
       console.log(error);
     }
   };
   const getAllEmployees = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/user/allUsers");
-      console.log(response.data);
-      setManager(response.data);
-      setEmployees(response.data);
+      AdminService.getAllUsers().then((response) =>{
+        setManager(response.data)
+        setEmployees(response.data)
+      })
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -42,18 +39,21 @@ const EmpDisplayEmployee = () => {
 
   return (
     <div>
-      <div className="card-container">
-        {employees.map((employee) => (
-          <div className="card org" key={employee.userId}>
+      {/* <CustomButton text={"logout"} style={"org_logout"}/> */}
+      <div className="card_container_employee">
+        {employees.sort(function (a, b) {
+                    return a.name.localeCompare(b.name);
+                }).map((employee) => (
+          <div className="card_org" key={employee.userId}>
             <div className="column">
-              <div className="name-designation">
-                <h2>{employee.name}</h2>
+              <div className="name_designation">
+                <h2 className="name">{employee.name}</h2>
                 <p>{employee.designation}</p>
               </div>
 
               <p><strong>Manager : </strong>{employee.managerName}</p>
               <p><strong>Contact : </strong>{employee.contactNo}</p>
-              <p><strong>Email:</strong>{employee.email}</p>
+              <p><strong>Email:</strong> <br />{employee.email}</p>
             </div>
             <div className="column">
               <p style={{ fontSize: "15px" }}>
@@ -64,7 +64,7 @@ const EmpDisplayEmployee = () => {
               </p>
               <br></br>
               <p><strong>DOB : </strong>{employee.dob}</p>
-              <p><strong>DOJ: </strong>{employee.doj}</p>
+              <p><strong>DOJ : </strong>{employee.doj}</p>
               <p><strong>Location : </strong>{employee.location}</p>
               {/* <p>Skills: {(employee.skills) ? (employee.skills.replace(/[\[\]'+/g,'') ): "NA" } </p> */}
             </div>

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import '../RequestResource/RequestResource.css'
+import ProjectService from '../../service/ProjectService';
+import RequestResourceService from '../../service/RequestResourceService';
+import CustomButton from '../CustomButton';
 
 const RequestResource = () => {
   // const { id } = useParams();
@@ -10,30 +13,34 @@ const RequestResource = () => {
     const [employeeDetails,setEmployeesDetails] = useState([]);
     const [comment,setComment] = useState();
     const [managerID,setManagerID] = useState();
-    const [empId,setEmpId] =useState();
+    const [commentError, setCommentError] = useState("")
+    const [projectError, setProjectError] = useState("")
     const [projectID,setProjectID] =useState();
-    // const email = localStorage.getItem("email");
     const managerId = localStorage.getItem("id")
     const location = useLocation();
   const state = location.state;
     useEffect(() => {
        getAllProjects();
-       console.log(state.empId)
-       console.log(state.managerName)
     },[]);
+    const cancel= ()=>{
+      navigate("/managerDashboard")
+    }
     const getAllProjects = async () => {
         try {
-          console.log(state.managerId);
-          const response = await axios.get(
-            `http://localhost:8080/project/project/${managerId}`
-          );
-          console.log(response.data);
-          setProjectList(response.data);  
+          ProjectService.getProjectByManagerId(managerId).then((response) =>{
+            console.log(response.data);
+          setProjectList(response.data); 
+          })
         } catch (error) {
           console.error("Error fetching data:", error);
         }
       };
       const handleUpdate = async(e) => {
+        if(projectID === "" || comment == ""){
+          setCommentError("Comment is required")
+          setProjectError("Project is required")
+          return;
+        }
         e.preventDefault();
         const request = {
             employeeId:state.empId,
@@ -42,8 +49,9 @@ const RequestResource = () => {
             comment
         }
         try{
-          await axios.post("http://localhost:8080/user/request/resource", request);
-          navigate("/managerDashBoard")
+          RequestResourceService.addRequest(request).then((response) =>{
+            navigate("/managerDashBoard")
+          })
         }
         catch (error) {
             console.error('Error updating employee:', error);
@@ -58,6 +66,13 @@ const RequestResource = () => {
           setManagerID(selectedManagerID);
           console.log(typeof(selectedManagerID,"from handleSelectChange"));
         };
+        const handleCommentBlur=()=>{
+          if(comment === ""){
+            setCommentError("Comment is required")
+            console.log(commentError);
+
+          }
+        }
 
   return (
     <div>
@@ -85,6 +100,7 @@ const RequestResource = () => {
             ))}
             <br></br>
           </select>
+          <p className='comment_error'>{projectError}</p>
           <div className="project-input" style={{ marginTop: "1rem" }}>
             <label>Comment</label>
             <textarea
@@ -96,16 +112,15 @@ const RequestResource = () => {
               id="project-name"
               onChange={(e) => {
                 setComment(e.target.value);
+                setCommentError("");
               }}
+              onBlur={handleCommentBlur}
             ></textarea>
+            
           </div>
-          <button type="button" className="assign-btn" onClick={handleUpdate}>
-            Request Resource
-          </button>
-          <button className="cancel-assign"><Link to={"/managerDashboard"} >
-            Cancel
-          </Link></button>
-          
+          <p className='comment_error'>{commentError}</p>
+          <CustomButton style={"assign-btn"} text={"Request Resource"} onClick={handleUpdate}/>
+          <CustomButton style={"cancel-assign"} text={"Cancel"} onClick={cancel}/>          
         </div>
       </div>
     </div>

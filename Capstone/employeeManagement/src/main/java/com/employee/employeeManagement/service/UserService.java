@@ -1,11 +1,16 @@
 package com.employee.employeeManagement.service;
 
-import com.employee.employeeManagement.Model.Project;
-import com.employee.employeeManagement.Model.RequestResource;
-import com.employee.employeeManagement.dto.*;
+import com.employee.employeeManagement.constants.ErrorConstants;
+import com.employee.employeeManagement.constants.SuccessConstants;
+import com.employee.employeeManagement.model.Project;
+import com.employee.employeeManagement.model.RequestResource;
+import com.employee.employeeManagement.dto.UserInDto;
+import com.employee.employeeManagement.dto.EmployeeOutDto;
+import com.employee.employeeManagement.dto.LoginResponse;
+import com.employee.employeeManagement.dto.LoginDto;
 import com.employee.employeeManagement.enums.Role;
-import com.employee.employeeManagement.Model.User;
-import com.employee.employeeManagement.outDtos.UserNameDto;
+import com.employee.employeeManagement.model.User;
+import com.employee.employeeManagement.dto.UserNameDto;
 import com.employee.employeeManagement.exception.ResourceNotFoundException;
 import com.employee.employeeManagement.repository.ProjectRepository;
 import com.employee.employeeManagement.repository.RequestResourceRepository;
@@ -21,7 +26,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.HashSet;
 import java.util.Base64;
 import java.util.stream.Collectors;
 
@@ -74,7 +78,7 @@ public class UserService {
     public final ResponseDto addUser(final UserInDto userDto) {
         User user = userDtoToUser(userDto);
         userRepository.save(user);
-        return new ResponseDto("User Added successfully");
+        return new ResponseDto(SuccessConstants.USER_ADDED);
 
     }
     /**
@@ -87,8 +91,8 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findByEmail(
                 loginDto.getEmail());
         User user = optionalUser.get();
-        return new LoginResponse
-        ("Logged in successfully", user.getId(),
+        return new LoginResponse(
+                SuccessConstants.LOGGED_IN, user.getId(),
                 user.getRole(), user.getName());
 
     }
@@ -106,7 +110,7 @@ public class UserService {
         User user = userDtoToUser(userDto);
         userRepository.save(user);
         return new ResponseDto(
-                "User added", user.getRole());
+                SuccessConstants.USER_ADDED, user.getRole());
     }
     /**
      * Retrieves a list of EmployeeOutDto
@@ -122,15 +126,6 @@ public class UserService {
         List<EmployeeOutDto> outUsers = new ArrayList<>();
         for (User user : users) {
             EmployeeOutDto employeeOutDto = userToOutDto(user);
-                List<String> team = new ArrayList<>();
-                List<User> userDb =
-                        userRepository.findAllByProjectId(user.getProjectId());
-                for (User currUser : userDb) {
-                    System.out.println(currUser);
-                    team.add(currUser.getName());
-                }
-//               System.out.println(team);
-//                employeeOutDto.setTeam(null);
 
         outUsers.add(employeeOutDto);
     }
@@ -163,13 +158,10 @@ public class UserService {
      */
 
     public final UserNameDto getEmployeeNameById(final String userId) {
-        if (userRepository.findByUserId(userId).isEmpty()) {
-            throw new ResourceNotFoundException("This id does not exists");
-        }
         Optional<User> optionalUser = userRepository.findByUserId(userId);
         User user = optionalUser.orElseThrow(
                 () -> new ResourceNotFoundException(
-                        "Employee Id does not exist"));
+                        ErrorConstants.EMPLOYEE_NOT_EXIST));
         UserNameDto userNameDto = new UserNameDto();
         userNameDto.setName(user.getName());
         return userNameDto;
@@ -184,13 +176,11 @@ public class UserService {
      * user with the specified ID does not exist.
      */
     public final UserNameDto getEmployeeNameByLongId(final Long id) {
-        if (userRepository.findById(id).isEmpty()) {
-            throw new ResourceNotFoundException("This id does not exists");
-        }
+
         Optional<User> optionalUser = userRepository.findById(id);
         User user = optionalUser.orElseThrow(
                 () -> new ResourceNotFoundException(
-                        "Employee Id does not exist"));
+                        ErrorConstants.EMPLOYEE_NOT_EXIST));
         UserNameDto userNameDto = new UserNameDto();
         userNameDto.setName(user.getName());
         return userNameDto;
@@ -204,18 +194,15 @@ public class UserService {
      * employee with the specified ID does not exist.
      */
     public final EmployeeOutDto getEmployeeById(final Long id) {
-        if (userRepository.findById(id).isEmpty()) {
-            throw new ResourceNotFoundException("This id doesnot exists");
-        }
         Optional<User> optionalUser = userRepository.findById(id);
         User user = optionalUser.orElseThrow(
                 () -> new ResourceNotFoundException(
-                        "Employee Id does not exist"));
+                        ErrorConstants.EMPLOYEE_NOT_EXIST));
         EmployeeOutDto employeeOutDto = userToOutDto(user);
         return employeeOutDto;
     }
     /**
-     * Updates employee details such as project and manager.
+     * Assigns project to employee.
      *
      * @param id            The ID of the employee to be updated.
      * @param updatedDetails A Map containing updated project and manager IDs.
@@ -229,12 +216,18 @@ public class UserService {
         Long projectId = updatedDetails.get("projectId");
         Long managerId = updatedDetails.get("managerId");
         User employee = userRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException("Resource not found."));
+                new ResourceNotFoundException(
+                        ErrorConstants.EMPLOYEE_NOT_EXIST));
         employee.setManagerId(managerId);
         employee.setProjectId(projectId);
         userRepository.save(employee);
+        List<RequestResource> list =
+                requestResourceRepository.findByEmployeeId(id);
+        for (RequestResource req : list) {
+            deleteRequest(req.getResourceId());
+        }
 
-        return new ResponseDto("Updated Successfully");
+        return new ResponseDto(SuccessConstants.UPDATED_SUCCESSFULLY);
 
     }
     /**
@@ -250,40 +243,10 @@ public class UserService {
         User user = optionalUser.get();
         user.setSkills(skills);
         userRepository.save(user);
-        return new ResponseDto("Skills are updated.");
+        return new ResponseDto(SuccessConstants.UPDATED_SUCCESSFULLY);
 
     }
-    /**
-     * Requests a resource based on the provided RequestResourceDto.
-     *
-     * @param requestResourceDto The RequestResourceDto
-     *                           containing the request details.
-     * @return An ResponseDto indicating the status of the operation.
-     */
-    public final ResponseDto requestResource(
-            final RequestResourceDto requestResourceDto) {
-        RequestResource requestResource =
-                dtoToRequestResource(requestResourceDto);
-        requestResourceRepository.save(requestResource);
-        return new ResponseDto("Resource added.");
-    }
-    /**
-     * Retrieves a list of all request resources and
-     * converts them to RequestResourceOutDto objects.
-     *
-     * @return A list of RequestResourceOutDto
-     * objects representing all request resources.
-     */
-    public final List<RequestResourceOutDto> getAllRequests() {
-        List<RequestResource> requestResourceList =
-                requestResourceRepository.findAll();
-        List<RequestResourceOutDto> returnedList = new ArrayList<>();
-        for (RequestResource r: requestResourceList) {
-            RequestResourceOutDto requestResourceOutDto = requestToOutDto(r);
-            returnedList.add(requestResourceOutDto);
-        }
-        return returnedList;
-    }
+
     /**
      * Deletes a request resource by its ID.
      *
@@ -292,32 +255,9 @@ public class UserService {
      */
     public ResponseDto deleteRequest(final Long resourceId) {
         requestResourceRepository.deleteById(resourceId);
-        return new ResponseDto("Deleted successfully!");
+        return new ResponseDto(SuccessConstants.DELETED);
     }
-    /**
-     * Accepts a request by updating the project and manager for an employee.
-     *
-     * @param id        The ID of the employee.
-     * @return An ResponseDto indicating the status of the operation.
-     */
-    public final ResponseDto acceptRequest(
-            final Long id) {
-        RequestResource requestResource =
-                requestResourceRepository.findById(id).get();
-        User employee =
-                userRepository.findById(requestResource.getEmployeeId()).get();
-        employee.setProjectId(requestResource.getProjectId());
-        employee.setManagerId(requestResource.getManagerId());
-        this.userRepository.save(employee);
-        deleteRequest(id);
 
-        List<RequestResource> employeeRequests =
-                requestResourceRepository.findByEmployeeId(employee.getId());
-        for (RequestResource req : employeeRequests) {
-            deleteRequest(req.getResourceId());
-        }
-        return new ResponseDto("Accepted");
-    }
     /**
      * Searches for employees by skills and availability.
      *
@@ -326,57 +266,26 @@ public class UserService {
      *               to check availability (project unassigned).
      * @return A list of EmployeeOutDto objects representing matching employees.
      */
-//    public final List<EmployeeOutDto> searchBySkills(
-//            final List<String> skills, final boolean isCheck) {
-//
-//        List<User> allEmployees = userRepository.findByRole(Role.EMPLOYEE);
-//        List<User> employeesWithSkills =
-//                allEmployees.stream().filter(
-//                        user -> new HashSet<>(user.getSkills()).contains(
-//                                skills)).toList();
-//        List<User> returnedList;
-//        if (skills.isEmpty()) {
-//            returnedList = allEmployees.stream()
-//                    .filter(employee -> employee.getProjectId()==0)
-//                    .collect(Collectors.toList());
-//        }
-//        else{
-//            List<User> employeesWithRequiredSkills = allEmployees.stream()
-//                    .filter(employee -> employee.getSkills().stream().anyMatch(skills::contains))
-//                    .toList();
-//            if (isCheck) {
-//                returnedList = employeesWithSkills.stream()
-//                        .filter(employee -> employee.getProjectId() == null)
-//                        .collect(Collectors.toList());
-//            } else {
-//                returnedList = employeesWithSkills;
-//            }
-//        }
-//
-//        List<EmployeeOutDto> outList = new ArrayList<>();
-//        for (User user : returnedList) {
-//            EmployeeOutDto currOut = userToOutDto(user);
-//            outList.add(currOut);
-//        }
-//        return outList;
-//    }
-    public final List<EmployeeOutDto> searchBySkills(List<String> skills,boolean isCheck){
+
+    public final List<EmployeeOutDto> searchBySkills(
+            final List<String> skills, final boolean isCheck) {
         List<User> allEmployees = userRepository.findByRole(Role.EMPLOYEE);
         List<User> returnedList = new ArrayList<>();
-        if(skills.isEmpty()) {
+        if (skills.isEmpty()) {
             List<User> unAssignedEmployees = allEmployees.stream()
-                    .filter(employee -> employee.getProjectId()==0)
+                    .filter(employee -> employee.getProjectId() == null)
                     .collect(Collectors.toList());
             returnedList = unAssignedEmployees;
-        }
-        else {
+        } else {
             List<User> employeesWithRequiredSkills = allEmployees.stream()
-                    .filter(employee -> employee.getSkills().stream().anyMatch(skills::contains))
+                    .filter(employee -> employee.getSkills().
+                            stream().anyMatch(skills::contains))
                     .collect(Collectors.toList());
             if (isCheck) {
                 List<User> unAssignedEmployees =
                         employeesWithRequiredSkills.stream()
-                                .filter(employee -> employee.getProjectId() == null)
+                                .filter(employee -> employee.getProjectId()
+                                        == null)
                                 .collect(Collectors.toList());
                 returnedList = unAssignedEmployees;
             } else {
@@ -385,7 +294,7 @@ public class UserService {
 
         }
         List<EmployeeOutDto> returnedOutList = new ArrayList<>();
-        for( User currUser: returnedList) {
+        for (User currUser: returnedList) {
             EmployeeOutDto outDto = userToOutDto(currUser);
             returnedOutList.add(outDto);
         }
@@ -403,26 +312,7 @@ public class UserService {
         user.setManagerId(admin.getId());
         user.setProjectId(null);
         userRepository.save(user);
-        return new ResponseDto("Project unassigned");
-    }
-
-    /**
-     * check if the resource is already requested.
-     * @param reqDto requested resource.
-     * @return boolean value.
-     */
-    public boolean isRequested(final IsRequested reqDto) {
-        User manager = userRepository
-                .findByEmail(reqDto.getManagerEmail()).get();
-
-        Optional<RequestResource> req =
-                requestResourceRepository.findByEmployeeIdAndManagerId(
-                        reqDto.getEmployeeId(),
-                        manager.getId());
-        if (req.isEmpty()) {
-            return false;
-        }
-        return true;
+        return new ResponseDto(SuccessConstants.PROJECT_ASSIGNED);
     }
     /**
      * Converts a UserInDto object to a User object.
@@ -479,54 +369,9 @@ public class UserService {
                     user.getProjectId()).get();
             empDto.setProjectName(project.getProjectName());
         }
-        System.out.println(empDto.getSkills());
         return empDto;
     }
-    /**
-     * Converts a RequestResourceDto to a RequestResource entity.
-     *
-     * @param requestResourceDto The RequestResourceDto to convert.
-     * @return The corresponding RequestResource entity.
-     */
-    private RequestResource dtoToRequestResource(
-            final RequestResourceDto requestResourceDto) {
-        RequestResource requestResource = new RequestResource();
-        requestResource.setComment(requestResourceDto.getComment());
-        requestResource.setManagerId(requestResourceDto.getManagerId());
-        requestResource.setEmployeeId(requestResourceDto.getEmployeeId());
-        requestResource.setProjectId(requestResourceDto.getProjectId());
-        return requestResource;
-    }
-    /**
-     * Converts a RequestResource entity to a RequestResourceOutDto.
-     *
-     * @param requestResource The RequestResource entity to convert.
-     * @return The corresponding RequestResourceOutDto.
-     */
-    public RequestResourceOutDto requestToOutDto(
-            final RequestResource requestResource) {
-        RequestResourceOutDto r = new RequestResourceOutDto();
-        r.setResourceId(requestResource.getResourceId());
-        r.setComment(requestResource.getComment());
-        r.setEmployeeId(requestResource.getEmployeeId());
-        r.setManagerId(requestResource.getManagerId());
-        r.setProjectId(requestResource.getProjectId());
-        Optional<User> optionalUser =
-                userRepository.findById(requestResource.getEmployeeId());
-        User user = optionalUser.get();
-        r.setEmployeeName(user.getName());
-        r.setEmployeeUserId(user.getUserId());
-        Optional<User> optionalManager =
-                userRepository.findById(requestResource.getManagerId());
-        User manager = optionalManager.get();
-        r.setManagerName(manager.getName());
-        r.setManagerUserId(manager.getUserId());
-        Optional<Project> projectOptional =
-                projectRepository.findById(requestResource.getProjectId());
-        Project project = projectOptional.get();
-        r.setProjectName(project.getProjectName());
-        return r;
-    }
+
 
 
 }

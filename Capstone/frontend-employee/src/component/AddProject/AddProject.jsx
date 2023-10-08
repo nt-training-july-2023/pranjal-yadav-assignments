@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Skills from "../Data/skills";
 import AddProjectService from "../../service/AddProjectService";
 import PopUp from "../PopUp/Popup";
-import Select from "react-select";
 import "../../style/DIsplay.css";
 import MultiSelectDropDown from "../MultiSelectDropdown/MultiSelectDropDown";
+import ProjectService from '../../service/ProjectService'
+import CustomButton from "../CustomButton";
+import InputComponent from "../Input/InputComponent";
 
 const AddProject = () => {
   const [projectName, setProjectName] = useState("");
@@ -112,7 +114,8 @@ const AddProject = () => {
     };
 
     console.log(project);
-    AddProjectService.createProject(project)
+    // AddProjectService.createProject(project)
+    ProjectService.createProject(project)
       .then((response) => {
         setShowPopUp(true);
         setPopUpMessage("Project Added successfully");
@@ -147,7 +150,7 @@ const AddProject = () => {
             <div className="column">
               <div className="form-group">
                 <label>Project Name</label>
-                <input
+                {/* <input
                   type="text"
                   required
                   className="input"
@@ -157,6 +160,17 @@ const AddProject = () => {
                     setProjectNameError("");
                   }}
                   onBlur={handleProjectNameBlur}
+                /> */}
+                <InputComponent
+                type="text"
+                required
+                className="input"
+                value={projectName}
+                onChange={(e) => {
+                  setProjectName(e.target.value);
+                  setProjectNameError("");
+                }}
+                onBlur={handleProjectNameBlur}
                 />
                 <span>{projectNameError}</span>
               </div>
@@ -209,12 +223,19 @@ const AddProject = () => {
 
               <div className="form-group">
                 <label>Start Date</label>
-                <input
+                {/* <input
                   type="date"
                   className="input "
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
                   onBlur={handleStartDateBlur}
+                /> */}
+                <InputComponent
+                type="date"
+                className="input "
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                onBlur={handleStartDateBlur}
                 />
                 <span>{startDateError}</span>
               </div>
@@ -230,19 +251,13 @@ const AddProject = () => {
                     setDescriptionError("");
                   }}
                   onBlur={handleDescriptionBlur}
-                  // onBlur={handleEmpIDBlur}
                 />
                 <span>{descriptionError}</span>
               </div>
             </div>
           </div>
-          <button
-            className="submit-button"
-            onClick={(e) => saveProject(e)}
-            type="submit"
-          >
-            Add project
-          </button>
+          <CustomButton style={"submit-button"} text={"Add Project"} onClick={(e) => saveProject(e)}/>
+          <Link to="/adminDashBoard">Cancel</Link>
         </form>
       </div>
     </div>

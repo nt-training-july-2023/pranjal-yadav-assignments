@@ -1,10 +1,13 @@
 package com.employee.employeeManagement.validation;
 
-import com.employee.employeeManagement.Model.User;
+import com.employee.employeeManagement.model.User;
 import com.employee.employeeManagement.dto.LoginDto;
 import com.employee.employeeManagement.dto.UserInDto;
+import com.employee.employeeManagement.enums.Role;
+import com.employee.employeeManagement.constants.ErrorConstants;
+import com.employee.employeeManagement.exception.InvalidCredentialsExceptions;
 import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
-import com.employee.employeeManagement.exception.WrongCredentialsExceptions;
+import com.employee.employeeManagement.exception.ResourceNotFoundException;
 import com.employee.employeeManagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -49,7 +52,7 @@ public class UserValidation {
         if (!name.isEmpty() && name.matches("^[A-Za-z ]+$")) {
             return;
         } else {
-            throw new WrongCredentialsExceptions("Give valid name.");
+            throw new InvalidCredentialsExceptions("Give valid name.");
         }
     }
 
@@ -78,7 +81,8 @@ public class UserValidation {
         if (optionalUser.isPresent()) {
             return;
         } else {
-            throw new WrongCredentialsExceptions("Give registered email id");
+            throw new ResourceNotFoundException(
+                    ErrorConstants.GIVE_REGISTERED_EMAIL);
         }
     }
 
@@ -90,14 +94,11 @@ public class UserValidation {
         Optional<User> optionalUser =
                 userRepository.findByEmail(loginDto.getEmail());
         User user = optionalUser.get();
-        System.out.println(decodePassword(loginDto.getPassword()));
-        String decodedPassword = decodePassword(loginDto.getPassword());
-        System.out.println("Decoded Password: " + decodedPassword);
-        System.out.println("Stored Password: " + user.getPassword());
         if (!passwordEncoder.matches(
                         decodePassword(loginDto.getPassword()),
                         user.getPassword())) {
-            throw new WrongCredentialsExceptions("Password is incorrect");
+            throw new InvalidCredentialsExceptions(
+                    ErrorConstants.PASSWORD_INCORRECT);
         }
     }
     /**
@@ -110,8 +111,8 @@ public class UserValidation {
                 return;
             } else {
                 throw new ResourceAlreadyExistsException(
-                        "This user id " + userId
-                        + "already exists");
+                        ErrorConstants.USER_EXISTS);
+
             }
         }
 
@@ -135,5 +136,31 @@ public class UserValidation {
         checkLoginEmail(loginDto.getEmail());
         checkPassword(loginDto);
     }
+
+    /**
+     * Method to check if the given role exists or not.
+     * @param roleName given role.
+     */
+    public final void checkRole(final String roleName) {
+        if (!roleName.equals("EMPLOYEE") && !roleName.equals("MANAGER")
+                && !roleName.equals("ADMIN")) {
+            throw new ResourceNotFoundException(ErrorConstants.ROLE_NOT_EXISTS);
+        } else {
+            return;
+        }
+    }
+
+    /**
+     * Method to check if the employee id exists.
+     * @param id Id of employee.
+     */
+    public final void checkId(final Long id) {
+        User employee = userRepository.findById(id).orElse(null);
+        if (employee == null || employee.getRole() == Role.ADMIN) {
+            throw new ResourceNotFoundException(
+                    ErrorConstants.EMPLOYEE_NOT_EXIST);
+        }
+    }
+
 
 }

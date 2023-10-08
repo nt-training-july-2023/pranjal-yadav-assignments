@@ -1,7 +1,10 @@
 package com.employee.employeeManagement.controller;
 
-import com.employee.employeeManagement.dto.*;
-import com.employee.employeeManagement.outDtos.UserNameDto;
+import com.employee.employeeManagement.dto.UserInDto;
+import com.employee.employeeManagement.dto.EmployeeOutDto;
+import com.employee.employeeManagement.dto.LoginDto;
+import com.employee.employeeManagement.dto.LoginResponse;
+import com.employee.employeeManagement.dto.UserNameDto;
 import com.employee.employeeManagement.response.ResponseDto;
 import com.employee.employeeManagement.service.UserService;
 import org.slf4j.Logger;
@@ -18,7 +21,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
 
 import java.util.List;
@@ -85,7 +87,8 @@ public class UserController {
      * @return ResponseEntityDto indicating the status of the operation.
      */
     @PostMapping(path = "/save-emp")
-    public final ResponseDto saveEmp(@RequestBody @Valid  final UserInDto userDto) {
+    public final ResponseDto saveEmp(
+            @RequestBody @Valid  final UserInDto userDto) {
         LOGGER.info("Adding employee.");
         userValidation.checkUser(userDto);
         LOGGER.info("Valid user : " + userDto.toString());
@@ -102,8 +105,10 @@ public class UserController {
     @GetMapping(path = "/all/{roleName}")
     public final List<EmployeeOutDto> getEmployeesByRole(
             @PathVariable final String roleName) {
+        userValidation.checkRole(roleName);
         LOGGER.info("All users by role " + roleName);
-        return userService.allUserByRole(roleName);
+        List<EmployeeOutDto> list = userService.allUserByRole(roleName);
+        return list;
     }
     /**
      * Retrieves a list of all users.
@@ -113,22 +118,10 @@ public class UserController {
     @GetMapping(path = "/allUsers")
     public final List<EmployeeOutDto> getAllUsers() {
         LOGGER.info("All users");
-        return userService.getAllUsers();
+        List<EmployeeOutDto> list = userService.getAllUsers();
+        return list;
     }
 
-    /**
-     * Retrieves the name of an employee by their user ID.
-     *
-     * @param userId The user ID of the employee.
-     * @return A UserNameDto object representing the employee's name.
-     */
-    //DELETE
-    @GetMapping(path = "/getEmployee/{userId}")
-    public final UserNameDto getEmployeeNameById(
-            @PathVariable final String userId) {
-        LOGGER.info("Getting user name by user id " + userId);
-        return userService.getEmployeeNameById(userId);
-    }
 
     /**
      * Retrieves the name of an employee by their ID.
@@ -140,7 +133,9 @@ public class UserController {
     public final UserNameDto getEmployeeNameByLongId(
             @PathVariable final Long id) {
         LOGGER.info("Getting user name by id " + id);
-        return userService.getEmployeeNameByLongId(id);
+        userValidation.checkId(id);
+        UserNameDto userNameDto = userService.getEmployeeNameByLongId(id);
+        return userNameDto;
     }
 
     /**
@@ -152,7 +147,9 @@ public class UserController {
     @GetMapping(path = "getUserById/{id}")
     public final EmployeeOutDto getEmployeeById(@PathVariable final Long id) {
         LOGGER.info("Getting employee by id " + id);
-        return userService.getEmployeeById(id);
+        userValidation.checkId(id);
+        EmployeeOutDto employeeOutDto = userService.getEmployeeById(id);
+        return employeeOutDto;
     }
 
 
@@ -168,12 +165,15 @@ public class UserController {
                                             @RequestBody final Map<String,
                                             Long> updatedDetails) {
         LOGGER.info("Assigning project to " + id);
-        return userService.updateEmployee(id, updatedDetails);
+        userValidation.checkId(id);
+        ResponseDto responseDto =
+                userService.updateEmployee(id, updatedDetails);
+        return responseDto;
     }
 
     /**
      * Endpoint for updating skills of an employee.
-     * @param id Id of employee.
+     * @param id id of employee.
      * @param skills Updated skills.
      * @return Response.
      */
@@ -182,61 +182,12 @@ public class UserController {
                                           @RequestBody final Map<String,
                                                   List<String>> skills) {
         LOGGER.info("Updating skills for " + id);
-        return userService.updateSkills(id, skills.get("skills"));
-    }
-
-    /**
-     * Endpoint for adding a request for resource.
-     * @param requestResourceDto Request.
-     * @return Response.
-     */
-    @PostMapping(path = "/request/resource")
-    public final ResponseDto requestResource(
-            @RequestBody final RequestResourceDto requestResourceDto) {
-        LOGGER.info("Adding request resource.");
-        ResponseDto responseDto = userService.requestResource(requestResourceDto);
-        LOGGER.info("Request resource dto: " + requestResourceDto.toString());
+        userValidation.checkId(id);
+        ResponseDto responseDto =
+                userService.updateSkills(id, skills.get("skills"));
         return responseDto;
     }
 
-    /**
-     * Endpoint for retrieving all requested resources.
-     * @return List of requested resources.
-     */
-    @GetMapping(path = "/all/request")
-    public final List<RequestResourceOutDto> getAllRequests() {
-        LOGGER.info("Getting all requests");
-        List<RequestResourceOutDto> list = userService.getAllRequests();
-        return list;
-    }
-
-    /**
-     * Endpoint for deleting a requested resource.
-     * @param resourceId Id of that resource.
-     * @return Response.
-     */
-    @DeleteMapping(path = "/request/delete/{resourceId}")
-    public final ResponseDto deleteRequest(
-            @PathVariable final Long resourceId) {
-        LOGGER.info("Deleting request.");
-        ResponseDto responseDto = userService.deleteRequest(resourceId);
-        LOGGER.info("Resource id: "+ resourceId);
-        return responseDto;
-    }
-
-    /**
-     * Endpoint for accepting request.
-     * @param resourceId of requested resource.
-     * @return Response.
-     */
-    @PostMapping("/accept/{resourceId}")
-    public final ResponseDto acceptRequest(
-            @PathVariable final Long resourceId) {
-        LOGGER.info("Accepting resource");
-        ResponseDto responseDto = userService.acceptRequest(resourceId);
-        LOGGER.info("Resource id: " + resourceId);
-        return responseDto;
-    }
 
     /**
      *Endpoint for getting all employees with given skills.
@@ -257,26 +208,15 @@ public class UserController {
     /**
      * Endpoint to un-assign employee from a
      * project.
-     * @param id Id of employee.
+     * @param id id of employee.
      * @return Response.
      */
     @PutMapping(path = "/unassign/{id}")
     public final ResponseDto unAssignProject(@PathVariable final Long id) {
         LOGGER.info("Unassign project " + id);
+        userValidation.checkId(id);
         ResponseDto responseDto = userService.unAssignProject(id);
         return responseDto;
     }
 
-    /**
-     * Check if that particular employee is already
-     * requested by that manager.
-     * @param reqDto requested resource dto.
-     * @return boolean value.
-     */
-    @PostMapping("/employee/isRequested")
-    public boolean isRequested(@RequestBody final IsRequested reqDto) {
-        LOGGER.info("Is requested");
-        boolean returnedValue = userService.isRequested(reqDto);
-        return returnedValue;
-    }
 }

@@ -1,0 +1,199 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > LoginDto</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.employee.employeeManagement.dto</a>
+</div>
+
+<h1>Coverage Summary for Class: LoginDto (com.employee.employeeManagement.dto)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LoginDto</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.employee.employeeManagement.dto;
+&nbsp;
+&nbsp;import jakarta.validation.constraints.Email;
+&nbsp;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;/**
+&nbsp; * Data Transfer Object (DTO) representing login
+&nbsp; * credentials for admin authentication.
+&nbsp; */
+<b class="fc">&nbsp;public class LoginDto {</b>
+&nbsp;    /**
+&nbsp;     * The email of the admin for authentication.
+&nbsp;     */
+&nbsp;    @Email
+&nbsp;    private String email;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The password for authentication.
+&nbsp;     */
+&nbsp;    private String password;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the email address of the user.
+&nbsp;     *
+&nbsp;     * @return The user&#39;s email address.
+&nbsp;     */
+&nbsp;    public final String getEmail() {
+<b class="fc">&nbsp;        return email;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the email address of the user.
+&nbsp;     *
+&nbsp;     * @param emailParam The user&#39;s email address.
+&nbsp;     */
+&nbsp;    public final void setEmail(final String emailParam) {
+<b class="fc">&nbsp;        this.email = emailParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the password of the user.
+&nbsp;     *
+&nbsp;     * @return The user&#39;s password.
+&nbsp;     */
+&nbsp;    public final String getPassword() {
+<b class="fc">&nbsp;        return password;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the password of the user.
+&nbsp;     *
+&nbsp;     * @param passwordParam The user&#39;s password.
+&nbsp;     */
+&nbsp;    public final void setPassword(final String passwordParam) {
+<b class="fc">&nbsp;        this.password = passwordParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * toString method for loginDto.
+&nbsp;     * @return String
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final String toString() {
+<b class="fc">&nbsp;        return &quot;LoginDto{&quot;</b>
+&nbsp;                + &quot;email=&#39;&quot; + email + &#39;\&#39;&#39;
+&nbsp;                + &quot;, password=&#39;&quot; + password + &#39;\&#39;&#39;
+&nbsp;                + &#39;}&#39;;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * equals method for loginDto.
+&nbsp;     * @param o object.
+&nbsp;     * @return boolean value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final boolean equals(final Object o) {
+<b class="fc">&nbsp;        if (this == o) {</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (!(o instanceof LoginDto loginDto)) {</b>
+<b class="fc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return Objects.equals(getEmail(), loginDto.getEmail())</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getPassword(), loginDto.getPassword());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Hashcode method for LoginDto.
+&nbsp;     * @return int value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public int hashCode() {
+<b class="fc">&nbsp;        return Objects.hash(getEmail(), getPassword());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-06 13:05</div>
+</div>
+</body>
+</html>
