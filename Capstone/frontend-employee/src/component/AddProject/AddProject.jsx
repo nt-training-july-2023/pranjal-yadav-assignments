@@ -118,7 +118,7 @@ const AddProject = () => {
       .catch((error) => {
         if (error.response.status === 409) {
           setShowPopUp(true);
-          setPopUpMessage(error.response.data.errorMessage);
+          setPopUpMessage("This project name already exists");
         }
       });
   };

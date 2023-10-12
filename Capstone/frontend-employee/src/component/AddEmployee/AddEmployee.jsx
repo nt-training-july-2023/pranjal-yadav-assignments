@@ -54,7 +54,6 @@ const AddEmployee = () => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [selectedSkills] = useState([]);
 
-  // const selectedSkillsValue = {};
   const handleNameBlur = () => {
     if (/^-?\\d/.test(name) || name === "") {
       setErrorMessage("Give valid name");
@@ -343,7 +342,7 @@ const AddEmployee = () => {
                 onChange={(e) => {
                   setContactNumber(e.target.value);
                 }}
-                onBlur={handlePhoneNo}
+                onBlur={() => validateContactNumber(contactNo, setContactNumber, setContactNumberError)}
                 />
                 <span>{contactNumberError}</span>
               </div>
@@ -355,7 +354,7 @@ const AddEmployee = () => {
                   name="role"
                   className="input"
                   onChange={(e) => setRole(e.target.value)}
-                  onBlur={handleRoleBlur}
+                  onBlur={(e) => validateRole(role, setRoleError)}
                 >
                   <option value="">Select Role</option>
                   {R.map((item) => {

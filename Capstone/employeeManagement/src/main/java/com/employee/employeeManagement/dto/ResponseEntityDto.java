@@ -1,14 +1,12 @@
 package com.employee.employeeManagement.dto;
 
-import lombok.NoArgsConstructor;
 
 
 /**
  * Data Transfer Object (DTO) representing a response
  * containing success status and a message.
  */
-@NoArgsConstructor
-public class ResponseEntityDto {
+ public class ResponseEntityDto {
     /**
      * Indicates whether the operation was successful.
      */
@@ -66,6 +64,13 @@ public class ResponseEntityDto {
                              final String messageParam) {
         this.isSuccess = isSuccessParam;
         this.message = messageParam;
+    }
+
+    /**
+     * No argument constructor.
+     */
+    public ResponseEntityDto() {
+
     }
 
 }
