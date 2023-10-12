@@ -2,6 +2,9 @@ package com.employee.employeeManagement.dto;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RequestResourceDtoTest {
@@ -45,7 +48,6 @@ public class RequestResourceDtoTest {
     }
     @Test
     public void testEqualsAndHashCode() {
-        // Create two RequestResourceDto objects with the same property values
         RequestResourceDto request1 = new RequestResourceDto();
         RequestResourceDto request2 = new RequestResourceDto();
         request1.setComment("Comment");
@@ -58,7 +60,18 @@ public class RequestResourceDtoTest {
         request2.setEmployeeId(1L);
         request2.setProjectId(2L);
 
+        List<String> skills = new ArrayList<>();
+        skills.add("java");
+        skills.add("react");
+        UserInDto user = new UserInDto();
+        user.setName("Pranjal");
+        user.setSkills(skills);
+        user.setUserId("N7281");
+        user.setContactNo(9876543210L);
+
         assertTrue(request1.equals(request2));
+        assertEquals(request1, request1);
+        assertNotEquals(request1, user);
 
         assertEquals(request1.hashCode(), request2.hashCode());
 

@@ -56,7 +56,7 @@ public class Project {
      *
      * @return The project ID.
      */
-    public final Long getProjectId() {
+    public Long getProjectId() {
         return projectId;
     }
 
@@ -65,7 +65,7 @@ public class Project {
      *
      * @param projectIdParam The project ID to set.
      */
-    public final void setProjectId(final Long projectIdParam) {
+    public void setProjectId(final Long projectIdParam) {
         this.projectId = projectIdParam;
     }
 
@@ -74,7 +74,7 @@ public class Project {
      *
      * @return The project name.
      */
-    public final String getProjectName() {
+    public String getProjectName() {
         return projectName;
     }
 
@@ -83,7 +83,7 @@ public class Project {
      *
      * @param projectNameParam The project name to set.
      */
-    public final void setProjectName(final String projectNameParam) {
+    public void setProjectName(final String projectNameParam) {
         this.projectName = projectNameParam;
     }
 
@@ -92,7 +92,7 @@ public class Project {
      *
      * @return The manager's user ID.
      */
-    public final Long getManagerId() {
+    public Long getManagerId() {
         return managerId;
     }
 
@@ -101,7 +101,7 @@ public class Project {
      *
      * @param managerIdParam The manager's user ID to set.
      */
-    public final void setManagerId(final Long managerIdParam) {
+    public void setManagerId(final Long managerIdParam) {
         this.managerId = managerIdParam;
     }
 
@@ -110,7 +110,7 @@ public class Project {
      *
      * @return The description.
      */
-    public final String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -119,7 +119,7 @@ public class Project {
      *
      * @param descriptionParam The description to set.
      */
-    public final void setDescription(final String descriptionParam) {
+    public void setDescription(final String descriptionParam) {
         this.description = descriptionParam;
     }
 
@@ -128,7 +128,7 @@ public class Project {
      *
      * @return The start date.
      */
-    public final String getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
@@ -137,7 +137,7 @@ public class Project {
      *
      * @param startDateParam The start date to set.
      */
-    public final void setStartDate(final String startDateParam) {
+    public void setStartDate(final String startDateParam) {
         this.startDate = startDateParam;
     }
 
@@ -146,7 +146,7 @@ public class Project {
      *
      * @return The list of skills.
      */
-    public final List<String> getSkills() {
+    public List<String> getSkills() {
         return Collections.unmodifiableList(skills);
     }
 
@@ -155,7 +155,7 @@ public class Project {
      *
      * @param skillsParam The list of skills to set.
      */
-    public final void setSkills(final List<String> skillsParam) {
+    public void setSkills(final List<String> skillsParam) {
         if (skillsParam != null) {
             this.skills = new ArrayList<>(skillsParam);
         } else {

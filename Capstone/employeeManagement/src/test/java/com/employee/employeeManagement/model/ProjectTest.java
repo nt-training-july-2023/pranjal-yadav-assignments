@@ -1,5 +1,6 @@
 package com.employee.employeeManagement.model;
 
+import com.employee.employeeManagement.dto.UserInDto;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -100,6 +101,18 @@ public class ProjectTest {
         differentProject.setDescription("Different Description");
         differentProject.setStartDate("2023-02-01");
         differentProject.setSkills(Arrays.asList("Python", "Django"));
+
+        List<String> skills = new ArrayList<>();
+        skills.add("java");
+        skills.add("react");
+        UserInDto user = new UserInDto();
+        user.setName("Pranjal");
+        user.setSkills(skills);
+        user.setUserId("N7281");
+        user.setContactNo(9876543210L);
+
+        assertEquals(differentProject, differentProject);
+        assertNotEquals(differentProject, user);
 
         assertEquals(project1, project2);
         assertEquals(project1.hashCode(), project2.hashCode());

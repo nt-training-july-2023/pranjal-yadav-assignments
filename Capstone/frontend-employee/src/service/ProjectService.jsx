@@ -6,7 +6,6 @@ class ProjectService {
         return axios.post(PROJECT_BASE_URL + ADD_PROJECT, project)
     }
     getAllProjects(){
-        console.log(PROJECT_BASE_URL + ALL_PROJECTS);
         return axios.get(PROJECT_BASE_URL + ALL_PROJECTS)
     }
     getManagers(){

@@ -26,7 +26,7 @@ public class ManagerDto {
      *
      * @return The name.
      */
-    public final String getName() {
+    public String getName() {
         return name;
     }
 
@@ -35,7 +35,7 @@ public class ManagerDto {
      *
      * @param nameParam The name to set.
      */
-    public final void setName(final String nameParam) {
+    public void setName(final String nameParam) {
         this.name = nameParam;
     }
 
@@ -44,7 +44,7 @@ public class ManagerDto {
      *
      * @return The user ID.
      */
-    public final String getUserId() {
+    public String getUserId() {
         return userId;
     }
 
@@ -53,7 +53,7 @@ public class ManagerDto {
      *
      * @param userIdParam The user ID to set.
      */
-    public final void setUserId(final String userIdParam) {
+    public void setUserId(final String userIdParam) {
         this.userId = userIdParam;
     }
 
@@ -62,7 +62,7 @@ public class ManagerDto {
      *
      * @return The ID.
      */
-    public final Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -71,7 +71,7 @@ public class ManagerDto {
      *
      * @param idParam The ID to set.
      */
-    public final void setId(final Long idParam) {
+    public void setId(final Long idParam) {
         this.id = idParam;
     }
 

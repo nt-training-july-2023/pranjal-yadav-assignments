@@ -13,7 +13,7 @@ public class UserNameDto {
      *
      * @return The user's name.
      */
-    public final String getName() {
+    public String getName() {
         return name;
     }
     /**
@@ -21,7 +21,7 @@ public class UserNameDto {
      *
      * @param nameParam The user's name.
      */
-    public final void setName(final String nameParam) {
+    public void setName(final String nameParam) {
         this.name = nameParam;
     }
 }

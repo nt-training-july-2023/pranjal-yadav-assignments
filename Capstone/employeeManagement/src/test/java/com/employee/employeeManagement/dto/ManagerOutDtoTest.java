@@ -223,8 +223,19 @@ public class ManagerOutDtoTest {
         differentDto.setTeam(Collections.singletonList("Different Team Member"));
         differentDto.setSkills(skills);
 
+        List<String> skills = new ArrayList<>();
+        skills.add("java");
+        skills.add("react");
+        UserInDto user = new UserInDto();
+        user.setName("Pranjal");
+        user.setSkills(skills);
+        user.setUserId("N7281");
+        user.setContactNo(9876543210L);
+
         assertEquals(dto1, dto2);
         assertEquals(dto1.hashCode(), dto2.hashCode());
+        assertEquals(dto1, dto1);
+        assertNotEquals(dto1, user);
 
         assertNotEquals(dto1, differentDto);
         assertNotEquals(dto1.hashCode(), differentDto.hashCode());

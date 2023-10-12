@@ -3,7 +3,6 @@ package com.employee.employeeManagement.repository;
 import com.employee.employeeManagement.enums.Role;
 import com.employee.employeeManagement.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +10,6 @@ import java.util.Optional;
 /**
  * Repository interface for managing User entities.
  */
-@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     /**
      * Finds a user by their email address.

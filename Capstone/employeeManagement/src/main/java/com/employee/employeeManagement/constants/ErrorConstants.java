@@ -50,6 +50,55 @@ public final class ErrorConstants {
      * Constant for role not exist.
      */
     public static final String ROLE_NOT_EXISTS = "This role does not exists";
+    /**
+     * Constant for email regular expression.
+     */
+
+    public static final String EMAIL_REGEX = "Email should end with "
+            + "nucleusteq.com.";
+    /**
+     * Constant for user id regular expression.
+     */
+    public static final String USER_ID_REGEX = "User id must be of the "
+            + "format NXXXX";
+    /**
+     * Constant for contact number required.
+     */
+    public static final String CONTACT_REQUIRED = "Contact number is required.";
+    /**
+     * Constant for project name regular expression.
+     */
+    public static final String PROJECT_NAME_REGEX = "Project name is required.";
+    /**
+     * Constant for manager required.
+     */
+    public static final String MANAGER_REQUIRED = "Manager Id is required";
+    /**
+     * Constant for start date required.
+     */
+    public static final String START_DATE_REQUIRED = "Start date is required.";
+    /**
+     * Constant for description required.
+     */
+    public static final String DESCRIPTION_REQUIRED = "Project "
+            + "Description is "
+            + "required.";
+    /**
+     * Constant for skills required.
+     */
+    public static final String SKILLS_REQUIRED = "Skills are required.";
+    /**
+     * Constant for manager id required.
+     */
+    public static final String MANAGER_ID_REQUIRED = "Manager id is required";
+    /**
+     * Constant for employee id required.
+     */
+    public static final String EMPLOYEE_ID_REQUIRED = "Employee id is required";
+    /**
+     * Constant for project id required.
+     */
+    public static final String PROJECT_ID_REQUIRED = "Project id is required.";
     private ErrorConstants() {
 
     }

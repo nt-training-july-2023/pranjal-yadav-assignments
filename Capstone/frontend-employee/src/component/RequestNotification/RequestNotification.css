@@ -2,7 +2,7 @@
 .table-container {
     overflow-x: auto; 
     margin-left: 8rem;
-    width: 120%;
+    width: 100%;
     margin-top: 2rem;
     height: 100vh;
   }
@@ -69,7 +69,7 @@
   .btn-cancel:hover{
     background-color: darkred;
   }
-  @media (max-width: 700px) {
+  @media (max-width: 768px) {
     .table-container {
       width: 100%;
       margin-left: 2px;

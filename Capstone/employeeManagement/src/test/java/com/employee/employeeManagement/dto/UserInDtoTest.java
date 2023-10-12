@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class UserInDtoTest {
     private UserInDto userDto;
@@ -105,16 +106,25 @@ public class UserInDtoTest {
         user2.setName("John");
         user2.setEmail("john@example.com");
         user2.setUserId("johndoe");
-user2.setSkills(skills);
+        user2.setSkills(skills);
         UserInDto differentUser = new UserInDto();
         differentUser.setName("Alice");
         differentUser.setEmail("alice@example.com");
         differentUser.setUserId("alicedoe");
         differentUser.setSkills(skills);
-        // Set other fields as needed...
+
+        skills.add("java");
+        skills.add("react");
+        UserInDto user = new UserInDto();
+        user.setName("Pranjal");
+        user.setSkills(skills);
+        user.setUserId("N7281");
+        user.setContactNo(9876543210L);
 
         assertThat(user1).isEqualTo(user2);
         assertThat(user1.hashCode()).isEqualTo(user2.hashCode());
+        assertEquals(user1, user1);
+        assertNotEquals(user1, user);
 
         assertThat(user1).isNotEqualTo(differentUser);
         assertThat(user1.hashCode()).isNotEqualTo(differentUser.hashCode());

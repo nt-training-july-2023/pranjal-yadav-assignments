@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Base64 } from "js-base64";
 import PopUp from "../../component/PopUp/Popup";
 import Input from "../../component/Input/InputComponent";
+import { validateEmployeeEmail } from '../../component/HandleBlur/HandleBlur'
 
 const Login = () => {
   const [adminEmail, setEmail] = useState("");
@@ -16,7 +17,7 @@ const Login = () => {
   const [showPopUp, setShowPopUp] = useState(false);
 
   const handleEmailBlur = () => {
-    if (!adminEmail.endsWith("@nucleusteq.com") || adminEmail == "") {
+    if (!adminEmail.endsWith("@nucleusteq.com") || adminEmail === "") {
       setEmailError("Give valid email id");
       setEmail("");
       return
@@ -40,7 +41,6 @@ const Login = () => {
       const admin1 = { ...admin, email: adminEmail, password: hashedPassword };
       AdminService.loginAdmin(admin1)
         .then((response) => {
-          console.log(response.data);
           setPopUpMessage(response.data.message);
           setShowPopUp(true);
 
@@ -55,7 +55,6 @@ const Login = () => {
 
         })
         .catch((error) => {
-          console.log(error);
           setPopUpMessage(error.response.data.message);
           setShowPopUp(true);
         });
@@ -64,7 +63,7 @@ const Login = () => {
 
   return (
     <div className="signup-container">
-      <div className="custom-form">
+      <div className="custom-form login-form">
         {showPopUp && (
           <PopUp
             message={popMessage}
@@ -89,7 +88,7 @@ const Login = () => {
               setEmail(e.target.value);
               setEmailError("");
             }}
-            onBlur={handleEmailBlur}
+            onBlur={() => validateEmployeeEmail(adminEmail, setEmailError)}
             type="text"
             />
             
@@ -97,7 +96,6 @@ const Login = () => {
               <br />
               {emailError}</span>
           </div>
-
           <div className="form-group">
             <label>Password</label>
 

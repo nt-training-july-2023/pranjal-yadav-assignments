@@ -20,12 +20,9 @@ const AssignProject = () => {
   const getAllProjects = async () => {
     try {
       ProjectService.getAllProjects().then((response) => {
-        console.log(response.data);
         setProjects(response.data);
       });
     } catch (error) {
-      console.log("There is an error");
-      console.log(error);
     }
   };
   const update = async (e) => {
@@ -35,7 +32,6 @@ const AssignProject = () => {
         projectId,
         managerId
       ).then((response) => {
-        console.log(response.data);
         navigate("/adminDashboard");
       });
     } catch (error) {
@@ -78,10 +74,10 @@ const AssignProject = () => {
             );
           })}
         </select>
-        <CustomButton onClick={(e) => update(e)} text={"Assign Project"} style={"update"}/>
+        <CustomButton onClick={(e) => update(e)} text={"Assign Project"} style="update"/>
         <CustomButton
           onClick={() => navigate("/adminDashBoard")}
-          style={"close-popup"}
+          style="close-popup"
           text={"Cancel"}
         />
       </div>

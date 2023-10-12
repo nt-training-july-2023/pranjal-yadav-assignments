@@ -66,7 +66,18 @@ public class ProjectInDtoTest {
         project2.setManagerId(2l);
         project2.setSkills(skills);
 
+        List<String> skills = new ArrayList<>();
+        skills.add("java");
+        skills.add("react");
+        UserInDto user = new UserInDto();
+        user.setName("Pranjal");
+        user.setSkills(skills);
+        user.setUserId("N7281");
+        user.setContactNo(9876543210L);
+
         assertTrue(project1.equals(project2));
+        assertEquals(project1, project1);
+        assertNotEquals(project1, user);
 
         assertEquals(project1.hashCode(), project2.hashCode());
 

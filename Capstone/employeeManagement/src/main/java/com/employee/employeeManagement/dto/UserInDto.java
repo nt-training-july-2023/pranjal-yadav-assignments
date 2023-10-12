@@ -1,9 +1,9 @@
 package com.employee.employeeManagement.dto;
 
+import com.employee.employeeManagement.constants.ErrorConstants;
 import com.employee.employeeManagement.enums.Designation;
 import com.employee.employeeManagement.enums.Location;
 import com.employee.employeeManagement.enums.Role;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -29,15 +29,14 @@ public class UserInDto {
      */
     @Email
     @Pattern(regexp = ".*@nucleusteq\\.com$",
-            message = "Email should end with nucleusteq.com.")
+            message = ErrorConstants.EMAIL_REGEX)
     @NotBlank
     private String email;
     /**
      * The ID of the user.
      */
     @NotBlank
-    @Pattern(regexp = "^[Nn]\\d{4}$", message = "User id must be of the "
-            + "format NXXXX")
+    @Pattern(regexp = "^[Nn]\\d{4}$", message = ErrorConstants.USER_ID_REGEX)
     private String userId;
     /**
      * The date of birth of the user.
@@ -61,7 +60,7 @@ public class UserInDto {
     /**
      * The contact number of the user.
      */
-    @NotNull(message = "Contact number is required.")
+    @NotNull(message = ErrorConstants.CONTACT_REQUIRED)
     private Long contactNo;
     /**
      * The name of the project the user is associated with.
@@ -80,7 +79,6 @@ public class UserInDto {
     /**
      * The list of skills possessed by the user.
      */
-    @NotEmpty(message = "Project skills required must not be empty")
     private List<String> skills;
     /**
      * The name of the user's manager.
@@ -93,7 +91,7 @@ public class UserInDto {
      *
      * @return The name.
      */
-    public final String getName() {
+    public String getName() {
         return name;
     }
 
@@ -102,7 +100,7 @@ public class UserInDto {
      *
      * @param nameParam The name to set.
      */
-    public final void setName(final String nameParam) {
+    public void setName(final String nameParam) {
         this.name = nameParam;
     }
 
@@ -111,7 +109,7 @@ public class UserInDto {
      *
      * @return The email.
      */
-    public final String getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -120,7 +118,7 @@ public class UserInDto {
      *
      * @param emailParam The email to set.
      */
-    public final void setEmail(final String emailParam) {
+    public void setEmail(final String emailParam) {
         this.email = emailParam;
     }
 
@@ -129,7 +127,7 @@ public class UserInDto {
      *
      * @return The user ID.
      */
-    public final String getUserId() {
+    public String getUserId() {
         return userId;
     }
 
@@ -138,7 +136,7 @@ public class UserInDto {
      *
      * @param userIdParam The user ID to set.
      */
-    public final void setUserId(final String userIdParam) {
+    public void setUserId(final String userIdParam) {
         this.userId = userIdParam;
     }
 
@@ -147,7 +145,7 @@ public class UserInDto {
      *
      * @return The date of birth.
      */
-    public final String getDob() {
+    public String getDob() {
         return dob;
     }
 
@@ -156,7 +154,7 @@ public class UserInDto {
      *
      * @param dobParam The date of birth to set.
      */
-    public final void setDob(final String dobParam) {
+    public void setDob(final String dobParam) {
         this.dob = dobParam;
     }
 
@@ -165,7 +163,7 @@ public class UserInDto {
      *
      * @return The date of joining.
      */
-    public final String getDoj() {
+    public String getDoj() {
         return doj;
     }
 
@@ -174,7 +172,7 @@ public class UserInDto {
      *
      * @param dojParam The date of joining to set.
      */
-    public final void setDoj(final String dojParam) {
+    public void setDoj(final String dojParam) {
         this.doj = dojParam;
     }
 
@@ -183,7 +181,7 @@ public class UserInDto {
      *
      * @return The location.
      */
-    public final Location getLocation() {
+    public Location getLocation() {
         return location;
     }
 
@@ -192,7 +190,7 @@ public class UserInDto {
      *
      * @param locationParam The location to set.
      */
-    public final void setLocation(final Location locationParam) {
+    public void setLocation(final Location locationParam) {
         this.location = locationParam;
     }
 
@@ -201,7 +199,7 @@ public class UserInDto {
      *
      * @return The designation.
      */
-    public final Designation getDesignation() {
+    public Designation getDesignation() {
         return designation;
     }
 
@@ -210,7 +208,7 @@ public class UserInDto {
      *
      * @param designationParam The designation to set.
      */
-    public final void setDesignation(final Designation designationParam) {
+    public void setDesignation(final Designation designationParam) {
         this.designation = designationParam;
     }
 
@@ -219,7 +217,7 @@ public class UserInDto {
      *
      * @return The contact number.
      */
-    public final Long getContactNo() {
+    public Long getContactNo() {
         return contactNo;
     }
 
@@ -228,7 +226,7 @@ public class UserInDto {
      *
      * @param contactNoParam The contact number to set.
      */
-    public final void setContactNo(final Long contactNoParam) {
+    public void setContactNo(final Long contactNoParam) {
         this.contactNo = contactNoParam;
     }
 
@@ -237,7 +235,7 @@ public class UserInDto {
      *
      * @return The project ID.
      */
-    public final Long getProjectId() {
+    public Long getProjectId() {
         return projectId;
     }
 
@@ -246,7 +244,7 @@ public class UserInDto {
      *
      * @param projectIdParam The project ID to set.
      */
-    public final void setProjectId(final Long projectIdParam) {
+    public void setProjectId(final Long projectIdParam) {
         this.projectId = projectIdParam;
     }
 
@@ -255,7 +253,7 @@ public class UserInDto {
      *
      * @return The role.
      */
-    public final Role getRole() {
+    public Role getRole() {
         return role;
     }
 
@@ -264,7 +262,7 @@ public class UserInDto {
      *
      * @param roleParam The role to set.
      */
-    public final void setRole(final Role roleParam) {
+    public void setRole(final Role roleParam) {
         this.role = roleParam;
     }
 
@@ -273,7 +271,7 @@ public class UserInDto {
      *
      * @return The password.
      */
-    public final String getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -282,7 +280,7 @@ public class UserInDto {
      *
      * @param passwordParam The password to set.
      */
-    public final void setPassword(final String passwordParam) {
+    public void setPassword(final String passwordParam) {
         this.password = passwordParam;
     }
 
@@ -291,7 +289,7 @@ public class UserInDto {
      *
      * @return The list of skills.
      */
-    public final List<String> getSkills() {
+    public List<String> getSkills() {
         return  Collections.unmodifiableList(skills);
     }
 
@@ -300,7 +298,7 @@ public class UserInDto {
      *
      * @param skillsParam The list of skills to set.
      */
-    public final void setSkills(final List<String> skillsParam) {
+    public void setSkills(final List<String> skillsParam) {
         if (skillsParam != null) {
             this.skills = new ArrayList<>(skillsParam);
         } else {
@@ -313,7 +311,7 @@ public class UserInDto {
      *
      * @return The manager ID.
      */
-    public final Long getManagerId() {
+    public Long getManagerId() {
         return managerId;
     }
 
@@ -322,7 +320,7 @@ public class UserInDto {
      *
      * @param managerIdParam The manager ID to set.
      */
-    public final void setManagerId(final Long managerIdParam) {
+    public void setManagerId(final Long managerIdParam) {
         this.managerId = managerIdParam;
     }
 

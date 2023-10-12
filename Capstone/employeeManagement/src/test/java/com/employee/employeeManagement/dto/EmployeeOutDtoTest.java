@@ -112,10 +112,18 @@ public class EmployeeOutDtoTest {
         employee2.setSkills(skills);
         employee2.setUserId("N7281");
         employee2.setContactNo(9876543210L);
+        UserInDto user = new UserInDto();
+        user.setName("Pranjal");
+        user.setSkills(skills);
+        user.setUserId("N7281");
+        user.setContactNo(9876543210L);
 
 
-        assertTrue(employee1.equals(employee2));
-
+        assertEquals(employee1, employee2);
+        assertEquals(employee2, employee1);
+        assertNotEquals(employee1, user);
+        assertNotEquals(employee1, user);
+        assertEquals(employee1, employee1);
         assertEquals(employee1.hashCode(), employee2.hashCode());
 
         employee2.setUserId("N8888");

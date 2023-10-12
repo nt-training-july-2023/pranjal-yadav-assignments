@@ -17,7 +17,6 @@ const EmployeeCard = ({ employee }) => {
         setIsPopupOpen(false);
       });
     } catch (error) {
-      console.log("jhvhjsv" + error);
     }
   };
 
@@ -26,7 +25,7 @@ const EmployeeCard = ({ employee }) => {
       <div className="card" key={employee.id}>
         <div className="column column_2">
           <div className="name_designation">
-            <h2>{employee.name}</h2>
+            <h2 className="emp_name">{employee.name}</h2>
             <p>{employee.designation}</p>
           </div>
 
@@ -51,11 +50,11 @@ const EmployeeCard = ({ employee }) => {
         </div>
         <div className="column">
           <p className="emp-id" style={{ fontSize: "15px" }}>
-            <span className="highlight-span">Employee id : </span>
+            <span className="highlight-span ">Employee id : </span>
             {employee.userId}
           </p>
-          <br></br> 
-          <p>
+          <div className="lower_half">
+          <p className="manager_emp">
             <span className="highlight-span">DOB : </span>
             {employee.dob}
           </p>
@@ -67,7 +66,7 @@ const EmployeeCard = ({ employee }) => {
             <span className="highlight-span">Location : </span>
             {employee.location}
           </p>
-          {role == "MANAGER" && (
+          {role === "MANAGER" && (
             <p>
               <span className="highlight-span">Skills: </span>
               {employee.skills.join(", ")}
@@ -78,7 +77,7 @@ const EmployeeCard = ({ employee }) => {
             employee.projectId ? (
               <>
                 <CustomButton
-                  style={"assign-button"}
+                  style="assign-button"
                   onClick={() => setIsPopupOpen(true)}
                   text={"Unassign"}
                 />
@@ -89,7 +88,6 @@ const EmployeeCard = ({ employee }) => {
                     onClose={() => setIsPopupOpen(false)}
                     showAcceptButton={true}
                     onAccept={() => {
-                      console.log(employee.id);
 
                       accept(employee);
                     }}
@@ -113,20 +111,22 @@ const EmployeeCard = ({ employee }) => {
           {role === "MANAGER" && employee.projectName === "N/A" && (
             <p>
               {employee.isRequested ? (
-                <CustomButton text={"Requested"} style={"not_active_button"} />
+                <CustomButton text="Requested" style="not_active_button" />
               ) : (
                 <CustomButton
-                  text={"Request Resource"}
+                  text="Request Resource"
                   onClick={() => {
                     navigate("/requestResource", {
                       state: { empId: employee.id, empName: employee.name },
                     });
                   }}
-                  style={"MD-btn"}
+                  style="MD-btn"
                 />
               )}
             </p>
           )}
+          </div>
+          
         </div>
       </div>
     </>

@@ -11,6 +11,8 @@ const RequestNotification = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [showRequestStatusPopup, setShowRequestStatusPopup] = useState(false);
+  const [requestStatusMessage, setRequestStatusMessage] = useState('');
   const [requests, setRequests] = useState([]);
   useEffect(() => {
     getAllRequests();
@@ -19,48 +21,43 @@ const RequestNotification = () => {
   const getAllRequests = async () => {
     try {
       RequestResourceService.getAllRequests().then((response) => {
-        console.log(response.data);
         setRequests(response.data);
       });
     } catch (error) {
-      console.log(error);
     }
   };
-  const accept = async (request) => {
+  const accept = async (request,employeeName) => {
     try {
       const response = await axios.post(
         `http://localhost:8080/user/accept/${request.resourceId}`
+        
       );
-      console.log(response.data);
-      window.location.reload();
-      // navigate("/requests")
+      setRequestStatusMessage(`Request accepted for ${employeeName}`);
+      setShowRequestStatusPopup(true);
+      getAllRequests();
     } catch (error) {
-      console.log(error);
       setIsPopupOpen(true);
       setMessage(error.response.data.message);
     }
   };
-  const reject = (resourceId) => {
+  const reject = (resourceId,employeeName) => {
     try {
       axios.delete(`http://localhost:8080/user/request/delete/${resourceId}`);
-      window.location.reload();
-      // navigate("/requests")
+      setRequestStatusMessage(`Request rejected for ${employeeName}`);
+      setShowRequestStatusPopup(true);
+      getAllRequests();
     } catch (error) {
-      console.log("error deleteing request : " + error);
     }
   };
   return (
     <div className="table-container">
-      {isPopupOpen && (
-        <Popup message={message} onClose={() => setIsPopupOpen(false)} />
-      )}
-      {/* <button onClick={() => {navigate("/adminDashboard")}} style={{background:"red", marginBottom : "8px"}}>Cancel</button> */}
+    
       <CustomButton
         text={"Cancel"}
         onClick={() => {
           navigate("/adminDashboard");
         }}
-        style={"btn-cancel"}
+        style="btn-cancel"
       />
       <div className="rr_heading">REQUEST RESOURCE TABLE</div>
       {requests.length === 0 ? (
@@ -90,7 +87,8 @@ const RequestNotification = () => {
                 <td>
                   <button
                     onClick={() => {
-                      accept(request);
+                      accept(request, request.employeeName);  
+                                  
                     }}
                     className="accept-button"
                   >
@@ -99,7 +97,7 @@ const RequestNotification = () => {
                   <span>
                     <button
                       onClick={() => {
-                        reject(request.resourceId);
+                        reject(request.resourceId, request.employeeName);
                       }}
                       className="reject-button"
                     >
@@ -111,6 +109,16 @@ const RequestNotification = () => {
             ))}
           </tbody>
         </table>
+      )}
+      {showRequestStatusPopup && (
+        <Popup
+          message={requestStatusMessage}
+          onClose={() => {
+            setShowRequestStatusPopup(false);
+            setRequestStatusMessage('');
+            window.location.reload();
+          }}
+          />
       )}
     </div>
   );

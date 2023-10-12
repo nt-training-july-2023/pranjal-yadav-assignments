@@ -28,19 +28,18 @@ class AdminService{
         return axios.get(USER_BASE_URL + BY_ID + id)
     }
     assignProject(id, projectId, managerId) {
-        return axios.put(USER_BASE_URL + "/" +id  + ASSIGN, {
+        return axios.put(USER_BASE_URL   + ASSIGN+ "/" +id, {
             projectId: projectId,
             managerId: managerId
         })
     }
     updateSkills(id, skills){
-        return axios.put(USER_BASE_URL + "/" + id + UPDATE_SKILL, skills)
+        return axios.put(USER_BASE_URL  + UPDATE_SKILL+ "/" + id, skills)
     }
     filter (skills, check) {
         return axios.get(USER_BASE_URL + BY_SKILLS + "?skills="+ skills + "&isCheck=" + check)
     }
     unassign(id){
-        console.log(USER_BASE_URL + UNASSIGN + id);
         return axios.put(USER_BASE_URL + UNASSIGN + id)
     }
 

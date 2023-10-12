@@ -113,7 +113,7 @@ public class UserControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String inputJson = objectMapper.writeValueAsString(user);
         ResponseDto responseDto = new ResponseDto("User Added successfully");
-        doNothing().when(userValidation).checkUser(user);
+        doNothing().when(userValidation).checkAdminRegistration(user);
         when(userService.addUser(Mockito.any())).thenReturn(responseDto);
         MvcResult mvcResult =
                 this.mockMvc.perform(post("/user/save").contentType(MediaType.APPLICATION_JSON).content(inputJson)).andReturn();
@@ -144,7 +144,7 @@ public class UserControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String inputJSON = objectMapper.writeValueAsString(empDto);
         doThrow(ResourceAlreadyExistsException.class).when(userValidation)
-                .checkUser(empDto);
+                .checkAdminRegistration(empDto);
         MvcResult mvcResult = this.mockMvc.perform(post("/user/save")
                         .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
@@ -174,7 +174,7 @@ public class UserControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String inputJSON = objectMapper.writeValueAsString(empDto);
         doThrow(ResourceAlreadyExistsException.class).when(userValidation)
-                .checkUser(empDto);
+                .checkAdminRegistration(empDto);
         MvcResult mvcResult = this.mockMvc.perform(post("/user/save")
                         .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
@@ -207,7 +207,7 @@ public class UserControllerTest {
         when(userService.addUser(Mockito.any())).thenReturn(responseDto);
 
         MvcResult mvcResult =
-                this.mockMvc.perform(post("/user/save-emp").contentType(MediaType.APPLICATION_JSON).content(inputJson)).andReturn();
+                this.mockMvc.perform(post("/user/saveEmp").contentType(MediaType.APPLICATION_JSON).content(inputJson)).andReturn();
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
     }
@@ -234,7 +234,7 @@ public class UserControllerTest {
         String inputJSON = objectMapper.writeValueAsString(empDto);
         doThrow(ResourceAlreadyExistsException.class).when(userValidation)
                 .checkUser(empDto);
-        MvcResult mvcResult = this.mockMvc.perform(post("/user/save-emp")
+        MvcResult mvcResult = this.mockMvc.perform(post("/user/saveEmp")
                         .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
@@ -288,12 +288,10 @@ public class UserControllerTest {
         employeeOutDto.setSkills(skills);
         List<EmployeeOutDto> empOutList = new ArrayList<>();
         empOutList.add(employeeOutDto);
-        ObjectMapper objectMapper = new ObjectMapper();
-        String inputJSON = objectMapper.writeValueAsString(employeeOutDto);
         when(userService.getAllUsers()).thenReturn(empOutList);
 
         MvcResult mvcResult = this.mockMvc.perform(get("/user/allUsers")
-                        .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
@@ -302,22 +300,6 @@ public class UserControllerTest {
     void testGetEmployeeById() throws Exception{
         skills.add("React");
         skills.add("Java");
-//        EmployeeOutDto empDto = new EmployeeOutDto();
-//        empDto.setUserId("N0001");
-//        empDto.setName("Nachiketa Mohanty");
-//        empDto.setEmail("nachiketa@nucleusteq.com");
-//        empDto.setDob("2001-08-17");
-//        empDto.setDoj("2019-11-21");
-//        empDto.setLocation(Location.BANGALORE);
-//        empDto.setDesignation(Designation.RECRUITER);
-//        empDto.setContactNo(1234567890L);
-//        empDto.setRole(Role.EMPLOYEE);
-//        empDto.setProjectId(3L);
-//        empDto.setSkills(skills);
-//        empDto.setManagerId(1L);
-//        empDto.setManagerName("Ankita Sharma");
-//        empDto.setProjectName("Fynder");
-//        empDto.setId(1L);
         UserNameDto userNameDto = new UserNameDto();
         userNameDto.setName("Rashmi Shukla");
 
@@ -359,7 +341,7 @@ public class UserControllerTest {
         String inputJSON = objectMapper.writeValueAsString(map);
         when(userService.updateEmployee(1L,map)).thenReturn(resp);
 
-        MvcResult mvcResult = this.mockMvc.perform(put("/user/1/assignProject")
+        MvcResult mvcResult = this.mockMvc.perform(put("/user/assignProject/1")
                         .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
@@ -382,7 +364,7 @@ public class UserControllerTest {
         String inputJSON = objectMapper.writeValueAsString(empDto);
         when(userService.updateSkills(1L,skills)).thenReturn(resp);
 
-        MvcResult mvcResult = this.mockMvc.perform(put("/user/1/skill")
+        MvcResult mvcResult = this.mockMvc.perform(put("/user/skill/1")
                         .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();

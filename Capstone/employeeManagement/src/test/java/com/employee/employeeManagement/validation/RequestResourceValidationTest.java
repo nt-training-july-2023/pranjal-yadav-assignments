@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
@@ -70,28 +71,23 @@ public class RequestResourceValidationTest {
     }
     @Test
     public void testCheckRequest_ValidRequest() {
-        // Create a valid RequestResourceDto
         RequestResourceDto validRequestDto = new RequestResourceDto();
         validRequestDto.setEmployeeId(1L);
         validRequestDto.setManagerId(2L);
         validRequestDto.setProjectId(3L);
 
-        // Mock the userRepository and projectRepository to return values
         when(userRepository.findById(1L)).thenReturn(Optional.of(new User()));
         when(userRepository.findById(2L)).thenReturn(Optional.of(new User()));
         when(projectRepository.findByProjectId(3L)).thenReturn(Optional.of(new Project()));
 
-        // Call the method under test
         requestResourceValidation.checkRequest(validRequestDto);
 
-        // Verify that the findById and findByProjectId methods were called
         verify(userRepository, times(1)).findById(1L);
         verify(userRepository, times(1)).findById(2L);
         verify(projectRepository, times(1)).findByProjectId(3L);
     }
     @Test
     public void testCheckIsRequested_ValidEmployeeAndManager() {
-        // Mock the userRepository to return valid employee and manager users
         User validEmployee = new User();
         validEmployee.setId(1L);
         validEmployee.setRole(Role.EMPLOYEE);
@@ -103,11 +99,18 @@ public class RequestResourceValidationTest {
         when(userRepository.findById(1L)).thenReturn(Optional.of(validEmployee));
         when(userRepository.findById(2L)).thenReturn(Optional.of(validManager));
 
-        // Call the method under test
         requestResourceValidation.checkIsRequested(1L, 2L);
 
-        // Verify that the findById methods were called
         verify(userRepository, times(1)).findById(1L);
         verify(userRepository, times(1)).findById(2L);
+    }
+    @Test
+    public void testCheckDeleteResourceNotFound() {
+        Long resourceId = 1L;
+        Mockito.when(requestResourceRepository.findById(resourceId)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> {
+            requestResourceValidation.checkDelete(resourceId);
+        });
     }
 }

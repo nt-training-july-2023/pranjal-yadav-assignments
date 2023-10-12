@@ -110,7 +110,7 @@ public class UserService {
         User user = userDtoToUser(userDto);
         userRepository.save(user);
         return new ResponseDto(
-                SuccessConstants.USER_ADDED, user.getRole());
+                SuccessConstants.USER_ADDED);
     }
     /**
      * Retrieves a list of EmployeeOutDto
@@ -270,7 +270,7 @@ public class UserService {
     public final List<EmployeeOutDto> searchBySkills(
             final List<String> skills, final boolean isCheck) {
         List<User> allEmployees = userRepository.findByRole(Role.EMPLOYEE);
-        List<User> returnedList = new ArrayList<>();
+        List<User> returnedList;
         if (skills.isEmpty()) {
             List<User> unAssignedEmployees = allEmployees.stream()
                     .filter(employee -> employee.getProjectId() == null)
@@ -308,11 +308,13 @@ public class UserService {
      */
     public final ResponseDto unAssignProject(final Long id) {
         User user = userRepository.findById(id).get();
-        User admin = userRepository.findByUserId("N0001").get();
+        User admin =
+                userRepository.findByEmail(
+                        "ankita.sharma@nucleusteq.com").get();
         user.setManagerId(admin.getId());
         user.setProjectId(null);
         userRepository.save(user);
-        return new ResponseDto(SuccessConstants.PROJECT_ASSIGNED);
+        return new ResponseDto(SuccessConstants.PROJECT_UNASSIGNED);
     }
     /**
      * Converts a UserInDto object to a User object.

@@ -61,7 +61,6 @@ public class ProjectServiceTest {
     }
     @Test
     void testGetAllProjects() {
-        // Create sample data for testing
         Project project1 = new Project();
         project1.setProjectId(1L);
         project1.setProjectName("Project 1");

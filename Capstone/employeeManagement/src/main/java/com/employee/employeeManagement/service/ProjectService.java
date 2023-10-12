@@ -1,6 +1,5 @@
 package com.employee.employeeManagement.service;
 
-import com.employee.employeeManagement.constants.ErrorConstants;
 import com.employee.employeeManagement.constants.SuccessConstants;
 import com.employee.employeeManagement.model.Project;
 import com.employee.employeeManagement.dto.ProjectOutDto;
@@ -8,7 +7,6 @@ import com.employee.employeeManagement.enums.Role;
 import com.employee.employeeManagement.model.User;
 import com.employee.employeeManagement.dto.ManagerDto;
 import com.employee.employeeManagement.dto.ProjectInDto;
-import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
 import com.employee.employeeManagement.repository.ProjectRepository;
 import com.employee.employeeManagement.repository.UserRepository;
 import com.employee.employeeManagement.response.ProjectResponseDto;
@@ -110,7 +108,8 @@ public class ProjectService {
             }
             return listProjectOut;
         } else {
-            throw new ResourceAlreadyExistsException(ErrorConstants.PROJECT_NOT_EXIST);
+            List<ProjectOutDto> listProjectOut = new ArrayList<>();
+            return listProjectOut;
         }
     }
 

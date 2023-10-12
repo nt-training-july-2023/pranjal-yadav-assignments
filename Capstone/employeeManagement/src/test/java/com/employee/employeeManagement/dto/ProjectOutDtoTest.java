@@ -2,7 +2,9 @@ package com.employee.employeeManagement.dto;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -47,7 +49,7 @@ public class ProjectOutDtoTest {
         project1.setTeam(Arrays.asList("Alice", "Bob"));
 
         ProjectOutDto project2 = new ProjectOutDto();
-        project2.setProjectId(1L); // Same project ID as project1
+        project2.setProjectId(1L);
         project2.setProjectName("Sample Project");
         project2.setManagerId(2L);
         project2.setDescription("Sample Description");
@@ -66,8 +68,19 @@ public class ProjectOutDtoTest {
         differentProject.setManagerName("Jane Doe");
         differentProject.setTeam(Arrays.asList("Charlie", "David"));
 
+        List<String> skills = new ArrayList<>();
+        skills.add("java");
+        skills.add("react");
+        UserInDto user = new UserInDto();
+        user.setName("Pranjal");
+        user.setSkills(skills);
+        user.setUserId("N7281");
+        user.setContactNo(9876543210L);
+
         assertEquals(project1, project2);
         assertEquals(project1.hashCode(), project2.hashCode());
+        assertEquals(project1, project1);
+        assertNotEquals(project1, user);
 
         assertNotEquals(project1, differentProject);
         assertNotEquals(project1.hashCode(), differentProject.hashCode());

@@ -1,11 +1,7 @@
 
-//import './App.css';
-import Footer from './component/Footer/Footer';
-import Header from './component/Header/Header';
 import AdminRegistrationForm from './Pages/Registration/AdminRegistrationForm';
 import Login from './Pages/LoginPage/Login';
 import { Route,BrowserRouter,Routes } from 'react-router-dom';
-// import Dashboard from './component/Dashboard';
 import AdminDashBoard from './Pages/AdminDashboard/AdminDashBoard';
 import AddEmployee from './component/AddEmployee/AddEmployee';
 import DisplayEmployee from './Pages/AdminDashboard/Employee/DisplayEmployee';
@@ -27,13 +23,10 @@ import UnassignProject from './component/AssignProject/UnassignProject';
 function App() {
   return (
     <div className="App">
-    {/* // <div>  */}
-       {/* <Header/> */}
        <BrowserRouter>
       <Routes>
         <Route path='/' element={<Login/>}></Route>
         <Route path='/adminRegister' element={<AdminRegistrationForm/>}></Route>
-        {/* <Route path='/dashboard' element= {<Dashboard/>}></Route> */}
         <Route path='/MANAGER' element={<DisplayManager/>} />
         <Route path='/EMPLOYEE' element={<DisplayEmployee/>} />
         <Route path='/Organization' element={<EmpDisplayEmployee/>} />
@@ -52,7 +45,7 @@ function App() {
       </Routes>
       </BrowserRouter>
       
-      <Footer/>
+  
     </div>
   );
 }

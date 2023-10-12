@@ -59,7 +59,7 @@
   .button-cancel:hover {
     background-color: #882522;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .container_assign_project {
       margin-left: 1rem;
       width: 90%;

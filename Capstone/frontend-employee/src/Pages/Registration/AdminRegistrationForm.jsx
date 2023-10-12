@@ -1,16 +1,27 @@
 import React, { useState } from "react";
 import AdminService from "../../service/AdminService";
-import './AdminRegistrationForm.css'
-import { useNavigate } from "react-router-dom";
+import "./AdminRegistrationForm.css";
+import { useNavigate, Link } from "react-router-dom";
 import Lcn from "../../component/Data/location";
 import Desgn from "../../component/Data/designation";
-import axios from "axios";
 import PopUp from "../../component/PopUp/Popup";
 import CustomButton from "../../component/CustomButton";
 import InputComponent from "../../component/Input/InputComponent";
+import {
+  validateName,
+  validateEmail,
+  validateEmpId,
+  validateDob,
+  validateDoj,
+  validateLocation,
+  validateDesignation,
+  validateContactNumber,
+  validatePassword,
+  validateConfirmPassword,
+} from '../../component/HandleBlur/HandleBlur'
+
 
 var bcrypt = require("bcryptjs");
-//var salt = bcrypt.genSaltSync(10);
 
 const AdminRegistrationForm = () => {
   const [name, setName] = useState("");
@@ -24,7 +35,6 @@ const AdminRegistrationForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
 
-  //ERRORS
   const [errorMessage, setErrorMessage] = useState("");
   const [emailError, setEmailError] = useState("");
   const [empIdError, setEmpIdError] = useState("");
@@ -35,140 +45,45 @@ const AdminRegistrationForm = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [locationError, setLocationError] = useState("");
   const [designationError, setDesignationError] = useState("");
-  //const [emailError, setEmailError] = useState("");
   const [popMessage, setPopUpMessage] = useState("");
   const [showPopUp, setShowPopUp] = useState(false);
 
   const navigate = useNavigate();
 
-  //HANDLING ERRORS
-
-  async function apiCall(reqData) {
-    console.log(reqData);
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/user/save",
-        reqData
-      );
-      console.log(response);
-      if (response.data.status === 200) {
-        console.log(response);
-        // alert("admin registered")
-      } else {
-        setEmailError(response.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      console.log("catch");
-    }
-  }
-
-  const handleNameBlur = () => {
-    if (/^-?\\d/.test(name) || name === "") {
-      setErrorMessage("Give valid name");
-    }
-  };
-  const handleEmailBlur = () => {
-    if (
-      !email.endsWith("@nucleusteq.com") ||
-      email == "" ||
-      email !== "ankita.sharma@nucleusteq.com"
-    ) {
-      setEmailError("Give valid email id");
-      setEmail("");
-    }
-  };
-
-  const handleEmpIDBlur = () => {
-    if (!/^[N]\d{4}$/.test(userId)) {
-      setEmpIdError("Employee ID should be in pattern NXXX");
-    } else {
-      setEmpIdError("");
-    }
-  };
-
-  const handlePhoneNo = () => {
-    if (!/^\d{10}$/.test(contactNo)) {
-      setContactNumberError("Contact no should have 10 digits only");
-    } else {
-      setContactNumberError("");
-    }
-  };
-
-  const handleDobBlur = () => {
-    const today = new Date();
-    const dobDate = new Date(dob);
-    const minDate = new Date(
-      today.getFullYear() - 18,
-      today.getMonth(),
-      today.getDate()
-    );
-    if (isNaN(dobDate) || dobDate > minDate) {
-      setDobError("You must be at least 18 years old.");
-    } else {
-      setDobError("");
-    }
-  };
-
-  const handleDojblur = () => {
-    const today = new Date();
-    const dojDate = new Date(doj);
-    if (isNaN(dojDate) || dojDate > today) {
-      setDojError("Date of Joining cannot be in the future.");
-    } else {
-      setDojError("");
-    }
-  };
-  const handleLocationBlur = () => {
-    if (location === "") {
-      setLocationError("Give location");
-    }
-  };
-
-  const handleDesignationBlur = () => {
-    if (designation === "") {
-      setDesignationError("Give designation");
-    }
-  };
-  const handlePassword = () => {
-    if (password !== confirmPassword) {
-      setPasswordError("Password and confirm password do not match");
-      setConfirmPasswordError("Password and confirm password do not match");
-    } else {
-      setPasswordError("");
-      setConfirmPasswordError("");
-    }
-  };
-
   const saveAdmin = (e) => {
     e.preventDefault();
-    try {
-      if (
-        name === "" ||
-        dob === "" ||
-        doj === "" ||
-        contactNo === "" ||
-        Desgn === "" ||
-        email === "" ||
-        userId === "" ||
-        Lcn === "" ||
-        password === "" ||
-        confirmPassword === ""
-      ) {
-        setConfirmPasswordError("Mandatory field");
-        setContactNumberError("Mandatory field");
-        setEmailError("Mandatory field");
-        setErrorMessage("Mandatory field");
-        setEmpIdError("Mandatory field");
-        setPasswordError("Mandatory field");
-        setDesignationError("Mandatory field");
-        setDobError("Mandatory field");
-        setDojError("Mandatory field");
-        setLocationError("Mandatory field");
-        setPasswordError("Madatory field");
-        setConfirmPasswordError("Mandatory field");
-        return;
-      }
+    if (
+      !name ||
+      !email ||
+      !userId ||
+      !dob ||
+      !doj ||
+      !location ||
+      !designation ||
+      !contactNo ||
+      !password ||
+      !confirmPassword
+    ) {
+      validateName(name, setErrorMessage);
+      validateEmail(email, setEmailError);
+      validateEmpId(userId, setEmpIdError);
+      validateDob(dob, setDobError);
+      validateDoj(doj, setDojError);
+      validateLocation(location, setLocationError);
+      validateDesignation(designation, setDesignationError);
+      validateContactNumber(
+        contactNo,
+        setContactNumber,
+        setContactNumberError
+      );
+      validatePassword(password, setPasswordError);
+      validateConfirmPassword(
+        confirmPassword,
+        password,
+        setConfirmPasswordError
+      );
+      return;
+    }
 
       const hashedPassword = bcrypt.hashSync(password, 10);
 
@@ -180,13 +95,11 @@ const AdminRegistrationForm = () => {
         doj,
         location,
         designation,
-        //contactNo,
         hashedPassword,
       };
       const admin1 = { ...admin, password: hashedPassword };
       AdminService.createAdmin(admin1)
         .then((response) => {
-          // console.log(response.data);
           if (response.data.responseStatus === 200) {
             setPopUpMessage("Admin Registered");
             setShowPopUp(true);
@@ -194,14 +107,9 @@ const AdminRegistrationForm = () => {
           navigate("/");
         })
         .catch((error) => {
-          console.log(error);
-          //setEmailError(error.response.data.message);
-            setShowPopUp(true);
-            setPopUpMessage(error.response.data.message);
+          setShowPopUp(true);
+          setPopUpMessage(error.response.data.message);
         });
-    } catch (error) {
-      //console.log(error.response);
-    }
   };
 
   return (
@@ -215,13 +123,14 @@ const AdminRegistrationForm = () => {
             }}
           />
         )}
-        <h2 className="title">Sign Up</h2>
+        <p className="signup_heading">Sign Up</p>
         <form action="">
           <div className="form-section">
             <div className="column">
               <div className="form-group">
                 <label>Name</label>
-                {/* <input
+
+                <InputComponent
                   type="text"
                   required
                   className="input"
@@ -230,48 +139,29 @@ const AdminRegistrationForm = () => {
                     setName(e.target.value);
                     setErrorMessage("");
                   }}
-                  onBlur={handleNameBlur}
-                /> */}
-                <InputComponent
-                 type="text"
-                 required
-                 className="input"
-                 value={name}
-                 onChange={(e) => {
-                   setName(e.target.value);
-                   setErrorMessage("");
-                 }}
-                 onBlur={handleNameBlur}
+                  onBlur={() => validateName(name, setErrorMessage)}
                 />
                 <span>{errorMessage}</span>
               </div>
 
               <div className="form-group">
                 <label>Email Id</label>
-                {/* <input
+                <InputComponent
                   className="input"
                   onChange={(e) => {
                     setEmail(e.target.value);
                     setEmailError("");
                   }}
-                  onBlur={handleEmailBlur}
+                  onBlur={() => validateEmail(email, setEmailError)}
                   type="text"
-                /> */}
-              <InputComponent
-              className="input"
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setEmailError("");
-              }}
-              onBlur={handleEmailBlur}
-              type="text"
-              />
+                />
                 <span>{emailError}</span>
               </div>
 
               <div className="form-group">
                 <label>Employee id</label>
-                {/* <input
+
+                <InputComponent
                   type="text"
                   className="input"
                   value={userId}
@@ -279,72 +169,48 @@ const AdminRegistrationForm = () => {
                     setId(e.target.value);
                     setEmpIdError("");
                   }}
-                  onBlur={handleEmpIDBlur}
-                /> */}
-                <InputComponent
-                type="text"
-                className="input"
-                value={userId}
-                onChange={(e) => {
-                  setId(e.target.value);
-                  setEmpIdError("");
-                }}
-                onBlur={handleEmpIDBlur}
+                  onBlur={() => validateEmpId(userId, setEmpIdError)}
                 />
                 <span>{empIdError}</span>
               </div>
 
               <div className="form-group">
                 <label>DOB</label>
-                {/* <input
+
+                <InputComponent
                   type="date"
                   className="input"
                   value={dob}
                   onChange={(e) => setDob(e.target.value)}
-                  onBlur={handleDobBlur}
-                /> */}
-                <InputComponent
-                type="date"
-                className="input"
-                value={dob}
-                onChange={(e) => setDob(e.target.value)}
-                onBlur={handleDobBlur}
+                  onBlur={() => validateDob(dob, setDobError)}
                 />
                 <span>{dobError}</span>
               </div>
 
               <div className="form-group">
                 <label>DOJ</label>
-                {/* <input
+
+                <InputComponent
                   className="input"
                   type="date"
                   value={doj}
                   onChange={(e) => setDoj(e.target.value)}
-                  onBlur={handleDojblur}
-                /> */}
-                <InputComponent
-                className="input"
-                type="date"
-                value={doj}
-                onChange={(e) => setDoj(e.target.value)}
-                onBlur={handleDojblur}
+                  onBlur={() => validateDoj(doj, setDojError)}
                 />
                 <span>{dojError}</span>
               </div>
             </div>
-            {/* ///////////////////////////////////////////// */}
-            
+
             <div className="column">
               <div className="form-group">
                 <label>Location</label>
                 <select
-                  // value={location}
                   type="text"
                   placeholder="Enter Location"
                   name="location"
                   className="input"
                   onChange={(e) => setLocation(e.target.value)}
-                  onBlur={handleLocationBlur}
+                  onBlur={() => validateLocation(location, setLocationError)}
                 >
                   <option value="">Select Location</option>
                   {Lcn.map((item) => {
@@ -358,7 +224,6 @@ const AdminRegistrationForm = () => {
                 <span>{locationError}</span>
               </div>
 
-
               <div className="form-group">
                 <label>Designation</label>
                 <select
@@ -367,7 +232,9 @@ const AdminRegistrationForm = () => {
                   name="location"
                   className="input"
                   onChange={(e) => setDesignation(e.target.value)}
-                  onBlur={handleDesignationBlur}
+                  onBlur={() =>
+                    validateDesignation(designation, setDesignationError)
+                  }
                 >
                   <option value="">Select Designation</option>
                   {Desgn.map((item) => {
@@ -383,69 +250,66 @@ const AdminRegistrationForm = () => {
 
               <div className="form-group">
                 <label>Contact Number</label>
-                {/* <input
+
+                <InputComponent
                   className="input"
                   type="text"
                   value={contactNo}
                   onChange={(e) => {
                     setContactNumber(e.target.value);
                   }}
-                  onBlur={handlePhoneNo}
-                /> */}
-                <InputComponent 
-                className="input"
-                type="text"
-                value={contactNo}
-                onChange={(e) => {
-                  setContactNumber(e.target.value);
-                }}
-                onBlur={handlePhoneNo}
+                  onBlur={() =>
+                    validateContactNumber(
+                      contactNo,
+                      setContactNumber,
+                      setContactNumberError
+                    )
+                  }
                 />
                 <span>{contactNumberError}</span>
               </div>
 
               <div className="form-group">
                 <label>Password</label>
-                {/* <input
+
+                <InputComponent
                   className="input"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                /> */}
-                <InputComponent
-                className="input"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                  onBlur={() => validatePassword(password, setPasswordError)}
                 />
                 <span>{passwordError}</span>
               </div>
 
               <div className="form-group">
                 <label>Confirm Password</label>
-                {/* <input
+                <InputComponent
                   className="input"
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => {
                     setconfirmPassword(e.target.value);
                   }}
-                  onBlur={handlePassword}
-                /> */}
-                <InputComponent
-                className="input"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => {
-                  setconfirmPassword(e.target.value);
-                }}
-                onBlur={handlePassword}
+                  onBlur={() =>
+                    validateConfirmPassword(
+                      confirmPassword,
+                      password,
+                      setConfirmPasswordError
+                    )
+                  }
                 />
                 <span>{confirmPasswordError}</span>
               </div>
             </div>
           </div>
-          <CustomButton text={"Sign Up"}  onClick={(e) => saveAdmin(e)} style={"submit-button"}/>
+          <br />
+          <CustomButton
+            text="Sign Up"
+            onClick={(e) => saveAdmin(e)}
+            style="submit-button register_btn"
+          />
+          <Link to="/">Cancel</Link>
         </form>
       </div>
     </div>

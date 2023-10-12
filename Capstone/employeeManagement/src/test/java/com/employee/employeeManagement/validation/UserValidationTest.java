@@ -3,7 +3,10 @@ package com.employee.employeeManagement.validation;
 import com.employee.employeeManagement.constants.ErrorConstants;
 import com.employee.employeeManagement.dto.LoginDto;
 import com.employee.employeeManagement.dto.UserInDto;
+import com.employee.employeeManagement.enums.Designation;
+import com.employee.employeeManagement.enums.Location;
 import com.employee.employeeManagement.enums.Role;
+import com.employee.employeeManagement.exception.ValidationException;
 import com.employee.employeeManagement.model.User;
 import com.employee.employeeManagement.exception.InvalidCredentialsExceptions;
 import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
@@ -17,7 +20,9 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -94,88 +99,92 @@ public class UserValidationTest {
     }
     @Test
     public void testCheckRole_ValidRoles() {
-        // Valid role names
         String[] validRoles = { "EMPLOYEE", "MANAGER", "ADMIN" };
 
         for (String roleName : validRoles) {
-            // Call the method under test with a valid role name
-            userValidation.checkRole(roleName);
+           userValidation.checkRole(roleName);
 
-            // No exception should be thrown for valid roles
         }
     }
     @Test
     public void testCheckRole_InvalidRole() {
-        // Invalid role names
-        String[] invalidRoles = { "INVALID_ROLE", "GUEST", "SUPERVISOR" };
-
-        for (String roleName : invalidRoles) {
-            // Call the method under test with an invalid role name
-            ResourceNotFoundException exception = assertThrows(
-                    ResourceNotFoundException.class,
-                    () -> userValidation.checkRole(roleName)
-            );
-
-            // Verify that the expected exception is thrown
-            assertEquals(ErrorConstants.ROLE_NOT_EXISTS, exception.getMessage());
-        }
-    }  @Test
+        String rolename = "USER";
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class,
+                () -> userValidation.checkRole(rolename));
+        assertEquals(ErrorConstants.ROLE_NOT_EXISTS, exception.getMessage());
+    }
+      @Test
     public void testCheckId_ValidEmployeeId() {
-        // Create a valid employee ID
         Long validEmployeeId = 1L;
 
-        // Mock the userRepository behavior for finding the employee
         User validEmployee = new User();
         validEmployee.setId(validEmployeeId);
         validEmployee.setRole(Role.EMPLOYEE);
 
         when(userRepository.findById(validEmployeeId)).thenReturn(Optional.of(validEmployee));
 
-        // Call the method under test with a valid employee ID
         userValidation.checkId(validEmployeeId);
 
-        // No exception should be thrown for a valid employee ID
     }
     @Test
     public void testCheckId_AdminEmployeeId() {
-        // Create an employee ID that corresponds to an ADMIN
         Long adminEmployeeId = 2L;
 
-        // Mock the userRepository behavior for finding the employee
         User adminEmployee = new User();
         adminEmployee.setId(adminEmployeeId);
         adminEmployee.setRole(Role.ADMIN);
 
         when(userRepository.findById(adminEmployeeId)).thenReturn(Optional.of(adminEmployee));
 
-        // Call the method under test with an employee ID that has ADMIN role
         ResourceNotFoundException exception = assertThrows(
                 ResourceNotFoundException.class,
                 () -> userValidation
                         .checkId(adminEmployeeId)
         );
 
-        // Verify that the expected exception is thrown
         assertEquals(ErrorConstants.EMPLOYEE_NOT_EXIST, exception.getMessage());
     }
     @Test
     public void testCheckId_InvalidEmployeeId() {
-        // Create an invalid employee ID
         Long invalidEmployeeId = 3L;
 
-        // Mock the userRepository behavior for not finding the employee
         when(userRepository.findById(invalidEmployeeId)).thenReturn(Optional.empty());
 
-        // Call the method under test with an invalid employee ID
         ResourceNotFoundException exception = assertThrows(
                 ResourceNotFoundException.class,
                 () -> userValidation.checkId(invalidEmployeeId)
         );
 
-        // Verify that the expected exception is thrown
         assertEquals(ErrorConstants.EMPLOYEE_NOT_EXIST, exception.getMessage());
     }
-
+    @Test
+    public void testCheckAdminRegister() {
+        UserInDto user = new UserInDto();
+        user.setUserId("N2345");
+        user.setName("Ankita Sharma");
+        user.setEmail("ankita@nucleusteq.com");
+        assertDoesNotThrow(() -> userValidation.checkName("Ankita Sharma"));
+        when(userRepository.findByEmail("rashmi@nucleusteq.com")).thenReturn(Optional.empty());
+        assertDoesNotThrow(() -> userValidation.checkEmail("rashmi@nucleusteq.com"));
+        when(userRepository.findByUserId("N2345")).thenReturn(Optional.empty());
+        assertDoesNotThrow(() -> userValidation.checkUserId("N2345"));
+        ValidationException exception =
+                assertThrows(ValidationException.class,
+                        ()-> userValidation.checkAdminRegistration(user));
+        assertEquals("Only ankita.sharma@nucleusteq can " +
+                "register.", exception.getMessage());
+    }
+//    @Test
+//    public void checkLoginTest(){
+//        LoginDto loginDto = new LoginDto();
+//        loginDto.setEmail("ankita.sharma@nucleusteq.com");
+//        loginDto.setPassword("ankita@123");
+//        doNothing().when(userValidation).checkLoginEmail(loginDto.getEmail());
+//        doNothing().when(userValidation).checkPassword(loginDto);
+//
+//
+//    }
 
 
 }

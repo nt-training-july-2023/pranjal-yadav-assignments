@@ -1,7 +1,9 @@
 package com.employee.employeeManagement.dto;
 
 
+import com.employee.employeeManagement.constants.ErrorConstants;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
@@ -21,16 +23,19 @@ public class RequestResourceDto {
     /**
      * The ID of the manager responsible for the request.
      */
+    @NotNull(message = ErrorConstants.MANAGER_ID_REQUIRED)
     private Long managerId;
 
     /**
      * The ID of the employee associated with the request.
      */
+    @NotNull(message = ErrorConstants.EMPLOYEE_ID_REQUIRED)
     private Long employeeId;
 
     /**
      * The ID of the project related to the request.
      */
+    @NotNull(message = ErrorConstants.PROJECT_ID_REQUIRED)
     private Long projectId;
 
     /**

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ProjectApiTest {
+public class ProjectResponseDtoTest {
     @Test
     public void testGetMessage() {
         ProjectResponseDto response = new ProjectResponseDto("Test Message");

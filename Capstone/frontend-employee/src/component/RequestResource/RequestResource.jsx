@@ -1,78 +1,72 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
-import '../RequestResource/RequestResource.css'
-import ProjectService from '../../service/ProjectService';
-import RequestResourceService from '../../service/RequestResourceService';
-import CustomButton from '../CustomButton';
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import "../RequestResource/RequestResource.css";
+import ProjectService from "../../service/ProjectService";
+import RequestResourceService from "../../service/RequestResourceService";
+import CustomButton from "../CustomButton";
+import { validateDescription, validateSelectProject } from "../HandleBlur/HandleBlur";
 
 const RequestResource = () => {
-  // const { id } = useParams();
   const navigate = useNavigate();
-    const [projectList,setProjectList] = useState([]);
-    const [employeeDetails,setEmployeesDetails] = useState([]);
-    const [comment,setComment] = useState();
-    const [managerID,setManagerID] = useState();
-    const [commentError, setCommentError] = useState("")
-    const [projectError, setProjectError] = useState("")
-    const [projectID,setProjectID] =useState();
-    const managerId = localStorage.getItem("id")
-    const location = useLocation();
+  const [projectList, setProjectList] = useState([]);
+  const [comment, setComment] = useState();
+  const [managerID, setManagerID] = useState();
+  const [commentError, setCommentError] = useState("");
+  const [projectError, setProjectError] = useState("");
+  const [projectID, setProjectID] = useState();
+  const managerId = localStorage.getItem("id");
+  const location = useLocation();
   const state = location.state;
-    useEffect(() => {
-       getAllProjects();
-    },[]);
-    const cancel= ()=>{
-      navigate("/managerDashboard")
+  useEffect(() => {
+    getAllProjects();
+  }, []);
+  const cancel = () => {
+    navigate("/managerDashboard");
+  };
+  const getAllProjects = async () => {
+    try {
+      ProjectService.getProjectByManagerId(managerId).then((response) => {
+        setProjectList(response.data);
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-    const getAllProjects = async () => {
-        try {
-          ProjectService.getProjectByManagerId(managerId).then((response) =>{
-            console.log(response.data);
-          setProjectList(response.data); 
-          })
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      };
-      const handleUpdate = async(e) => {
-        if(projectID === "" || comment == ""){
-          setCommentError("Comment is required")
-          setProjectError("Project is required")
-          return;
-        }
-        e.preventDefault();
-        const request = {
-            employeeId:state.empId,
-            projectId:projectID,
-            managerId:managerID,
-            comment
-        }
-        try{
-          RequestResourceService.addRequest(request).then((response) =>{
-            navigate("/managerDashBoard")
-          })
-        }
-        catch (error) {
-            console.error('Error updating employee:', error);
-          }
-        };
-        const handleSelectChange = (e) => {
-          const selectedOption = e.target.options[e.target.selectedIndex];
-          const selectedProjectID = e.target.value;
-          const selectedManagerID = selectedOption.getAttribute('data-managerid');
-          console.log(typeof(selectedManagerID));
-          setProjectID(selectedProjectID);
-          setManagerID(selectedManagerID);
-          console.log(typeof(selectedManagerID,"from handleSelectChange"));
-        };
-        const handleCommentBlur=()=>{
-          if(comment === ""){
-            setCommentError("Comment is required")
-            console.log(commentError);
+  };
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    if (projectID === ""|| isNaN(projectID) || managerID == "" || !comment || comment === "") {
+      setCommentError("Comment is required");
+      setProjectError("Project is required");
+      return;
 
-          }
-        }
+    } else {
+      const request = {
+        employeeId: state.empId,
+        projectId: projectID,
+        managerId: managerID,
+        comment,
+      };
+      try {
+        RequestResourceService.addRequest(request).then((response) => {
+          navigate("/managerDashBoard");
+        });
+      } catch (error) {
+        console.error("Error updating employee:", error);
+      }
+    }
+  };
+  const handleSelectChange = (e) => {
+    const selectedOption = e.target.options[e.target.selectedIndex];
+    const selectedProjectID = e.target.value;
+    const selectedManagerID = selectedOption.getAttribute("data-managerid");
+    setProjectID(selectedProjectID);
+    setManagerID(selectedManagerID);
+  };
+  const handleCommentBlur = () => {
+    if (comment === "" || !comment) {
+      setCommentError("Comment is required");
+    }
+  };
 
   return (
     <div>
@@ -100,7 +94,7 @@ const RequestResource = () => {
             ))}
             <br></br>
           </select>
-          <p className='comment_error'>{projectError}</p>
+          <p className="comment_error">{projectError}</p>
           <div className="project-input" style={{ marginTop: "1rem" }}>
             <label>Comment</label>
             <textarea
@@ -116,11 +110,21 @@ const RequestResource = () => {
               }}
               onBlur={handleCommentBlur}
             ></textarea>
-            
+            <p style={{ color: "red" }} className="comment_error">
+              {commentError}
+            </p>
           </div>
-          <p className='comment_error'>{commentError}</p>
-          <CustomButton style={"assign-btn"} text={"Request Resource"} onClick={handleUpdate}/>
-          <CustomButton style={"cancel-assign"} text={"Cancel"} onClick={cancel}/>          
+
+          <CustomButton
+            style="assign-btn"
+            text={"Request Resource"}
+            onClick={handleUpdate}
+          />
+          <CustomButton
+            style="cancel-assign"
+            text={"Cancel"}
+            onClick={cancel}
+          />
         </div>
       </div>
     </div>

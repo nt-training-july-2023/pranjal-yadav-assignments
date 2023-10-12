@@ -25,7 +25,7 @@ public class LoginDto {
      *
      * @return The user's email address.
      */
-    public final String getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -34,7 +34,7 @@ public class LoginDto {
      *
      * @param emailParam The user's email address.
      */
-    public final void setEmail(final String emailParam) {
+    public void setEmail(final String emailParam) {
         this.email = emailParam;
     }
 
@@ -43,7 +43,7 @@ public class LoginDto {
      *
      * @return The user's password.
      */
-    public final String getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -52,10 +52,9 @@ public class LoginDto {
      *
      * @param passwordParam The user's password.
      */
-    public final void setPassword(final String passwordParam) {
+    public void setPassword(final String passwordParam) {
         this.password = passwordParam;
     }
-
     /**
      * toString method for loginDto.
      * @return String
@@ -93,4 +92,5 @@ public class LoginDto {
     public int hashCode() {
         return Objects.hash(getEmail(), getPassword());
     }
+
 }

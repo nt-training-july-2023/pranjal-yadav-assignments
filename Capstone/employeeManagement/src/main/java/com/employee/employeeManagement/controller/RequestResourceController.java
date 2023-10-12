@@ -79,6 +79,7 @@ public class RequestResourceController {
     public final ResponseDto deleteRequest(
             @PathVariable final Long resourceId) {
         LOGGER.info("Deleting request.");
+        requestResourceValidation.checkDelete(resourceId);
         ResponseDto responseDto =
                 requestResourceService.deleteRequest(resourceId);
         LOGGER.info("Resource id: " + resourceId);

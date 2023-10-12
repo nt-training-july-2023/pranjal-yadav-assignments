@@ -2,6 +2,9 @@ package com.employee.employeeManagement.dto;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RequestResourceOutDtoTest {
@@ -56,7 +59,18 @@ public class RequestResourceOutDtoTest {
         dto2.setManagerUserId("N6272");
         assertTrue(dto1.equals(dto2));
 
+        List<String> skills = new ArrayList<>();
+        skills.add("java");
+        skills.add("react");
+        UserInDto user = new UserInDto();
+        user.setName("Pranjal");
+        user.setSkills(skills);
+        user.setUserId("N7281");
+        user.setContactNo(9876543210L);
+
         assertEquals(dto1.hashCode(), dto2.hashCode());
+        assertEquals(dto1, dto1);
+        assertNotEquals(dto1, user);
 
         dto2.setComment("Modified comment");
 

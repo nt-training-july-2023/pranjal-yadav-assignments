@@ -3,6 +3,9 @@ package com.employee.employeeManagement.dto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ManagerDtoTest {
@@ -45,16 +48,23 @@ public class ManagerDtoTest {
         manager2.setId(9L);
         manager2.setUserId("N7171");
 
-        // Test equals() method
-        assertTrue(manager1.equals(manager2));
+        List<String> skills = new ArrayList<>();
+        skills.add("java");
+        skills.add("react");
+        UserInDto user = new UserInDto();
+        user.setName("Pranjal");
+        user.setSkills(skills);
+        user.setUserId("N7281");
+        user.setContactNo(9876543210L);
 
-        // Test hashCode() method
+        assertTrue(manager1.equals(manager2));
+        assertEquals(manager1, manager1);
+        assertNotEquals(manager1, user);
+
         assertEquals(manager1.hashCode(), manager2.hashCode());
 
-        // Modify one property in manager2
         manager2.setUserId("N8888");
 
-        // Test equals() method after modifying a property
         assertFalse(manager1.equals(manager2));
     }
 }

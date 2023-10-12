@@ -3,7 +3,6 @@ import { useState } from "react";
 import Lcn from "../Data/location";
 import Desgn from "../Data/designation";
 import { useNavigate, Link } from "react-router-dom";
-// import AddEmployeeService from "../../service/AddEmployeeService";
 import AdminService from '../../service/AdminService'
 import '../../Pages/Registration/AdminRegistrationForm.css'
 import PopUp from "../PopUp/Popup";
@@ -12,6 +11,19 @@ import Skills from "../Data/skills";
 import MultiSelectDropDown from "../MultiSelectDropdown/MultiSelectDropDown";
 import CustomButton from "../CustomButton";
 import InputComponent from "../Input/InputComponent";
+import {
+  validateName,
+  validateEmployeeEmail,
+  validateEmpId,
+  validateDob,
+  validateLocation,
+  validateDesignation,
+  validateDoj,
+  validateContactNumber,
+  validateRole,
+  validateSkills
+} from '../HandleBlur/HandleBlur';
+
 
 const AddEmployee = () => {
   var bcrypt = require("bcryptjs");
@@ -23,13 +35,9 @@ const AddEmployee = () => {
   const [location, setLocation] = useState("");
   const [designation, setDesignation] = useState("");
   const [contactNo, setContactNumber] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setconfirmPassword] = useState("");
   const [skills, setSkills] = useState([]);
   const [role, setRole] = useState("");
   const navigate = useNavigate();
-  // const [skills, setSelectedSkills] = useState({});
-  //ERRORS
   const [errorMessage, setErrorMessage] = useState("");
   const [emailError, setEmailError] = useState("");
   const [empIdError, setEmpIdError] = useState("");
@@ -40,15 +48,13 @@ const AddEmployee = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [locationError, setLocationError] = useState("");
   const [designationError, setDesignationError] = useState("");
-  //const [emailError, setEmailError] = useState("");
   const [skillserror, setSkillsError] = useState("");
   const [roleError, setRoleError] = useState("");
   const [popMessage, setPopUpMessage] = useState("");
   const [showPopUp, setShowPopUp] = useState(false);
   const [selectedSkills] = useState([]);
-  //HANDLE BLURS
 
-  const selectedSkillsValue = {};
+  // const selectedSkillsValue = {};
   const handleNameBlur = () => {
     if (/^-?\\d/.test(name) || name === "") {
       setErrorMessage("Give valid name");
@@ -118,47 +124,32 @@ const AddEmployee = () => {
     setSkills(selectedSkillsValues);
   };
 
-
-  function reverseDateFormat(inputDate) {
-    const dateParts = inputDate.split("-");
-    if (dateParts.length === 3) {
-      const reversedDate =
-        dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
-      return reversedDate;
-    } else {
-      return "Invalid Date Format";
-    }
-  }
-
-  const reversedDate = reverseDateFormat(dob);
-  const reversedoj = reverseDateFormat(doj);
   const saveEmp = (e) => {
     e.preventDefault();
+
     if (
-      name === "" ||
-      email === "" ||
-      contactNo === "" ||
-      Desgn === "" ||
-      Lcn === "" ||
-      dob === "" ||
-      doj === "" ||
-      role === "" ||
-      userId === ""
+      !name ||
+      !email ||
+      !userId ||
+      !dob ||
+      !doj ||
+      !location ||
+      !designation ||
+      !contactNo ||
+      !role ||
+      skills.length === 0 
+
     ) {
-      setConfirmPasswordError("Mandatory field");
-      setContactNumberError("Mandatory field");
-      setEmailError("Mandatory field");
-      setErrorMessage("Mandatory field");
-      setEmpIdError("Mandatory field");
-      setPasswordError("Mandatory field");
-      setDesignationError("Mandatory field");
-      setDobError("Mandatory field");
-      setDojError("Mandatory field");
-      setLocationError("Mandatory field");
-      setPasswordError("Madatory field");
-      setConfirmPasswordError("Mandatory field");
-      setRoleError("Mandatory field");
-      setSkillsError("Mandatory field");
+      validateName(name, setErrorMessage);
+      validateEmployeeEmail(email, setEmailError)
+      validateEmpId(userId, setEmpIdError)
+      validateDob(dob, setDobError)
+      validateDoj(doj, setDojError)
+      validateLocation(location, setLocationError)
+      validateDesignation(designation, setDesignationError)
+      validateContactNumber(contactNo, setContactNumber, setContactNumberError)
+      validateRole(role, setRoleError)
+      validateSkills(skills, setSkillsError)
       return;
     }
 
@@ -168,8 +159,6 @@ const AddEmployee = () => {
     const date = dob.split("-").reverse().join("-");
     const dojDate = doj.split("-").reverse().join("-")
     setDob(date);
-    console.log(dob);
-    console.log(date);
     const employee = {
       name,
       email,
@@ -183,7 +172,6 @@ const AddEmployee = () => {
       skills,
       password,
     };
-    console.log(employee);
     AdminService.addUser(employee)
       .then((response) => {
         setPopUpMessage("Added Successfully");
@@ -194,7 +182,6 @@ const AddEmployee = () => {
         setTimeout(navigateToDashboard, 2000);
       })
       .catch((error) => {
-        console.log(error);
         if (error.response.status === 409) {
           setShowPopUp(true);
           setPopUpMessage(error.response.data.message);
@@ -208,7 +195,7 @@ const AddEmployee = () => {
 
   return (
     <div className="signup-container">
-      <div className="custom-form">
+      <div className="custom-form addEmp_form">
         {showPopUp && (
           <PopUp
             message={popMessage}
@@ -217,23 +204,12 @@ const AddEmployee = () => {
             }}
           />
         )}
-        <h2 className="title">Add Employee</h2>
+        <p className="signup_heading">Add Employee</p>
         <form action="">
           <div className="form-section">
             <div className="column">
               <div className="form-group">
                 <label>Name</label>
-                {/* <input
-                  type="text"
-                  required
-                  className="input"
-                  value={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    setErrorMessage("");
-                  }}
-                  onBlur={handleNameBlur}
-                /> */}
                 <InputComponent
                 type="text"
                 required
@@ -243,46 +219,25 @@ const AddEmployee = () => {
                   setName(e.target.value);
                   setErrorMessage("");
                 }}
-                onBlur={handleNameBlur}
-                />
+                onBlur={() => validateName(name, setErrorMessage)}                />
                 <span>{errorMessage}</span>
               </div>
 
               <div className="form-group">
                 <label>Email Id</label>
-                {/* <input
-                  className="input"
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    setEmailError("");
-                  }}
-                  onBlur={handleEmailBlur}
-                  type="text"
-                /> */}
                 <InputComponent
                 className="input"
                 onChange={(e) => {
                   setEmail(e.target.value);
                   setEmailError("");
                 }}
-                onBlur={handleEmailBlur}
-                type="text"
+                onBlur={() => validateEmployeeEmail(email, setEmailError)}                type="text"
                 />
                 <span>{emailError}</span>
               </div>
 
               <div className="form-group">
                 <label>Employee id</label>
-                {/* <input
-                  type="text"
-                  className="input"
-                  value={userId}
-                  onChange={(e) => {
-                    setId(e.target.value);
-                    setEmpIdError("");
-                  }}
-                  onBlur={handleEmpIDBlur}
-                /> */}
                 <InputComponent
                 type="text"
                 className="input"
@@ -291,46 +246,30 @@ const AddEmployee = () => {
                   setId(e.target.value);
                   setEmpIdError("");
                 }}
-                onBlur={handleEmpIDBlur}
-                />
+                onBlur={() => validateEmpId(userId, setEmpIdError)}                />
                 <span>{empIdError}</span>
               </div>
 
               <div className="form-group">
                 <label>DOB</label>
-                {/* <input
-                  type="date"
-                  className="input"
-                  value={dob}
-                  onChange={(e) => setDob(e.target.value)}
-                  onBlur={handleDobBlur}
-                /> */}
                 <InputComponent
                 type="date"
                 className="input"
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
-                onBlur={handleDobBlur}
+                onBlur={() => validateDob(dob, setDobError)}
                 />
                 <span>{dobError}</span>
               </div>
 
               <div className="form-group">
                 <label>DOJ</label>
-                {/* <input
-                  className="input"
-                  type="date"
-                  value={doj}
-                  onChange={(e) => setDoj(e.target.value)}
-                  onBlur={handleDojblur}
-                /> */}
                 <InputComponent
                 className="input"
                 type="date"
                 value={doj}
                 onChange={(e) => setDoj(e.target.value)}
-                onBlur={handleDojblur}
-                />
+                onBlur={() => validateDoj(doj, setDojError)}                />
                 <span>{dojError}</span>
               </div>
             </div>
@@ -338,14 +277,12 @@ const AddEmployee = () => {
               <div className="form-group">
                 <label>Location</label>
                 <select
-                  // value={location}
                   type="text"
                   placeholder="Enter Location"
                   name="location"
                   className="input"
                   onChange={(e) => setLocation(e.target.value)}
-                  onBlur={handleLocationBlur}
-                >
+                  onBlur={() => validateLocation(location, setLocationError)}                >
                   <option value="">Select Location</option>
                   {Lcn.map((item) => {
                     return (
@@ -358,17 +295,6 @@ const AddEmployee = () => {
                 <span>{locationError}</span>
               </div>
 
-              {/* <div className="form-group">
-                <label>Designation</label>
-                <input
-                  className="input"
-                  type="text"
-                  value={designation}
-                  onChange={(e) => setDesignation(e.target.value)}
-                />
-                <span>{designationError}</span>
-              </div> */}
-
               <div className="form-group">
                 <label>Designation</label>
                 <select
@@ -377,8 +303,7 @@ const AddEmployee = () => {
                   name="location"
                   className="input"
                   onChange={(e) => setDesignation(e.target.value)}
-                  onBlur={handleDesignationBlur}
-                >
+                  onBlur={() => validateDesignation(designation, setDesignationError)}                >
                   <option value="">Select Designation</option>
                   {Desgn.map((item) => {
                     return (
@@ -405,21 +330,12 @@ const AddEmployee = () => {
                   }))}
                   onChange={handleSkillChange}
                   placeholder="Select Skills"
-                  // onBlur={handleSkillsBlur}
+                  onBlur={() => validateSkills(skills, setSkillsError)}
                 />
               </div>
 
               <div className="form-group">
                 <label>Contact Number</label>
-                {/* <input
-                  className="input"
-                  type="text"
-                  value={contactNo}
-                  onChange={(e) => {
-                    setContactNumber(e.target.value);
-                  }}
-                  onBlur={handlePhoneNo}
-                /> */}
                 <InputComponent
                 className="input"
                 type="text"
@@ -431,17 +347,6 @@ const AddEmployee = () => {
                 />
                 <span>{contactNumberError}</span>
               </div>
-
-              {/* <div className="form-group">
-                <label>Role</label>
-                <input
-                  className="input"
-                  type="text"
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                />
-                <span>{roleError}</span>
-              </div> */}
               <div className="form-group">
                 <label>Role</label>
                 <select
@@ -468,7 +373,7 @@ const AddEmployee = () => {
             </div>
           </div>
           
-          <CustomButton text={"Add Employee"} style={"submit-button"} onClick={(e) => {saveEmp(e)}}/> 
+          <CustomButton text={"Add Employee"} style="submit-button addEmp_submit" onClick={(e) => {saveEmp(e)}}/> 
           <Link to="/adminDashBoard">Cancel</Link>
         </form>
       </div>

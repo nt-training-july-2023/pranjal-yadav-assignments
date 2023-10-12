@@ -53,7 +53,7 @@ public class LoginResponse {
      *
      * @return The role.
      */
-    public final Role getRole() {
+    public Role getRole() {
         return role;
     }
 
@@ -62,7 +62,7 @@ public class LoginResponse {
      *
      * @param roleParam The role to set.
      */
-    public final void setRole(final Role roleParam) {
+    public void setRole(final Role roleParam) {
         this.role = roleParam;
     }
 
@@ -71,7 +71,7 @@ public class LoginResponse {
      *
      * @return The message.
      */
-    public final String getMessage() {
+    public String getMessage() {
         return message;
     }
 
@@ -80,7 +80,7 @@ public class LoginResponse {
      *
      * @param messageParam The message to set.
      */
-    public final void setMessage(final String messageParam) {
+    public void setMessage(final String messageParam) {
         this.message = messageParam;
     }
 
@@ -89,7 +89,7 @@ public class LoginResponse {
      *
      * @return The ID.
      */
-    public final Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -98,7 +98,7 @@ public class LoginResponse {
      *
      * @param idParam The ID to set.
      */
-    public final void setId(final Long idParam) {
+    public void setId(final Long idParam) {
         this.id = idParam;
     }
 
@@ -116,7 +116,7 @@ public class LoginResponse {
      *
      * @param nameParam The name to set.
      */
-    public final void setName(final String nameParam) {
+    public void setName(final String nameParam) {
         this.name = nameParam;
     }
 

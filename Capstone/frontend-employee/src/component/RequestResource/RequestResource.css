@@ -3,8 +3,6 @@
 body {
   font-family: "Montserrat", sans-serif;
   display: flex;
-  /* min-height: 100vh; */
-  /* height: 100%; */
   height: auto;
   background-size: auto;
   background-repeat: no-repeat;
@@ -15,7 +13,6 @@ body {
     rgba(8, 3, 105, 1) 0%,
     rgba(9, 9, 121, 1) 12%,
     rgba(8, 28, 133, 1) 23%,
-    /* rgba(0, 212, 255, 1) 100% */
     rgb(0, 132, 255) 100%
   );
 }

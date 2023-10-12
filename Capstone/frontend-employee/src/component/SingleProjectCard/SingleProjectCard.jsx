@@ -35,7 +35,7 @@ const SingleProjectCard = ({
           </p>
         </div>
         <div className="column">
-          <br></br>
+          
           <p>
             <span className="highlight-span">Start Date</span> :{" "}
             {reverseDateFormat(project.startDate)}

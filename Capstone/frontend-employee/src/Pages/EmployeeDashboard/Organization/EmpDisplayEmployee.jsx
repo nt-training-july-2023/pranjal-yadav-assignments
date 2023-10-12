@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import '../../EmployeeDashboard/Organization/EmpDisplayEmployee.css'
 import AdminService from "../../../service/AdminService";
 import ProjectService from "../../../service/ProjectService";
-import CustomButton from "../../../component/CustomButton";
 
 const EmpDisplayEmployee = () => {
   const [employees, setEmployees] = useState([]);
@@ -22,7 +21,6 @@ const EmpDisplayEmployee = () => {
         setProjects(response.data.projectName)
       })
     } catch (error) {
-      console.log(error);
     }
   };
   const getAllEmployees = async () => {
@@ -39,7 +37,6 @@ const EmpDisplayEmployee = () => {
 
   return (
     <div>
-      {/* <CustomButton text={"logout"} style={"org_logout"}/> */}
       <div className="card_container_employee">
         {employees.sort(function (a, b) {
                     return a.name.localeCompare(b.name);
@@ -66,7 +63,6 @@ const EmpDisplayEmployee = () => {
               <p><strong>DOB : </strong>{employee.dob}</p>
               <p><strong>DOJ : </strong>{employee.doj}</p>
               <p><strong>Location : </strong>{employee.location}</p>
-              {/* <p>Skills: {(employee.skills) ? (employee.skills.replace(/[\[\]'+/g,'') ): "NA" } </p> */}
             </div>
           </div>
         ))}

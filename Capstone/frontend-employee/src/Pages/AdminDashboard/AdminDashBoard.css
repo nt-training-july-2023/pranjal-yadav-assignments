@@ -1,15 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 .admin_tabs {
   display: flex;
   flex-direction: row;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
   align-items: center;
   gap: 4rem;
   padding: 0.5rem;
-  /* background-color: rgb(255, 255, 255); */
   background: rgb(255, 255, 255);
-  /* background-image:radial-gradient(rgb(248, 204, 244), rgb(253, 255, 126)); */
   border: 0.1rem solid rgb(3, 3, 3);
   border-radius: 1.5rem;
   width: 50rem;
@@ -17,160 +15,168 @@
   margin-left: 17rem;
 }
 .addEmployee_admin {
-  margin-left: 4rem;
-  /* background-color:  */
-  /* rgb(5, 173, 5); */
+  margin-left: 58.6rem;
   background-color: rgb(16 149 31);
   font-family: "Montserrat", sans-serif;
-
 }
-.addEmployee_admin:hover{
+.addEmployee_admin:hover {
   background-color: darkgreen;
 }
 .requests_admin {
-  margin-left: 56.7rem;
-  /* background-color: rgb(5, 173, 5); */
+  margin-left: 2rem;
   background-color: rgb(16 149 31);
   font-family: "Montserrat", sans-serif;
 }
-.requests_admin:hover{
+.requests_admin:hover {
   background-color: darkgreen;
 }
-.request_manager{
+.request_manager {
   margin-top: 1rem;
   margin-left: 69.8rem !important;
 }
-.request_project{
+.request_project {
   margin-top: 1rem;
-  margin-left: 58.8rem !important;
-  
+  margin-left: 0.7999999999999972rem !important;
 }
-.addProject_admin{
-  margin-left: 4rem;
-  /* background-color: rgb(5, 173, 5); */
+.emp_name {
+  margin-bottom: 2px;
+}
+.addProject_admin {
+  margin-left: 62rem;
   background-color: rgb(16 149 31);
 }
-.addProject_admin:hover{
-  /* background-color: darkgreen; */
-  /* background-color: rgb(16 149 31); */
-
+.addProject_admin:hover {
+  background-color: darkgreen;
 }
-.top{
-    background-image: linear-gradient(rgb(248, 204, 244), rgb(253, 255, 126)) !important;
-    height: 100vh;
+.top {
+  background-image: linear-gradient(
+    rgb(248, 204, 244),
+    rgb(253, 255, 126)
+  ) !important;
+  height: 100vh;
 }
 
 .admin_heading {
-    display: flex;
-    margin-top: 10px;
-    flex-direction: column;
-    align-items: center; 
-     justify-content: center;
-    color: #161616;
-    font-size: 2rem;
-    font-weight: bold;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  display: flex;
+  margin-top: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* color: #161616; */
+  color: #e9e9e9;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
-
-
-.admin_employee, .admin_manager, .admin_project, .admin_add_employee {
-    /* background-color:rgb(45, 111, 253); */
-    height: 1.5rem;
-    width: 7rem;
-font-size: 1.2rem;
-display: flex;
-flex-direction: column;align-items: center;
-    padding: 0.9rem;
-    border-radius: 0.8rem;
-    color: white;
-    cursor: pointer;
+.admin_employee,
+.admin_manager,
+.admin_project,
+.admin_add_employee {
+  height: 1.5rem;
+  width: 7rem;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.9rem;
+  border-radius: 0.8rem;
+  color: white;
+  cursor: pointer;
 }
 
 .admin_add_employee {
-   margin-left: 66rem;
-   font-weight: bold;
-   border: none;
-   cursor: pointer;
+  margin-left: 66rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
 }
-.btn_logout{
+.btn_logout {
 }
 
-.admin_employee.active,.admin_manager.active,.admin_project.active{
-    /* border: 2px solid #000;  */
-    cursor: pointer;
-    border-style: none;
-    color: #fff;
-    background: linear-gradient(0deg, rgba(8,3,105,1) 0%, rgba(9,9,121,1) 12%, rgba(8,28,133,1) 23%, rgba(0,212,255,1) 100%);
-  }
- 
-  .admin_project.active {
-    background: linear-gradient(0deg, rgba(8,3,105,1) 0%, rgba(9,9,121,1) 12%, rgba(8,28,133,1) 23%, rgba(0,212,255,1) 100%) !important;
-  }
+.admin_employee.active,
+.admin_manager.active,
+.admin_project.active {
+  cursor: pointer;
+  border-style: none;
+  color: #fff;
+  background: linear-gradient(
+    0deg,
+    rgba(8, 3, 105, 1) 0%,
+    rgba(9, 9, 121, 1) 12%,
+    rgba(8, 28, 133, 1) 23%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+
+.admin_project.active {
+  background: linear-gradient(
+    0deg,
+    rgba(8, 3, 105, 1) 0%,
+    rgba(9, 9, 121, 1) 12%,
+    rgba(8, 28, 133, 1) 23%,
+    rgba(0, 212, 255, 1) 100%
+  ) !important;
+}
 .add_employee_form {
-    position: absolute;
-    top: 10%;
-    left: 30%;
-    right: 30%;
-    background-color: gray;
-    padding:0.5rem;
-    z-index: 1;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 10%;
+  left: 30%;
+  right: 30%;
+  background-color: gray;
+  padding: 0.5rem;
+  z-index: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.buttons{
-    display: flex;
-    gap: 1rem;
-    /* margin-left: 6rem; */
+.buttons {
+  display: flex;
+  gap: 1rem;
 }
-.btn_submit,.btn_cancel{
-    background-color: rgb(129, 148, 127);
-    border-radius: 1rem;
-    margin-top: 0.5rem;
-    padding:0.5rem;
-    cursor: pointer;
-    width: 15rem !important ;
+.btn_submit,
+.btn_cancel {
+  background-color: rgb(129, 148, 127);
+  border-radius: 1rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  width: 15rem !important ;
 }
 
-.btn_cancel{
-    border: none;
-    margin-left: 5rem;
-    color: white;
-    font-size: 1rem;
-    font-weight: bolder;
+.btn_cancel {
+  border: none;
+  margin-left: 5rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: bolder;
 }
-/* 
- */
+
 .column_2 {
   width: 500px;
 }
 .card_container {
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    /* overflow-y: scroll;  */
-    scrollbar-width: thin;
-    scrollbar-color: transparent ;
-    
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent;
 }
 
 ::-webkit-scrollbar {
-  width: 10px; 
-  background-color: transparent; 
+  width: 0px;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.7); 
+  background-color: rgba(0, 0, 0, 0.7);
 }
-
-
 
 .custom-select {
   background-color: rgb(255, 255, 255);
@@ -183,123 +189,121 @@ flex-direction: column;align-items: center;
 }
 
 .card {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    
-    border-radius: 0.5rem;
-    margin: 1rem;
-    padding: 0.8rem;
-    background-color: rgb(255, 255, 255);
-    box-shadow: 3px 2px 4px rgba(0, 0, 0, 0.1);
-    width: 30rem;
-    
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+/* height:14rem; */
+  border-radius: 0.5rem;
+  margin: 1rem;
+  padding: 0.8rem;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 3px 2px 4px rgba(0, 0, 0, 0.1);
+  width: 30rem;
 }
 
-.all-btns{
+.all-btns {
   background-color: #000;
 }
 
-
 .column h2 {
-    margin-top: 0;
-    font-size: 18px;
+  margin-top: 0;
+  font-size: 18px;
 }
 
-
 .column p {
-    margin: 5px 0;
-    font-size: 14px;
-    color: #333;
+  margin: 5px 0;
+  font-size: 14px;
+  color: #333;
 }
 
 @media (max-width: 768px) {
-    .admin_add_employee {
-      position: static;
-      margin-left: 0;
-      width: 100%;
-      margin-top: 1rem;
-    }
+  .admin_add_employee {
+    position: static;
+    margin-left: 0;
+    width: 100%;
+    margin-top: 1rem;
   }
-  .btn-addEmployee{
-    
-    display: inline-block; 
-    padding: 10px 20px; 
-    background-color: #007bff;
-    color: #fff; 
-    text-decoration: none;
-    border: none; 
-    border-radius: 5px;
-    cursor: pointer; 
-    /* margin-left: 57rem; */
-    /* margin-bottom: 3rem; */
-    transition: background-color 0.3s; 
+}
+.btn-addEmployee {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .btn-addEmployee:hover {
-    background-color: #0056b3; 
+  background-color: #0056b3;
 }
 
-@media (max-width: 600px) {
-    .admin_tabs {
-      flex-direction: column; 
-      gap: 1rem; 
-      align-items: flex-start; 
-      width: 30%; 
-      margin-left: 80px; 
-    }
-    .top{
-      margin-left: 30px;
-      margin-right: 30px;
-      
-    }
-    .addEmployee_admin {
-      margin-left: 6rem;
-    }
-    .admin_employee,
-    .admin_manager,
-    .admin_project,
-    .admin_add_employee {
-      width: 90%; 
-      margin-left: 0; 
-      margin-bottom: 0.5rem; 
-    }
-  
-    .card_container{
-      max-width: 600px;
-      margin-left: -10px;
-    }
-    .btn-addEmployee {
 
-      margin-left: 0; 
-      margin-top: 1rem;
-    }
-  
-  
-  
-    .column {
-      padding: 10px;
-    }
-  
-    .btn-logout {
-      margin-left: 0;
-    }
-    .admin_heading{
-      align-self: center;
-    }
-    
+@media (max-width: 768px) {
+  .admin_tabs {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+    width: 70%;
+    margin-left: 80px;
   }
-  .btn-addManager{
-    
-    display: inline-block; 
-    padding: 10px 20px; 
-    background-color: rgb(248, 204, 244);
-    color: rgb(248, 204, 244);
-    text-decoration: none;
-    border: none; 
-    opacity: 0;
-    border-radius: 5px;
-    margin-left: 60rem;
+  .top {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+  .addEmployee_admin {
+    margin-left: 9rem;
+  }
+
+  .admin_employee,
+  .admin_manager,
+  .admin_project,
+  .admin_add_employee {
+    width: 380px !important;
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+  }
+  .admin_employee.active {
+    width: 50px;
+    height: 50px;
+  }
+  .admin_employee {
+    height: 50px;
+  }
+  .card_container {
+    max-width: 600px;
+    margin-left: -10px;
+  }
+  .btn-addEmployee {
+    margin-left: 0;
     margin-top: 1rem;
-    transition: background-color 0.3s; 
+  }
+
+  .column {
+    padding: 10px;
+  }
+
+  .btn-logout {
+    margin-left: 0;
+  }
+  
+
+  .requests_admin {
+    margin-left: 2rem;
+  }
+}
+.btn-addManager {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: rgb(248, 204, 244);
+  color: rgb(248, 204, 244);
+  text-decoration: none;
+  border: none;
+  opacity: 0;
+  border-radius: 5px;
+  margin-left: 60rem;
+  margin-top: 1rem;
+  transition: background-color 0.3s;
 }

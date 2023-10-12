@@ -58,7 +58,7 @@ public class UserController {
     @PostMapping(path = "/save")
     public final ResponseDto saveAdmin(final @RequestBody UserInDto userDto) {
         LOGGER.info("Adding admin");
-        userValidation.checkUser(userDto);
+        userValidation.checkAdminRegistration(userDto);
         LOGGER.info("Valid user: " + userDto.toString());
         ResponseDto responseDto = userService.addUser(userDto);
         return responseDto;
@@ -86,7 +86,7 @@ public class UserController {
      * @param userDto The user details to be added.
      * @return ResponseEntityDto indicating the status of the operation.
      */
-    @PostMapping(path = "/save-emp")
+    @PostMapping(path = "/saveEmp")
     public final ResponseDto saveEmp(
             @RequestBody @Valid  final UserInDto userDto) {
         LOGGER.info("Adding employee.");
@@ -160,7 +160,7 @@ public class UserController {
      * @param updatedDetails A Map containing updated employee details.
      * @return An ResponseDto indicating the result of the update operation.
      */
-    @PutMapping(path = "/{id}/assignProject")
+    @PutMapping(path = "/assignProject/{id}")
     public final ResponseDto updateEmployee(@PathVariable final Long id,
                                             @RequestBody final Map<String,
                                             Long> updatedDetails) {
@@ -177,7 +177,7 @@ public class UserController {
      * @param skills Updated skills.
      * @return Response.
      */
-    @PutMapping(path = "/{id}/skill")
+    @PutMapping(path = "/skill/{id}")
     public final ResponseDto updateSkills(@PathVariable final Long id,
                                           @RequestBody final Map<String,
                                                   List<String>> skills) {

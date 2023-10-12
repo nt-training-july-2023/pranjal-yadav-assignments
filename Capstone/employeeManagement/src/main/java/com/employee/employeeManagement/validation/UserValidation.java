@@ -1,5 +1,6 @@
 package com.employee.employeeManagement.validation;
 
+import com.employee.employeeManagement.exception.ValidationException;
 import com.employee.employeeManagement.model.User;
 import com.employee.employeeManagement.dto.LoginDto;
 import com.employee.employeeManagement.dto.UserInDto;
@@ -159,6 +160,18 @@ public class UserValidation {
         if (employee == null || employee.getRole() == Role.ADMIN) {
             throw new ResourceNotFoundException(
                     ErrorConstants.EMPLOYEE_NOT_EXIST);
+        }
+    }
+
+    /**
+     * Method to check admin while registering.
+     * @param userInDto
+     */
+    public final void checkAdminRegistration(final UserInDto userInDto) {
+        checkUser(userInDto);
+        if (userInDto.getEmail() != "ankita.sharma@nucleusteq.com") {
+            throw new ValidationException("Only ankita.sharma@nucleusteq can "
+                    + "register.");
         }
     }
 

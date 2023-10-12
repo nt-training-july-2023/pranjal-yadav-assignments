@@ -12,9 +12,9 @@
     border: 0.15rem solid white;
     border-radius: 2rem;
     z-index: 1;
-    width: 40vw; 
+    width: 47vw; 
     height: auto;
-    margin-left: 25rem;
+    margin-left: 22rem;
   }
   .admin_employee, .admin_manager, .admin_project, .admin_add_employee {
     background-color: rgb(45, 111, 253);
@@ -25,7 +25,7 @@
     color: white;
     cursor: pointer !important;
   }
-  
+ 
   .header_img {
     margin-top: -5rem;
     width: 6rem;
@@ -38,10 +38,21 @@
   }
   .add_and_request{
     display: flex;
-    margin-top: 10px;
+    margin-top: 23px;
   }
-  @media (max-width: 600px) {
-    
+  @media (max-width: 768px) {
+    .headerlogout {
+      margin-left: 15rem;
+      margin-top: 4rem;
+    }
+    .employee_logo{
+      display: none;
+    }
+  }
+  @media (max-width: 1040px) {
+    .header_logo{
+      display: none;
+    }
   }
   
   

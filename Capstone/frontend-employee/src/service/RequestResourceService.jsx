@@ -16,7 +16,6 @@ class RequestResourceService{
         return axios.post(REQUEST_RESOURCE_BASE_URL + ACCEPT_REQUEST + id)
       }
       isRequested(empId, managerid){
-        console.log(REQUEST_RESOURCE_BASE_URL + IS_REQUESTED + empId + "&managerId=" + managerid);
         return axios.get(REQUEST_RESOURCE_BASE_URL + IS_REQUESTED + empId + "&managerId=" + managerid)
       }
 }

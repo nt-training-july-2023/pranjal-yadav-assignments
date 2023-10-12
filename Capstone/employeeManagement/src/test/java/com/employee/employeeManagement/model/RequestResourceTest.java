@@ -1,7 +1,11 @@
 package com.employee.employeeManagement.model;
 
+import com.employee.employeeManagement.dto.UserInDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -90,8 +94,19 @@ public class RequestResourceTest {
         differentResource.setEmployeeId(4L);
         differentResource.setProjectId(5L);
 
+        List<String> skills = new ArrayList<>();
+        skills.add("java");
+        skills.add("react");
+        UserInDto user = new UserInDto();
+        user.setName("Pranjal");
+        user.setSkills(skills);
+        user.setUserId("N7281");
+        user.setContactNo(9876543210L);
+
         assertEquals(resource1, resource2);
         assertEquals(resource1.hashCode(), resource2.hashCode());
+        assertEquals(resource1, resource1);
+        assertNotEquals(resource1, user);
 
         assertNotEquals(resource1, differentResource);
         assertNotEquals(resource1.hashCode(), differentResource.hashCode());

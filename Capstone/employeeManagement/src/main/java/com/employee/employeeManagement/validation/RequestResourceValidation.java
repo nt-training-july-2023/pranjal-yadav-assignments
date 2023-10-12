@@ -67,6 +67,16 @@ public class RequestResourceValidation {
     }
 
     /**
+     * Method to check weather delete requests resource id is valid or not.
+     * @param resourceId
+     */
+    public final void checkDelete(final Long resourceId) {
+                requestResourceRepository.findById(resourceId).orElseThrow(()
+                        -> new ResourceNotFoundException(
+                        ErrorConstants.RESOURCE_NOT_EXIST));
+    }
+
+    /**
      * Method to check isRequested.
      * @param empId Employee id.
      * @param managerId Manager id.

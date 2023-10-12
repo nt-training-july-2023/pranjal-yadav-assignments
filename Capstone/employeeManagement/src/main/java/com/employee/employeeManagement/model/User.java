@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-import lombok.NoArgsConstructor;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 
@@ -23,7 +22,6 @@ import java.util.Objects;
  * Represents a user.
  */
 @Entity
-@NoArgsConstructor
 @Table(name = "User")
 public class User {
     /**
@@ -31,7 +29,7 @@ public class User {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     /**
      * The name of the user.
@@ -78,7 +76,7 @@ public class User {
     /**
      * The contact number of the user.
      */
-    private long contactNo;
+    private Long contactNo;
 
     /**
      * The name of the project associated with the user.
@@ -115,7 +113,7 @@ public class User {
      *
      * @return The employee ID.
      */
-    public final long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -124,7 +122,8 @@ public class User {
      *
      * @param idParam The employee ID to set.
      */
-    public final void setId(final long idParam) {
+
+    public void setId(final Long idParam) {
         this.id = idParam;
     }
 
@@ -133,7 +132,7 @@ public class User {
      *
      * @return The employee name.
      */
-    public final String getName() {
+    public String getName() {
         return name;
     }
 
@@ -142,7 +141,7 @@ public class User {
      *
      * @param nameParam The employee name to set.
      */
-    public final void setName(final String nameParam) {
+    public void setName(final String nameParam) {
         this.name = nameParam;
     }
 
@@ -151,7 +150,7 @@ public class User {
      *
      * @return The employee email.
      */
-    public final String getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -160,7 +159,7 @@ public class User {
      *
      * @param emailParam The employee email to set.
      */
-    public final void setEmail(final String emailParam) {
+    public void setEmail(final String emailParam) {
         this.email = emailParam;
     }
 
@@ -169,7 +168,7 @@ public class User {
      *
      * @return The employee user ID.
      */
-    public final String getUserId() {
+    public String getUserId() {
         return userId;
     }
 
@@ -178,7 +177,7 @@ public class User {
      *
      * @param userIdParam The employee user ID to set.
      */
-    public final void setUserId(final String userIdParam) {
+    public void setUserId(final String userIdParam) {
         this.userId = userIdParam;
     }
 
@@ -187,7 +186,7 @@ public class User {
      *
      * @return The date of birth.
      */
-    public final String getDob() {
+    public String getDob() {
         return dob;
     }
 
@@ -196,7 +195,7 @@ public class User {
      *
      * @param dobParam The date of birth to set.
      */
-    public final void setDob(final String dobParam) {
+    public void setDob(final String dobParam) {
         this.dob = dobParam;
     }
 
@@ -205,7 +204,7 @@ public class User {
      *
      * @return The date of joining.
      */
-    public final String getDoj() {
+    public String getDoj() {
         return doj;
     }
 
@@ -214,7 +213,7 @@ public class User {
      *
      * @param dojParam The date of joining to set.
      */
-    public final void setDoj(final String dojParam) {
+    public void setDoj(final String dojParam) {
         this.doj = dojParam;
     }
 
@@ -223,7 +222,7 @@ public class User {
      *
      * @return The employee location.
      */
-    public final Location getLocation() {
+    public Location getLocation() {
         return location;
     }
 
@@ -232,7 +231,7 @@ public class User {
      *
      * @param locationParam The employee location to set.
      */
-    public final void setLocation(final Location locationParam) {
+    public void setLocation(final Location locationParam) {
         this.location = locationParam;
     }
 
@@ -241,7 +240,7 @@ public class User {
      *
      * @return The employee designation.
      */
-    public final Designation getDesignation() {
+    public Designation getDesignation() {
         return designation;
     }
 
@@ -250,7 +249,7 @@ public class User {
      *
      * @param designationParam The employee designation to set.
      */
-    public final void setDesignation(final Designation designationParam) {
+    public void setDesignation(final Designation designationParam) {
         this.designation = designationParam;
     }
 
@@ -259,7 +258,7 @@ public class User {
      *
      * @return The employee contact number.
      */
-    public final long getContactNo() {
+    public Long getContactNo() {
         return contactNo;
     }
 
@@ -268,7 +267,7 @@ public class User {
      *
      * @param contactNoParam The employee contact number to set.
      */
-    public final void setContactNo(final long contactNoParam) {
+    public void setContactNo(final Long contactNoParam) {
         this.contactNo = contactNoParam;
     }
 
@@ -277,7 +276,7 @@ public class User {
      *
      * @return The project ID.
      */
-    public final Long getProjectId() {
+    public Long getProjectId() {
         return projectId;
     }
 
@@ -286,7 +285,7 @@ public class User {
      *
      * @param projectIdParam The project ID to set.
      */
-    public final void setProjectId(final Long projectIdParam) {
+    public void setProjectId(final Long projectIdParam) {
         this.projectId = projectIdParam;
     }
 
@@ -295,7 +294,7 @@ public class User {
      *
      * @return The employee role.
      */
-    public final Role getRole() {
+    public Role getRole() {
         return role;
     }
 
@@ -304,7 +303,7 @@ public class User {
      *
      * @param roleParam The employee role to set.
      */
-    public final void setRole(final Role roleParam) {
+    public void setRole(final Role roleParam) {
         this.role = roleParam;
     }
 
@@ -313,7 +312,7 @@ public class User {
      *
      * @return The employee password.
      */
-    public final String getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -322,7 +321,7 @@ public class User {
      *
      * @param passwordParam The employee password to set.
      */
-    public final void setPassword(final String passwordParam) {
+    public void setPassword(final String passwordParam) {
         this.password = passwordParam;
     }
 
@@ -331,7 +330,7 @@ public class User {
      *
      * @return The list of skills.
      */
-    public final List<String> getSkills() {
+    public List<String> getSkills() {
         return Collections.unmodifiableList(skills);
     }
 
@@ -340,7 +339,7 @@ public class User {
      *
      * @param skillsParam The list of skills to set.
      */
-    public final void setSkills(final List<String> skillsParam) {
+    public void setSkills(final List<String> skillsParam) {
         if (skillsParam != null) {
             this.skills = new ArrayList<>(skillsParam);
         } else {
@@ -353,7 +352,7 @@ public class User {
      *
      * @return The manager's ID.
      */
-    public final Long getManagerId() {
+    public Long getManagerId() {
         return managerId;
     }
 
@@ -362,8 +361,15 @@ public class User {
      *
      * @param managerIdParam The manager's ID to set.
      */
-    public final void setManagerId(final Long managerIdParam) {
+    public void setManagerId(final Long managerIdParam) {
         this.managerId = managerIdParam;
+    }
+
+    /**
+     * No  argument constructor.
+     */
+    public User() {
+
     }
 
     @Override
@@ -413,6 +419,7 @@ public class User {
                 user.getSkills()) && Objects.equals(getManagerId(),
                 user.getManagerId());
     }
+
 
     /**
      * Hashcode method for this class.

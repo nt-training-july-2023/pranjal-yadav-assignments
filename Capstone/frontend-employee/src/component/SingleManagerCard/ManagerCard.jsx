@@ -1,6 +1,4 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import skills from '../Data/skills';
 import ProjectService from '../../service/ProjectService';
 
 const ManagerCard = ({manager}) => {
@@ -15,8 +13,6 @@ const ManagerCard = ({manager}) => {
       }, []);
     const getAllProjects =async () =>{
       try{
-        // const response = await axios.get(`http://localhost:8080/project/project/${manager.id}`)
-        // const projectData = response.data;
         ProjectService.getProjectByManagerId(manager.id).then((response) =>{
           const projectData = response.data;
           if (projectData.length > 0) {
@@ -30,19 +26,14 @@ const ManagerCard = ({manager}) => {
 
         
       }catch(error){
-        console.log(error);
       }
     }
     const handleProjectChange = async (event) => {
-        // setSelectedProject(event.target.value);
-        // console.log("Selected project "+selectedProject);
         const selectedProjectId = event.target.value;
         setSelectedProject(selectedProjectId);
         const projectData = projectList.find(
           (project) => project.projectId.toString() === selectedProjectId
         );
-        console.log(selectedProjectId);
-            console.log(projectData);
         if (projectData) {
           setSelectedProjectData(projectData);
         } else {
@@ -89,7 +80,7 @@ const ManagerCard = ({manager}) => {
             </div>
             <div className="column">
             <p style={{fontSize:"15px"}}><span className="highlight-span">Employee id :  </span> {manager.userId}</p>
-            <br></br> 
+            <div className='location_skill'>
             <p><span className="highlight-span"> Location </span>: {manager.location}</p>
             <p style={{ marginTop: "1rem" }}>
                 <span className='highlight-span' style={{ fontWeight: "bold" }}>Project Skills : </span>{" "}
@@ -102,6 +93,8 @@ const ManagerCard = ({manager}) => {
                 ? selectedProjectData?.team.join(", ")
                 : "N/A"}
             </p>
+            </div>
+            
             </div>
             
 

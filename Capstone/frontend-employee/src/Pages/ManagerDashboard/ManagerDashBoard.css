@@ -22,8 +22,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    /* overflow-y: scroll !important;  */
-    /* max-height: 70vh !important; */
     margin-top: 2rem;
 }
 .search_manager_skills{
@@ -31,6 +29,7 @@
     margin-left: 16rem;
     padding: -15rem;
 }
+
 
 .name-designation{
     margin-bottom: -17px;
@@ -42,7 +41,6 @@
     border: 1px solid #998383;
     padding: 10px;
     border-radius: 5px;
-    /* background-color: #8a7171; */
     margin: 10px;
     width: 30rem;
 }
@@ -63,15 +61,12 @@ p {
 
 .addEmployee {
     display: inline-block;
-    /* padding: 10px 20px; */
     background-color: #007bff;
     color: #fff;
     text-decoration: none;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    /* margin-left:     60rem; */
-    /* margin-top: 1rem; */
     transition: background-color 0.3s;
 }
 .requests{
@@ -122,6 +117,13 @@ justify-content: center;
     cursor: pointer;
     font-family: "Montserrat", sans-serif;
 }
+
+.location_skill {
+    margin-top: 28px;
+}
+.lower_half {
+    margin-top: 35px;
+}
 .input-addproject-manager{
     width: 105%;
     padding: 10px;
@@ -142,15 +144,13 @@ justify-content: center;
     text-align: center;
   }
   .search_skills {
-    /* margin-left: 200px; */
-    /* margin-bottom: 30px; */
     margin-top: 2px;
     background-color: darkgreen;
   }
   .search_skills:hover {
     background-color: rgb(0, 78, 0);
   }
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .requests {
         display: inline-block;
     }
@@ -159,8 +159,16 @@ justify-content: center;
         width: 30%;
     }
     .search_skills{
-        /* margin-top: -100px; */
         margin-left: 2rem;
     }
+    .card {
+        width: 22rem;
+      }
     
+  }
+
+  @media (max-width: 1024px) {
+.manager_emp{
+    margin-top: -1.8rem !important;
+}
   }

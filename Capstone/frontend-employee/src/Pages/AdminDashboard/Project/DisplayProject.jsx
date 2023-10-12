@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import '../../../style/DIsplay.css';
-import { Link } from "react-router-dom";
 import ProjectPopup from '../../../component/PopUp/ProjectPopUp'
 import ProjectService from "../../../service/ProjectService";
-import AdminService from "../../../service/AdminService";
-import SingleProjectCard from '../../../component/SingleProjectCard'
+import SingleProjectCard from "../../../component/SingleProjectCard/SingleProjectCard";
 
 const DisplayProject = () => {
   const [projects, setProjects] = useState([]);
@@ -25,11 +23,6 @@ const DisplayProject = () => {
 
   const getAllProjects = async () => {
     try {
-      // const response = await axios.get(
-      //   "http://localhost:8080/project/getAllProjects"
-      // );
-      // console.log(response.data);
-      // setProjects(response.data);
       ProjectService.getAllProjects().then((response) =>{
         setProjects(response.data);
       })
@@ -58,7 +51,6 @@ const DisplayProject = () => {
         );
         return { projectId: project.projectId, managerName: response.data.name };
       } catch (error) {
-        console.log(error);
         return {
           projectId: project.projectId,
           managerName: "Error fetching name",
@@ -69,15 +61,10 @@ const DisplayProject = () => {
   const managerNameResults = await Promise.all(managerNamePromises);
   const managerNameMap = {};
   managerNameResults.forEach((result) => {
-    // managerNameMap[result.projectId] = result.managerName;
 
-    console.log("Project ID:", result.projectId);
-    console.log("Manager Name:", result.managerName);
     managerNameMap[result.projectId] = result.managerName;
   });
-  console.log("manager name map", managerNameMap);
-  console.log("Projects:", projects);
-  console.log("Manager Name Results:", managerNameResults);
+ 
   setManagerNames(managerNameMap);
 }
 const handleReadMoreClick = (description) => {
@@ -89,7 +76,7 @@ const handlePopupClose = () => {
   setSelectedDescription('');
 };
   return (
-    <div >
+    <div>
      <div className="card_container">
         {projects.map((project) => (
           <SingleProjectCard

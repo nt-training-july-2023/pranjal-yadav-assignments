@@ -94,7 +94,7 @@ public class EmployeeOutDto {
      *
      * @return The employee's ID.
      */
-    public final Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -103,7 +103,7 @@ public class EmployeeOutDto {
      *
      * @param idParam The employee's ID.
      */
-    public final void setId(final Long idParam) {
+    public void setId(final Long idParam) {
         this.id = idParam;
     }
 
@@ -112,7 +112,7 @@ public class EmployeeOutDto {
      *
      * @return The employee's name.
      */
-    public final String getName() {
+    public String getName() {
         return name;
     }
 
@@ -121,7 +121,7 @@ public class EmployeeOutDto {
      *
      * @param nameParam The employee's name.
      */
-    public final void setName(final String nameParam) {
+    public void setName(final String nameParam) {
         this.name = nameParam;
     }
 
@@ -131,7 +131,7 @@ public class EmployeeOutDto {
      *
      * @return The employee's email address.
      */
-    public final String getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -140,7 +140,7 @@ public class EmployeeOutDto {
      *
      * @param emailParam The employee's email address.
      */
-    public final void setEmail(final String emailParam) {
+    public void setEmail(final String emailParam) {
         this.email = emailParam;
     }
 
@@ -149,7 +149,7 @@ public class EmployeeOutDto {
      *
      * @return The employee's user ID.
      */
-    public final String getUserId() {
+    public String getUserId() {
         return userId;
     }
 
@@ -158,7 +158,7 @@ public class EmployeeOutDto {
      *
      * @param userIdParam The employee's user ID.
      */
-    public final void setUserId(final String userIdParam) {
+    public void setUserId(final String userIdParam) {
         this.userId = userIdParam;
     }
 
@@ -167,7 +167,7 @@ public class EmployeeOutDto {
      *
      * @return The employee's date of birth.
      */
-    public final String getDob() {
+    public String getDob() {
         return dob;
     }
 
@@ -176,7 +176,7 @@ public class EmployeeOutDto {
      *
      * @param dobParam The employee's date of birth.
      */
-    public final void setDob(final String dobParam) {
+    public void setDob(final String dobParam) {
         this.dob = dobParam;
     }
 
@@ -185,7 +185,7 @@ public class EmployeeOutDto {
      *
      * @return The employee's date of joining.
      */
-    public final String getDoj() {
+    public String getDoj() {
         return doj;
     }
 
@@ -194,7 +194,7 @@ public class EmployeeOutDto {
      *
      * @param dojParam The employee's date of joining.
      */
-    public final void setDoj(final String dojParam) {
+    public void setDoj(final String dojParam) {
         this.doj = dojParam;
     }
 
@@ -203,7 +203,7 @@ public class EmployeeOutDto {
      *
      * @return The employee's location.
      */
-    public final Location getLocation() {
+    public Location getLocation() {
         return location;
     }
 
@@ -212,7 +212,7 @@ public class EmployeeOutDto {
      *
      * @param locationParam The employee's location.
      */
-    public final void setLocation(final Location locationParam) {
+    public void setLocation(final Location locationParam) {
         this.location = locationParam;
     }
 
@@ -221,7 +221,7 @@ public class EmployeeOutDto {
      *
      * @return The employee's designation.
      */
-    public final Designation getDesignation() {
+    public Designation getDesignation() {
         return designation;
     }
 
@@ -230,7 +230,7 @@ public class EmployeeOutDto {
      *
      * @param designationParam The employee's designation.
      */
-    public final void setDesignation(final Designation designationParam) {
+    public void setDesignation(final Designation designationParam) {
         this.designation = designationParam;
     }
 
@@ -239,7 +239,7 @@ public class EmployeeOutDto {
      *
      * @return The employee's contact number.
      */
-    public final Long getContactNo() {
+    public Long getContactNo() {
         return contactNo;
     }
 
@@ -248,7 +248,7 @@ public class EmployeeOutDto {
      *
      * @param contactNoParam The employee's contact number.
      */
-    public final void setContactNo(final Long contactNoParam) {
+    public void setContactNo(final Long contactNoParam) {
         this.contactNo = contactNoParam;
     }
 
@@ -257,7 +257,7 @@ public class EmployeeOutDto {
      *
      * @return The ID of the associated project.
      */
-    public final Long getProjectId() {
+    public Long getProjectId() {
         return projectId;
     }
 
@@ -266,7 +266,7 @@ public class EmployeeOutDto {
      *
      * @param projectIdParam The ID of the associated project.
      */
-    public final void setProjectId(final Long projectIdParam) {
+    public void setProjectId(final Long projectIdParam) {
         this.projectId = projectIdParam;
     }
 
@@ -275,7 +275,7 @@ public class EmployeeOutDto {
      *
      * @return The employee's role.
      */
-    public final Role getRole() {
+    public Role getRole() {
         return role;
     }
 
@@ -284,7 +284,7 @@ public class EmployeeOutDto {
      *
      * @param roleParam The employee's role.
      */
-    public final void setRole(final Role roleParam) {
+    public void setRole(final Role roleParam) {
         this.role = roleParam;
     }
 
@@ -293,7 +293,7 @@ public class EmployeeOutDto {
      *
      * @return The name of the manager.
      */
-    public final String getManagerName() {
+    public String getManagerName() {
         return managerName;
     }
 
@@ -302,7 +302,7 @@ public class EmployeeOutDto {
      *
      * @param managerNameParam The name of the manager.
      */
-    public final void setManagerName(final String managerNameParam) {
+    public void setManagerName(final String managerNameParam) {
         this.managerName = managerNameParam;
     }
 
@@ -311,7 +311,7 @@ public class EmployeeOutDto {
      *
      * @return The list of skills.
      */
-    public final List<String> getSkills() {
+    public List<String> getSkills() {
         return Collections.unmodifiableList(skills);
     }
 
@@ -320,7 +320,7 @@ public class EmployeeOutDto {
      *
      * @param skillsParam The list of skills.
      */
-    public final void setSkills(final List<String> skillsParam) {
+    public void setSkills(final List<String> skillsParam) {
         if (skillsParam != null) {
             this.skills = new ArrayList<>(skillsParam);
         } else {
@@ -333,7 +333,7 @@ public class EmployeeOutDto {
      *
      * @return The ID of the manager.
      */
-    public final Long getManagerId() {
+    public Long getManagerId() {
         return managerId;
     }
 
@@ -342,7 +342,7 @@ public class EmployeeOutDto {
      *
      * @param managerIdParam The ID of the manager.
      */
-    public final void setManagerId(final Long managerIdParam) {
+    public void setManagerId(final Long managerIdParam) {
         this.managerId = managerIdParam;
     }
 
@@ -351,7 +351,7 @@ public class EmployeeOutDto {
      *
      * @return The name of the associated project.
      */
-    public final String getProjectName() {
+    public  String getProjectName() {
         return projectName;
     }
 
@@ -360,7 +360,7 @@ public class EmployeeOutDto {
      *
      * @param projectNameParam The name of the associated project.
      */
-    public final void setProjectName(final String projectNameParam) {
+    public void setProjectName(final String projectNameParam) {
         this.projectName = projectNameParam;
     }
 

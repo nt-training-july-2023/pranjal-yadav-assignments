@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
+import DisableBackButton from "../DisableBack/DisableBackButton";
 
 const Header = ({
   activeTab,
@@ -8,13 +9,11 @@ const Header = ({
   switchToManagerTab,
   switchToProjectTab,
 }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("email"));
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
-    // Retrieve the user's name from local storage
     const name = localStorage.getItem("name");
-    setUserName(name || ""); // Set the user's name in state
+    setUserName(name || ""); 
   }, []);
 
   const handleLogout = () => {
@@ -23,13 +22,13 @@ const Header = ({
     localStorage.removeItem("name");
     localStorage.removeItem("id");
     localStorage.removeItem("isLoggedIn");
-    // setIsLoggedIn(false);
     navigate("/");
   };
-  console.log(isLoggedIn);
 
   return (
+    
     <div>
+      <DisableBackButton/>
       <div className="header-container">
         <div className="admin_heading">Welcome {userName} !!</div>
         <div className="admin_tabs">
@@ -39,7 +38,7 @@ const Header = ({
             }`}
             onClick={switchToEmployeeTab}
           >
-            Employee
+     &#x1F464;   Employee
           </div>
           <div
             className={`admin_manager ${
@@ -47,7 +46,7 @@ const Header = ({
             }`}
             onClick={switchToManagerTab}
           >
-            Manager
+          &#x1F464; Manager
           </div>
           <div
             className={`admin_project  ${
@@ -55,13 +54,12 @@ const Header = ({
             }`}
             onClick={switchToProjectTab}
           >
-            Project
+            📁 Project
           </div>
         </div>
         <button onClick={handleLogout} className="headerlogout">
-          Logout
+        Logout
         </button>
-        {/* <CustomButton text={"Requests"} onClick={() => {navigate("/requests")}} style={"requests"}/> */}
       </div>
     </div>
   );

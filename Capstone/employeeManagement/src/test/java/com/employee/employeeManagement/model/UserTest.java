@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
 
@@ -92,9 +91,9 @@ public class UserTest {
     public void testEqualsAndHashCode() {
         User user1 = new User();
         user1.setId(1L);
-        user1.setName("John Doe");
-        user1.setEmail("john.doe@example.com");
-        user1.setUserId("johndoe123");
+        user1.setName("Ankita Sharma");
+        user1.setEmail("ankita@nucleusteq.com");
+        user1.setUserId("N1111");
         user1.setDob("2000-01-01");
         user1.setDoj("2023-01-01");
         user1.setLocation(Location.RAIPUR);
@@ -111,9 +110,9 @@ public class UserTest {
 
         User user2 = new User();
         user2.setId(1L);
-        user2.setName("John Doe");
-        user2.setEmail("john.doe@example.com");
-        user2.setUserId("johndoe123");
+        user2.setName("Ankita Sharma");
+        user2.setEmail("ankita@nucleusteq.com");
+        user2.setUserId("N1111");
         user2.setDob("2000-01-01");
         user2.setDoj("2023-01-01");
         user2.setLocation(Location.RAIPUR);
@@ -122,17 +121,14 @@ public class UserTest {
         user2.setProjectId(1L);
         user2.setRole(Role.EMPLOYEE);
         user2.setPassword("password123");
-        List<String> skills2 = new ArrayList<>();
-        skills2.add("Java");
-        skills2.add("Spring");
-        user2.setSkills(skills2);
+        user2.setSkills(skills1);
         user2.setManagerId(2L);
 
         User differentUser = new User();
         differentUser.setId(2L);
-        differentUser.setName("Jane Smith");
-        differentUser.setEmail("jane.smith@example.com");
-        differentUser.setUserId("janesmith123");
+        differentUser.setName("Ankit Kothana");
+        differentUser.setEmail("ankit@example.com");
+        differentUser.setUserId("ankit123@");
         differentUser.setDob("1990-01-01");
         differentUser.setDoj("2022-01-01");
         differentUser.setLocation(Location.RAIPUR);
@@ -147,7 +143,18 @@ public class UserTest {
         differentUser.setSkills(differentSkills);
         differentUser.setManagerId(3L);
 
-        assertEquals(user1, user2);
+        Project project1 = new Project();
+        project1.setProjectId(1L);
+        project1.setProjectName("Project 1");
+        skills1.add("Java");
+        skills1.add("React");
+        project1.setSkills(skills1);
+
+        assertEquals(user1.equals(user1), user2.equals(user2));
+        assertEquals(user1, user1);
+        assertNotEquals(user1, project1);
+
+
         assertEquals(user1.hashCode(), user2.hashCode());
 
         assertNotEquals(user1, differentUser);

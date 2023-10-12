@@ -22,7 +22,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.nio.charset.StandardCharsets;
@@ -39,8 +38,8 @@ public class UserServiceTest {
     private RequestResourceRepository requestResourceRepository;
     @Mock
     private RequestResourceService requestResourceService;
-
-
+    @Mock
+    private UserService userService2;
     @Mock
     private PasswordEncoder passwordEncoder;
     @Mock
@@ -85,13 +84,13 @@ public class UserServiceTest {
         assertEquals(Role.EMPLOYEE, response.getRole());
     }
     @Test
-    public void testSaveEmpWithManagerIdNull() {
+    public void testSaveEmp() {
         UserInDto userDto = new UserInDto();
         userDto.setName("Ishita Verma");
         userDto.setEmail("ishita@nucleusteq.com");
         userDto.setUserId("N2223");
         userDto.setContactNo(9870654312L);
-        userDto.setManagerId(2L); // ManagerId is not null
+        userDto.setManagerId(2L);
         List<String> skills= new ArrayList<>();
         skills.add("Java");
         skills.add("React");
@@ -103,8 +102,8 @@ public class UserServiceTest {
         ResponseDto response = userService.saveEmp(userDto);
         verify(userRepository, times(1)).save(any(User.class));
 
-        assertEquals("User added", response.getMessage());
-        assertEquals(Role.EMPLOYEE, response.getRole());
+        assertEquals("User Added successfully", response.getMessage());
+
     }
     @Test
     public void testUpdateSkills() {
@@ -126,7 +125,7 @@ public class UserServiceTest {
 
         assertEquals(newSkills, user.getSkills());
 
-        assertEquals("Skills are updated.", response.getMessage());
+        assertEquals("Updated Successfully", response.getMessage());
     }
     @Test
     public void testUpdateEmployee() {
@@ -196,10 +195,6 @@ public class UserServiceTest {
         User manager = new User();
         manager.setId(2L);
         manager.setName("Manager User");
-        List<String> skills1= new ArrayList<>();
-        skills.add("Java");
-        skills.add("React");
-        manager.setSkills(skills1);
         when(userRepository.findById(2L)).thenReturn(Optional.of(manager));
 
         EmployeeOutDto employeeOutDto = userService.getEmployeeById(userId);
@@ -356,10 +351,10 @@ public class UserServiceTest {
         admin.setName("Ankita");
         admin.setEmail("ankita.sharma@nucleusteq.com");
         admin.setContactNo(9876501234L);
-        admin.setId(2L); // Assuming admin user ID is 2
+        admin.setId(2L);
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        when(userRepository.findByUserId("N0001")).thenReturn(Optional.of(admin));
+        when(userRepository.findByEmail("ankita.sharma@nucleusteq.com")).thenReturn(Optional.of(admin));
 
         ResponseDto responseDto = userService.unAssignProject(userId);
 
@@ -378,7 +373,7 @@ public class UserServiceTest {
         skills.add("Java");
         skills.add("SQL");
         UserInDto userDto = new UserInDto();
-        userDto.setName("Pranjal Yadagv");
+        userDto.setName("Pranjal Yadav");
         userDto.setRole(Role.EMPLOYEE);
         userDto.setProjectId(1L);
         userDto.setPassword("password123");
@@ -391,6 +386,8 @@ public class UserServiceTest {
         userDto.setContactNo(1234567890L);
         userDto.setSkills(skills);
         userDto.setManagerId(2L);
+
+
 
 
         UserService userService = new UserService();
@@ -463,11 +460,11 @@ public class UserServiceTest {
     }
     @Test
     void testGetAllUsers() {
-        MockitoAnnotations.openMocks(this);
 
         List<String> skills = new ArrayList<>();
         skills.add("Hibernate");
         skills.add("Data Science");
+
         User adminUser = new User();
         adminUser.setRole(Role.ADMIN);
         adminUser.setSkills(skills);
@@ -497,6 +494,82 @@ public class UserServiceTest {
         assertEquals(2, userDtoList.size()); // Expecting two non-admin users
 
         verify(userRepository, times(1)).findAll();
+    }
+    @Test
+    public void testSkillsAndUnassign() {
+        List<String> skills1 = new ArrayList<>();
+        List<String> skills = new ArrayList<>();
+        skills.add("Java");
+        skills.add("React");
+
+        User emp = new User();
+        emp.setId(1L);
+        emp.setUserId("N1001");
+        emp.setName("Anjali Sharma");
+        emp.setEmail("anjali.sharma@nucleusteq.com");
+        emp.setDob("2001-09-07");
+        emp.setDoj("2023-07-17");
+        emp.setLocation(Location.RAIPUR);
+        emp.setDesignation(Designation.ENGINEER);
+        emp.setContactNo(1234567800L);
+        emp.setRole(Role.EMPLOYEE);
+        emp.setSkills(skills);
+        emp.setManagerId(1L);
+        emp.setPassword("admin123");
+        emp.setProjectId(null);
+
+        List<User> empList = new ArrayList<>();
+        empList.add(emp);
+        when(userRepository.findByRole(Role.EMPLOYEE)).thenReturn(empList);
+
+        EmployeeOutDto empDto = new EmployeeOutDto();
+        empDto.setId(1L);
+        empDto.setUserId("N1001");
+        empDto.setName("Anjali Sharma");
+        empDto.setEmail("anjali.sharma@nucleusteq.com");
+        empDto.setDob("2001-09-07");
+        empDto.setDoj("2023-07-17");
+        empDto.setLocation(Location.RAIPUR);
+        empDto.setDesignation(Designation.ENGINEER);
+        empDto.setContactNo(1234567890L);
+        empDto.setRole(Role.EMPLOYEE);
+        empDto.setProjectId(0L);
+        empDto.setManagerId(2L);
+        empDto.setManagerName("Ankita Sharma");
+        empDto.setProjectName("Fynder");
+        empDto.setSkills(skills);
+        List<EmployeeOutDto> outList = new ArrayList<EmployeeOutDto>();
+        outList.add(empDto);
+
+        User manager = new User();
+        manager.setId(2L);
+        manager.setProjectId(2L);
+        manager.setManagerId(3L);
+        manager.setRole(Role.MANAGER);
+        manager.setDesignation(Designation.ARCHITECT);
+        manager.setLocation(Location.RAIPUR);
+        manager.setDob("2001-07-31");
+        manager.setDoj("2023-07-17");
+        manager.setEmail("abhinandan@nucleusteq.com");
+        manager.setUserId("N0002");
+        manager.setName("Abhinandan");
+        manager.setPassword("N0002@31072001");
+        manager.setContactNo(7890432167L);
+        manager.setSkills(skills);
+        when(userRepository.findById(emp.getManagerId()))
+                .thenReturn(Optional.of(manager));
+
+        when(userService2.userToOutDto(emp)).thenReturn(empDto);
+        Project project =new Project();
+        project.setProjectName("Petsmart");
+        project.setSkills(skills);
+        project.setStartDate("2023-05-05");
+        project.setManagerId(2L);
+//        when(projectRepository.findByProjectId(any())).thenReturn(Optional.of(project));
+        List<EmployeeOutDto> result =
+                userService.searchBySkills(skills1, false);
+        assertEquals(1, result.size());
+
     }
 
 }

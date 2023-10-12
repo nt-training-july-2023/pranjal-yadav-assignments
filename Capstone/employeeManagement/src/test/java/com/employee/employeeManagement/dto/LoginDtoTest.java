@@ -4,6 +4,9 @@ import com.employee.employeeManagement.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginDtoTest {
@@ -24,15 +27,12 @@ public class LoginDtoTest {
     }
     @Test
     public void testToString() {
-        // Create a LoginDto object with sample values
         LoginDto loginDto = new LoginDto();
         loginDto.setEmail("ankita.sharma@nucleusteq.com");
         loginDto.setPassword("ankita@123");
 
-        // Define the expected string representation
         String expected = "LoginDto{email='ankita.sharma@nucleusteq.com', password='ankita@123'}";
 
-        // Call the toString() method and compare it with the expected result
         assertEquals(expected, loginDto.toString());
     }
     @Test
@@ -44,10 +44,21 @@ public class LoginDtoTest {
         LoginDto loginDto2 = new LoginDto();
         loginDto2.setEmail("ankita.sharma@nucleusteq.com");
         loginDto2.setPassword("admin123");
+        List<String> skills = new ArrayList<>();
+        skills.add("java");
+        skills.add("react");
+        UserInDto user = new UserInDto();
+        user.setName("Pranjal");
+        user.setSkills(skills);
+        user.setUserId("N7281");
+        user.setContactNo(9876543210L);
 
         assertTrue(loginDto1.equals(loginDto1));
         assertFalse(loginDto1.equals(null));
         assertFalse(loginDto1.equals(""));
+        assertEquals(loginDto1, loginDto1);
+        assertNotEquals(loginDto1, user);
+
 
         assertTrue(loginDto1.equals(loginDto2));
         assertEquals(loginDto1.hashCode(), loginDto2.hashCode());

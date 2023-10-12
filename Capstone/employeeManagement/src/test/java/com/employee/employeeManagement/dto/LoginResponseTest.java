@@ -3,6 +3,9 @@ package com.employee.employeeManagement.dto;
 import com.employee.employeeManagement.enums.Role;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginResponseTest {
@@ -28,9 +31,19 @@ public class LoginResponseTest {
                 "Rashmi");
         LoginResponse response3 = new LoginResponse("Failure", 2L, Role.ADMIN
                 , "Ankita");
+        List<String> skills = new ArrayList<>();
+        skills.add("java");
+        skills.add("react");
+        UserInDto user = new UserInDto();
+        user.setName("Pranjal");
+        user.setSkills(skills);
+        user.setUserId("N7281");
+        user.setContactNo(9876543210L);
 
         assertTrue(response1.equals(response2));
         assertFalse(response1.equals(response3));
+        assertEquals(response1, response1);
+        assertNotEquals(response1, user);
 
         assertEquals(response1.hashCode(), response2.hashCode());
         assertNotEquals(response1.hashCode(), response3.hashCode());

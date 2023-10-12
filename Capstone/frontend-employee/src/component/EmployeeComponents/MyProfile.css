@@ -1,4 +1,3 @@
-/* MyProfile.css */
 
 .main-profile {
     display: flex;
@@ -15,9 +14,8 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     padding: 20px;
-    width: 200%; /* Adjust as needed */
+    width: 200%; 
     display: flex;
-    /* max-width: 400px; Adjust as needed */
     justify-content: space-evenly;
   }
   
@@ -27,7 +25,6 @@
   }
   
   .field_input {
-    /* margin: 0; */
     margin-bottom: 8px ;
     margin-top: 2px;
     padding: 0;

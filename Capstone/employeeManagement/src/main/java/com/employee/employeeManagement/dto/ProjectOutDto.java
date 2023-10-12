@@ -35,7 +35,7 @@ public class ProjectOutDto {
      * get manager name.
      * @return manager name.
      */
-    public final String getManagerName() {
+    public String getManagerName() {
         return managerName;
     }
 
@@ -43,7 +43,7 @@ public class ProjectOutDto {
      * set manager name.
      * @param managerNameParam manager name.
      */
-    public final void setManagerName(final String managerNameParam) {
+    public void setManagerName(final String managerNameParam) {
         this.managerName = managerNameParam;
     }
 
@@ -56,7 +56,7 @@ public class ProjectOutDto {
      * get team.
      * @return list of team members.
      */
-    public final List<String> getTeam() {
+    public List<String> getTeam() {
         return Collections.unmodifiableList(team);
     }
 
@@ -64,7 +64,7 @@ public class ProjectOutDto {
      * set team.
      * @param teamParam list of team members.
      */
-    public final void setTeam(final List<String> teamParam) {
+    public void setTeam(final List<String> teamParam) {
         if (teamParam != null) {
             this.team = new ArrayList<>(teamParam);
         } else {
@@ -82,7 +82,7 @@ public class ProjectOutDto {
      *
      * @return The project ID.
      */
-    public final Long getProjectId() {
+    public Long getProjectId() {
         return projectId;
     }
 
@@ -91,7 +91,7 @@ public class ProjectOutDto {
      *
      * @param projectIdParam The project ID to set.
      */
-    public final void setProjectId(final Long projectIdParam) {
+    public void setProjectId(final Long projectIdParam) {
         this.projectId = projectIdParam;
     }
 
@@ -100,7 +100,7 @@ public class ProjectOutDto {
      *
      * @return The project name.
      */
-    public final String getProjectName() {
+    public String getProjectName() {
         return projectName;
     }
 
@@ -109,7 +109,7 @@ public class ProjectOutDto {
      *
      * @param projectNameParam The project name to set.
      */
-    public final void setProjectName(final String projectNameParam) {
+    public void setProjectName(final String projectNameParam) {
         this.projectName = projectNameParam;
     }
 
@@ -118,7 +118,7 @@ public class ProjectOutDto {
      *
      * @return The manager's user ID.
      */
-    public final Long getManagerId() {
+    public Long getManagerId() {
         return managerId;
     }
 
@@ -127,7 +127,7 @@ public class ProjectOutDto {
      *
      * @param managerIdParam The manager's user ID to set.
      */
-    public final void setManagerId(final Long managerIdParam) {
+    public void setManagerId(final Long managerIdParam) {
         this.managerId = managerIdParam;
     }
 
@@ -136,7 +136,7 @@ public class ProjectOutDto {
      *
      * @return The description.
      */
-    public final String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -145,7 +145,7 @@ public class ProjectOutDto {
      *
      * @param descriptionParam The description to set.
      */
-    public final void setDescription(final String descriptionParam) {
+    public void setDescription(final String descriptionParam) {
         this.description = descriptionParam;
     }
 
@@ -154,7 +154,7 @@ public class ProjectOutDto {
      *
      * @return The start date.
      */
-    public final String getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
@@ -163,7 +163,7 @@ public class ProjectOutDto {
      *
      * @param startDateParam The start date to set.
      */
-    public final void setStartDate(final String startDateParam) {
+    public void setStartDate(final String startDateParam) {
         this.startDate = startDateParam;
     }
 
@@ -172,7 +172,7 @@ public class ProjectOutDto {
      *
      * @return The list of skills.
      */
-    public final List<String> getSkills() {
+    public List<String> getSkills() {
         return Collections.unmodifiableList(skills);
     }
 
@@ -181,7 +181,7 @@ public class ProjectOutDto {
      *
      * @param skillsParam The list of skills to set.
      */
-    public final void setSkills(final List<String> skillsParam) {
+    public void setSkills(final List<String> skillsParam) {
         if (skillsParam != null) {
             this.skills = new ArrayList<>(skillsParam);
         } else {

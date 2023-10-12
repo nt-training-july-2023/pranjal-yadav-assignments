@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../EmployeeDashboard/MyProfile.css";
-import { Link, useNavigate } from "react-router-dom";
-
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import AdminService from "../../../service/AdminService";
 import CustomButton from "../../../component/CustomButton";
 
@@ -18,7 +16,6 @@ const MyProfile = () => {
   const getEmployee = async () => {
     const empEmail = localStorage.getItem("email");
     const id = localStorage.getItem("id");
-    console.log(empEmail);
     AdminService.getUserById(id).then((response) => {
       setEmployee(response.data);
       setUserId(response.data.userId);
@@ -27,7 +24,7 @@ const MyProfile = () => {
   };
   return (
     <div className="container_my_profile">
-      <h3 style={{ marginLeft: "23.5rem" , color: "white"}}>{userId}</h3>
+      <h3 style={{ marginLeft: "26rem" , color: "white"}}>Employee ID : {userId}</h3>
       <div className="main-profile">
         {employee ? (
           <div>
@@ -47,8 +44,8 @@ const MyProfile = () => {
                     {employee.skills ? employee.skills.join(", ") : "N/A"}
                   </p>
                   <CustomButton
-                    text={"Update Skills"}
-                    style={"btn"}
+                    text="Update Skills"
+                    style="btn"
                     onClick={() => {
                       navigate("/updateSkills", {
                         state: {

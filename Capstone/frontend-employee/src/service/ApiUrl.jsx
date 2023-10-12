@@ -1,7 +1,7 @@
 export const USER_BASE_URL = "http://localhost:8080/user";
 export const LOGIN = "/login";
 export const ADMIN_REGISTER = "/save";
-export const ADD_EMPLOYEE = "/save-emp";
+export const ADD_EMPLOYEE = "/saveEmp";
 export const GET_BY_ROLE = "/all/"
 export const ALL_USERS = "/allUsers"
 export const BY_ID_NAME= "getEmployeeById/";

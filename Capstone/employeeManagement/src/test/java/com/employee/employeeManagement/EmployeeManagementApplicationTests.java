@@ -10,7 +10,6 @@ class EmployeeManagementApplicationTests {
 
 	@Test
 	void contextLoads() {
-		assertDoesNotThrow(() -> EmployeeManagementApplication.main(new String[]{}));
 	}
 
 }

@@ -11,7 +11,6 @@ import InputComponent from "../Input/InputComponent";
 
 const AddProject = () => {
   const [projectName, setProjectName] = useState("");
-  const [projectId, setProjectId] = useState("");
   const [description, setDescription] = useState("");
   const [returnManager, setreturnManager] = useState([]);
   const [startDate, setStartDate] = useState("");
@@ -25,19 +24,16 @@ const AddProject = () => {
   const navigate = useNavigate();
 
   const fetchManagers = () => {
-    const managerResponse = AddProjectService.getAllManagers()
+    AddProjectService.getAllManagers()
       .then((response) => {
         console.log(response);
         setManagers(response.data);
       })
       .catch((error) => {
-        console.log(error);
       });
   };
 
-  //ERRORS
   const [projectNameError, setProjectNameError] = useState("");
-  const [projectIdError, setProjectIdError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
   const [managerIdError, setManagerIdError] = useState("");
   const [startDateError, setStartDateError] = useState("");
@@ -102,9 +98,6 @@ const AddProject = () => {
       setSkillsError("Mandatory Field");
       return;
     }
-    // setManagerId(returnManager.id);
-    // console.log(managerId);
-    // const id =
     const project = {
       projectName,
       description,
@@ -113,8 +106,6 @@ const AddProject = () => {
       skills,
     };
 
-    console.log(project);
-    // AddProjectService.createProject(project)
     ProjectService.createProject(project)
       .then((response) => {
         setShowPopUp(true);
@@ -125,7 +116,6 @@ const AddProject = () => {
         setTimeout(navigateToDashboard, 2000);
       })
       .catch((error) => {
-        console.log(error);
         if (error.response.status === 409) {
           setShowPopUp(true);
           setPopUpMessage(error.response.data.errorMessage);
@@ -144,23 +134,12 @@ const AddProject = () => {
             }}
           />
         )}
-        <h2 className="title">Add project</h2>
+        <p className="signup_heading">Add project</p>
         <form action="">
           <div className="form-section">
             <div className="column">
               <div className="form-group">
                 <label>Project Name</label>
-                {/* <input
-                  type="text"
-                  required
-                  className="input"
-                  value={projectName}
-                  onChange={(e) => {
-                    setProjectName(e.target.value);
-                    setProjectNameError("");
-                  }}
-                  onBlur={handleProjectNameBlur}
-                /> */}
                 <InputComponent
                 type="text"
                 required
@@ -178,7 +157,6 @@ const AddProject = () => {
               <div className="form-group">
                 <label>Manager</label>
                 <select
-                  // value={location}
 
                   placeholder="Enter Manager"
                   name="manager"
@@ -188,9 +166,7 @@ const AddProject = () => {
                 >
                   <option value="">Select Manager</option>
                   {managers.map((item) => {
-                    {
-                      console.log(item);
-                    }
+                    
                     return (
                       <option key={item.id} value={item.id}>
                         {item.userId} : {item.name} 
@@ -223,13 +199,6 @@ const AddProject = () => {
 
               <div className="form-group">
                 <label>Start Date</label>
-                {/* <input
-                  type="date"
-                  className="input "
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  onBlur={handleStartDateBlur}
-                /> */}
                 <InputComponent
                 type="date"
                 className="input "
@@ -256,7 +225,7 @@ const AddProject = () => {
               </div>
             </div>
           </div>
-          <CustomButton style={"submit-button"} text={"Add Project"} onClick={(e) => saveProject(e)}/>
+          <CustomButton style="submit-button addEmp_submit" text={"Add Project"} onClick={(e) => saveProject(e)}/>
           <Link to="/adminDashBoard">Cancel</Link>
         </form>
       </div>

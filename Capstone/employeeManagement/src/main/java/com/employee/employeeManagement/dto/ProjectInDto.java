@@ -1,6 +1,7 @@
 package com.employee.employeeManagement.dto;
 
 
+import com.employee.employeeManagement.constants.ErrorConstants;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -19,27 +20,27 @@ public class ProjectInDto {
     /**
      * The name of the project.
      */
-    @NotBlank(message = "Project name is required.")
+    @NotBlank(message = ErrorConstants.PROJECT_NAME_REGEX)
     private String projectName;
     /**
      * The manager's user ID associated with the project.
      */
-    @NotNull(message = "Manager Id is required")
+    @NotNull(message = ErrorConstants.MANAGER_REQUIRED)
     private Long managerId;
     /**
      * The description of the project.
      */
-    @NotBlank
+    @NotBlank(message = ErrorConstants.DESCRIPTION_REQUIRED)
     private String description;
     /**
      * The start date of the project.
      */
-    @NotBlank
+    @NotBlank(message = ErrorConstants.START_DATE_REQUIRED)
     private String startDate;
     /**
      * The list of skills required for the project.
      */
-    @NotEmpty
+    @NotEmpty(message = ErrorConstants.SKILLS_REQUIRED)
     private List<String> skills;
 
 
@@ -48,7 +49,7 @@ public class ProjectInDto {
      *
      * @return The name of the project.
      */
-    public final String getProjectName() {
+    public String getProjectName() {
         return projectName;
     }
 
@@ -57,7 +58,7 @@ public class ProjectInDto {
      *
      * @param projectNameParam The name of the project.
      */
-    public final void setProjectName(final String projectNameParam) {
+    public void setProjectName(final String projectNameParam) {
         this.projectName = projectNameParam;
     }
 
@@ -66,7 +67,7 @@ public class ProjectInDto {
      *
      * @return The manager's user ID associated with the project.
      */
-    public final Long getManagerId() {
+    public Long getManagerId() {
         return managerId;
     }
 
@@ -75,7 +76,7 @@ public class ProjectInDto {
      *
      * @param managerIdParam The manager's user ID associated with the project.
      */
-    public final void setManagerId(final Long managerIdParam) {
+    public void setManagerId(final Long managerIdParam) {
         this.managerId = managerIdParam;
     }
 
@@ -84,7 +85,7 @@ public class ProjectInDto {
      *
      * @return The description of the project.
      */
-    public final String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -93,7 +94,7 @@ public class ProjectInDto {
      *
      * @param descriptionParam The description of the project.
      */
-    public final void setDescription(final String descriptionParam) {
+    public void setDescription(final String descriptionParam) {
         this.description = descriptionParam;
     }
 
@@ -102,7 +103,7 @@ public class ProjectInDto {
      *
      * @return The start date of the project.
      */
-    public final String getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
@@ -111,7 +112,7 @@ public class ProjectInDto {
      *
      * @param startDateParam The start date of the project.
      */
-    public final void setStartDate(final String startDateParam) {
+    public void setStartDate(final String startDateParam) {
         this.startDate = startDateParam;
     }
 
@@ -120,7 +121,7 @@ public class ProjectInDto {
      *
      * @return The list of skills required for the project.
      */
-    public final List<String> getSkills() {
+    public List<String> getSkills() {
         return Collections.unmodifiableList(skills);
     }
 
@@ -129,7 +130,7 @@ public class ProjectInDto {
      *
      * @param skillsParam The list of skills required for the project.
      */
-    public final void setSkills(final List<String> skillsParam) {
+    public void setSkills(final List<String> skillsParam) {
         if (skillsParam != null) {
             this.skills = new ArrayList<>(skillsParam);
         } else {
