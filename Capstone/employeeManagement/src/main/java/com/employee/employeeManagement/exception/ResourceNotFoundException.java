@@ -1,4 +1,6 @@
 package com.employee.employeeManagement.exception;
+
+
 /**
  * Exception class to indicate that a requested resource was not found.
  */

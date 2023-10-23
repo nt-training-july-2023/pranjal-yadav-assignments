@@ -1,0 +1,58 @@
+.admin_tabs {
+    margin-top: 1rem !important; 
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    padding: 0.3rem;
+    color: rgb(255, 254, 254);
+    border: 0.15rem solid white;
+    border-radius: 2rem;
+    z-index: 1;
+    width: 47vw; 
+    height: auto;
+    margin-left: 22rem;
+  }
+  .admin_employee, .admin_manager, .admin_project, .admin_add_employee {
+    background-color: rgb(45, 111, 253);
+    height: 1.5rem;
+    width: auto;
+    padding: 0.5rem 1rem;
+    border-radius: 1.5rem;
+    color: white;
+    cursor: pointer !important;
+  }
+ 
+  .header_img {
+    margin-top: -5rem;
+    width: 6rem;
+    height: 4rem;
+  }
+  .headerlogout{
+    background-color: red !important;
+    margin-bottom: 0.5rem;
+    margin-left: 70rem;
+  }
+  .add_and_request{
+    display: flex;
+    margin-top: 23px;
+  }
+  @media (max-width: 768px) {
+    .headerlogout {
+      margin-left: 15rem;
+      margin-top: 4rem;
+    }
+    .employee_logo{
+      display: none;
+    }
+  }
+  @media (max-width: 1040px) {
+    .header_logo{
+      display: none;
+    }
+  }
+  
+  

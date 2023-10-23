@@ -1,0 +1,253 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RequestResourceDto</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.employee.employeeManagement.dto</a>
+</div>
+
+<h1>Coverage Summary for Class: RequestResourceDto (com.employee.employeeManagement.dto)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RequestResourceDto</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (18/20)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.employee.employeeManagement.dto;
+&nbsp;
+&nbsp;
+&nbsp;import jakarta.validation.constraints.NotBlank;
+&nbsp;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;/**
+&nbsp; * Data Transfer Object (DTO) representing a request resource.
+&nbsp; * This class is used for transferring data
+&nbsp; * related to employee management requests.
+&nbsp; */
+<b class="fc">&nbsp;public class RequestResourceDto {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The comment associated with the request.
+&nbsp;     */
+&nbsp;    @NotBlank
+&nbsp;    private String comment;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The ID of the manager responsible for the request.
+&nbsp;     */
+&nbsp;    private Long managerId;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The ID of the employee associated with the request.
+&nbsp;     */
+&nbsp;    private Long employeeId;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The ID of the project related to the request.
+&nbsp;     */
+&nbsp;    private Long projectId;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the comment associated with the request.
+&nbsp;     *
+&nbsp;     * @return The comment as a string.
+&nbsp;     */
+&nbsp;    public String getComment() {
+<b class="fc">&nbsp;        return comment;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the comment associated with the request.
+&nbsp;     *
+&nbsp;     * @param commentParam The comment to set.
+&nbsp;     */
+&nbsp;    public void setComment(final String commentParam) {
+<b class="fc">&nbsp;        this.comment = commentParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the ID of the manager responsible for the request.
+&nbsp;     *
+&nbsp;     * @return The manager&#39;s ID.
+&nbsp;     */
+&nbsp;    public Long getManagerId() {
+<b class="fc">&nbsp;        return managerId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the ID of the manager responsible for the request.
+&nbsp;     *
+&nbsp;     * @param managerIdParam The manager&#39;s ID to set.
+&nbsp;     */
+&nbsp;    public void setManagerId(final Long managerIdParam) {
+<b class="fc">&nbsp;        this.managerId = managerIdParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the ID of the employee associated with the request.
+&nbsp;     *
+&nbsp;     * @return The employee&#39;s ID.
+&nbsp;     */
+&nbsp;    public Long getEmployeeId() {
+<b class="fc">&nbsp;        return employeeId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the ID of the employee associated with the request.
+&nbsp;     *
+&nbsp;     * @param employeeIdParam The employee&#39;s ID to set.
+&nbsp;     */
+&nbsp;    public void setEmployeeId(final Long employeeIdParam) {
+<b class="fc">&nbsp;        this.employeeId = employeeIdParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the ID of the project related to the request.
+&nbsp;     *
+&nbsp;     * @return The project&#39;s ID.
+&nbsp;     */
+&nbsp;    public Long getProjectId() {
+<b class="fc">&nbsp;        return projectId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the ID of the project related to the request.
+&nbsp;     *
+&nbsp;     * @param projectIdParam The project&#39;s ID to set.
+&nbsp;     */
+&nbsp;    public void setProjectId(final Long projectIdParam) {
+<b class="fc">&nbsp;        this.projectId = projectIdParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * toString method of this class.
+&nbsp;     * @return String value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final String toString() {
+<b class="fc">&nbsp;        return &quot;RequestResourceDto{&quot;</b>
+&nbsp;                + &quot;comment=&#39;&quot; + comment + &#39;\&#39;&#39;
+&nbsp;                + &quot;, managerId=&quot; + managerId
+&nbsp;                + &quot;, employeeId=&quot; + employeeId
+&nbsp;                + &quot;, projectId=&quot; + projectId
+&nbsp;                + &#39;}&#39;;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Equals method for this class.
+&nbsp;     * @param o object o.
+&nbsp;     * @return boolean value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final boolean equals(final Object o) {
+<b class="fc">&nbsp;        if (this == o) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (!(o instanceof RequestResourceDto that)) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return Objects.equals(getComment(), that.getComment())</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getManagerId(), that.getManagerId())</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getEmployeeId(), that.getEmployeeId())</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(getProjectId(), that.getProjectId());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * hashcode method of this class.
+&nbsp;     * @return int value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final int hashCode() {
+<b class="fc">&nbsp;        return Objects.hash(getComment(),</b>
+<b class="fc">&nbsp;                getManagerId(), getEmployeeId(), getProjectId());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-06 13:05</div>
+</div>
+</body>
+</html>

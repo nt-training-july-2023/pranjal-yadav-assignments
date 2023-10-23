@@ -1,0 +1,106 @@
+.card_container_employee {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 5rem !important; 
+}
+
+.org_logout {
+    background-color: red;
+    margin-left: 75rem;
+    margin-top: -5rem;
+}
+.name_designation{
+    margin-bottom: 14px;
+    font-weight: 100;
+    background-color: #ffffff;
+}
+.name{
+    margin-bottom: 2px;
+}
+.card_org {
+    display: flex;
+    border: 1px solid #998383;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 10px;
+    width: 30rem;
+    margin-left: 3rem;
+}
+
+
+.column {
+    flex: 1;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+p {
+    font-size: 12px;
+}
+
+.btn-addEmployee {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 70rem;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-addEmployee:hover {
+    background-color: #0056b3;
+}
+ .card_container::-webkit-scrollbar {
+    display: none;
+}
+
+.card_container::-webkit-scrollbar-thumb {
+    background-color: transparent;
+} 
+
+
+.card_container::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.assign-button{
+    display: inline-block;
+    background-color: #3b8ee6;
+    padding: 5px 10px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.input-addproject-manager{
+    width: 105%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: border-color 0.3s;  
+  }
+  .highlight-span{
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .emp-id{
+    margin-bottom: 20px;
+  }
+  .assign{
+    text-align: center;
+  }
+  @media (max-width: 768px){
+    .card_container_employee{
+        margin-right: 2rem;
+    }
+  }

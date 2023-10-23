@@ -1,0 +1,223 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RequestResourceController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.employee.employeeManagement.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: RequestResourceController (com.employee.employeeManagement.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RequestResourceController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (28/28)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.employee.employeeManagement.controller;
+&nbsp;
+&nbsp;
+&nbsp;import com.employee.employeeManagement.dto.RequestResourceDto;
+&nbsp;import com.employee.employeeManagement.dto.RequestResourceOutDto;
+&nbsp;import com.employee.employeeManagement.response.ResponseDto;
+&nbsp;import com.employee.employeeManagement.service.RequestResourceService;
+&nbsp;import com.employee.employeeManagement.validation.RequestResourceValidation;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;import org.slf4j.Logger;
+&nbsp;import org.slf4j.LoggerFactory;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.web.bind.annotation.RestController;
+&nbsp;import org.springframework.web.bind.annotation.CrossOrigin;
+&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+&nbsp;import org.springframework.web.bind.annotation.PostMapping;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.DeleteMapping;
+&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+&nbsp;import org.springframework.web.bind.annotation.RequestParam;
+&nbsp;import org.springframework.web.bind.annotation.RequestBody;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;@RestController
+&nbsp;@CrossOrigin(&quot;*&quot;)
+&nbsp;@RequestMapping(&quot;/user&quot;)
+<b class="fc">&nbsp;public class RequestResourceController {</b>
+&nbsp;    /**
+&nbsp;     * request resource validation autowired.
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private RequestResourceValidation requestResourceValidation;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * requestResourceService autowired.
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private RequestResourceService requestResourceService;
+&nbsp;    /**
+&nbsp;     * The logger for this class.
+&nbsp;     */
+<b class="fc">&nbsp;    private static final Logger LOGGER = LoggerFactory</b>
+<b class="fc">&nbsp;            .getLogger(UserController.class);</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Endpoint for adding a request.
+&nbsp;     * @param requestResourceDto Request resource dto.
+&nbsp;     * @return Response.
+&nbsp;     */
+&nbsp;    @PostMapping(path = &quot;/request/resource&quot;)
+&nbsp;    public final ResponseDto requestResource(
+&nbsp;            @RequestBody @Valid final RequestResourceDto requestResourceDto) {
+<b class="fc">&nbsp;        requestResourceValidation.checkRequest(requestResourceDto);</b>
+<b class="fc">&nbsp;        LOGGER.info(&quot;Adding request resource.&quot;);</b>
+<b class="fc">&nbsp;        ResponseDto responseDto =</b>
+<b class="fc">&nbsp;                requestResourceService.requestResource(requestResourceDto);</b>
+<b class="fc">&nbsp;        LOGGER.info(&quot;Request resource dto: &quot; + requestResourceDto.toString());</b>
+<b class="fc">&nbsp;        return responseDto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Endpoint for retrieving all requested resources.
+&nbsp;     * @return List of requested resources.
+&nbsp;     */
+&nbsp;    @GetMapping(path = &quot;/all/request&quot;)
+&nbsp;    public final List&lt;RequestResourceOutDto&gt; getAllRequests() {
+<b class="fc">&nbsp;        LOGGER.info(&quot;Getting all requests&quot;);</b>
+<b class="fc">&nbsp;        List&lt;RequestResourceOutDto&gt; list =</b>
+<b class="fc">&nbsp;                requestResourceService.getAllRequests();</b>
+<b class="fc">&nbsp;        return list;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Endpoint for deleting a requested resource.
+&nbsp;     * @param resourceId Id of that resource.
+&nbsp;     * @return Response.
+&nbsp;     */
+&nbsp;    @DeleteMapping(path = &quot;/request/delete/{resourceId}&quot;)
+&nbsp;    public final ResponseDto deleteRequest(
+&nbsp;            @PathVariable final Long resourceId) {
+<b class="fc">&nbsp;        LOGGER.info(&quot;Deleting request.&quot;);</b>
+<b class="fc">&nbsp;        ResponseDto responseDto =</b>
+<b class="fc">&nbsp;                requestResourceService.deleteRequest(resourceId);</b>
+<b class="fc">&nbsp;        LOGGER.info(&quot;Resource id: &quot; + resourceId);</b>
+<b class="fc">&nbsp;        return responseDto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Endpoint for accepting request.
+&nbsp;     * @param resourceId of requested resource.
+&nbsp;     * @return Response.
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/accept/{resourceId}&quot;)
+&nbsp;    public final ResponseDto acceptRequest(
+&nbsp;            @PathVariable final Long resourceId) {
+<b class="fc">&nbsp;        requestResourceValidation.checkResourceIdAccept(resourceId);</b>
+<b class="fc">&nbsp;        LOGGER.info(&quot;Accepting resource&quot;);</b>
+<b class="fc">&nbsp;        ResponseDto responseDto =</b>
+<b class="fc">&nbsp;                requestResourceService.acceptRequest(resourceId);</b>
+<b class="fc">&nbsp;        LOGGER.info(&quot;Resource id: &quot; + resourceId);</b>
+<b class="fc">&nbsp;        return responseDto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check if that particular employee is already
+&nbsp;     * requested by that manager.
+&nbsp;     * @param empId requested resource employee id.
+&nbsp;     * @param managerId requested resource manager id.
+&nbsp;     * @return boolean value.
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/employee/isRequested&quot;)
+&nbsp;    public boolean isRequested(@RequestParam final Long empId,
+&nbsp;                               @RequestParam final Long managerId) {
+<b class="fc">&nbsp;        LOGGER.info(&quot;Is requested&quot;);</b>
+<b class="fc">&nbsp;        boolean returnedValue =</b>
+<b class="fc">&nbsp;                requestResourceService.isRequested(empId, managerId);</b>
+<b class="fc">&nbsp;        return returnedValue;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-06 13:05</div>
+</div>
+</body>
+</html>

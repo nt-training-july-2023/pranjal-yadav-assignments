@@ -1,0 +1,545 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.employee.employeeManagement.service</a>
+</div>
+
+<h1>Coverage Summary for Class: UserService (com.employee.employeeManagement.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90.9%
+  </span>
+  <span class="absValue">
+    (20/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    79.1%
+  </span>
+  <span class="absValue">
+    (117/148)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.employee.employeeManagement.service;
+&nbsp;
+&nbsp;import com.employee.employeeManagement.constants.ErrorConstants;
+&nbsp;import com.employee.employeeManagement.constants.SuccessConstants;
+&nbsp;import com.employee.employeeManagement.model.Project;
+&nbsp;import com.employee.employeeManagement.model.RequestResource;
+&nbsp;import com.employee.employeeManagement.dto.UserInDto;
+&nbsp;import com.employee.employeeManagement.dto.EmployeeOutDto;
+&nbsp;import com.employee.employeeManagement.dto.LoginResponse;
+&nbsp;import com.employee.employeeManagement.dto.LoginDto;
+&nbsp;import com.employee.employeeManagement.dto.RequestResourceDto;
+&nbsp;import com.employee.employeeManagement.dto.RequestResourceOutDto;
+&nbsp;import com.employee.employeeManagement.enums.Role;
+&nbsp;import com.employee.employeeManagement.model.User;
+&nbsp;import com.employee.employeeManagement.dto.UserNameDto;
+&nbsp;import com.employee.employeeManagement.exception.ResourceNotFoundException;
+&nbsp;import com.employee.employeeManagement.repository.ProjectRepository;
+&nbsp;import com.employee.employeeManagement.repository.RequestResourceRepository;
+&nbsp;import com.employee.employeeManagement.repository.UserRepository;
+&nbsp;import com.employee.employeeManagement.response.ResponseDto;
+&nbsp;import com.employee.employeeManagement.validation.UserValidation;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.security.crypto.password.PasswordEncoder;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.nio.charset.StandardCharsets;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.Base64;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;/**
+&nbsp; * Service class that handles operations related to users.
+&nbsp; */
+&nbsp;@Service
+<b class="fc">&nbsp;public class UserService {</b>
+&nbsp;    /**
+&nbsp;     * UserRepository autowired for adding to database.
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private UserRepository userRepository;
+&nbsp;    /**
+&nbsp;     * ModelMapper autowired to map dto to entity and vice versa.
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private ProjectRepository projectRepository;
+&nbsp;    /**
+&nbsp;     * PasswordEncoder autowired to encode password.
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private PasswordEncoder passwordEncoder;
+&nbsp;    /**
+&nbsp;     * Validation autowired to validate parameters.
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private UserValidation userValidation;
+&nbsp;    /**
+&nbsp;     * RequestResourceRepository autowired.
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private RequestResourceRepository requestResourceRepository;
+&nbsp;    /**
+&nbsp;     * Decodes a Base64-encoded password string.
+&nbsp;     *
+&nbsp;     * @param pwd The Base64-encoded password.
+&nbsp;     * @return The decoded password string.
+&nbsp;     */
+&nbsp;    public static String decodePassword(final String pwd) {
+<b class="fc">&nbsp;        byte[] decodedBytes = Base64.getDecoder().decode(pwd);</b>
+<b class="fc">&nbsp;        return new String(decodedBytes, StandardCharsets.UTF_8);</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Adds a new user.
+&nbsp;     *
+&nbsp;     * @param userDto The user details to be added.
+&nbsp;     * @return The added user details.
+&nbsp;     */
+&nbsp;    public final ResponseDto addUser(final UserInDto userDto) {
+<b class="fc">&nbsp;        User user = userDtoToUser(userDto);</b>
+<b class="fc">&nbsp;        userRepository.save(user);</b>
+<b class="fc">&nbsp;        return new ResponseDto(SuccessConstants.USER_ADDED);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Performs user login and returns the login DTO if successful.
+&nbsp;     *
+&nbsp;     * @param loginDto The login details.
+&nbsp;     * @return The login DTO if successful, otherwise null.
+&nbsp;     */
+&nbsp;    public final LoginResponse login(final LoginDto loginDto) {
+<b class="fc">&nbsp;        Optional&lt;User&gt; optionalUser = userRepository.findByEmail(</b>
+<b class="fc">&nbsp;                loginDto.getEmail());</b>
+<b class="fc">&nbsp;        User user = optionalUser.get();</b>
+<b class="fc">&nbsp;        return new LoginResponse(</b>
+<b class="fc">&nbsp;                &quot;Logged in successfully&quot;, user.getId(),</b>
+<b class="fc">&nbsp;                user.getRole(), user.getName());</b>
+&nbsp;
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Saves an employee and returns the employee&#39;s name.
+&nbsp;     *
+&nbsp;     * @param userDto The employee details to be saved.
+&nbsp;     * @return The name of the saved employee.
+&nbsp;     */
+&nbsp;    public final ResponseDto saveEmp(final UserInDto userDto) {
+<b class="fc">&nbsp;        if (userDto.getManagerId() == null &amp;&amp; !userDto.getRole().equals(</b>
+&nbsp;                Role.ADMIN)) {
+<b class="nc">&nbsp;            userDto.setManagerId(1L);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        User user = userDtoToUser(userDto);</b>
+<b class="fc">&nbsp;        userRepository.save(user);</b>
+<b class="fc">&nbsp;        return new ResponseDto(</b>
+<b class="fc">&nbsp;                &quot;User added&quot;, user.getRole());</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Retrieves a list of EmployeeOutDto
+&nbsp;     * objects based on the provided role name.
+&nbsp;     *
+&nbsp;     * @param roleName The name of the role to filter employees by.
+&nbsp;     * @return A list of EmployeeOutDto objects matching the specified role.
+&nbsp;     */
+&nbsp;    public final List&lt;EmployeeOutDto&gt; allUserByRole(final String roleName) {
+<b class="fc">&nbsp;        Role role = Role.valueOf(roleName);</b>
+<b class="fc">&nbsp;        List&lt;User&gt; users =</b>
+<b class="fc">&nbsp;            userRepository.findByRole(role);</b>
+<b class="fc">&nbsp;        List&lt;EmployeeOutDto&gt; outUsers = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (User user : users) {</b>
+<b class="fc">&nbsp;            EmployeeOutDto employeeOutDto = userToOutDto(user);</b>
+<b class="fc">&nbsp;                List&lt;User&gt; userDb =</b>
+<b class="fc">&nbsp;                        userRepository.findAllByProjectId(user.getProjectId());</b>
+<b class="fc">&nbsp;                for (User currUser : userDb) {</b>
+<b class="nc">&nbsp;                    System.out.println(currUser);</b>
+<b class="nc">&nbsp;                }</b>
+&nbsp;
+<b class="fc">&nbsp;        outUsers.add(employeeOutDto);</b>
+<b class="fc">&nbsp;    }</b>
+<b class="fc">&nbsp;    return outUsers;</b>
+&nbsp;}
+&nbsp;    /**
+&nbsp;     * Retrieves a list of all EmployeeOutDto objects for non-admin users.
+&nbsp;     *
+&nbsp;     * @return A list of EmployeeOutDto objects for non-admin users.
+&nbsp;     */
+&nbsp;    public final List&lt;EmployeeOutDto&gt; getAllUsers() {
+<b class="fc">&nbsp;        List&lt;User&gt; userList = userRepository.findAll();</b>
+<b class="fc">&nbsp;        List&lt;EmployeeOutDto&gt; userDtoList = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (User user : userList) {</b>
+<b class="fc">&nbsp;            if (user.getRole() != Role.ADMIN) {</b>
+<b class="fc">&nbsp;                EmployeeOutDto employeeOutDto = userToOutDto(user);</b>
+<b class="fc">&nbsp;                userDtoList.add(employeeOutDto);</b>
+&nbsp;
+&nbsp;            }
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return userDtoList;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Retrieves the name of an employee by their user ID.
+&nbsp;     *
+&nbsp;     * @param userId The user ID of the employee.
+&nbsp;     * @return A UserNameDto containing the name of the employee.
+&nbsp;     * @throws ResourceNotFoundException If the
+&nbsp;     * user with the specified ID does not exist.
+&nbsp;     */
+&nbsp;
+&nbsp;    public final UserNameDto getEmployeeNameById(final String userId) {
+<b class="fc">&nbsp;        Optional&lt;User&gt; optionalUser = userRepository.findByUserId(userId);</b>
+<b class="fc">&nbsp;        User user = optionalUser.orElseThrow(</b>
+<b class="fc">&nbsp;                () -&gt; new ResourceNotFoundException(</b>
+&nbsp;                        ErrorConstants.EMPLOYEE_NOT_EXIST));
+<b class="fc">&nbsp;        UserNameDto userNameDto = new UserNameDto();</b>
+<b class="fc">&nbsp;        userNameDto.setName(user.getName());</b>
+<b class="fc">&nbsp;        return userNameDto;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Retrieves the name of an employee by their user ID (as a Long).
+&nbsp;     *
+&nbsp;     * @param id The user ID of the employee.
+&nbsp;     * @return A UserNameDto containing the name of the employee.
+&nbsp;     * @throws ResourceNotFoundException If the
+&nbsp;     * user with the specified ID does not exist.
+&nbsp;     */
+&nbsp;    public final UserNameDto getEmployeeNameByLongId(final Long id) {
+&nbsp;
+<b class="fc">&nbsp;        Optional&lt;User&gt; optionalUser = userRepository.findById(id);</b>
+<b class="fc">&nbsp;        User user = optionalUser.orElseThrow(</b>
+<b class="fc">&nbsp;                () -&gt; new ResourceNotFoundException(</b>
+&nbsp;                        ErrorConstants.EMPLOYEE_NOT_EXIST));
+<b class="fc">&nbsp;        UserNameDto userNameDto = new UserNameDto();</b>
+<b class="fc">&nbsp;        userNameDto.setName(user.getName());</b>
+<b class="fc">&nbsp;        return userNameDto;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Retrieves an EmployeeOutDto object by employee ID.
+&nbsp;     *
+&nbsp;     * @param id The ID of the employee.
+&nbsp;     * @return An EmployeeOutDto object representing the employee.
+&nbsp;     * @throws ResourceNotFoundException If the
+&nbsp;     * employee with the specified ID does not exist.
+&nbsp;     */
+&nbsp;    public final EmployeeOutDto getEmployeeById(final Long id) {
+<b class="fc">&nbsp;        Optional&lt;User&gt; optionalUser = userRepository.findById(id);</b>
+<b class="fc">&nbsp;        User user = optionalUser.orElseThrow(</b>
+<b class="fc">&nbsp;                () -&gt; new ResourceNotFoundException(</b>
+&nbsp;                        ErrorConstants.EMPLOYEE_NOT_EXIST));
+<b class="fc">&nbsp;        EmployeeOutDto employeeOutDto = userToOutDto(user);</b>
+<b class="fc">&nbsp;        return employeeOutDto;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Assigns project to employee.
+&nbsp;     *
+&nbsp;     * @param id            The ID of the employee to be updated.
+&nbsp;     * @param updatedDetails A Map containing updated project and manager IDs.
+&nbsp;     * @return An ResponseDto indicating the result of the update.
+&nbsp;     * @throws ResourceNotFoundException If the
+&nbsp;     * employee with the specified ID does not exist.
+&nbsp;     */
+&nbsp;
+&nbsp;    public final ResponseDto updateEmployee(final Long id, final Map&lt;String,
+&nbsp;            Long&gt; updatedDetails) {
+<b class="fc">&nbsp;        Long projectId = updatedDetails.get(&quot;projectId&quot;);</b>
+<b class="fc">&nbsp;        Long managerId = updatedDetails.get(&quot;managerId&quot;);</b>
+<b class="fc">&nbsp;        User employee = userRepository.findById(id).orElseThrow(() -&gt;</b>
+<b class="fc">&nbsp;                new ResourceNotFoundException(ErrorConstants.EMPLOYEE_NOT_EXIST));</b>
+<b class="fc">&nbsp;        employee.setManagerId(managerId);</b>
+<b class="fc">&nbsp;        employee.setProjectId(projectId);</b>
+<b class="fc">&nbsp;        userRepository.save(employee);</b>
+<b class="fc">&nbsp;        List&lt;RequestResource&gt; list =</b>
+<b class="fc">&nbsp;                requestResourceRepository.findByEmployeeId(id);</b>
+<b class="fc">&nbsp;        for (RequestResource req : list) {</b>
+<b class="nc">&nbsp;            deleteRequest(req.getResourceId());</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="fc">&nbsp;        return new ResponseDto(&quot;Updated Successfully&quot;);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Updates the skills of a user.
+&nbsp;     *
+&nbsp;     * @param id     The ID of the user whose skills are to be updated.
+&nbsp;     * @param skills The list of skills to update.
+&nbsp;     * @return An ResponseDto indicating the status of the operation.
+&nbsp;     */
+&nbsp;    public final ResponseDto updateSkills(
+&nbsp;            final Long id, final List&lt;String&gt; skills) {
+<b class="fc">&nbsp;        Optional&lt;User&gt; optionalUser = userRepository.findById(id);</b>
+<b class="fc">&nbsp;        User user = optionalUser.get();</b>
+<b class="fc">&nbsp;        user.setSkills(skills);</b>
+<b class="fc">&nbsp;        userRepository.save(user);</b>
+<b class="fc">&nbsp;        return new ResponseDto(&quot;Skills are updated.&quot;);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;//    /**
+&nbsp;//     * Requests a resource based on the provided RequestResourceDto.
+&nbsp;//     *
+&nbsp;//     * @param requestResourceDto The RequestResourceDto
+&nbsp;//     *                           containing the request details.
+&nbsp;//     * @return An ResponseDto indicating the status of the operation.
+&nbsp;//     */
+&nbsp;//    public final ResponseDto requestResource(
+&nbsp;//            final RequestResourceDto requestResourceDto) {
+&nbsp;//        RequestResource requestResource =
+&nbsp;//                dtoToRequestResource(requestResourceDto);
+&nbsp;//        requestResourceRepository.save(requestResource);
+&nbsp;//        return new ResponseDto(&quot;Resource added.&quot;);
+&nbsp;//    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Deletes a request resource by its ID.
+&nbsp;     *
+&nbsp;     * @param resourceId The ID of the request resource to delete.
+&nbsp;     * @return An ResponseDto indicating the status of the operation.
+&nbsp;     */
+&nbsp;    public ResponseDto deleteRequest(final Long resourceId) {
+<b class="fc">&nbsp;        requestResourceRepository.deleteById(resourceId);</b>
+<b class="fc">&nbsp;        return new ResponseDto(&quot;Deleted successfully!&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Searches for employees by skills and availability.
+&nbsp;     *
+&nbsp;     * @param skills  The list of skills to search for.
+&nbsp;     * @param isCheck Flag indicating whether
+&nbsp;     *               to check availability (project unassigned).
+&nbsp;     * @return A list of EmployeeOutDto objects representing matching employees.
+&nbsp;     */
+&nbsp;
+&nbsp;    public final List&lt;EmployeeOutDto&gt; searchBySkills(
+&nbsp;            final List&lt;String&gt; skills, final boolean isCheck) {
+<b class="nc">&nbsp;        List&lt;User&gt; allEmployees = userRepository.findByRole(Role.EMPLOYEE);</b>
+<b class="nc">&nbsp;        List&lt;User&gt; returnedList = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        if (skills.isEmpty()) {</b>
+<b class="nc">&nbsp;            List&lt;User&gt; unAssignedEmployees = allEmployees.stream()</b>
+<b class="nc">&nbsp;                    .filter(employee -&gt; employee.getProjectId() == null)</b>
+<b class="nc">&nbsp;                    .collect(Collectors.toList());</b>
+<b class="nc">&nbsp;            returnedList = unAssignedEmployees;</b>
+<b class="nc">&nbsp;        } else {</b>
+<b class="nc">&nbsp;            List&lt;User&gt; employeesWithRequiredSkills = allEmployees.stream()</b>
+<b class="nc">&nbsp;                    .filter(employee -&gt; employee.getSkills().</b>
+<b class="nc">&nbsp;                            stream().anyMatch(skills::contains))</b>
+<b class="nc">&nbsp;                    .collect(Collectors.toList());</b>
+<b class="nc">&nbsp;            if (isCheck) {</b>
+<b class="nc">&nbsp;                List&lt;User&gt; unAssignedEmployees =</b>
+<b class="nc">&nbsp;                        employeesWithRequiredSkills.stream()</b>
+<b class="nc">&nbsp;                                .filter(employee -&gt; employee.getProjectId()</b>
+&nbsp;                                        == null)
+<b class="nc">&nbsp;                                .collect(Collectors.toList());</b>
+<b class="nc">&nbsp;                returnedList = unAssignedEmployees;</b>
+<b class="nc">&nbsp;            } else {</b>
+<b class="nc">&nbsp;                returnedList = employeesWithRequiredSkills;</b>
+&nbsp;            }
+&nbsp;
+&nbsp;        }
+<b class="nc">&nbsp;        List&lt;EmployeeOutDto&gt; returnedOutList = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for (User currUser: returnedList) {</b>
+<b class="nc">&nbsp;            EmployeeOutDto outDto = userToOutDto(currUser);</b>
+<b class="nc">&nbsp;            returnedOutList.add(outDto);</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return returnedOutList;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Unassigns a project from an employee.
+&nbsp;     *
+&nbsp;     * @param id The ID of the employee to unassign the project from.
+&nbsp;     * @return An ResponseDto indicating the status of the operation.
+&nbsp;     */
+&nbsp;    public final ResponseDto unAssignProject(final Long id) {
+<b class="fc">&nbsp;        User user = userRepository.findById(id).get();</b>
+<b class="fc">&nbsp;        User admin = userRepository.findByUserId(&quot;N0001&quot;).get();</b>
+<b class="fc">&nbsp;        user.setManagerId(admin.getId());</b>
+<b class="fc">&nbsp;        user.setProjectId(null);</b>
+<b class="fc">&nbsp;        userRepository.save(user);</b>
+<b class="fc">&nbsp;        return new ResponseDto(&quot;Project unassigned&quot;);</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Converts a UserInDto object to a User object.
+&nbsp;     *
+&nbsp;     * @param userDto The UserInDto object to be converted.
+&nbsp;     * @return A User object created from the provided UserInDto.
+&nbsp;     */
+&nbsp;    public final User userDtoToUser(final UserInDto userDto) {
+<b class="fc">&nbsp;        User user = new User();</b>
+<b class="fc">&nbsp;        user.setName(userDto.getName());</b>
+<b class="fc">&nbsp;        user.setRole(userDto.getRole());</b>
+<b class="fc">&nbsp;        user.setProjectId(userDto.getProjectId());</b>
+<b class="fc">&nbsp;        user.setPassword(userDto.getPassword());</b>
+<b class="fc">&nbsp;        user.setDob(userDto.getDob());</b>
+<b class="fc">&nbsp;        user.setDoj(userDto.getDoj());</b>
+<b class="fc">&nbsp;        user.setEmail(userDto.getEmail());</b>
+<b class="fc">&nbsp;        user.setUserId(userDto.getUserId());</b>
+<b class="fc">&nbsp;        user.setLocation(userDto.getLocation());</b>
+<b class="fc">&nbsp;        user.setDesignation(userDto.getDesignation());</b>
+<b class="fc">&nbsp;        user.setContactNo(userDto.getContactNo());</b>
+<b class="fc">&nbsp;        user.setSkills(userDto.getSkills());</b>
+<b class="fc">&nbsp;        user.setManagerId(userDto.getManagerId());</b>
+<b class="fc">&nbsp;        return user;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Converts a User object to an EmployeeOutDto object.
+&nbsp;     *
+&nbsp;     * @param user The User object to be converted.
+&nbsp;     * @return An EmployeeOutDto object created from the provided User.
+&nbsp;     */
+&nbsp;    public final EmployeeOutDto userToOutDto(final User user) {
+<b class="fc">&nbsp;        EmployeeOutDto empDto = new EmployeeOutDto();</b>
+<b class="fc">&nbsp;        empDto.setId(user.getId());</b>
+<b class="fc">&nbsp;        empDto.setName(user.getName());</b>
+<b class="fc">&nbsp;        empDto.setEmail(user.getEmail());</b>
+<b class="fc">&nbsp;        empDto.setUserId(user.getUserId());</b>
+<b class="fc">&nbsp;        empDto.setDesignation(user.getDesignation());</b>
+<b class="fc">&nbsp;        empDto.setContactNo(user.getContactNo());</b>
+<b class="fc">&nbsp;        empDto.setDob(user.getDob());</b>
+<b class="fc">&nbsp;        empDto.setDoj(user.getDoj());</b>
+<b class="fc">&nbsp;        empDto.setLocation(user.getLocation());</b>
+<b class="fc">&nbsp;        empDto.setProjectId(user.getProjectId());</b>
+<b class="fc">&nbsp;        empDto.setManagerId(user.getManagerId());</b>
+<b class="fc">&nbsp;        User manager = userRepository</b>
+<b class="fc">&nbsp;                .findById(user.getManagerId()).get();</b>
+<b class="fc">&nbsp;        empDto.setManagerName(manager.getName());</b>
+<b class="fc">&nbsp;        empDto.setSkills(user.getSkills());</b>
+<b class="fc">&nbsp;        empDto.setRole(user.getRole());</b>
+&nbsp;
+<b class="fc">&nbsp;        if (user.getProjectId() == null) {</b>
+<b class="fc">&nbsp;            empDto.setProjectName(&quot;N/A&quot;);</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            Project project = projectRepository.findByProjectId(</b>
+<b class="fc">&nbsp;                    user.getProjectId()).get();</b>
+<b class="fc">&nbsp;            empDto.setProjectName(project.getProjectName());</b>
+&nbsp;        }
+<b class="fc">&nbsp;        System.out.println(empDto.getSkills());</b>
+<b class="fc">&nbsp;        return empDto;</b>
+&nbsp;    }
+&nbsp;//    /**
+&nbsp;//     * Converts a RequestResourceDto to a RequestResource entity.
+&nbsp;//     *
+&nbsp;//     * @param requestResourceDto The RequestResourceDto to convert.
+&nbsp;//     * @return The corresponding RequestResource entity.
+&nbsp;//     */
+&nbsp;//    private RequestResource dtoToRequestResource(
+&nbsp;//            final RequestResourceDto requestResourceDto) {
+&nbsp;//        RequestResource requestResource = new RequestResource();
+&nbsp;//        requestResource.setComment(requestResourceDto.getComment());
+&nbsp;//        requestResource.setManagerId(requestResourceDto.getManagerId());
+&nbsp;//        requestResource.setEmployeeId(requestResourceDto.getEmployeeId());
+&nbsp;//        requestResource.setProjectId(requestResourceDto.getProjectId());
+&nbsp;//        return requestResource;
+&nbsp;//    }
+&nbsp;//    /**
+&nbsp;//     * Converts a RequestResource entity to a RequestResourceOutDto.
+&nbsp;//     *
+&nbsp;//     * @param requestResource The RequestResource entity to convert.
+&nbsp;//     * @return The corresponding RequestResourceOutDto.
+&nbsp;//     */
+&nbsp;//    public RequestResourceOutDto requestToOutDto(
+&nbsp;//            final RequestResource requestResource) {
+&nbsp;//        RequestResourceOutDto r = new RequestResourceOutDto();
+&nbsp;//        r.setResourceId(requestResource.getResourceId());
+&nbsp;//        r.setComment(requestResource.getComment());
+&nbsp;//        r.setEmployeeId(requestResource.getEmployeeId());
+&nbsp;//        r.setManagerId(requestResource.getManagerId());
+&nbsp;//        r.setProjectId(requestResource.getProjectId());
+&nbsp;//        Optional&lt;User&gt; optionalUser =
+&nbsp;//                userRepository.findById(requestResource.getEmployeeId());
+&nbsp;//        User user = optionalUser.get();
+&nbsp;//        r.setEmployeeName(user.getName());
+&nbsp;//        r.setEmployeeUserId(user.getUserId());
+&nbsp;//        Optional&lt;User&gt; optionalManager =
+&nbsp;//                userRepository.findById(requestResource.getManagerId());
+&nbsp;//        User manager = optionalManager.get();
+&nbsp;//        r.setManagerName(manager.getName());
+&nbsp;//        r.setManagerUserId(manager.getUserId());
+&nbsp;//        Optional&lt;Project&gt; projectOptional =
+&nbsp;//                projectRepository.findById(requestResource.getProjectId());
+&nbsp;//        Project project = projectOptional.get();
+&nbsp;//        r.setProjectName(project.getProjectName());
+&nbsp;//        return r;
+&nbsp;//    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-06 13:05</div>
+</div>
+</body>
+</html>

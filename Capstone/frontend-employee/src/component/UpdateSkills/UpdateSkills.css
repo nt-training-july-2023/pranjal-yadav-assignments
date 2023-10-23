@@ -1,0 +1,67 @@
+.container_assign_project {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    height: 40vh; 
+    margin: 0 auto;
+    max-width: 600px; 
+    width: 30rem;
+    margin-left: 28rem;
+    padding: 20px;
+    border: 1px solid #ccc; 
+    background-color: #f5f5f5; 
+    border-radius: 8px;
+    margin-bottom: 15rem;
+  }
+  
+  
+  h3 {
+    margin: 10px 0;
+  }
+  
+  h3:last-child {
+    font-weight: bold;
+    padding-right: 230px;
+  }
+  
+  .assign-container {
+    margin-top: 10px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  .buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .button-submit {
+    background-color: #007bff; 
+    color: #fff; 
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .button-cancel {
+    background-color: red; 
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  .button-cancel:hover {
+    background-color: #882522;
+  }
+  @media (max-width: 768px) {
+    .container_assign_project {
+      margin-left: 1rem;
+      width: 90%;
+    }
+  }

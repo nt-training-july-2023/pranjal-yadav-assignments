@@ -1,0 +1,19 @@
+.unauthorized-container {
+    background-color: #8bcee2;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 8rem;
+    padding: 50px;
+    margin-bottom: 10rem;
+    width: 500px;
+    margin-left: 25rem;
+  }
+  .unauthorized {
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+  }
+  .warning-symbol {
+    color: red;
+    font-size: 70px;
+  }

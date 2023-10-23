@@ -1,0 +1,32 @@
+
+.main-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    width: 90%;
+  }
+  
+  .my-details-container {
+    background-color: #fff;
+    margin-bottom: 100px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    width: 200%; 
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .column-my-details {
+    margin: 10px;
+    flex: 1;
+  }
+  
+  .field_input {
+    margin-bottom: 8px ;
+    margin-top: 2px;
+    padding: 0;
+  }
+  

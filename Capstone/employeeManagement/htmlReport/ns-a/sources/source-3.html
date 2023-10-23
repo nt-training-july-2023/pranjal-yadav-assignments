@@ -1,0 +1,263 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserValidation</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.employee.employeeManagement.validation</a>
+</div>
+
+<h1>Coverage Summary for Class: UserValidation (com.employee.employeeManagement.validation)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserValidation</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    45.5%
+  </span>
+  <span class="absValue">
+    (5/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    36.4%
+  </span>
+  <span class="absValue">
+    (12/33)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.employee.employeeManagement.validation;
+&nbsp;
+&nbsp;import com.employee.employeeManagement.model.User;
+&nbsp;import com.employee.employeeManagement.dto.LoginDto;
+&nbsp;import com.employee.employeeManagement.dto.UserInDto;
+&nbsp;import com.employee.employeeManagement.enums.Role;
+&nbsp;import com.employee.employeeManagement.constants.ErrorConstants;
+&nbsp;import com.employee.employeeManagement.exception.InvalidCredentialsExceptions;
+&nbsp;import com.employee.employeeManagement.exception.ResourceAlreadyExistsException;
+&nbsp;import com.employee.employeeManagement.exception.ResourceNotFoundException;
+&nbsp;import com.employee.employeeManagement.repository.UserRepository;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;import org.springframework.security.crypto.password.PasswordEncoder;
+&nbsp;
+&nbsp;import java.nio.charset.StandardCharsets;
+&nbsp;import java.util.Base64;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;
+&nbsp;/**
+&nbsp; * Utility class for performing various data validation operations.
+&nbsp; */
+&nbsp;@Component
+<b class="fc">&nbsp;public class UserValidation {</b>
+&nbsp;    /**
+&nbsp;     * User repository autowired.
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private UserRepository userRepository;
+&nbsp;    /**
+&nbsp;     * PasswordEncoder autowired to encode password.
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private PasswordEncoder passwordEncoder;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Decodes a Base64-encoded password string.
+&nbsp;     *
+&nbsp;     * @param pwd The Base64-encoded password.
+&nbsp;     * @return The decoded password string.
+&nbsp;     */
+&nbsp;    public static String decodePassword(final String pwd) {
+<b class="nc">&nbsp;        byte[] decodedBytes = Base64.getDecoder().decode(pwd);</b>
+<b class="nc">&nbsp;        return new String(decodedBytes, StandardCharsets.UTF_8);</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * This method returns true if the name is valid.
+&nbsp;     * @param name String that represents name.
+&nbsp;     */
+&nbsp;    public final void checkName(final String name) {
+<b class="fc">&nbsp;        if (!name.isEmpty() &amp;&amp; name.matches(&quot;^[A-Za-z ]+$&quot;)) {</b>
+&nbsp;            return;
+&nbsp;        } else {
+<b class="fc">&nbsp;            throw new InvalidCredentialsExceptions(&quot;Give valid name.&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method returns true if email is valid.
+&nbsp;     * @param email String that represents email.
+&nbsp;     */
+&nbsp;    public final void checkEmail(final String email) {
+<b class="fc">&nbsp;        Optional&lt;User&gt; optionalUser = userRepository.findByEmail(email);</b>
+<b class="fc">&nbsp;        if (!optionalUser.isPresent()) {</b>
+&nbsp;            return;
+&nbsp;        } else {
+<b class="fc">&nbsp;            throw new ResourceAlreadyExistsException(</b>
+&nbsp;                    &quot;This email id already exists&quot;);
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Method to check if the provided email id
+&nbsp;     * exists in the database or not.
+&nbsp;     * @param email Email of user who is logging
+&nbsp;     *              in.
+&nbsp;     */
+&nbsp;    public final void checkLoginEmail(final String email) {
+<b class="fc">&nbsp;        Optional&lt;User&gt; optionalUser = userRepository.findByEmail(email);</b>
+<b class="fc">&nbsp;        if (optionalUser.isPresent()) {</b>
+&nbsp;            return;
+&nbsp;        } else {
+<b class="fc">&nbsp;            throw new ResourceNotFoundException(ErrorConstants.GIVE_REGISTERED_EMAIL);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Method to check the password of user who logs in.
+&nbsp;     * @param loginDto Login dto.
+&nbsp;     */
+&nbsp;    public final void checkPassword(final LoginDto loginDto) {
+<b class="nc">&nbsp;        Optional&lt;User&gt; optionalUser =</b>
+<b class="nc">&nbsp;                userRepository.findByEmail(loginDto.getEmail());</b>
+<b class="nc">&nbsp;        User user = optionalUser.get();</b>
+<b class="nc">&nbsp;        System.out.println(decodePassword(loginDto.getPassword()));</b>
+<b class="nc">&nbsp;        String decodedPassword = decodePassword(loginDto.getPassword());</b>
+<b class="nc">&nbsp;        if (!passwordEncoder.matches(</b>
+<b class="nc">&nbsp;                        decodePassword(loginDto.getPassword()),</b>
+<b class="nc">&nbsp;                        user.getPassword())) {</b>
+<b class="nc">&nbsp;            throw new InvalidCredentialsExceptions(ErrorConstants.PASSWORD_INCORRECT);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * This method returns true if userId is valid.
+&nbsp;     * @param userId String that represents userId.
+&nbsp;     */
+&nbsp;    public final void checkUserId(final String userId) {
+<b class="fc">&nbsp;        Optional&lt;User&gt; optionalUser = userRepository.findByUserId(userId);</b>
+<b class="fc">&nbsp;        if (!optionalUser.isPresent()) {</b>
+&nbsp;                return;
+&nbsp;            } else {
+<b class="fc">&nbsp;                throw new ResourceAlreadyExistsException(ErrorConstants.USER_EXISTS);</b>
+&nbsp;
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A method that uses a few of the above methods to validate
+&nbsp;     * a registering user.
+&nbsp;     * @param userDto parameter UserInDto.
+&nbsp;     */
+&nbsp;    public final void checkUser(final UserInDto userDto) {
+<b class="nc">&nbsp;        checkName(userDto.getName());</b>
+<b class="nc">&nbsp;        checkEmail(userDto.getEmail());</b>
+<b class="nc">&nbsp;        checkUserId(userDto.getUserId());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Method combines all necessary to validate logindto.
+&nbsp;     * @param loginDto Login dto.
+&nbsp;     */
+&nbsp;    public final void checkLoginDto(final LoginDto loginDto) {
+<b class="nc">&nbsp;        checkLoginEmail(loginDto.getEmail());</b>
+<b class="nc">&nbsp;        checkPassword(loginDto);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Method to check if the given role exists or not.
+&nbsp;     * @param roleName given role.
+&nbsp;     */
+&nbsp;    public final void checkRole(final String roleName) {
+<b class="nc">&nbsp;        if(!roleName.equals(&quot;EMPLOYEE&quot;) &amp;&amp; !roleName.equals(&quot;MANAGER&quot;) &amp;&amp; !roleName.equals(&quot;ADMIN&quot;)){</b>
+<b class="nc">&nbsp;            throw new ResourceNotFoundException(ErrorConstants.ROLE_NOT_EXISTS);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Method to check if the employee id exists.
+&nbsp;     * @param id Id of employee.
+&nbsp;     */
+&nbsp;    public final void checkId(final Long id) {
+<b class="nc">&nbsp;        User employee = userRepository.findById(id).orElse(null);</b>
+<b class="nc">&nbsp;        if(employee == null || employee.getRole() == Role.ADMIN) {</b>
+<b class="nc">&nbsp;            throw new ResourceNotFoundException(ErrorConstants.EMPLOYEE_NOT_EXIST);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-06 13:05</div>
+</div>
+</body>
+</html>

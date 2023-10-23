@@ -1,0 +1,174 @@
+
+.admin_tabs_manager {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    align-items: center;
+    gap: 4rem;
+    padding: 0.5rem;
+    background-image:radial-gradient(rgb(248, 204, 244), rgb(253, 255, 126));
+    border: 0.1rem solid rgb(3, 3, 3);
+    border-radius: 1.5rem;
+    width: 50rem;
+    margin-left: 17rem;
+}
+.btn_logout {
+    background-color: red;
+    font-family: "Montserrat", sans-serif;
+    
+}
+.card_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.search_manager_skills{
+    width: 60%;
+    margin-left: 16rem;
+    padding: -15rem;
+}
+
+
+.name-designation{
+    margin-bottom: -17px;
+    font-weight: 100;
+    background-color: #ffffff;
+}
+.card {
+    display: flex;
+    border: 1px solid #998383;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    width: 30rem;
+}
+.org{
+    margin-left: 8rem !important;
+
+}
+
+.column {
+    flex: 1;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+p {
+    font-size: 12px;
+}
+
+.addEmployee {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.requests{
+    display: inline-block;
+    background-color: rgb(16 149 31);
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left:20px;
+    transition: background-color 0.3s;
+}
+.requests:hover{
+    background-color: darkgreen;
+}
+.btn-addEmployee:hover {
+    background-color: #0056b3;
+}
+ .card_container::-webkit-scrollbar {
+    display: none;
+}
+
+.card_container::-webkit-scrollbar-thumb {
+    background-color: transparent;
+} 
+.check_box {
+    margin-top: 10px;
+}
+
+.card_container::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+.search_check_and_button {
+    margin-top: 20px;
+display: flex;
+justify-content: center;
+}
+
+.assign-button{
+    display: inline-block;
+    background-color: #3b8ee6;
+    padding: 5px 10px;
+    color: #fff;
+    border: none;
+    margin-top: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+}
+
+.location_skill {
+    margin-top: 28px;
+}
+.lower_half {
+    margin-top: 35px;
+}
+.input-addproject-manager{
+    width: 105%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: border-color 0.3s;  
+  }
+  .highlight-span{
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .emp-id{
+    margin-bottom: 20px;
+  }
+  .assign{
+    text-align: center;
+  }
+  .search_skills {
+    margin-top: 2px;
+    background-color: darkgreen;
+  }
+  .search_skills:hover {
+    background-color: rgb(0, 78, 0);
+  }
+  @media (max-width: 768px) {
+    .requests {
+        display: inline-block;
+    }
+    .search_manager_skills {
+        margin-left: 3.7rem;
+        width: 30%;
+    }
+    .search_skills{
+        margin-left: 2rem;
+    }
+    .card {
+        width: 22rem;
+      }
+    
+  }
+
+  @media (max-width: 1024px) {
+.manager_emp{
+    margin-top: -1.8rem !important;
+}
+  }

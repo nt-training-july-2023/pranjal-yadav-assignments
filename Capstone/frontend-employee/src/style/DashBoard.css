@@ -1,0 +1,28 @@
+
+
+
+.head {
+  background-color: rgb(184, 204, 221);
+  height: 100vh;
+  display: flex;
+  justify-content: space-evenly;
+  
+}
+
+/* .button {
+  background-color: #007bff; 
+  color: #fff; 
+  padding: 10px 20px; 
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+} */
+
+.button:hover {
+  background-color: #0056b3; 
+}

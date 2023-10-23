@@ -1,0 +1,284 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+  margin: 0;
+}
+.error_invalid {
+  font-size:small;
+}
+
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  margin-left: 25rem;
+  font-family: 'Montserrat', sans-serif;
+  
+  
+}
+select.input{
+  width: 110%;
+}
+.select-input{
+  margin-top: 33px;
+  width: 110%;
+  padding: 0px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: border-color 0.3s;  
+}
+.custom-form {
+  width: 500px;
+  margin: 0 20px;
+  padding: 20px;
+  border-style: solid;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+height: 34rem;
+overflow-y: scroll !important;
+}
+.register_btn{
+  margin-top: 1rem;
+}
+.login-form{
+  height: 20rem !important;
+}
+.addEmp_form{
+  height: 33rem;
+  overflow-y: scroll;
+}
+.para{
+  margin-top: 8px;
+  font-size:15px;
+}
+.title {
+  margin-bottom: 20px;
+  font-size: 25px;
+}
+
+.form-section {
+  display: flex;
+  justify-content: space-between;
+  height: 70vh;
+}
+.form-section::-webkit-scrollbar{
+  background-color: transparent;
+}
+
+.column {
+  width: 45%;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+.addEmp_submit{
+  margin-top: 1.7rem !important;
+}
+
+.submit-button {
+  display: block;
+  width: 100%;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  height: 33px;
+  width: 95%;
+  margin-left: 0.9rem;
+}
+
+.submit-button:hover {
+  background-color: #0056B3;
+}
+
+.submit-link {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.custom-message {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.success {
+  background-color: #D4EDDA;
+  color: #155724;
+}
+
+.error {
+  background-color: #F8D7DA;
+  color: #721C24;
+}
+
+.custom-error {
+  color: #DC3545;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.link {
+  color: #007BFF;
+  text-decoration: none;
+}
+span{
+  color: red;
+  font-size: 10px;
+}
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+}
+.skill_addProject{
+  width:28.5rem;
+}
+.popup button {
+  margin-top: 10px;
+}
+
+#login-input-pswd{
+  width: 90%;
+}
+#login-input-email{
+  width: 90%;
+}
+
+.custom-multi-select {
+  position: relative;
+  width: 53%;
+  margin-bottom: 3px;
+}
+
+.dropdown {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-left: 0%;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  width: 190%;
+  z-index: 120;
+}
+
+.selected-values {
+  display: flex;
+  overflow-x: scroll;
+  width: 22rem;
+  height:3rem- !important;
+}
+.selected-values::-webkit-scrollbar{
+  display: none;
+}
+
+.dropdown-arrow {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #333;
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  z-index: 100;
+  display: none;
+}
+.dropdown-option{
+width: 3rem;
+}
+.dropdown.open + .dropdown-options {
+  display: inline;
+}
+
+
+.dropdown-option {
+  padding: 10px;
+  width: 90%;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dropdown-option:hover {
+  background-color: #f0f0f0;
+}
+
+.selected {
+  background-color: #007bff;
+  color: #fff;
+  font-size: 14px;
+  width: 190%;
+  margin-bottom: 3px;
+}
+.dropdown{
+  height: 0.9rem;
+  border-radius: 0.2rem;
+  margin-top: -0.1rem;
+}
+@media screen and (max-width: 1024px){
+  .signup-container{
+    margin-left: 14rem !important;
+  }
+.column{
+  height: 10rem !important;
+}
+.form-section{
+  height:60vh;
+}
+}
+@media screen and (max-width: 768px) {
+  .signup-container {
+    max-width: 500px;
+    margin-left: 9rem !important;
+  }
+  .custom-form {
+    height: 25rem;
+    width: 35rem;
+    overflow-y: scroll;
+  }
+  .register_btn{
+    margin-top: 9rem;
+  }
+}
+.signup_heading{
+  margin: 0 !important;
+  font-size: 2rem;
+  font-weight: bold;
+}

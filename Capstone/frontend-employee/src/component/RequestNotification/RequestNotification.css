@@ -1,0 +1,84 @@
+
+.table-container {
+    overflow-x: auto; 
+    margin-left: 8rem;
+    width: 100%;
+    margin-top: 2rem;
+    height: 100vh;
+  }
+  
+  .table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table th, .table td {
+    padding: 8px 12px;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  .table tr:nth-child(odd) {
+    background-color: #ffdbdb;
+  }
+  
+  .accept-button {
+    background-color: green;
+    margin-left: 10px;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .accept-button:hover {
+    background-color: darkgreen;
+  }
+  
+  .reject-button {
+    background-color: red;
+    color: #fff;
+    border: none;
+    margin-left: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .rr_heading {
+    display: flex;
+    flex-direction: column;
+    font-size: large;
+    color: #f2f2f2;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+  .reject-button:hover {
+    background-color: darkred;
+  }
+  .btn-cancel{
+    background-color: red;
+    margin-bottom: 7px;
+  }
+  .btn-cancel:hover{
+    background-color: darkred;
+  }
+  @media (max-width: 768px) {
+    .table-container {
+      width: 100%;
+      margin-left: 2px;
+    }
+    .reject-button{
+      margin-left: 10px;
+      margin-top: 2px;
+    }
+    .btn-cancel{
+      margin-left: 250px;
+    }
+  }

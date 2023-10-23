@@ -1,0 +1,347 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ProjectOutDto</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.employee.employeeManagement.dto</a>
+</div>
+
+<h1>Coverage Summary for Class: ProjectOutDto (com.employee.employeeManagement.dto)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProjectOutDto</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85%
+  </span>
+  <span class="absValue">
+    (17/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    51.4%
+  </span>
+  <span class="absValue">
+    (19/37)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.employee.employeeManagement.dto;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Objects;
+&nbsp;
+<b class="fc">&nbsp;public class ProjectOutDto {</b>
+&nbsp;    /**
+&nbsp;     * ID of project.
+&nbsp;     */
+&nbsp;    private Long projectId;
+&nbsp;    /**
+&nbsp;     * The name of the project.
+&nbsp;     */
+&nbsp;    private String projectName;
+&nbsp;    /**
+&nbsp;     * The manager&#39;s user ID associated with the project.
+&nbsp;     */
+&nbsp;    private Long managerId;
+&nbsp;    /**
+&nbsp;     * The description of the project.
+&nbsp;     */
+&nbsp;    private String description;
+&nbsp;    /**
+&nbsp;     * The start date of the project.
+&nbsp;     */
+&nbsp;    private String startDate;
+&nbsp;    /**
+&nbsp;     * The skills required for the project.
+&nbsp;     */
+&nbsp;    private List&lt;String&gt; skills;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get manager name.
+&nbsp;     * @return manager name.
+&nbsp;     */
+&nbsp;    public final String getManagerName() {
+<b class="fc">&nbsp;        return managerName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * set manager name.
+&nbsp;     * @param managerNameParam manager name.
+&nbsp;     */
+&nbsp;    public final void setManagerName(final String managerNameParam) {
+<b class="fc">&nbsp;        this.managerName = managerNameParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Name of manager.
+&nbsp;     */
+&nbsp;    private String managerName;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get team.
+&nbsp;     * @return list of team members.
+&nbsp;     */
+&nbsp;    public final List&lt;String&gt; getTeam() {
+<b class="fc">&nbsp;        return Collections.unmodifiableList(team);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * set team.
+&nbsp;     * @param teamParam list of team members.
+&nbsp;     */
+&nbsp;    public final void setTeam(final List&lt;String&gt; teamParam) {
+<b class="fc">&nbsp;        if (teamParam != null) {</b>
+<b class="fc">&nbsp;            this.team = new ArrayList&lt;&gt;(teamParam);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            this.team = null;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The team which is working on the project.
+&nbsp;     */
+&nbsp;    private List&lt;String&gt; team;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the project ID.
+&nbsp;     *
+&nbsp;     * @return The project ID.
+&nbsp;     */
+&nbsp;    public final Long getProjectId() {
+<b class="fc">&nbsp;        return projectId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the project ID.
+&nbsp;     *
+&nbsp;     * @param projectIdParam The project ID to set.
+&nbsp;     */
+&nbsp;    public final void setProjectId(final Long projectIdParam) {
+<b class="fc">&nbsp;        this.projectId = projectIdParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the project name.
+&nbsp;     *
+&nbsp;     * @return The project name.
+&nbsp;     */
+&nbsp;    public final String getProjectName() {
+<b class="fc">&nbsp;        return projectName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the project name.
+&nbsp;     *
+&nbsp;     * @param projectNameParam The project name to set.
+&nbsp;     */
+&nbsp;    public final void setProjectName(final String projectNameParam) {
+<b class="fc">&nbsp;        this.projectName = projectNameParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the manager&#39;s user ID associated with the project.
+&nbsp;     *
+&nbsp;     * @return The manager&#39;s user ID.
+&nbsp;     */
+&nbsp;    public final Long getManagerId() {
+<b class="fc">&nbsp;        return managerId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the manager&#39;s user ID associated with the project.
+&nbsp;     *
+&nbsp;     * @param managerIdParam The manager&#39;s user ID to set.
+&nbsp;     */
+&nbsp;    public final void setManagerId(final Long managerIdParam) {
+<b class="fc">&nbsp;        this.managerId = managerIdParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the description of the project.
+&nbsp;     *
+&nbsp;     * @return The description.
+&nbsp;     */
+&nbsp;    public final String getDescription() {
+<b class="fc">&nbsp;        return description;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the description of the project.
+&nbsp;     *
+&nbsp;     * @param descriptionParam The description to set.
+&nbsp;     */
+&nbsp;    public final void setDescription(final String descriptionParam) {
+<b class="fc">&nbsp;        this.description = descriptionParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the start date of the project.
+&nbsp;     *
+&nbsp;     * @return The start date.
+&nbsp;     */
+&nbsp;    public final String getStartDate() {
+<b class="fc">&nbsp;        return startDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the start date of the project.
+&nbsp;     *
+&nbsp;     * @param startDateParam The start date to set.
+&nbsp;     */
+&nbsp;    public final void setStartDate(final String startDateParam) {
+<b class="fc">&nbsp;        this.startDate = startDateParam;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the list of skills required for the project.
+&nbsp;     *
+&nbsp;     * @return The list of skills.
+&nbsp;     */
+&nbsp;    public final List&lt;String&gt; getSkills() {
+<b class="fc">&nbsp;        return Collections.unmodifiableList(skills);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the list of skills required for the project.
+&nbsp;     *
+&nbsp;     * @param skillsParam The list of skills to set.
+&nbsp;     */
+&nbsp;    public final void setSkills(final List&lt;String&gt; skillsParam) {
+<b class="fc">&nbsp;        if (skillsParam != null) {</b>
+<b class="fc">&nbsp;            this.skills = new ArrayList&lt;&gt;(skillsParam);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            this.skills = null;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * toString method for ProjectOutDto.
+&nbsp;     *
+&nbsp;     * @return String.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final String toString() {
+<b class="nc">&nbsp;        return &quot;ProjectOutDto{&quot;</b>
+&nbsp;                + &quot;projectId=&quot; + projectId
+&nbsp;                + &quot;, projectName=&#39;&quot; + projectName + &#39;\&#39;&#39;
+&nbsp;                + &quot;, managerId=&quot; + managerId
+&nbsp;                + &quot;, description=&#39;&quot; + description + &#39;\&#39;&#39;
+&nbsp;                + &quot;, startDate=&#39;&quot; + startDate + &#39;\&#39;&#39;
+&nbsp;                + &quot;, skills=&quot; + skills
+&nbsp;                + &quot;, managerName=&#39;&quot; + managerName + &#39;\&#39;&#39;
+&nbsp;                + &quot;, team=&quot; + team
+&nbsp;                + &#39;}&#39;;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Equals method for projectOutDto class.
+&nbsp;     * @param o Object o.
+&nbsp;     * @return boolean value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final boolean equals(final Object o) {
+<b class="nc">&nbsp;        if (this == o) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (!(o instanceof ProjectOutDto that)) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return Objects.equals(getProjectId(), that.getProjectId())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getProjectName(), that.getProjectName())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getManagerId(), that.getManagerId())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getDescription(), that.getDescription())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getStartDate(), that.getStartDate())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getSkills(), that.getSkills())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getManagerName(), that.getManagerName())</b>
+<b class="nc">&nbsp;                &amp;&amp; Objects.equals(getTeam(), that.getTeam());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Hashcode method for ProjectOutDto.
+&nbsp;     * @return int value.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final int hashCode() {
+<b class="nc">&nbsp;        return Objects.hash(getProjectId(), getProjectName(), getManagerId(),</b>
+<b class="nc">&nbsp;                getDescription(), getStartDate(), getSkills(),</b>
+<b class="nc">&nbsp;                getManagerName(), getTeam());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-06 13:05</div>
+</div>
+</body>
+</html>

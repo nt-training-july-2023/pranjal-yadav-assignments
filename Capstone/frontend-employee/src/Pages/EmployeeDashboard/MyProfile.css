@@ -1,0 +1,134 @@
+
+.my_details_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column_my_details {
+  flex: 1; 
+}
+
+.column_my_details strong {
+  font-weight: bold;
+}
+
+.field_input {
+  margin-top: 0.5rem;
+}
+
+.emp_tabs_dashboard{
+  margin-top: 20px;
+  top: 0;
+  display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    align-items: center;
+    gap: 4rem;
+    padding: 0.5rem;
+    background-color: white;
+    border: 0.1rem solid rgb(3, 3, 3);
+    border-radius: 1.5rem;
+    width: 50rem;
+    margin-left: 18rem;
+}
+
+.main-profile {
+  background-color: #f4f4f4;
+  padding-top: 20px;
+  padding-left: 25px;
+  padding-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  width: 50%;
+  height: 25rem;
+  margin-left: 26rem;
+  
+}
+
+.container_my_profile{
+  height: 100vh;
+
+}
+.field_input_skills {
+  font-size: 16px;
+  width: 80%;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  margin-top: 6px;
+  border-radius: 5px;
+  transition: border-color 0.3s; 
+  height: 16.5vh;
+}
+.main-profile h3 {
+  font-size: 24px;
+}
+
+.main-profile strong {
+  font-weight: bold;
+}
+
+.field_input {
+  font-size: 16px;
+  padding: 5px;
+
+  width: 80%;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: border-color 0.3s; 
+}
+
+.btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 1px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.main-profile p {
+  font-size: 16px;
+}
+
+.column-my-details {
+  width: 50%;
+}
+
+.my-details-container::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media (max-width: 1024px) {
+  .container_my_profile{
+    margin-right: 5rem;
+    margin-top: 4rem;
+    height: 115vh;;
+  }
+  .main-profile{
+  height: 27rem;
+
+}
+  .emp_logout_org{
+    margin: 0 !important;
+  }
+  .emp_tabs_dashboard{
+    flex-direction: column; 
+    gap: 1rem; 
+    align-items: flex-start; 
+    width: 50%; 
+    margin-right: 180px;
+  }
+  .employee_heading{
+    margin-left: 20px;
+  }
+}
+

@@ -1,0 +1,106 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RequestResourceRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.employee.employeeManagement.repository</a>
+</div>
+
+<h1>Coverage Summary for Class: RequestResourceRepository (com.employee.employeeManagement.repository)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">RequestResourceRepository$MockitoMock$iaVrG52L</td>
+  </tr>
+  <tr>
+    <td class="name">RequestResourceRepository$MockitoMock$iaVrG52L$auxiliary$MWyBHJJb</td>
+  </tr>
+  <tr>
+    <td class="name">RequestResourceRepository$MockitoMock$iaVrG52L$auxiliary$TJvDEQVH</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.employee.employeeManagement.repository;
+&nbsp;
+&nbsp;import com.employee.employeeManagement.model.RequestResource;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;/**
+&nbsp; * Repository interface for managing request resource data.
+&nbsp; */
+&nbsp;public interface RequestResourceRepository
+&nbsp;        extends JpaRepository&lt;RequestResource, Long&gt; {
+&nbsp;    /**
+&nbsp;     * find all requested resources by employee id.
+&nbsp;     * @param id Id of employee.
+&nbsp;     * @return list of requested resources.
+&nbsp;     */
+&nbsp;    List&lt;RequestResource&gt; findByEmployeeId(Long id);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * returning optional requested resource by employee
+&nbsp;     * id and manager id.
+&nbsp;     * @param id Id of employee.
+&nbsp;     * @param managerId manager id.
+&nbsp;     * @return requested resource.
+&nbsp;     */
+&nbsp;    Optional&lt;RequestResource&gt; findByEmployeeIdAndManagerId(Long id,
+&nbsp;                                                           Long managerId);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-06 13:05</div>
+</div>
+</body>
+</html>
